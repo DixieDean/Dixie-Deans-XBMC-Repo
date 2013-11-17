@@ -133,7 +133,7 @@ if ( __name__ == "__main__" ):
 
     filesinrootdir = os.listdir(rootdir)
     for x in filesinrootdir:
-        if re.search("plugin|script|repository" , x):
+        if re.search("plugin|repository" , x):
             foldertozip = rootdir+'/'+x
             zipfilename = x + '.zip'
             zipfilenamefirstpart = zipfilename[:-4]
@@ -157,10 +157,10 @@ if ( __name__ == "__main__" ):
                 if re.search("changelog", y):
                     firstpart = y[:-4]
                     lastpart = y[len(y)-4:]
-                    shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,firstpart+lastpart))
+                    shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,firstpart+version+lastpart))
                     print 'Copying ' + y + ' to ' + zipsfolder
                 if re.search("changelog|icon|fanart", y):
                     shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,y))
                     print 'Copying ' + y + ' to ' + zipsfolder
-            zipfolder(zipfilenamefirstpart+zipfilenamelastpart, foldertozip, zipsfolder)
-            print 'Zipping ' + zipfilename + ' and moving to ' + zipfilenamefirstpart
+            zipfolder(zipfilenamefirstpart+version+zipfilenamelastpart, foldertozip, zipsfolder)
+            print 'Zipping ' + zipfilename + ' and moving to ' + zipfilenamefirstpart+version
