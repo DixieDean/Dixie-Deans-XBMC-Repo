@@ -1,8 +1,14 @@
-v1.2.0
+v1.2.2
+Fixed error in MyFont.py
+
+v1.2.1
 Added support for the existing OSD feature.
 Moved some config files online for easier updating.
 New layout for the main EPG and context menu.
 Small GUI changes.
+
+v1.2.0
+Skipped
 
 v1.1.9
 Removed 'Update programme data on XBMC startup' as an option. Always off.
