@@ -1,0 +1,57 @@
+YOU NEED A GITHUB ACCOUNT, IF YOU HAVENT GOT ONE CREATE ONE!!!!!!!
+
+Hi And welcome to Mikey1234 (revised by Mash2k3 for Github)
+
+1 2 3 Easy Repo
+
+FIRSTLY GET FAMILIAR WITH THE FOLDERISATION OF EVERYTHING I WOULD MAKE 2 COPIES 
+
+1. WHICH IS YOURS
+2. WHICH IS IS ORIGINAL 
+
+THAT IS SO YOU CAN COMPARE JUST TO MAKE SURE YOU HAVE EVERYTHING SETUP CORRECTLY
+ONCE SETUP YOU CAN DELETE THE ORIGINAL FOLDER !!!
+
+what you need to change in this repo obviously is everything called "YourRepo"
+
+inside the repository.YourRepo is an addon xml
+
+you need to change the "CHANGEME" to your Github account username !!
+
+you need to change the "My-Repo" to your Github repo name !!
+
+and the "HELLO" TO YOUR NAME
+
+also you will need to edit the addon.xml to your liking !
+
+this is what it looks like
+
+<addon id="repository.YourRepo" name="HELLO REPO" version="1.0" provider-name="HELLO Your Name"> 
+	<extension point="xbmc.addon.repository" name="HELLO Addon Repository">                     <------------change the CHANGEME
+		<info compressed="false">https://github.com/CHANGEME/My-Repo/raw/master/addons.xml</info>    <------------change the CHANGEME
+		<checksum>https://github.com/CHANGEME/My-Repo/raw/master/addons.xml.md5</checksum>         <------------change the CHANGEME
+		<datadir zip="true">https://github.com/CHANGEME/My-Repo/raw/master/zips</datadir>            <------------change the CHANGEME
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install MY Addons</summary>
+		<description>Download and install addons from HELLO.......For OFFICIAL !! Support Visit XBMCHUB.COM</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+
+"
+ONCE YOU HAVE CHANGED EVERYTHING YOU WILL NEED TO ZIP UP THE "repository.YourRepo" and name it  "repository.YourRepo-1.0.zip"
+
+and put it in correct folder inside the zips folder , the number "-1.0" represents the version number that is in any addon.xml
+
+
+obviously you will have to do that with your plugin too !!!!
+
+
+when you have folderised and zipped everything YOU CAN RUN THE ADDONS_XML_GENERATOR.PY
+
+
+THAT WILL CHANGE THE MAIN ADDONS.XML TELLING XBMC WHERE TO LOOK AND WHAT VERSION NUMBER OF YOUR PLUGIN IS 
+
+PLUS IT WILL CHANGE THE addons.xml.MD5 so xbmc knows there is a new version of your plugin
