@@ -1,4 +1,4 @@
-v1.2.3
+v1.2.3.0
 Fixed error in MyFont.py
 
 v1.2.2
