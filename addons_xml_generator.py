@@ -157,7 +157,7 @@ if ( __name__ == "__main__" ):
                 if re.search("changelog", y):
                     firstpart = y[:-4]
                     lastpart = y[len(y)-4:]
-                    shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,firstpart+lastpart))
+                    shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,firstpart+version+lastpart))
                     print 'Copying ' + y + ' to ' + zipsfolder
                 if re.search("changelog|icon|fanart", y):
                     shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,y))
