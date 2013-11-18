@@ -148,12 +148,12 @@ if ( __name__ == "__main__" ):
             filesinfoldertozip = os.listdir(foldertozip)
             for y in filesinfoldertozip:
                 print 'processing file: ' + os.path.join(rootdir,x,y)
-#                 if re.search("addon.xml", y): # get version number of plugin
-#                     tree = ET.parse(os.path.join(rootdir,x,y))
-#                     root = tree.getroot()
-#                     for elem in root.iter('addon'):
-#                         print elem.tag + ': ' + elem.attrib['version']
-#                         version = '-'+elem.attrib['version']
+                if re.search("addon.xml", y): # get version number of plugin
+                    tree = ET.parse(os.path.join(rootdir,x,y))
+                    root = tree.getroot()
+                    for elem in root.iter('addon'):
+                        print elem.tag + ': ' + elem.attrib['version']
+                        version = '-'+elem.attrib['version']
                 if re.search("changelog", y):
                     firstpart = y[:-4]
                     lastpart = y[len(y)-4:]
@@ -163,4 +163,4 @@ if ( __name__ == "__main__" ):
                     shutil.copyfile(os.path.join(rootdir,x,y),os.path.join(zipsfolder,y))
                     print 'Copying ' + y + ' to ' + zipsfolder
             zipfolder(zipfilenamefirstpart+zipfilenamelastpart, foldertozip, zipsfolder)
-            print 'Zipping ' + zipfilename + ' and moving to ' + zipfilenamefirstpart
+            print 'Zipping ' + zipfilename + ' and moving to ' + zipfilenamefirstpart+version
