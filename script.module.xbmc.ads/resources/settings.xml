@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Settings">
+		 <!-- HIDDEN STUFF -->
+		<setting id="ga_time" type="text" label="GA Called" default="2000-01-01 00:00:00" visible="false"/>
+		<setting id="visitor_ga" type="text" label="GA visitor" default="" visible="false"/>
+		<setting id="id" type="text" label="For Notifications" default="-1" visible="false"/>
+	</category>	
+</settings>

@@ -55,3 +55,6 @@ when you have folderised and zipped everything YOU CAN RUN THE ADDONS_XML_GENERA
 THAT WILL CHANGE THE MAIN ADDONS.XML TELLING XBMC WHERE TO LOOK AND WHAT VERSION NUMBER OF YOUR PLUGIN IS 
 
 PLUS IT WILL CHANGE THE addons.xml.MD5 so xbmc knows there is a new version of your plugin
+
+
+https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/zips/repository.Dixie-Deans-XBMC-Repo/repository.Dixie-Deans-XBMC-Repo-1.0.1.zip

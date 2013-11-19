@@ -13,6 +13,19 @@
 	</extension>
 </addon>
 
+<addon id="script.module.xbmc.ads"
+       name="XBMC Ads" version="1.0.4"  provider-name="XBMC Ads Ltd.">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+   <extension point="xbmc.python.module" library="lib" />
+   <extension point="xbmc.addon.metadata">
+        <summary>Get Vouchers/Giveaways and Ads</summary>
+        <description>Get Vouchers/Giveaways and Ads</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.2.3" provider-name="twinther, spoyser, whufclee and DixieDean Skin/GUI by pallisvans, Logos by SteveyMac3 and Mercutio">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
