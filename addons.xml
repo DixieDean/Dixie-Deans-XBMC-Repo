@@ -26,7 +26,7 @@
     </extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.2.3" provider-name="twinther, spoyser, whufclee and DixieDean Skin/GUI by pallisvans, Logos by SteveyMac3 and Mercutio">
+<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.2.4" provider-name="DixieDean, twinther, spoyser">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.simplejson" version="2.0.10"/>

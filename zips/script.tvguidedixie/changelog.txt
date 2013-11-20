@@ -1,3 +1,11 @@
+v1.2.4
+Fixed minor script errors.
+GUI modifications 
+- Moved programme time display.
+- Adjusted TVGD logo.
+- Adjust bachground colour.
+Adjusted fanart.jpg
+
 v1.2.3
 Fixed error in MyFont.py
 

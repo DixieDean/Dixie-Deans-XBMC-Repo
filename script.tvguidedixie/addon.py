@@ -22,7 +22,6 @@ import gui
 
 #buggalo.SUBMIT_URL = 'http://tommy.winther.nu/exception/submit.php'
 
-
 try:
     w = gui.TVGuide()
     w.doModal()

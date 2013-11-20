@@ -38,6 +38,8 @@ import buggalo
 
 import streaming
 from threading import Timer
+# from xbmcads import ads
+# ads.ADDON_ADVERTISE('script.tvguidedixie')
 
 
 DEBUG = False
@@ -179,7 +181,7 @@ class TVGuide(xbmcgui.WindowXML):
             	print str(e)
             	pass
 
-        	self.timer = Timer(5*60, self.OnTimer)
+        	self.timer = Timer(1*60, self.OnTimer)
         	self.timer.start()
         
     def getControl(self, controlId):
@@ -626,13 +628,12 @@ class TVGuide(xbmcgui.WindowXML):
                 elif self.osdEnabled:
                     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
                 else:
-                    xbmc.executebuiltin('PlayMedia(%s),1' % url)
-                    
+                    xbmc.executebuiltin('PlayMedia(%s)' % url)
             else:
-            		self.player.play(item = url, windowed = self.osdEnabled)
+                self.player.play(item = url, windowed = self.osdEnabled)
 
-        if not wasPlaying:
-            self._hideEpg()
+            if not wasPlaying:
+                self._hideEpg()
 
         threading.Timer(1, self.waitForPlayBackStopped).start()
         self.osdProgram = self.database.getCurrentProgram(self.currentChannel)

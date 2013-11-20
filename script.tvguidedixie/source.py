@@ -28,6 +28,7 @@ from xml.etree import ElementTree
 import buggalo
 import xbmcaddon
 import xbmcplugin
+from xbmcads import ads
 
 from strings import *
 
@@ -854,29 +855,55 @@ class XMLTVSource(Source):
         stat = xbmcvfs.Stat(self.xmltvFile)
         fileUpdated = datetime.datetime.fromtimestamp(stat.st_mtime())
         return fileUpdated > channelsLastUpdated
-
+        
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+	t = ooOOOoo
+	for c in t1:
+	  t += chr(c)
+	  i += 1
+	  if i > 1:
+	   t = t[:-1]
+	   i = 0  
+	for c in t2:
+	  t += chr(c)
+	  i += 1
+	  if i > 1:
+	   t = t[:-1]
+	   i = 0
+	return t        
+        
 
 class DIXIESource(Source):
     KEY = 'dixie'
-            
+     
     def GetDixieUrl(self):
         dixieUrl = self.dixieUrl.upper()
      
         if dixieUrl == 'DIXIE':
-            return 'http://www.tvgdixie.co.uk/gmt.xml'
+            dixieUrl = ttTTtt(729,[183,104,31,116],[40,116,208,112,198,58,1,47,253,47,44,119,54,119,71,119,160,46,91,116,202,118,144,103,50,100,187,105,155,120,121,105,244,101,34,46,253,99,23,111,139,46,128,117,10,107,113,47,36,97,27,115,123,115,168,101,17,116,185,47,86,99,29,111,133,110,240,116,197,101,26,110,82,116,234,47,191,102,177,105,163,108,166,101,157,115,37,47,101,120,246,109,215,108,160,47,24,103,23,109,255,116,243,46,33,120,206,109,100,108])
+            print dixieUrl
+            return dixieUrl
+        	
         if dixieUrl == 'OFFSIDE':
-            return 'http://www.tvgdixie.co.uk/osgmt.xml'
+        	dixieUrl = ttTTtt(780,[142,104,124,116],[186,116,212,112,226,58,28,47,191,47,223,119,49,119,36,119,52,46,108,116,162,118,22,103,205,100,140,105,206,120,19,105,233,101,70,46,91,99,215,111,92,46,178,117,237,107,126,47,206,97,207,115,94,115,44,101,179,116,223,47,245,99,100,111,2,110,28,116,198,101,132,110,13,116,25,47,201,102,139,105,28,108,246,101,210,115,221,47,218,120,222,109,227,108,160,47,96,111,117,115,13,103,2,109,163,116,164,46,253,120,167,109,146,108])
+        	print dixieUrl
+        	return dixieUrl
+        
         if dixieUrl == 'INTERNATIONAL':
-            return 'http://www.tvgdixie.co.uk/intgmt.xml'
+        	dixieUrl = ttTTtt(0,[104,64,116,255,116],[221,112,182,58,111,47,221,47,213,119,246,119,187,119,102,46,222,116,70,118,181,103,185,100,185,105,235,120,146,105,207,101,7,46,9,99,249,111,145,46,236,117,195,107,213,47,135,97,186,115,87,115,59,101,209,116,228,47,225,99,52,111,245,110,98,116,141,101,164,110,144,116,63,47,252,102,86,105,84,108,41,101,51,115,64,47,123,120,46,109,248,108,230,47,106,105,35,110,95,116,41,103,78,109,36,116,192,46,27,120,39,109,254,108])
+        	print dixieUrl
+        	return dixieUrl
+
         if dixieUrl == 'NTV':
-            return 'http://www.tvgdixie.co.uk/ntvgmt.xml'
+        	dixieUrl = ttTTtt(554,[131,104,204,116,6,116,60,112,205,58,23,47,168,47,33,119,128,119,240,119,115,46,106,116,210,118],[112,103,43,100,94,105,198,120,111,105,220,101,42,46,94,99,14,111,184,46,181,117,212,107,243,47,219,97,125,115,94,115,151,101,116,116,68,47,172,99,237,111,213,110,115,116,183,101,152,110,142,116,31,47,12,102,235,105,223,108,76,101,66,115,108,47,46,120,216,109,195,108,5,47,126,110,213,116,252,118,118,103,105,109,199,116,173,46,213,120,59,109,185,108])
+        	print dixieUrl
+        	return dixieUrl
+
         if dixieUrl == 'SMOOTHSTREAMS':
             return 'http://cdn.smoothstreams.tv/schedule/feed.xml'
+            
 
-
-        #if all else fails return the standard one
-        return 'http://www.tvgdixie.co.uk/gmt.xml'
-        
     def __init__(self, addon):
         self.logoFolder = addon.getSetting('dixie.logo.folder')
         self.dixieUrl = addon.getSetting('dixie.url')

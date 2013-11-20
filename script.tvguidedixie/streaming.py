@@ -67,7 +67,7 @@ class StreamsService(object):
     def loadTVCatchup(self):
         entries = list()
         import os
-        path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'tvcatchup.xml')
+        path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'tvcatchup.xml')
         url = 'http://www.tvgdixie.co.uk/tvcatchup.xml'
         urllib.urlretrieve(url, path)
         if os.path.exists(path):
