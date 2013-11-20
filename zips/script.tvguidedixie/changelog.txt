@@ -1,3 +1,7 @@
+v1.2.5
+Further GUI modifications
+- Adjusted half-hour columns to match today's times column.
+
 v1.2.4
 Fixed minor script errors.
 GUI modifications 

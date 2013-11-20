@@ -73,41 +73,41 @@
                 <control type="label" id="4001">
                     <description>1st half hour column</description>
                     <posx>234</posx>
-                    <posy>0</posy>
+                    <posy>3</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
-                    <font>osd1</font>
+                    <font>osd2</font>
                     <aligny>center</aligny>
                 </control>
                 <control type="label" id="4002">
                     <description>2nd half hour column</description>
                     <posx>479</posx>
-                    <posy>0</posy>
+                    <posy>3</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
-                    <font>osd1</font>
+                    <font>osd2</font>
                     <aligny>center</aligny>
                 </control>
                 <control type="label" id="4003">
                     <description>3rd half hour column</description>
                     <posx>729</posx>
-                    <posy>0</posy>
+                    <posy>3</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
-                    <font>osd1</font>
+                    <font>osd2</font>
                     <aligny>center</aligny>
                 </control>
                 <control type="label" id="4004">
                     <description>4th half hour column</description>
                     <posx>979</posx>
-                    <posy>0</posy>
+                    <posy>3</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
-                    <font>osd1</font>
+                    <font>osd2</font>
                     <aligny>center</aligny>
                 </control>
             </control>
@@ -336,13 +336,14 @@
             </control>
             <control type="label" id="4021">
                 <description>Program time</description>
-                <posx>210</posx>
-                <posy>538</posy>
-                <width>310</width>
+                <posx>100</posx>
+                <posy>548</posy>
+                <width>180</width>
                 <height>50</height>
                 <textcolor>ffffffff</textcolor>
-                <font>rss</font>
-                <align>right</align>
+                <font>tvg_font13</font>
+                <wrapmultiline>true</wrapmultiline>
+                <align>left</align>
                 <aligny>center</aligny>
             </control>
             <control type="textbox" id="4022">
