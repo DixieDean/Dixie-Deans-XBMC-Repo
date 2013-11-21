@@ -1,3 +1,8 @@
+v1.2.6
+Further GUI modifications
+- Fixed programme time text wrapping to allow for 24/12hr clock difference.
+
+
 v1.2.5
 Further GUI modifications
 - Adjusted half-hour columns to match today's times column.
