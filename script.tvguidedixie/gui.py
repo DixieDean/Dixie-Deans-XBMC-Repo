@@ -37,9 +37,44 @@ from strings import *
 import buggalo
 
 import streaming
-from threading import Timer
+# from threading import Timer
 # from xbmcads import ads
 # ads.ADDON_ADVERTISE('script.tvguidedixie')
+import xbmcaddon
+import os
+# addon = xbmcaddon.Addon('script.tvguidedixie')
+# path = os.path.join(xbmc.translatePath('path') + 'resources' + 'skins')
+# print path 
+
+ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
+SKIN = ADDON.getSetting('dixie.skin')
+
+skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+skin_dir = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+list_dir = os.listdir( skin_dir )
+
+if os.path.exists(skin_path):
+    PATH = skin_path
+
+xml_file = os.path.join('script-tvguide-main.xml')
+if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+    XML = xml_file
+
+print '======Skin directory list======'
+print list_dir
+print '=======Skin path is======'
+print skin_path
+print '=======XML path is======='
+print xml_file
+print '======Skin is======'
+print SKIN
+print '=======Skin path is======'
+print PATH
+print '=======XML path is======='
+print XML
+
+
+
 
 
 DEBUG = False
@@ -122,7 +157,7 @@ class TVGuide(xbmcgui.WindowXML):
     C_MAIN_OSD_CHANNEL_TITLE = 6005
 
     def __new__(cls):
-        return super(TVGuide, cls).__new__(cls, 'script-tvguide-main.xml', ADDON.getAddonInfo('path'))
+        return super(TVGuide, cls).__new__(cls, XML, PATH)
 
     def __init__(self):
         super(TVGuide, self).__init__()
@@ -139,8 +174,8 @@ class TVGuide(xbmcgui.WindowXML):
         self.player = xbmc.Player()
         self.database = None
         self.categories = None
-        self.timer = Timer(5, self.OnTimer)
-        self.timer.start()
+#         self.timer = Timer(5, self.OnTimer)
+#         self.timer.start()
 
         self.mode = MODE_EPG
         self.currentChannel = None
@@ -173,16 +208,16 @@ class TVGuide(xbmcgui.WindowXML):
         self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
 
 
-    def OnTimer(self):
-        try:
-            from xbmcads import ads
-            ads.ADDON_ADVERTISE('script.tvguidedixie')
-        except Exception, e:
-            	print str(e)
-            	pass
-
-        	self.timer = Timer(1*60, self.OnTimer)
-        	self.timer.start()
+#     def OnTimer(self):
+#         try:
+#             from xbmcads import ads
+#             ads.ADDON_ADVERTISE('script.tvguidedixie')
+#         except Exception, e:
+#             	print str(e)
+#             	pass
+# 
+#         	self.timer = Timer(1*60, self.OnTimer)
+#         	self.timer.start()
         
     def getControl(self, controlId):
         try:
@@ -837,6 +872,8 @@ class TVGuide(xbmcgui.WindowXML):
                 if secondsLeft > 30:
                     secondsLeft -= secondsLeft % 10
                 self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(TIME_LEFT) % secondsLeft)
+        from xbmcads import ads
+        ads.ADDON_ADVERTISE('script.tvguidedixie')
 
         return not xbmc.abortRequested and not self.isClosing
 
@@ -1011,10 +1048,22 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     C_POPUP_PROGRAM_TITLE = 4102
     C_POPUP_CATEGORIES = 4005
     C_POPUP_HOME = 4006
+    
+
 
     #SJP added touch parameter
     def __new__(cls, database, program, showRemind, touch):
-        return super(PopupMenu, cls).__new__(cls, 'script-tvguide-menu.xml', ADDON.getAddonInfo('path'))
+    
+		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+
+		if os.path.exists(skin_path):
+			PATH = skin_path
+    
+		xml_file = os.path.join('script-tvguide-menu.xml')
+		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+			XML = xml_file
+	
+		return super(PopupMenu, cls).__new__(cls, XML, PATH)
 
     #SJP added touch parameter
     def __init__(self, database, program, showRemind, touch):
@@ -1098,9 +1147,21 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
     C_CHANNELS_SELECTION = 6002
     C_CHANNELS_SAVE = 6003
     C_CHANNELS_CANCEL = 6004
+    
+
 
     def __new__(cls, database):
-        return super(ChannelsMenu, cls).__new__(cls, 'script-tvguide-channels.xml', ADDON.getAddonInfo('path'))
+    
+		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+
+		if os.path.exists(skin_path):
+			PATH = skin_path
+
+		xml_file = os.path.join('script-tvguide-channels.xml')
+		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+			XML = xml_file
+	
+		return super(ChannelsMenu, cls).__new__(cls, XML, PATH)
 
     def __init__(self, database):
         """
@@ -1253,8 +1314,19 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     VISIBLE_ADDONS = 'addons'
     VISIBLE_TVCATCHUP= 'tvcatchup'
 
+
     def __new__(cls, database, channel):
-        return super(StreamSetupDialog, cls).__new__(cls, 'script-tvguide-streamsetup.xml', ADDON.getAddonInfo('path'))
+    
+		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+
+		if os.path.exists(skin_path):
+			PATH = skin_path
+
+		xml_file = os.path.join('script-tvguide-streamsetup.xml')
+		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+			XML = xml_file
+			
+		return super(StreamSetupDialog, cls).__new__(cls, XML, PATH)
 
     def __init__(self, database, channel):
         """
@@ -1445,8 +1517,19 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
     C_SELECTION_LIST = 1000
 
+
     def __new__(cls, addons):
-        return super(ChooseStreamAddonDialog, cls).__new__(cls, 'script-tvguide-streamaddon.xml', ADDON.getAddonInfo('path'))
+    
+		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+
+		if os.path.exists(skin_path):
+			PATH = skin_path
+
+		xml_file = os.path.join('script-tvguide-streamaddon.xml')
+		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+			XML = xml_file
+
+			return super(ChooseStreamAddonDialog, cls).__new__(cls, XML, PATH)
 
     def __init__(self, addons):
         super(ChooseStreamAddonDialog, self).__init__()

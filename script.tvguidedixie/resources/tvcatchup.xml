@@ -1,0 +1,23 @@
+<tvcatchup>
+    <tvcatchup name="BBC Red Button">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DDa9%2BxHhfk6Pjm45w4WW%2BxdbrEF4Kuk67ENS3MhI5oFg%3D%26chan%3D65&amp;mode=3&amp;name=36%3A+Red+Button&quot;)</tvcatchup>
+    <tvcatchup name="BBC One">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D1&amp;mode=3&amp;name=1%3A+BBC+One&quot;)</tvcatchup>
+    <tvcatchup name="BBC Two">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D2&amp;mode=3&amp;name=2%3A+BBC+Two&quot;)</tvcatchup>
+    <tvcatchup name="ITV1">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DPb10c%2FzKucKWlo4%2FAZ4ux5t%2B6%2BR2ee3JSv%2B70yAgQt4%3D%26chan%3D3&amp;mode=3&amp;name=3%3A+ITV1&quot;)</tvcatchup>
+    <tvcatchup name="Channel 4">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D4&amp;mode=3&amp;name=4%3A+Channel+4&quot;)</tvcatchup>
+    <tvcatchup name="Channel 5">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D5&amp;mode=3&amp;name=5%3A+Channel+5&quot;)</tvcatchup>
+    <tvcatchup name="BBC Three">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D12&amp;mode=3&amp;name=11%3A+BBC+Three+-+Channel+Is+Currently+Offline&quot;)</tvcatchup>
+    <tvcatchup name="BBC Four">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D13&amp;mode=3&amp;name=12%3A+BBC+Four+-+Channel+Is+Currently+Offline&quot;)</tvcatchup>
+    <tvcatchup name="Quest">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D73&amp;mode=3&amp;name=14%3A+Quest&quot;)</tvcatchup>
+    <tvcatchup name="Movies4Men">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D58&amp;mode=3&amp;name=18%3A+Movies4Men&quot;)</tvcatchup>
+    <tvcatchup name="Movies4Men +1">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D60&amp;mode=3&amp;name=19%3A+Movies4Men+%2B1&quot;)</tvcatchup>
+    <tvcatchup name="Clubbing TV">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DIBkWtPKd3YSOuea3VSQNF3%2B7zEToFxNRNw9Y%2F4aQo6w%3D%26chan%3D71&amp;mode=3&amp;name=20%3A+Clubbing+TV&quot;)</tvcatchup>
+    <tvcatchup name="BritAsia TV">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DIBkWtPKd3YSOuea3VSQNF3%2B7zEToFxNRNw9Y%2F4aQo6w%3D%26chan%3D72&amp;mode=3&amp;name=21%3A+BritAsia+TV&quot;)</tvcatchup>
+    <tvcatchup name="VIVA">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D37&amp;mode=3&amp;name=22%3A+Viva&quot;)</tvcatchup>
+    <tvcatchup name="Vintage TV">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D168&amp;mode=3&amp;name=23%3A+Vintage+TV&quot;)</tvcatchup>
+    <tvcatchup name="BBC News">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DZOjixADbLgb01mOivSrRXKKlfF1tK9o%2FqpSzlm254mk%3D%26chan%3D17&amp;mode=3&amp;name=25%3A+BBC+News&quot;)</tvcatchup>
+    <tvcatchup name="BBC Parliament">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DIBkWtPKd3YSOuea3VSQNF3%2B7zEToFxNRNw9Y%2F4aQo6w%3D%26chan%3D31&amp;mode=3&amp;name=26%3A+BBC+Parliament&quot;)</tvcatchup>
+    <tvcatchup name="Al Jazeera">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DIBkWtPKd3YSOuea3VSQNF3%2B7zEToFxNRNw9Y%2F4aQo6w%3D%26chan%3D50&amp;mode=3&amp;name=27%3A+Al+Jazeera&quot;)</tvcatchup>
+    <tvcatchup name="CBBC Channel">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DIBkWtPKd3YSOuea3VSQNF3%2B7zEToFxNRNw9Y%2F4aQo6w%3D%26chan%3D18&amp;mode=3&amp;name=33%3A+CBBC+Channel&quot;)</tvcatchup>
+    <tvcatchup name="CBeebies">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DIBkWtPKd3YSOuea3VSQNF3%2B7zEToFxNRNw9Y%2F4aQo6w%3D%26chan%3D24&amp;mode=3&amp;name=34%3A+CBeebies&quot;)</tvcatchup>
+    <tvcatchup name="QVC">PlayMedia(&quot;plugin://plugin.video.tvcatchup/?url=%26auth%3DPb10c%2FzKucKWlo4%2FAZ4ux5t%2B6%2BR2ee3JSv%2B70yAgQt4%3D%26chan%3D33&amp;mode=3&amp;name=39%3A+QVC&quot;)</tvcatchup>
+</tvcatchup>

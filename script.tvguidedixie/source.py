@@ -38,8 +38,10 @@ import xbmcgui
 import xbmcvfs
 import sqlite3
 
+from xbmcads import ads
+ads.ADDON_ADVERTISE('script.tvguidedixie')
 
-SETTINGS_TO_CHECK = ['source', 'youseetv.category', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom', 'categories.xml']
+SETTINGS_TO_CHECK = ['source', 'youseetv.category', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom', 'categories.xml', 'dixie.skin']
 
 class Channel(object):
     #SJP1 categories parameter moved to end
