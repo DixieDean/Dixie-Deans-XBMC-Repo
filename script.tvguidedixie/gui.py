@@ -42,9 +42,6 @@ import streaming
 # ads.ADDON_ADVERTISE('script.tvguidedixie')
 import xbmcaddon
 import os
-# addon = xbmcaddon.Addon('script.tvguidedixie')
-# path = os.path.join(xbmc.translatePath('path') + 'resources' + 'skins')
-# print path 
 
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
 SKIN = ADDON.getSetting('dixie.skin')
@@ -853,6 +850,8 @@ class TVGuide(xbmcgui.WindowXML):
             self.onRedrawEPG(0, self.viewStartDate)
 
     def onSourceProgressUpdate(self, percentageComplete):
+        from xbmcads import ads
+        ads.ADDON_ADVERTISE('script.tvguidedixie')
         control = self.getControl(self.C_MAIN_LOADING_PROGRESS)
         if percentageComplete < 1:
             if control:
@@ -872,8 +871,6 @@ class TVGuide(xbmcgui.WindowXML):
                 if secondsLeft > 30:
                     secondsLeft -= secondsLeft % 10
                 self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(TIME_LEFT) % secondsLeft)
-        from xbmcads import ads
-        ads.ADDON_ADVERTISE('script.tvguidedixie')
 
         return not xbmc.abortRequested and not self.isClosing
 

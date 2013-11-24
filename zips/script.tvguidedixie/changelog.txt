@@ -1,4 +1,7 @@
 
+v1.2.8
+Updated new FXB skin.
+
 v1.2.7
 Added option to choose between different skins.
 One 'in development' skin added.

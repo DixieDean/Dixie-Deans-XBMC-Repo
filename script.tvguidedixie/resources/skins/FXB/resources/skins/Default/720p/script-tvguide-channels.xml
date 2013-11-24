@@ -20,7 +20,7 @@
             <posy>0</posy>
             <width>560</width>
             <height>720</height>
-            <texture>tvguide-glasspane.png</texture>
+            <texture>tvguide-channels.png</texture>
         </control>
 
         <control type="group">

@@ -332,7 +332,7 @@
                 <description>Program title</description>
                 <posx>68</posx>
                 <posy>12</posy>
-                <width>675</width>
+                <width>595</width>
                 <height>50</height>
                 <textcolor>ffffc600</textcolor>
                 <font>osd2</font>
@@ -392,7 +392,7 @@
                     <posy>50</posy>
                     <width>600</width>
                     <height>55</height>
-                    <label>Updating Electronic Programme Guide</label>
+                    <label>Updating Schedule data</label>
                     <textcolor>ffffffff</textcolor>
                     <font>font30</font>
                     <aligny>center</aligny>
@@ -558,11 +558,11 @@
                     <height>45</height>
                     <textcolor>ffffffff</textcolor>
                     <font>DefaultCaps</font>
-                    <label></label>
+                    <label>X</label>
                     <aligny>center</aligny>
                     <align>center</align>
-                    <texturefocus>tvguide-touch_exit_focus.png</texturefocus>
-                    <texturenofocus>tvguide-touch_exit.png</texturenofocus>
+                    <texturefocus>tvguide-program-menu-focus.png</texturefocus>
+                    <texturenofocus>tvguide-program-grey.png</texturenofocus>
                 </control>
 
             </control>
@@ -584,7 +584,7 @@
         </control>
         <control type="group">
             <description>OSD Info bar</description>
-            <posx>-1</posx>
+            <posx>0</posx>
             <posy>500</posy>
             <width>1280</width>
             <height>220</height>
@@ -592,65 +592,66 @@
             <animation effect="fade" start="0" end="100" time="500">VisibleChange</animation>
 
             <control type="image">
-                <posx>0</posx>
-                <posy>0</posy>
-                <width>1280</width>
-                <height>220</height>
-                <texture>tvguide-glasspane-OSD.png</texture>
+                <posx>138</posx>
+                <posy>-37</posy>
+                <width>1003</width>
+                <height>257</height>
+                <texture>tvguide-osd.png</texture>
             </control>
 
             <!-- Program description -->
             <control type="label" id="6001">
                 <description>Program title</description>
-                <posx>185</posx>
-                <posy>22</posy>
-                <width>850</width>
+                <posx>314</posx>
+                <posy>-13</posy>
+                <width>443</width>
                 <height>50</height>
                 <label>Title</label>
-                <textcolor>ffffffff</textcolor>
-                <font>osd1</font>
-                <aligny>center</aligny>
+                <textcolor>ff000000</textcolor>
+                <font>tvg_font13</font>
+                <aligny>top</aligny>
             </control>
             <control type="label" id="6002">
                 <description>Program time</description>
-                <posx>1230</posx>
-                <posy>23</posy>
-                <width>240</width>
+                <posx>759</posx>
+                <posy>-13</posy>
+                <width>400</width>
                 <height>50</height>
                 <label>[B]18:00 - 20:00[/B]</label>
-                <textcolor>ffffffff</textcolor>
+                <textcolor>ff000000</textcolor>
                 <font>tvg_font13</font>
-                <align>right</align>
-                <aligny>center</aligny>
+				<wrapmultiline>true</wrapmultiline>
+                <align>left</align>
+                <aligny>top</aligny>
             </control>
             <control type="textbox" id="6003">
                 <description>Program description</description>
-                <posx>27</posx>
-                <posy>75</posy>
-                <width>1203</width>
-                <height>149</height>
+                <posx>171</posx>
+                <posy>38</posy>
+                <width>751</width>
+                <height>146</height>
                 <label>Description</label>
-                <textcolor>ffffffff</textcolor>
-                <font>tvg_font13</font>
+                <textcolor>ff000000</textcolor>
+                <font>DefaultCaps</font>
                 <wrapmultiline>true</wrapmultiline>
 
                 <autoscroll time="3600" delay="6000" repeat="6000">true</autoscroll>
             </control>
             <control type="image" id="6004">
                 <description>Program channel logo</description>
-                <posx>20</posx>
-                <posy>25</posy>
-                <width>160</width>
-                <height>45</height>
+                <posx>160</posx>
+                <posy>-16</posy>
+                <width>150</width>
+                <height>40</height>
                 <aspectratio>keep</aspectratio>
             </control>
             <control type="label" id="6005">
                 <description>Program channel text</description>
-                <posx>20</posx>
-                <posy>30</posy>
-                <width>160</width>
+                <posx>160</posx>
+                <posy>-13</posy>
+                <width>155</width>
                 <height>45</height>
-                <textcolor>ffffffff</textcolor>
+                <textcolor>ff000000</textcolor>
                 <font>tvg_font13</font>
                 <align>center</align>
                 <visible>StringCompare(Control.GetLabel(6004),)</visible>
