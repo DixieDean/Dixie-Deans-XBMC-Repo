@@ -20,7 +20,14 @@
             <posy>0</posy>
             <width>560</width>
             <height>720</height>
-            <texture>tvguide-channels.png</texture>
+            <texture>tvguide-glasspane.png</texture>
+        </control>
+        <control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>560</width>
+            <height>720</height>
+            <texture>tvguide-glasspane.png</texture>
         </control>
 
         <control type="group">
@@ -36,6 +43,13 @@
                 <effect type="slide" start="0,0" end="560,0" time="500" />
             </animation>
 
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>560</width>
+                <height>160</height>
+                <texture>tvguide-glasspane.png</texture>
+            </control>
             <control type="image">
                 <posx>0</posx>
                 <posy>0</posy>
@@ -91,7 +105,7 @@
             <textcolor>ffffffff</textcolor>
             <label>$ADDON[script.tvguidedixie 30500]</label>
         </control>
-        <control type="fixedlist" id="6000">
+        <control type="list" id="6000">
             <posx>20</posx>
             <posy>60</posy>
             <width>520</width>
@@ -138,7 +152,7 @@
                 <control type="image">
                     <posx>8</posx>
                     <posy>0</posy>
-                    <width>5</width>
+                    <width>12</width>
                     <height>40</height>
                     <texture>tvguide-channel-leftarrow.png</texture>
                 </control>

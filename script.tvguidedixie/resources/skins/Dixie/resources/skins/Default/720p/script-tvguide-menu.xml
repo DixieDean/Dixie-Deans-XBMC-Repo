@@ -67,7 +67,7 @@
             <texturefocus>tvguide-program-menu-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
             <onup>4002</onup>
-            <ondown>4003</ondown>
+            <ondown>4005</ondown>
             <align>center</align>
             <aligny>center</aligny>
             <font>tvg_font13</font>
@@ -117,7 +117,7 @@
             <height>50</height>
             <texturefocus>tvguide-program-menu-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
-            <onup>4001</onup>
+            <onup>4005</onup>
             <ondown>4004</ondown>
             <align>center</align>
             <aligny>center</aligny>
@@ -148,8 +148,8 @@
             <height>50</height>
             <texturefocus>tvguide-program-menu-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
-            <onup>4002</onup>
-            <ondown>4004</ondown>
+            <onup>4001</onup>
+            <ondown>4003</ondown>
             <align>center</align>
             <aligny>center</aligny>
             <font>tvg_font13</font>

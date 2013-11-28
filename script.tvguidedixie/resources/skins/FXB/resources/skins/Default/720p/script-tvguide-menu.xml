@@ -16,7 +16,14 @@
             <posy>0</posy>
             <width>280</width>
             <height>720</height>
-            <texture>tvguide-menu-bkgrd.png</texture>
+            <texture>tvguide-glasspane.png</texture>
+        </control>
+        <control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>280</width>
+            <height>720</height>
+            <texture>tvguide-glasspane.png</texture>
         </control>
 
         <control type="image" id="4100">
@@ -60,7 +67,7 @@
             <texturefocus>tvguide-program-menu-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
             <onup>4002</onup>
-            <ondown>4003</ondown>
+            <ondown>4005</ondown>
             <align>center</align>
             <aligny>center</aligny>
             <font>tvg_font13</font>
@@ -110,7 +117,7 @@
             <height>50</height>
             <texturefocus>tvguide-program-menu-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
-            <onup>4001</onup>
+            <onup>4005</onup>
             <ondown>4004</ondown>
             <align>center</align>
             <aligny>center</aligny>
@@ -141,14 +148,13 @@
             <height>50</height>
             <texturefocus>tvguide-program-menu-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
-            <onup>4002</onup>
-            <ondown>4004</ondown>
+            <onup>4001</onup>
+            <ondown>4003</ondown>
             <align>center</align>
             <aligny>center</aligny>
             <font>tvg_font13</font>
             <textcolor>ffffffff</textcolor>
             <label>$ADDON[script.tvguidedixie 30309]</label>
-			<visible>true</visible>
         </control>
 
 

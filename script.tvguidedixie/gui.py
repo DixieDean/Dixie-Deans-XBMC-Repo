@@ -37,9 +37,9 @@ from strings import *
 import buggalo
 
 import streaming
-# from threading import Timer
-# from xbmcads import ads
-# ads.ADDON_ADVERTISE('script.tvguidedixie')
+#from threading import Timer
+from xbmcads import ads
+ads.ADDON_ADVERTISE('script.tvguidedixie')
 import xbmcaddon
 import os
 
@@ -170,7 +170,8 @@ class TVGuide(xbmcgui.WindowXML):
         self.streamingService = streaming.StreamsService()
         self.player = xbmc.Player()
         self.database = None
-        self.categories = None
+        self.categoriesList = None
+        #self.categories = list()
 #         self.timer = Timer(5, self.OnTimer)
 #         self.timer.start()
 
@@ -528,10 +529,11 @@ class TVGuide(xbmcgui.WindowXML):
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
             
         elif buttonClicked == PopupMenu.C_POPUP_CATEGORIES:
-            d = CategoriesMenu(self.database)
+            d = CategoriesMenu(self.database, self.categoriesList)
             d.doModal()
+            self.categoriesList = d.currentCategories
             del d
-            self.onRedrawEPG(self.getCategories, self.viewStartDate)
+            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
         elif buttonClicked == PopupMenu.C_POPUP_QUIT:
             self.close()
@@ -733,7 +735,7 @@ class TVGuide(xbmcgui.WindowXML):
         self._clearEpg()
 
         try:
-            self.channelIdx, channels, programs = self.database.getEPGView(channelStart, startTime, self.onSourceProgressUpdate, clearExistingProgramList = False)
+            self.channelIdx, channels, programs = self.database.getEPGView(channelStart, startTime, self.onSourceProgressUpdate, clearExistingProgramList = False, categories = self.categoriesList)
         except src.SourceException:
             self.onEPGLoadError()
             return
@@ -1508,25 +1510,22 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.addItems(items)
 
 
-
-
-
 class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
     C_SELECTION_LIST = 1000
 
 
     def __new__(cls, addons):
     
-		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-
-		if os.path.exists(skin_path):
-			PATH = skin_path
-
-		xml_file = os.path.join('script-tvguide-streamaddon.xml')
-		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
-			XML = xml_file
-
-			return super(ChooseStreamAddonDialog, cls).__new__(cls, XML, PATH)
+        skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+        
+        if os.path.exists(skin_path):
+            PATH = skin_path
+            
+        xml_file = os.path.join('script-tvguide-streamaddon.xml')
+        if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+            XML = xml_file
+            
+        return super(ChooseStreamAddonDialog, cls).__new__(cls, XML, PATH)
 
     def __init__(self, addons):
         super(ChooseStreamAddonDialog, self).__init__()
@@ -1565,49 +1564,97 @@ class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
         pass
 
 
-# class CategoriesMenu(xbmcgui.WindowXMLDialog):
-#     C_CATEGORIES_LIST = 7000
-#     C_CATEGORIES_SELECTION_VISIBLE = 7001
-#     C_CATEGORIES_SELECTION = 7002
-#     C_CATEGORIES_SAVE = 7003
-#     C_CATEGORIES_CANCEL = 7004
-# 
-#     def __new__(cls, addons):
-#         return super(ChooseStreamAddonDialog, cls).__new__(cls, 'script-tvguide-streamaddon.xml', ADDON.getAddonInfo('path'))
-# 
-#     def __init__(self, addons):
-#         super(ChooseStreamAddonDialog, self).__init__()
-#         self.addons = addons
-#         self.stream = None
-# 
-#     @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onInit'})
-#     def onInit(self):
-#         items = list()
-#         for id, label, url in self.addons:
-#             addon = xbmcaddon.Addon(id)
-# 
-#             item = xbmcgui.ListItem(label, addon.getAddonInfo('name'), addon.getAddonInfo('icon'))
-#             item.setProperty('stream', url)
-#             items.append(item)
-# 
-#         listControl = self.getControl(ChooseStreamAddonDialog.C_SELECTION_LIST)
-#         listControl.addItems(items)
-# 
-#         self.setFocus(listControl)
-# 
-#     @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onAction'})
-#     def onAction(self, action):
-#         if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK]:
-#             self.close()
-# 
-#     @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onClick'})
-#     def onClick(self, controlId):
-#         if controlId == ChooseStreamAddonDialog.C_SELECTION_LIST:
-#             listControl = self.getControl(ChooseStreamAddonDialog.C_SELECTION_LIST)
-#             self.stream = listControl.getSelectedItem().getProperty('stream')
-#             self.close()
-# 
-#     @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onFocus'})
-#     def onFocus(self, controlId):
-#         pass
+class CategoriesMenu(xbmcgui.WindowXMLDialog):
+    C_CATEGORIES_LIST = 7000
+    C_CATEGORIES_SELECTION = 7001
+    C_CATEGORIES_SAVE = 7002
+    C_CATEGORIES_CANCEL = 7003
+
+    def __new__(cls, database, categoriesList):
+    
+        skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+        
+        if os.path.exists(skin_path):
+            PATH = skin_path
+            
+        xml_file = os.path.join('script-tvguide-categories.xml')
+        if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+            XML = xml_file
+            
+        return super(CategoriesMenu, cls).__new__(cls, XML, PATH)
+
+
+    def __init__(self, database, categoriesList):
+        """
+
+        @type database: source.Database
+        """
+        super(CategoriesMenu, self).__init__()
+        self.database = database
+
+        self.allCategories = database.getCategoriesList()
+        if categoriesList:
+            self.currentCategories = list(categoriesList)
+        else:
+            self.currentCategories = list()
+        
+        self.workingCategories = list(self.currentCategories)
+
+        self.swapInProgress = False
+
+
+    @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onInit'})
+    def onInit(self):
+        self.updateCategoriesList()
+        self.setFocusId(self.C_CATEGORIES_LIST)
+
+
+    @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onAction'})
+    def onAction(self, action):
+        if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK, KEY_CONTEXT_MENU]:
+            self.close()
+            return
+     
+    @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onClick'})
+    def onClick(self, controlId):
+        if controlId == self.C_CATEGORIES_LIST:            
+            listControl = self.getControl(self.C_CATEGORIES_LIST)
+            item        = listControl.getSelectedItem()
+            category    = self.allCategories[int(item.getProperty('idx'))]           
+            if category in self.workingCategories:
+                self.workingCategories.remove(category)
+            else:
+                self.workingCategories.append(category)
+ 
+            if category in self.workingCategories:
+                iconImage = 'tvguide-categories-visible.png'
+            else:
+                iconImage = 'tvguide-categories-hidden.png'
+            item.setIconImage(iconImage)
+ 
+        elif controlId == self.C_CATEGORIES_SAVE:
+            self.currentCategories = self.workingCategories
+            self.close()
+ 
+        elif controlId == self.C_CATEGORIES_CANCEL:
+            self.close()
+
+ 
+    def onFocus(self, controlId):
+        pass
+
+ 
+    def updateCategoriesList(self):
+        listControl = self.getControl(self.C_CATEGORIES_LIST)
+        listControl.reset()
+        for idx, category in enumerate(self.allCategories):
+            if category in self.workingCategories:
+                iconImage = 'tvguide-categories-visible.png'
+            else:
+                iconImage = 'tvguide-categories-hidden.png'
+
+            item = xbmcgui.ListItem('%3d. %s' % (idx+1, category), iconImage = iconImage)
+            item.setProperty('idx', str(idx))
+            listControl.addItem(item)
+
 

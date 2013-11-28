@@ -122,6 +122,8 @@ class Database(object):
         self.event = threading.Event()
         self.eventResults = dict()
 
+        self.categoriesList = None
+
         self.source = instantiateSource()
 
         self.updateInProgress = False
@@ -410,8 +412,8 @@ class Database(object):
             self.updateInProgress = False
             c.close()
 
-    def getEPGView(self, channelStart, date = datetime.datetime.now(), progress_callback = None, clearExistingProgramList = True):
-        result = self._invokeAndBlockForResult(self._getEPGView, channelStart, date, progress_callback, clearExistingProgramList)
+    def getEPGView(self, channelStart, date = datetime.datetime.now(), progress_callback = None, clearExistingProgramList = True, categories = None):
+        result = self._invokeAndBlockForResult(self._getEPGView, channelStart, date, progress_callback, clearExistingProgramList, categories)
 
         if self.updateFailed:
             raise SourceException('No channels or programs imported')
@@ -419,12 +421,10 @@ class Database(object):
         return result
 
 
-
-
-    def _getEPGView(self, channelStart, date, progress_callback, clearExistingProgramList):
+    def _getEPGView(self, channelStart, date, progress_callback, clearExistingProgramList, categories):
         self._updateChannelAndProgramListCaches(date, progress_callback, clearExistingProgramList)
         
-        channels = self._getChannelList(onlyVisible = True)
+        channels = self._getChannelList(onlyVisible = True, categories = categories)
 
         if channelStart < 0:
             channelStart = len(channels) - 1
@@ -480,7 +480,9 @@ class Database(object):
         return self.channelList
 
 
-    def _getChannelList(self, onlyVisible):
+    def _getChannelList(self, onlyVisible, categories = None):
+        if categories:
+            return self._getChannelListFilteredByCategory(onlyVisible, categories)
         c = self.conn.cursor()
         channelList = list()
         if onlyVisible:
@@ -492,6 +494,51 @@ class Database(object):
             channelList.append(channel)
         c.close()
         return channelList
+
+
+    def _getChannelListFilteredByCategory(self, onlyVisible, categories):
+        channelList = list()
+
+        c = self.conn.cursor()
+        if onlyVisible:
+            c.execute('SELECT * FROM channels WHERE source=? AND visible=? ORDER BY weight', [self.source.KEY, True])
+        else:
+            c.execute('SELECT * FROM channels WHERE source=? ORDER BY weight', [self.source.KEY])
+
+        for row in c:
+            channelCats = row['categories']
+            channelCats = channelCats.split('|')
+            for category in channelCats:
+                if category in categories:
+                    channel = Channel(row['id'], row['title'], row['logo'], row['stream_url'], row['visible'], row['weight'], row['categories'])      
+                    channelList.append(channel)
+                    break
+        c.close()
+        return channelList
+
+
+    def getCategoriesList(self):
+        if not self.categoriesList:
+           self.categoriesList = self._invokeAndBlockForResult(self._getCategoriesList)
+        return self.categoriesList
+
+    def _getCategoriesList(self):
+        c = self.conn.cursor()
+        categoriesList = list()
+        c.execute('SELECT * FROM channels WHERE source=? ORDER BY categories', [self.source.KEY])
+
+        for row in c:
+            categories = row['categories']
+            categories = categories.split('|')
+            for category in categories:
+                if category not in categoriesList:
+                    categoriesList.append(category)
+
+        c.close()
+        print '========Categories Are...=========='
+        print categoriesList
+        return categoriesList
+
 
     def getCurrentProgram(self, channel):
         return self._invokeAndBlockForResult(self._getCurrentProgram, channel)
