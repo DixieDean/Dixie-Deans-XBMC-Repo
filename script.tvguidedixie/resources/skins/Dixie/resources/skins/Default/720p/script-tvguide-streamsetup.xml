@@ -59,7 +59,7 @@
             <label>$ADDON[script.tvguidedixie 30601]</label>
             <texturefocus>tvguide-program-grey-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
-            <onleft>104</onleft>
+            <onleft>103</onleft>
             <onright>102</onright>
             <ondown>1001</ondown>
         </control>
@@ -92,10 +92,11 @@
             <texturefocus>tvguide-program-grey-focus.png</texturefocus>
             <texturenofocus>tvguide-program-grey.png</texturenofocus>
             <onleft>102</onleft>
-            <onright>104</onright>
+            <onright>101</onright>
             <ondown>3001</ondown>
         </control>
         
+<!-- 
         <control type="button" id="104">
             <posx>641</posx>
             <posy>60</posy>
@@ -112,6 +113,7 @@
             <onright>101</onright>
             <ondown>4001</ondown>
         </control>
+ -->
         
         
         <control type="videowindow">
@@ -551,6 +553,7 @@
         </control>
         
         
+<!-- 
         <control type="group" id="4000">
             <posx>40</posx>
             <posy>120</posy>
@@ -566,7 +569,6 @@
                 <label>$ADDON[script.tvguidedixie 30621]</label>
                 <wrapmultiline>true</wrapmultiline>
             </control>
-
             <control type="list" id="4001">
                 <posx>20</posx>
                 <posy>75</posy>
@@ -683,6 +685,7 @@
             </control>
 
         </control>
+ -->
 
     </controls>
 </window>

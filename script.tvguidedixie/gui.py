@@ -656,15 +656,14 @@ class TVGuide(xbmcgui.WindowXML):
         wasPlaying = self.player.isPlaying()
         url = self.database.getStreamUrl(channel)
         if url:
-            if url[0:9] == 'plugin://':
-                if self.alternativePlayback:
-                    xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-                elif self.osdEnabled:
-                    xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-                else:
-                    xbmc.executebuiltin('PlayMedia(%s)' % url)
-            else:
-                self.player.play(item = url, windowed = self.osdEnabled)
+            self.player.play(item=url, windowed=self.osdEnabled)
+            print '****** Attempt 1 ******'
+            print url
+            xbmc.sleep(100)
+            if not xbmc.Player().isPlaying():
+                xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+                print '****** Attempt 2 ******'
+                print url
 
             if not wasPlaying:
                 self._hideEpg()
@@ -673,7 +672,6 @@ class TVGuide(xbmcgui.WindowXML):
         self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
 
         return url is not None
-
 
     def waitForPlayBackStopped(self):
         for retry in range(0, 100):
@@ -1284,7 +1282,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_STRM_TAB = 101
     C_STREAM_FAVOURITES_TAB = 102
     C_STREAM_ADDONS_TAB = 103
-    C_STREAM_TVCATCHUP_TAB = 104
+#     C_STREAM_TVCATCHUP_TAB = 104
     C_STREAM_STRM_BROWSE = 1001
     C_STREAM_STRM_FILE_LABEL = 1005
     C_STREAM_STRM_PREVIEW = 1002
@@ -1301,17 +1299,17 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_ADDONS_PREVIEW = 3005
     C_STREAM_ADDONS_OK = 3006
     C_STREAM_ADDONS_CANCEL = 3007
-    C_STREAM_TVCATCHUP = 4001
-    C_STREAM_TVCATCHUP_PREVIEW = 4002
-    C_STREAM_TVCATCHUP_OK = 4003
-    C_STREAM_TVCATCHUP_CANCEL = 4004
+#     C_STREAM_TVCATCHUP = 4001
+#     C_STREAM_TVCATCHUP_PREVIEW = 4002
+#     C_STREAM_TVCATCHUP_OK = 4003
+#     C_STREAM_TVCATCHUP_CANCEL = 4004
 
     C_STREAM_VISIBILITY_MARKER = 100
 
     VISIBLE_STRM = 'strm'
     VISIBLE_FAVOURITES = 'favourites'
     VISIBLE_ADDONS = 'addons'
-    VISIBLE_TVCATCHUP= 'tvcatchup'
+#     VISIBLE_TVCATCHUP= 'tvcatchup'
 
 
     def __new__(cls, database, channel):
@@ -1373,17 +1371,16 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.addItems(items)
         self.updateAddonInfo()
         
-        tvcatchup = self.streamingService.loadTVCatchup()
-        items = list()
-        for label, value in tvcatchup:
-            item = xbmcgui.ListItem(label)
-            item.setProperty('stream', value)
-            items.append(item)
+#         tvcatchup = self.streamingService.loadTVCatchup()
+#         items = list()
+#         for label, value in tvcatchup:
+#             item = xbmcgui.ListItem(label)
+#             item.setProperty('stream', value)
+#             items.append(item)
+# 
+#         listControl = self.getControl(StreamSetupDialog.C_STREAM_TVCATCHUP)
+#         listControl.addItems(items)
 
-        listControl = self.getControl(StreamSetupDialog.C_STREAM_TVCATCHUP)
-        listControl.addItems(items)
-
-        items = list()
 
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onAction'})
@@ -1421,13 +1418,13 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 self.database.setCustomStreamUrl(self.channel, stream)
             self.close()
             
-        elif controlId == self.C_STREAM_TVCATCHUP_OK:
-            listControl = self.getControl(self.C_STREAM_TVCATCHUP)
-            item = listControl.getSelectedItem()
-            if item:
-                stream = item.getProperty('stream')
-                self.database.setCustomStreamUrl(self.channel, stream)
-            self.close()
+#         elif controlId == self.C_STREAM_TVCATCHUP_OK:
+#             listControl = self.getControl(self.C_STREAM_TVCATCHUP)
+#             item = listControl.getSelectedItem()
+#             if item:
+#                 stream = item.getProperty('stream')
+#                 self.database.setCustomStreamUrl(self.channel, stream)
+#             self.close()
 
         elif controlId == self.C_STREAM_STRM_OK:
             self.database.setCustomStreamUrl(self.channel, self.strmFile)
@@ -1442,7 +1439,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(PREVIEW_STREAM))
-                self.getControl(self.C_STREAM_TVCATCHUP_PREVIEW).setLabel(strings(PREVIEW_STREAM))
+#                 self.getControl(self.C_STREAM_TVCATCHUP_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 return
 
             stream = None
@@ -1457,18 +1454,18 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 item = listControl.getSelectedItem()
                 if item:
                     stream = item.getProperty('stream')
-            elif visible == self.VISIBLE_TVCATCHUP:
-                listControl = self.getControl(self.C_STREAM_TVCATCHUP)
-                item = listControl.getSelectedItem()
-                if item:
-                    stream = item.getProperty('stream')
+#             elif visible == self.VISIBLE_TVCATCHUP:
+#                 listControl = self.getControl(self.C_STREAM_TVCATCHUP)
+#                 item = listControl.getSelectedItem()
+#                 if item:
+#                     stream = item.getProperty('stream')
             elif visible == self.VISIBLE_STRM:
                 stream = self.strmFile
 
             if stream is not None:
                 self.player.play(item = stream, windowed = True)
                 if self.player.isPlaying():
-                    self.getControl(self.C_STREAM_TVCATCHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
+#                     self.getControl(self.C_STREAM_TVCATCHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(STOP_PREVIEW))
@@ -1481,8 +1478,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_FAVOURITES)
         elif controlId == self.C_STREAM_ADDONS_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_ADDONS)
-        elif controlId == self.C_STREAM_TVCATCHUP_TAB:
-            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_TVCATCHUP)
+#         elif controlId == self.C_STREAM_TVCATCHUP_TAB:
+#             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_TVCATCHUP)
 
 
     def updateAddonInfo(self):
