@@ -64,34 +64,6 @@ class StreamsService(object):
 
         return entries
         
-#     def loadTVCatchup(self):
-#         entries = list()
-#         import os
-#         path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'tvcatchup.xml')
-#         url = 'http://www.tvgdixie.co.uk/tvcatchup.xml'
-#         urllib.urlretrieve(url, path)
-#         if os.path.exists(path):
-#             f = open(path)
-#             xml = f.read()
-#             f.close()
-# 
-# 
-#         try:
-#             doc = ElementTree.fromstring(xml)
-#             for node in doc.findall('tvcatchup'):
-#                 value = node.text
-#                 if value[0:11] == 'PlayMedia("':
-#                     value = value[11:-2]
-#                 elif value[0:10] == 'PlayMedia(':
-#                     value = value[10:-1]
-#                 else:
-#                     continue
-# 
-#                 entries.append((node.get('name'), value))
-#         except ExpatError:
-#             pass
-# 
-#         return entries
     def getAddons(self):
         return self.addonsParser.sections()
 
@@ -104,7 +76,6 @@ class StreamsService(object):
         @type channel: source.Channel
         """
         favourites = self.loadFavourites()
-#         tvcatchup = self.loadTVCatchup()
 
         # First check favourites, if we get exact match we use it
         for label, stream in favourites:
@@ -124,10 +95,6 @@ class StreamsService(object):
                 if label == channel.title:
                     matches.append((id, label, stream))
                     
-        # Third check tvcatchup, if we get exact match we use it
-#         for label, stream in tvcatchup:
-#             if label == channel.title:
-#                 return stream
 
         if len(matches) == 1:
             return matches[0][2]

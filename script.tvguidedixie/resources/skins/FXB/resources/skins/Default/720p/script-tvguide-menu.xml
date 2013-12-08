@@ -16,14 +16,14 @@
             <posy>0</posy>
             <width>280</width>
             <height>720</height>
-            <texture>tvguide-glasspane.png</texture>
+            <texture>tvguide-menu-bkgrd.png</texture>
         </control>
         <control type="image">
             <posx>0</posx>
             <posy>0</posy>
             <width>280</width>
             <height>720</height>
-            <texture>tvguide-glasspane.png</texture>
+            <texture>tvguide-menu-bkgrd.png</texture>
         </control>
 
         <control type="image" id="4100">

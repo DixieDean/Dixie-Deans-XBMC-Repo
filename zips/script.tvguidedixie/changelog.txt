@@ -1,3 +1,7 @@
+v1.3.1
+Updated stream triggering method to integrate some addons better.
+Updated FXB skin.
+Updated Dixie skin.
 
 v1.3.0
 Changed stream triggering method.
