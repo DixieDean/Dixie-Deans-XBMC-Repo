@@ -1,3 +1,6 @@
+v1.3.11
+Maintenance update
+
 v1.3.1
 Updated stream triggering method to integrate some addons better.
 Updated FXB skin.
