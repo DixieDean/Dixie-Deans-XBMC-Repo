@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.mikey1234" name="Mikey1234 Repository" version="1.0.2" provider-name="Mikey1234">
+	<extension point="xbmc.addon.repository" name="XBMCHUB.com Addon Repository">
+		<info compressed="false">http://mikey1234-repo.googlecode.com/svn/addons/addons.xml</info>
+		<checksum>http://mikey1234-repo.googlecode.com/svn/addons/addons.xml.md5</checksum>
+		<datadir zip="true">http://mikey1234-repo.googlecode.com/svn/addons</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>The Best Third Party Addons for XBMC, Mikey1234</summary>
+		<description>The Best Third Party Addons for XBMC, Mikey1234</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+

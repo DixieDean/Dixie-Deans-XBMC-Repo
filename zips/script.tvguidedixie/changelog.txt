@@ -1,3 +1,6 @@
+v1.3.2
+Fixed USTVNOW issue.
+
 v1.3.11
 Maintenance update
 

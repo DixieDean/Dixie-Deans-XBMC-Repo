@@ -59,6 +59,11 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
         
+    if 'plugin.video.movie25' in url:
+        print '****** Alternate MashUp ******'
+        print url
+        return alternateStream(url)
+        
     return False
 
 def alternateStream(url):
@@ -82,3 +87,4 @@ if __name__ == '__main__':
 # plugin.video.muzu.tv
 # plugin.audio.ramfm
 # plugin.video.tgun
+# plugin.video.movie25
