@@ -17,7 +17,7 @@
     </category>
 
     <category label="30114">
-        <setting id="dixie.skin" label="Choose Skin Style" type="labelenum" values="Dixie|FXB" default="Dixie"/>
+        <setting id="dixie.skin" label="Choose Skin Style" type="select"  source="/resources/skins/" mask="/" default="Dixie"/>
         <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" />
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" />
         <setting label="30119" type="lsep" />

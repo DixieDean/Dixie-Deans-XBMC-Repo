@@ -30,7 +30,7 @@
                 <effect type="fade" start="100" end="0" time="500" />
             </animation>
 		</control>
-
+	
         <control type="label" id="5000">
             <description>visibility marker for TV Guide group</description>
         </control>
@@ -44,10 +44,10 @@
 
             <control type="button" id="5001">
                 <description>marker for EPG data view - should be hidden!</description>
-                <posx>230</posx>
-                <posy>236</posy>
+                <posx>229</posx>
+                <posy>287</posy>
                 <width>1000</width>
-                <height>450</height>
+                <height>400</height>
                 <visible>false</visible>
             </control>
 
@@ -62,7 +62,7 @@
                 <control type="label" id="4000">
                     <description>Displays todays date</description>
 					<posx>164</posx>
-					<posy>172</posy>
+					<posy>221</posy>
 					<width>270</width>
 					<height>50</height>
 					<textcolor>ffffc600</textcolor>
@@ -87,7 +87,7 @@
                 <control type="label" id="4001">
                     <description>1st half hour column</description>
                     <posx>200</posx>
-                    <posy>160</posy>
+                    <posy>209</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -97,7 +97,7 @@
                 <control type="label" id="4002">
                     <description>2nd half hour column</description>
                     <posx>448</posx>
-                    <posy>160</posy>
+                    <posy>209</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -107,7 +107,7 @@
                 <control type="label" id="4003">
                     <description>3rd half hour column</description>
                     <posx>697</posx>
-                    <posy>160</posy>
+                    <posy>209</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -117,7 +117,7 @@
                 <control type="label" id="4004">
                     <description>4th half hour column</description>
                     <posx>947</posx>
-                    <posy>160</posy>
+                    <posy>209</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -128,8 +128,8 @@
 
             <!-- Channels column -->
             <control type="group">
-                <posx>57</posx>
-                <posy>238</posy>
+                <posx>54</posx>
+                <posy>239</posy>
                 <width>200</width>
                 <height>400</height>
                 <visible>true</visible>
@@ -138,7 +138,7 @@
                 <control type="label" id="4010">
                     <description>1st channel</description>
                     <posx>165</posx>
-                    <posy>-3</posy>
+                    <posy>47</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -150,7 +150,7 @@
                 <control type="label" id="4011">
                     <description>2nd channel</description>
                     <posx>165</posx>
-                    <posy>47</posy>
+                    <posy>97</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -162,7 +162,7 @@
                 <control type="label" id="4012">
                     <description>3rd channel</description>
                     <posx>165</posx>
-                    <posy>97</posy>
+                    <posy>147</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -174,7 +174,7 @@
                 <control type="label" id="4013">
                     <description>4th channel</description>
                     <posx>165</posx>
-                    <posy>147</posy>
+                    <posy>197</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -186,7 +186,7 @@
                 <control type="label" id="4014">
                     <description>5th channel</description>
                     <posx>165</posx>
-                    <posy>197</posy>
+                    <posy>247</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -198,7 +198,7 @@
                 <control type="label" id="4015">
                     <description>6th channel</description>
                     <posx>165</posx>
-                    <posy>247</posy>
+                    <posy>297</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -210,7 +210,7 @@
                 <control type="label" id="4016">
                     <description>7th channel</description>
                     <posx>165</posx>
-                    <posy>297</posy>
+                    <posy>347</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -222,7 +222,7 @@
                 <control type="label" id="4017">
                     <description>8th channel</description>
                     <posx>165</posx>
-                    <posy>347</posy>
+                    <posy>397</posy>
                     <width>170</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -231,24 +231,12 @@
                     <aligny>center</aligny>
                     <visible>StringCompare(Control.GetLabel(4117),)</visible>
                 </control>
-                <control type="label" id="4018">
-                    <description>9th channel</description>
-                    <posx>165</posx>
-                    <posy>397</posy>
-                    <width>170</width>
-                    <height>50</height>
-                    <textcolor>ff6aa6cb</textcolor>
-                    <font>DefaultCaps</font>
-                    <align>right</align>
-                    <aligny>center</aligny>
-                    <visible>StringCompare(Control.GetLabel(4118),)</visible>
-                </control>
 
                 <!-- logo images -->
                 <control type="image" id="4110">
                     <description>1st channel</description>
                     <posx>5</posx>
-                    <posy>0</posy>
+                    <posy>50</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -257,7 +245,7 @@
                 <control type="image" id="4111">
                     <description>2nd channel</description>
                     <posx>5</posx>
-                    <posy>50</posy>
+                    <posy>100</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -266,7 +254,7 @@
                 <control type="image" id="4112">
                     <description>3rd channel</description>
                     <posx>5</posx>
-                    <posy>100</posy>
+                    <posy>150</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -275,7 +263,7 @@
                 <control type="image" id="4113">
                     <description>4th channel</description>
                     <posx>5</posx>
-                    <posy>150</posy>
+                    <posy>200</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -284,7 +272,7 @@
                 <control type="image" id="4114">
                     <description>5th channel</description>
                     <posx>5</posx>
-                    <posy>200</posy>
+                    <posy>250</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -293,7 +281,7 @@
                 <control type="image" id="4115">
                     <description>6th channel</description>
                     <posx>5</posx>
-                    <posy>250</posy>
+                    <posy>300</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -302,7 +290,7 @@
                 <control type="image" id="4116">
                     <description>7th channel</description>
                     <posx>5</posx>
-                    <posy>300</posy>
+                    <posy>350</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
@@ -311,20 +299,11 @@
                 <control type="image" id="4117">
                     <description>8th channel</description>
                     <posx>5</posx>
-                    <posy>350</posy>
+                    <posy>399</posy>
                     <width>160</width>
                     <height>45</height>
                     <aspectratio>keep</aspectratio>
                     <visible>!StringCompare(Control.GetLabel(4117),)</visible>
-                </control>
-                <control type="image" id="4118">
-                    <description>9th channel</description>
-                    <posx>5</posx>
-                    <posy>400</posy>
-                    <width>160</width>
-                    <height>45</height>
-                    <aspectratio>keep</aspectratio>
-                    <visible>!StringCompare(Control.GetLabel(4118),)</visible>
                 </control>
             </control>
 
@@ -355,15 +334,15 @@
                 <width>830</width>
                 <height>123</height>
                 <textcolor>ffffffff</textcolor>
-                <font>tvg_font12</font>
+                <font>DefaultCaps</font>
                 <wrapmultiline>true</wrapmultiline>
                 <autoscroll time="3600" delay="6000" repeat="6000">true</autoscroll>
             </control>
             <control type="image" id="4100">
                 <posx>180</posx>
-                <posy>236</posy>
+                <posy>287</posy>
                 <width>-50</width>
-                <height>448</height>
+                <height>398</height>
                 <texture>tvguide-timebar.png</texture>
             </control>
 
@@ -481,7 +460,7 @@
                 <control type="button" id="4301">
                     <description>navigate to now</description>
                     <posx>1049</posx>
-                    <posy>89</posy>
+                    <posy>99</posy>
                     <width>55</width>
                     <height>40</height>
                     <label></label>
@@ -496,7 +475,7 @@
                 <control type="button" id="4302">
                     <description>navigate left</description>
                     <posx>991</posx>
-                    <posy>89</posy>
+                    <posy>99</posy>
                     <width>55</width>
                     <height>40</height>
                     <textcolor>ffffffff</textcolor>
@@ -510,7 +489,7 @@
                 <control type="button" id="4303">
                     <description>navigate up</description>
                     <posx>1049</posx>
-                    <posy>47</posy>
+                    <posy>57</posy>
                     <width>55</width>
                     <height>40</height>
                     <textcolor>ffffffff</textcolor>
@@ -524,7 +503,7 @@
                 <control type="button" id="4304">
                     <description>navigate down</description>
                     <posx>1049</posx>
-                    <posy>131</posy>
+                    <posy>141</posy>
                     <width>55</width>
                     <height>40</height>
                     <textcolor>ffffffff</textcolor>
@@ -538,7 +517,7 @@
                 <control type="button" id="4305">
                     <description>navigate right</description>
                     <posx>1107</posx>
-                    <posy>89</posy>
+                    <posy>99</posy>
                     <width>55</width>
                     <height>40</height>
                     <textcolor>ffffffff</textcolor>
@@ -575,7 +554,7 @@
             <width>1280</width>
             <height>720</height>
             <animation type="Conditional" condition="!Control.IsVisible(5000)">
-                <effect type="zoom" end="25" center="1233,8" time="500" />
+                <effect type="zoom" end="26" center="1230,22" time="500" />
             </animation>
         </control>
 
@@ -592,71 +571,107 @@
             <animation effect="fade" start="0" end="100" time="500">VisibleChange</animation>
 
             <control type="image">
-                <posx>138</posx>
-                <posy>-37</posy>
-                <width>1003</width>
-                <height>257</height>
+                <posx>193</posx>
+                <posy>-17</posy>
+                <width>903</width>
+                <height>227</height>
                 <texture>tvguide-osd.png</texture>
             </control>
-
+			<control type="image">
+                <posx>218</posx>
+                <posy>161</posy>
+                <width>43</width>
+                <height>14</height>
+                <texture>tvguide-osd-up_down.png</texture>
+            </control>
+			<control type="image">
+                <posx>363</posx>
+                <posy>148</posy>
+                <width>31</width>
+                <height>43</height>
+                <texture>tvguide-osd-left_right.png</texture>
+            </control>
             <!-- Program description -->
             <control type="label" id="6001">
                 <description>Program title</description>
-                <posx>314</posx>
-                <posy>-13</posy>
-                <width>443</width>
+                <posx>366</posx>
+                <posy>7</posy>
+                <width>440</width>
                 <height>50</height>
                 <label>Title</label>
-                <textcolor>ff000000</textcolor>
+                <textcolor>ffffffff</textcolor>
                 <font>tvg_font13</font>
                 <aligny>top</aligny>
             </control>
             <control type="label" id="6002">
                 <description>Program time</description>
-                <posx>759</posx>
-                <posy>-13</posy>
+                <posx>1041</posx>
+                <posy>7</posy>
                 <width>400</width>
                 <height>50</height>
                 <label>[B]18:00 - 20:00[/B]</label>
-                <textcolor>ff000000</textcolor>
+                <textcolor>ffffffff</textcolor>
                 <font>tvg_font13</font>
 				<wrapmultiline>true</wrapmultiline>
-                <align>left</align>
+                <align>right</align>
                 <aligny>top</aligny>
             </control>
             <control type="textbox" id="6003">
                 <description>Program description</description>
-                <posx>171</posx>
-                <posy>38</posy>
-                <width>751</width>
-                <height>146</height>
+                <posx>223</posx>
+                <posy>51</posy>
+                <width>830</width>
+                <height>98</height>
                 <label>Description</label>
-                <textcolor>ff000000</textcolor>
-                <font>DefaultCaps</font>
+                <textcolor>ffffffff</textcolor>
+                <font>tvg_font12</font>
                 <wrapmultiline>true</wrapmultiline>
 
                 <autoscroll time="3600" delay="6000" repeat="6000">true</autoscroll>
             </control>
             <control type="image" id="6004">
                 <description>Program channel logo</description>
-                <posx>160</posx>
-                <posy>-16</posy>
+                <posx>212</posx>
+                <posy>4</posy>
                 <width>150</width>
                 <height>40</height>
                 <aspectratio>keep</aspectratio>
             </control>
             <control type="label" id="6005">
                 <description>Program channel text</description>
-                <posx>160</posx>
-                <posy>-13</posy>
+                <posx>212</posx>
+                <posy>7</posy>
                 <width>155</width>
                 <height>45</height>
-                <textcolor>ff000000</textcolor>
+                <textcolor>ff6aa6cb</textcolor>
                 <font>tvg_font13</font>
                 <align>center</align>
                 <visible>StringCompare(Control.GetLabel(6004),)</visible>
             </control>
-            
+            <control type="label" id="6006">
+                <description>OSD Channels label</description>
+                <posx>258</posx>
+                <posy>153</posy>
+                <width>155</width>
+                <height>45</height>
+                <textcolor>ff6aa6cb</textcolor>
+                <font>DefaultCaps</font>
+                <aligny>top</aligny>
+				<label>Channels</label>
+                <visible>true</visible>
+            </control>           
+		    <control type="label" id="6007">
+                <description>OSD Time label</description>
+                <posx>398</posx>
+                <posy>153</posy>
+                <width>155</width>
+                <height>45</height>
+                <textcolor>ff6aa6cb</textcolor>
+                <font>DefaultCaps</font>
+                <aligny>top</aligny>
+				<label>Time</label>
+                <visible>true</visible>
+            </control>           
         </control>
         <!-- Blackout -->
         <control type="image" id="9999">

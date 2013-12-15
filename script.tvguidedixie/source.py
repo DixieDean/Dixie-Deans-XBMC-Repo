@@ -114,9 +114,8 @@ class DatabaseSchemaException(sqlite3.DatabaseError):
 
 class Database(object):
     SOURCE_DB = 'source.db'
-    CHANNELS_PER_PAGE = 9
 
-    def __init__(self):
+    def __init__(self, nChannel):
         self.conn = None
         self.eventQueue = list()
         self.event = threading.Event()
@@ -412,8 +411,8 @@ class Database(object):
             self.updateInProgress = False
             c.close()
 
-    def getEPGView(self, channelStart, date = datetime.datetime.now(), progress_callback = None, clearExistingProgramList = True, categories = None):
-        result = self._invokeAndBlockForResult(self._getEPGView, channelStart, date, progress_callback, clearExistingProgramList, categories)
+    def getEPGView(self, channelStart, date = datetime.datetime.now(), progress_callback = None, clearExistingProgramList = True, categories = None, nmrChannels=9):
+        result = self._invokeAndBlockForResult(self._getEPGView, channelStart, date, progress_callback, clearExistingProgramList, categories, nmrChannels)
 
         if self.updateFailed:
             raise SourceException('No channels or programs imported')
@@ -421,7 +420,7 @@ class Database(object):
         return result
 
 
-    def _getEPGView(self, channelStart, date, progress_callback, clearExistingProgramList, categories):
+    def _getEPGView(self, channelStart, date, progress_callback, clearExistingProgramList, categories, nmrChannels):
         self._updateChannelAndProgramListCaches(date, progress_callback, clearExistingProgramList)
         
         channels = self._getChannelList(onlyVisible = True, categories = categories)
@@ -430,7 +429,7 @@ class Database(object):
             channelStart = len(channels) - 1
         elif channelStart > len(channels) - 1:
             channelStart = 0
-        channelEnd = channelStart + Database.CHANNELS_PER_PAGE
+        channelEnd = channelStart + nmrChannels
         channelsOnPage = channels[channelStart : channelEnd]
 
         programs = self._getProgramList(channelsOnPage, date)

@@ -45,9 +45,9 @@
             <control type="button" id="5001">
                 <description>marker for EPG data view - should be hidden!</description>
                 <posx>264</posx>
-                <posy>80</posy>
+                <posy>130</posy>
                 <width>1000</width>
-                <height>450</height>
+                <height>400</height>
                 <visible>false</visible>
             </control>
 
@@ -62,7 +62,7 @@
                 <control type="label" id="4000">
                     <description>Displays todays date</description>
                     <posx>202</posx>
-                    <posy>3</posy>
+                    <posy>65</posy>
                     <width>180</width>
                     <height>50</height>
                     <textcolor>ffffc600</textcolor>
@@ -85,7 +85,7 @@
                 <control type="label" id="4001">
                     <description>1st half hour column</description>
                     <posx>234</posx>
-                    <posy>3</posy>
+                    <posy>65</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -95,7 +95,7 @@
                 <control type="label" id="4002">
                     <description>2nd half hour column</description>
                     <posx>479</posx>
-                    <posy>3</posy>
+                    <posy>65</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -105,7 +105,7 @@
                 <control type="label" id="4003">
                     <description>3rd half hour column</description>
                     <posx>729</posx>
-                    <posy>3</posy>
+                    <posy>65</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -115,7 +115,7 @@
                 <control type="label" id="4004">
                     <description>4th half hour column</description>
                     <posx>979</posx>
-                    <posy>3</posy>
+                    <posy>65</posy>
                     <width>270</width>
                     <height>50</height>
                     <textcolor>ff6aa6cb</textcolor>
@@ -127,7 +127,7 @@
             <!-- Channels column -->
             <control type="group">
                 <posx>66</posx>
-                <posy>80</posy>
+                <posy>130</posy>
                 <width>200</width>
                 <height>400</height>
                 <visible>true</visible>
@@ -359,9 +359,9 @@
             </control>
             <control type="image" id="4100">
                 <posx>180</posx>
-                <posy>80</posy>
+                <posy>130</posy>
                 <width>-50</width>
-                <height>448</height>
+                <height>398</height>
                 <texture>tvguide-timebar.png</texture>
             </control>
 

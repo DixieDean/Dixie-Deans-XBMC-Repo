@@ -71,9 +71,6 @@ print '=======XML path is======='
 print XML
 
 
-
-
-
 DEBUG = False
 
 MODE_EPG = 'EPG'
@@ -104,6 +101,22 @@ KEY_HOME = 159
 CHANNELS_PER_PAGE = 9
 
 HALF_HOUR = datetime.timedelta(minutes = 30)
+
+
+try:
+    #load cfg from file
+    f   = open(os.path.join(PATH, 'epg.cfg'))
+    cfg = f.readlines()
+    f.close()
+  
+    for l in cfg:
+        l = l.strip()
+        #sanity check on text
+        pts = l.split('=')
+        if len(pts) == 2:
+            exec(l)
+except:
+    pass
 
 def debug(s):
     if DEBUG: xbmc.log(str(s), xbmc.LOGDEBUG)
@@ -268,10 +281,10 @@ class TVGuide(xbmcgui.WindowXML):
             self.epgView.right = left + control.getWidth()
             self.epgView.bottom = top + control.getHeight()
             self.epgView.width = control.getWidth()
-            self.epgView.cellHeight = control.getHeight() / CHANNELS_PER_PAGE
+            self.epgView.cellHeight = 50
 
         try:
-            self.database = src.Database()
+            self.database = src.Database(CHANNELS_PER_PAGE)
         except src.SourceNotConfiguredException:
             self.onSourceNotConfigured()
             self.close()
@@ -732,7 +745,7 @@ class TVGuide(xbmcgui.WindowXML):
         self._clearEpg()
 
         try:
-            self.channelIdx, channels, programs = self.database.getEPGView(channelStart, startTime, self.onSourceProgressUpdate, clearExistingProgramList = False, categories = self.categoriesList)
+            self.channelIdx, channels, programs = self.database.getEPGView(channelStart, startTime, self.onSourceProgressUpdate, clearExistingProgramList = False, categories = self.categoriesList, nmrChannels = CHANNELS_PER_PAGE)
         except src.SourceException:
             self.onEPGLoadError()
             return

@@ -1,3 +1,8 @@
+v1.4.1
+New skin settings
+- option to change amount of channels displayed.
+- user modded skins will auto-show as a choice in settings.
+
 v1.4.0
 Corrected versioning error.
 Made ustvnow-dixie and LiveTV dependencies.
