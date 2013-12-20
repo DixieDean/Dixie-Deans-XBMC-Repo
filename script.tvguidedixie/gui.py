@@ -175,6 +175,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.initialized = False
         self.notification = None
         self.redrawingEPG = False
+        self.timebarVisible = False
         self.isClosing = False
         self.controlAndProgramList = list()
         self.ignoreMissingControlIds = list()
@@ -314,6 +315,8 @@ class TVGuide(xbmcgui.WindowXML):
             pass # skip the rest of the actions
 
         elif action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, KEY_CONTEXT_MENU, ACTION_PREVIOUS_MENU]:
+            self.viewStartDate = datetime.datetime.today()
+            self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
         elif action.getId() == ACTION_SHOW_INFO:
@@ -322,9 +325,12 @@ class TVGuide(xbmcgui.WindowXML):
     def onActionOSDMode(self, action):
         if action.getId() == ACTION_SHOW_INFO:
             self._hideOsd()
+            
 
         elif action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, KEY_CONTEXT_MENU, ACTION_PREVIOUS_MENU]:
             self._hideOsd()
+            self.viewStartDate = datetime.datetime.today()
+            self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
         elif action.getId() == ACTION_SELECT_ITEM:
@@ -740,7 +746,8 @@ class TVGuide(xbmcgui.WindowXML):
         self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
         self._showControl(self.C_MAIN_LOADING)
         self.setFocusId(self.C_MAIN_LOADING_CANCEL)
-
+        self.hideTimebar()
+        
         # remove existing controls
         self._clearEpg()
 
@@ -827,8 +834,9 @@ class TVGuide(xbmcgui.WindowXML):
             self.setFocus(self.controlAndProgramList[0].control)
 
         self._hideControl(self.C_MAIN_LOADING)
+        self.showTimebar()
         self.redrawingEPG = False
-
+                    
     def _clearEpg(self):
         controls = [elem.control for elem in self.controlAndProgramList]
         try:
@@ -846,6 +854,7 @@ class TVGuide(xbmcgui.WindowXML):
         self._hideControl(self.C_MAIN_LOADING)
         xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(LOAD_ERROR_LINE2))
         self.close()
+
 
     def onSourceNotConfigured(self):
         self.redrawingEPG = False
@@ -1025,6 +1034,21 @@ class TVGuide(xbmcgui.WindowXML):
         if control:
             control.setText(text)
 
+    def hideTimebar(self):
+        try:
+            self.timebarVisible = False
+            self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
+        except:
+            pass
+
+    def showTimebar(self):
+        try:
+            self.timebarVisible = True
+            self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
+        except:
+            pass
+            
+
     def updateTimebar(self, scheduleTimer = True):
         try:
             # move timebar to current time
@@ -1035,7 +1059,7 @@ class TVGuide(xbmcgui.WindowXML):
                 try:
                     # Sometimes raises:
                     # exceptions.RuntimeError: Unknown exception thrown from the call "setVisible"
-                    control.setVisible(timeDelta.days == 0)
+                    control.setVisible(timeDelta.days == 0 and self.timebarVisible)
                 except:
                     pass
                 control.setPosition(self._secondsToXposition(timeDelta.seconds), y)
