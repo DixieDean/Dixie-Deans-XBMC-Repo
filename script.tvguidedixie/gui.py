@@ -39,7 +39,6 @@ import buggalo
 import streaming
 #from threading import Timer
 from xbmcads import ads
-ads.ADDON_ADVERTISE('script.tvguidedixie')
 import xbmcaddon
 import os
 
@@ -871,8 +870,10 @@ class TVGuide(xbmcgui.WindowXML):
             self.onRedrawEPG(0, self.viewStartDate)
 
     def onSourceProgressUpdate(self, percentageComplete):
-        from xbmcads import ads
-        ads.ADDON_ADVERTISE('script.tvguidedixie')
+        try:
+            from xbmcads import ads
+            ads.ADDON_ADVERTISE('script.tvguidedixie')
+        except: pass
         control = self.getControl(self.C_MAIN_LOADING_PROGRESS)
         if percentageComplete < 1:
             if control:
