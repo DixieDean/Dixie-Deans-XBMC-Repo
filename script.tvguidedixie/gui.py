@@ -38,7 +38,6 @@ import buggalo
 
 import streaming
 #from threading import Timer
-from xbmcads import ads
 import xbmcaddon
 import os
 
@@ -220,16 +219,6 @@ class TVGuide(xbmcgui.WindowXML):
         self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
 
 
-#     def OnTimer(self):
-#         try:
-#             from xbmcads import ads
-#             ads.ADDON_ADVERTISE('script.tvguidedixie')
-#         except Exception, e:
-#             	print str(e)
-#             	pass
-# 
-#         	self.timer = Timer(1*60, self.OnTimer)
-#         	self.timer.start()
         
     def getControl(self, controlId):
         try:
@@ -870,10 +859,6 @@ class TVGuide(xbmcgui.WindowXML):
             self.onRedrawEPG(0, self.viewStartDate)
 
     def onSourceProgressUpdate(self, percentageComplete):
-        try:
-            from xbmcads import ads
-            ads.ADDON_ADVERTISE('script.tvguidedixie')
-        except: pass
         control = self.getControl(self.C_MAIN_LOADING_PROGRESS)
         if percentageComplete < 1:
             if control:

@@ -36,13 +36,6 @@ import xbmcgui
 import xbmcvfs
 import sqlite3
 
-def ShowAds(self):
-	try:
-		from xbmcads import ads
-		ads.ADDON_ADVERTISE('script.tvguidedixie')
-	except Exception, e:
-			print str(e)
-			pass
 
 SETTINGS_TO_CHECK = ['source', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom', 'categories.xml']
 

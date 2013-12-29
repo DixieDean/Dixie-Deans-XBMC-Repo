@@ -1,3 +1,6 @@
+v1.4.4
+Removed Popup Ads.
+
 v1.4.3
 Bug fix.
 
