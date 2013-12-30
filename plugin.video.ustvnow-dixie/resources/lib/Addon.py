@@ -42,7 +42,7 @@ def log(msg, err=False):
 def show_error(details):
     show_dialog(details, get_string(30000), True)
 
-def show_dialog(details, title='ustvnow', is_error=False):
+def show_dialog(details, title='ustvnow-dixie', is_error=False):
     error = ['', '', '']
     text = ''
     for k, v in enumerate(details):
