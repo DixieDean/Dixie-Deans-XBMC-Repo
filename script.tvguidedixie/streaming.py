@@ -30,7 +30,7 @@ import xbmcaddon
 class StreamsService(object):
     def __init__(self):
         path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'addons.ini')
-        url = 'http://www.tvgdixie.co.uk/addons.ini'
+        url = 'http://tvguidedixie.hostoi.com/addons.ini'
         urllib.urlretrieve(url, path)
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option
