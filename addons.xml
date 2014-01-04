@@ -79,20 +79,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.xbmc.ads"
-       name="XBMC Ads" version="1.0.4"  provider-name="XBMC Ads Ltd.">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-   <extension point="xbmc.python.module" library="lib" />
-   <extension point="xbmc.addon.metadata">
-        <summary>Get Vouchers/Giveaways and Ads</summary>
-        <description>Get Vouchers/Giveaways and Ads</description>
-        <platform>all</platform>
-    </extension>
-</addon>
-
-<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.4.4" provider-name="DixieDean, twinther">
+<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.4.5" provider-name="DixieDean, twinther">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.simplejson" version="2.0.10"/>

@@ -1,3 +1,6 @@
+v1.4.5
+Removed Xmas message (until next year ;-)).
+
 v1.4.4
 Removed Popup Ads.
 
