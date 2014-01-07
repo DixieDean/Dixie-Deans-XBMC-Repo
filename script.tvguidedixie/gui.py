@@ -40,6 +40,15 @@ import streaming
 #from threading import Timer
 import xbmcaddon
 import os
+addon       = xbmcaddon.Addon()
+addonid     = addon.getAddonInfo('id')
+addonname   = addon.getAddonInfo('name')
+author      = addon.getAddonInfo('author')
+version     = addon.getAddonInfo('version')
+addonpath   = addon.getAddonInfo('path')
+print '****** TV Guide Dixie Information ******'
+print addonid, addonname, author, version, addonpath
+
 
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
 SKIN = ADDON.getSetting('dixie.skin')

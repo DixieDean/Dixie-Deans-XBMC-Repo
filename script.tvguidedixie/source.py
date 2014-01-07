@@ -988,9 +988,8 @@ class DIXIESource(Source):
     #SJP1 this method returns a dictionary mapping channels to categories
     def getCategories(self):
         cat  = dict()
-        path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'cats.xml')
-        url = 'http://www.tvgdixie.co.uk/cats.xml'
-        
+        path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'cats.xml')
+        url = 'http://tvguidedixie.hostoi.com/cats.xml'
         f = urllib2.urlopen(url, timeout=30)
         xml = f.read()
         f.close()
@@ -1079,7 +1078,7 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
     
 def parseCATEGORIES(self, f, context):
     import os
-    path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'cats.xml')
+    path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'cats.xml')
     if os.path.exists(path):
         f = open(path)
         xml = f.read()

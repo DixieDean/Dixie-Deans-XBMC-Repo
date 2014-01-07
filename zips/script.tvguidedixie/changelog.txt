@@ -1,3 +1,6 @@
+v1.4.7
+Further url fixes.
+
 v1.4.6
 Minor url change for addons.ini to fix occasional errors on startup.
 
