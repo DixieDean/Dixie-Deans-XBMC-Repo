@@ -989,7 +989,7 @@ class DIXIESource(Source):
     def getCategories(self):
         cat  = dict()
         path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'cats.xml')
-        url = 'http://tvguidedixie.hostoi.com/cats.xml'
+        url = 'https://dl.dropboxusercontent.com/u/192034426/cats.xml'
         f = urllib2.urlopen(url, timeout=30)
         xml = f.read()
         f.close()
