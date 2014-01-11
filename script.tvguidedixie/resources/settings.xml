@@ -14,7 +14,7 @@
         <setting id="dixie.logo.folder" label="30116" type="folder" visible="eq(-5,1)"/>
         
 	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
-	<setting id="categories" label="categories" type="text" default="" visible="false"/>
+	<setting id="categories" label="categories" type="text" default="Movies" visible="false"/>
     </category>
 
     <category label="30114">
