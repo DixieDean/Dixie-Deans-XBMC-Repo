@@ -1,4 +1,4 @@
-v1.4.9
+v1.4.99
 New feature -
 Category selections saved and retained after restarting the addon.
 
