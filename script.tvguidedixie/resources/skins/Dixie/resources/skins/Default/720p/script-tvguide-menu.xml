@@ -79,7 +79,7 @@
             <posy>390</posy>
             <width>240</width>
             <height>200</height>
-            <font>tvg_font13</font>
+            <font>tvg_special13</font>
             <textcolor>ffffffff</textcolor>
             <label>$ADDON[script.tvguidedixie 30305]</label>
             <wrapmultiline>true</wrapmultiline>
@@ -136,7 +136,7 @@
             <ondown>4000</ondown>
             <align>center</align>
             <aligny>center</aligny>
-            <font>tvg_font13</font>
+            <font>tvg_font1</font>
             <textcolor>ffffffff</textcolor>
             <label>$ADDON[script.tvguidedixie 30308]</label>
         </control>

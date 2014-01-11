@@ -52,31 +52,19 @@ print addonid, addonname, author, version, addonpath
 
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
 SKIN = ADDON.getSetting('dixie.skin')
-
 skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-skin_dir = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-list_dir = os.listdir( skin_dir )
 
 if os.path.exists(skin_path):
     PATH = skin_path
 
 xml_file = os.path.join('script-tvguide-main.xml')
-if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
     XML = xml_file
 
-print '======Skin directory list======'
-print list_dir
-print '=======Skin path is======'
-print skin_path
-print '=======XML path is======='
-print xml_file
 print '======Skin is======'
 print SKIN
 print '=======Skin path is======'
 print PATH
-print '=======XML path is======='
-print XML
-
 
 DEBUG = False
 
@@ -192,10 +180,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.streamingService = streaming.StreamsService()
         self.player = xbmc.Player()
         self.database = None
-        self.categoriesList = None
-        #self.categories = list()
-#         self.timer = Timer(5, self.OnTimer)
-#         self.timer.start()
+        self.categoriesList = ADDON.getSetting('categories').split('|')
 
         self.mode = MODE_EPG
         self.currentChannel = None
@@ -551,6 +536,7 @@ class TVGuide(xbmcgui.WindowXML):
             d.doModal()
             self.categoriesList = d.currentCategories
             del d
+            ADDON.setSetting('categories', '|'.join(self.categoriesList))
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
         elif buttonClicked == PopupMenu.C_POPUP_QUIT:
@@ -1081,17 +1067,11 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
 
     #SJP added touch parameter
     def __new__(cls, database, program, showRemind, touch):
-    
-		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-
-		if os.path.exists(skin_path):
-			PATH = skin_path
-    
-		xml_file = os.path.join('script-tvguide-menu.xml')
-		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
-			XML = xml_file
-	
-		return super(PopupMenu, cls).__new__(cls, XML, PATH)
+        xml_file = os.path.join('script-tvguide-menu.xml')
+        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+            XML = xml_file
+            
+        return super(PopupMenu, cls).__new__(cls, XML, PATH)
 
     #SJP added touch parameter
     def __init__(self, database, program, showRemind, touch):
@@ -1179,17 +1159,11 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
 
 
     def __new__(cls, database):
-    
-		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-
-		if os.path.exists(skin_path):
-			PATH = skin_path
-
-		xml_file = os.path.join('script-tvguide-channels.xml')
-		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
-			XML = xml_file
-	
-		return super(ChannelsMenu, cls).__new__(cls, XML, PATH)
+        xml_file = os.path.join('script-tvguide-channels.xml')
+        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+            XML = xml_file
+        
+        return super(ChannelsMenu, cls).__new__(cls, XML, PATH)
 
     def __init__(self, database):
         """
@@ -1338,17 +1312,11 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 
 
     def __new__(cls, database, channel):
-    
-		skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-
-		if os.path.exists(skin_path):
-			PATH = skin_path
-
-		xml_file = os.path.join('script-tvguide-streamsetup.xml')
-		if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
-			XML = xml_file
-			
-		return super(StreamSetupDialog, cls).__new__(cls, XML, PATH)
+        xml_file = os.path.join('script-tvguide-streamsetup.xml')
+        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+            XML = xml_file
+            
+        return super(StreamSetupDialog, cls).__new__(cls, XML, PATH)
 
     def __init__(self, database, channel):
         """
@@ -1506,16 +1474,9 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
     C_SELECTION_LIST = 1000
 
-
     def __new__(cls, addons):
-    
-        skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-        
-        if os.path.exists(skin_path):
-            PATH = skin_path
-            
         xml_file = os.path.join('script-tvguide-streamaddon.xml')
-        if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
             
         return super(ChooseStreamAddonDialog, cls).__new__(cls, XML, PATH)
@@ -1564,14 +1525,8 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
     C_CATEGORIES_CANCEL = 7003
 
     def __new__(cls, database, categoriesList):
-    
-        skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
-        
-        if os.path.exists(skin_path):
-            PATH = skin_path
-            
         xml_file = os.path.join('script-tvguide-categories.xml')
-        if os.path.join(skin_path, 'resources', 'skins', 'Default', '720p', xml_file):
+        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
             
         return super(CategoriesMenu, cls).__new__(cls, XML, PATH)

@@ -30,7 +30,7 @@ import xbmcaddon
 class StreamsService(object):
     def __init__(self):
         path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'addons.ini')
-        url = 'https://dl.dropboxusercontent.com/u/192034426/addons.ini'
+        url = 'https://raw2.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/tvgdatafiles/addons.ini'
         urllib.urlretrieve(url, path)
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option
