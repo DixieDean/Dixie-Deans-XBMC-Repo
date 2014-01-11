@@ -1070,8 +1070,41 @@
                <category>Music</category>
                <channel>Jukebox Hyped Tracks</channel>
          </cats>
-   </Document>
-   
-   
+         <cats>
+               <category>USTVNOW</category>
+               <channel>USTVNOW</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>ABC PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>CBS PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>NBC PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>FOX PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>My9 PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>CW PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>PBS PA</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW</category>
+               <channel>A&amp;E</channel>
+         </cats>
    
    
