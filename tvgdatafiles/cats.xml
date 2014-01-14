@@ -1134,4 +1134,32 @@
                <category>All Channels|OffSide Streams</category>
                <channel>6EREN DK</channel>
          </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>BeIN Sports English</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>Bloomberg</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>Colors</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>Star Gold</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>Star Plus</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>SET Asia</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>SET Max</channel>
+         </cats>
      </Document>
