@@ -1106,4 +1106,32 @@
                <category>All Channels|USTVNOW</category>
                <channel>A&E</channel>
          </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>Premier Sports</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>Ten Cricket</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>OSN 1</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>OSN 2</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>OSN 3</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>OSN 4</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams</category>
+               <channel>6EREN DK</channel>
+         </cats>
      </Document>
