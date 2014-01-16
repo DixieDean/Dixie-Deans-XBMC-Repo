@@ -29,19 +29,29 @@ import buggalo
 import xbmcaddon
 import xbmcplugin
 from strings import *
-
-import ysapi
 import xbmc
 import xbmcgui
 import xbmcvfs
 import sqlite3
 
 
+LOGOS      = ADDON.getSetting('dixie.logo.folder')
+logos_path = os.path.join(xbmc.translatePath('special://home/userdata/addon_data') , 'script.tvguidedixie', 'extras', 'logos', LOGOS)
+# ADDON.setSetting('dixie.logo.folder', logos_path)
+print '========== Logo Pack =========='
+print logos_path
+
+
+# logo_files = os.listdir(logos_path)
+# print '========== Logo Files =========='
+# print logo_files
+# 
+
 SETTINGS_TO_CHECK = ['source', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom', 'categories.xml']
 
 class Channel(object):
     #SJP1 categories parameter moved to end
-    def __init__(self, id, title, logo = None, streamUrl = None, visible = True, weight = -1, categories=''):
+    def __init__(self, id, title, logo = None, streamUrl = None, visible = True, weight = -1, categories = ''):
         self.id = id
         self.title = title
         self.categories = categories
@@ -63,7 +73,7 @@ class Channel(object):
 
 
 class Program(object):
-    def __init__(self, channel, title, startDate, endDate, description, subTitle, imageLarge = None, imageSmall=None, notificationScheduled = None):
+    def __init__(self, channel, title, startDate, endDate, description, subTitle, imageLarge = None, imageSmall = None, notificationScheduled = None):
         """
 
         @param channel:
@@ -476,7 +486,7 @@ class Database(object):
 
 
     def _getChannelList(self, onlyVisible, categories = None):
-        if categories:
+        if categories and len(categories) > 0:
             return self._getChannelListFilteredByCategory(onlyVisible, categories)
         c = self.conn.cursor()
         channelList = list()
@@ -953,7 +963,9 @@ class DIXIESource(Source):
             
 
     def __init__(self, addon):
-        self.logoFolder = addon.getSetting('dixie.logo.folder')
+        self.logoFolder = None
+        if os.path.exists(logos_path):
+            self.logoFolder = logos_path
         self.dixieUrl = addon.getSetting('dixie.url')
         self.KEY += '.' + self.dixieUrl.upper()
         self.xml = None
@@ -1051,7 +1063,7 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 title = elem.findtext("display-name")
                 logo = None
                 if logoFolder:
-                    logoFile = os.path.join(logoFolder, title + '.png')
+                    logoFile = os.path.join(logos_path, title + '.png')
                     if xbmcvfs.exists(logoFile):
                         logo = logoFile
 
@@ -1083,18 +1095,16 @@ def parseCATEGORIES(self, f, context):
         f = open(path)
         xml = f.read()
         f.close()
-            
+
     for event, elem in context:
-    	if event == "end":
-    		result = None
-            	if elem.get == "channel":
-                	categories = elem.findtext("category")
-                    
-                	result = Channel(categories)
-            
-        	return self.categories
-    	else:
-        	return None
+        if event == "end":
+            result = None
+            if elem.get == "channel":
+                categories = elem.findtext("category")
+                result = Channel(categories)
+            return self.categories
+        else:
+            return None
 
 
 

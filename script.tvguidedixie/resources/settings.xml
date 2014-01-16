@@ -11,14 +11,16 @@
  		<setting id="gmtfrom" label="30124" type="labelenum"  default="GMT"
 					values="GMT-12|GMT-11|GMT-10|GMT-9|GMT-8|GMT-7|GMT-6|GMT-5|GMT-4|GMT-3|GMT-2|GMT-1|GMT|GMT+1|GMT+2|GMT+3|GMT+4|GMT+5|GMT+6|GMT+7|GMT+8|GMT+9|GMT+10|GMT+11|GMT+12"
 					visible="eq(-4,1)" />
-        <setting id="dixie.logo.folder" label="30116" type="folder" visible="eq(-5,1)"/>
+		<setting label="Download Default Logo Pack" type="action" action="RunScript($CWD/logoDownloader.py)" visible="eq(-5,1)" />
+		<setting id="dixie.logo.folder" label="Choose Logo Pack" type="select"  source="../../userdata/addon_data/script.tvguidedixie/extras/logos/" mask="/" default="" visible="eq(-6,1)" />
         
 	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
-	<setting id="categories" label="categories" type="text" default="Movies" visible="false"/>
+	<setting id="categories" label="categories" type="text" default="" visible="false"/>
     </category>
 
     <category label="30114">
-        <setting id="dixie.skin" label="Choose Skin Style" type="select"  source="/resources/skins/" mask="/" default="Dixie"/>
+        <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="Dixie"/>
+		<setting id="mashmode" type="text" label="MASHMODE" default="false" visible="false"/>
         <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" />
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" />
         <setting label="30119" type="lsep" />

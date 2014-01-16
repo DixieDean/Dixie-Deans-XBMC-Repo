@@ -52,7 +52,11 @@ msgctxt "#30008"
 msgid "Cancel"
 msgstr ""
 
-#empty strings from id 30009 to 30099
+msgctxt "#30009"
+msgid "No program available"
+msgstr ""
+
+#empty strings from id 30010 to 30099
 
 msgctxt "#30100"
 msgid "General"
@@ -237,7 +241,7 @@ msgid "Choose stream"
 msgstr ""
 
 msgctxt "#30305"
-msgid "You can choose your own .strm file to play, when you want to watch this channel."
+msgid "Configure the stream for this channel."
 msgstr ""
 
 msgctxt "#30306"
@@ -321,7 +325,7 @@ msgid "Stop preview"
 msgstr ""
 
 msgctxt "#30608"
-msgid "TV Catchup"
+msgid "Mash Up"
 msgstr ""
 
 #empty strings from id 30609 to 30609
@@ -341,7 +345,7 @@ msgid "Choose a favourite below. Only [I]PlayMedia[/I] favourites are supported.
 msgstr ""
 
 msgctxt "#30621"
-msgid "Choose a TV Catchup channel below."
+msgid "Choose a Mash Up channel below."
 msgstr ""
 
 #empty strings from id 30622 to 30699

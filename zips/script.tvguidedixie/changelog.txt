@@ -1,3 +1,9 @@
+v1.5.0
+New feature - Default Logo Pack downloader.
+New feature (credit to twinther, spoyser) - If no program data is available and default program is shown.
+Category behavior resolved - Default is all channels show ready for category choice.
+Skins moved to userdata folder for easier install of custom skins.
+
 v1.4.99
 New feature -
 Category selections saved and retained after restarting the addon.

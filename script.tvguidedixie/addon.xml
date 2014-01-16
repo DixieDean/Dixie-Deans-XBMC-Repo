@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.4.99" provider-name="DixieDean, twinther">
+<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.5.0" provider-name="DixieDean, twinther">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.simplejson" version="2.0.10"/>

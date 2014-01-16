@@ -17,14 +17,6 @@
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
 #
-import MyFont
-MyFont.addFont( "osd1" , "LightCaps.ttf" , "36" )
-MyFont.addFont( "osd2" , "LightCaps.ttf" , "30" )
-MyFont.addFont( "osdTitle" , "Ubuntu-L.ttf" , "32" )
-MyFont.addFont( "rss" , "Ubuntu-R.ttf" , "22" )
-MyFont.addFont( "tvg_font10" , "Ubuntu-R.ttf" , "16" )
-MyFont.addFont( "tvg_font13" , "Ubuntu-R.ttf" , "22" )
-MyFont.addFont( "tvg_font14" , "Ubuntu-R.ttf" , "20" )
 import datetime
 import threading
 import time
@@ -37,33 +29,60 @@ from strings import *
 import buggalo
 
 import streaming
-#from threading import Timer
 import xbmcaddon
+import xbmc
 import os
-addon       = xbmcaddon.Addon()
-addonid     = addon.getAddonInfo('id')
-addonname   = addon.getAddonInfo('name')
-author      = addon.getAddonInfo('author')
-version     = addon.getAddonInfo('version')
-addonpath   = addon.getAddonInfo('path')
+import shutil
+addon     = xbmcaddon.Addon()
+addonid   = addon.getAddonInfo('id')
+addonname = addon.getAddonInfo('name')
+author    = addon.getAddonInfo('author')
+version   = addon.getAddonInfo('version')
+addonpath = addon.getAddonInfo('path')
 print '****** TV Guide Dixie Information ******'
 print addonid, addonname, author, version, addonpath
 
+ADDON     = xbmcaddon.Addon(id = 'script.tvguidedixie')
+MASHMODE  = (ADDON.getSetting('mashmode') == 'true')
+SKIN      = ADDON.getSetting('dixie.skin')
+mash_path = os.path.join(xbmc.translatePath('special://home/userdata/addon_data') , 'script.tvguidedixie', 'extras', 'skins', 'Mash Up')
+skin_path = os.path.join(xbmc.translatePath('special://home/userdata/addon_data') , 'script.tvguidedixie', 'extras', 'skins', SKIN)
+mashfile = os.path.join(xbmc.translatePath('special://userdata/addon_data'), 'plugin.video.movie25', 'Dixie', 'mashup.ini')
 
-ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
-SKIN = ADDON.getSetting('dixie.skin')
-skin_path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'skins', SKIN)
+if MASHMODE:
+    PATH  = mash_path
+else:
+    PATH  = skin_path
 
-if os.path.exists(skin_path):
-    PATH = skin_path
+if not os.path.exists(skin_path):
+    import urllib,dxmnew
+    datapath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    Path=os.path.join(datapath,'extras')
+    try: os.makedirs(Path)
+    except: pass
+    Url = 'https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/skins.zip'
+    LocalName = 'skin.zip'
+    LocalFile = xbmc.translatePath(os.path.join(Path, LocalName))
+    try: urllib.urlretrieve(Url,LocalFile)
+    except:xbmc.executebuiltin("XBMC.Notification(TV Guide Dixie,Skin download failed,3000)")
+    if os.path.isfile(LocalFile):
+        extractFolder = Path
+        pluginsrc =  xbmc.translatePath(os.path.join(extractFolder))
+        dxmnew.unzipAndMove(LocalFile,extractFolder,pluginsrc)
+    try:os.remove(LocalFile)
+    except:pass
+
+
+ADDON.setSetting('mashmode', 'false')
+
 
 xml_file = os.path.join('script-tvguide-main.xml')
-if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
-    XML = xml_file
+if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
+    XML  = xml_file
 
-print '======Skin is======'
+print '====== Skin is ======'
 print SKIN
-print '=======Skin path is======'
+print '======= Skin path is ======'
 print PATH
 
 DEBUG = False
@@ -181,7 +200,8 @@ class TVGuide(xbmcgui.WindowXML):
         self.player = xbmc.Player()
         self.database = None
         self.categoriesList = ADDON.getSetting('categories').split('|')
-
+        if self.categoriesList[0] == '':
+           self.categoriesList = []
         self.mode = MODE_EPG
         self.currentChannel = None
 
@@ -740,6 +760,8 @@ class TVGuide(xbmcgui.WindowXML):
             self.onEPGLoadError()
             return
 
+        channelsWithoutPrograms = list(channels)
+
         # date and time row
         self.setControlLabel(self.C_MAIN_DATE, self.formatDate(self.viewStartDate))
         for col in range(1, 5):
@@ -765,6 +787,8 @@ class TVGuide(xbmcgui.WindowXML):
 
         for program in programs:
             idx = channels.index(program.channel)
+            if program.channel in channelsWithoutPrograms:
+                channelsWithoutPrograms.remove(program.channel)
 
             startDelta = program.startDate - self.viewStartDate
             stopDelta = program.endDate - self.viewStartDate
@@ -800,6 +824,24 @@ class TVGuide(xbmcgui.WindowXML):
                 )
 
                 self.controlAndProgramList.append(ControlAndProgram(control, program))
+
+        for channel in channelsWithoutPrograms:
+            idx = channels.index(channel)
+
+            control = xbmcgui.ControlButton(
+                self.epgView.left,
+                self.epgView.top + self.epgView.cellHeight * idx,
+                (self.epgView.right - self.epgView.left) - 2,
+                self.epgView.cellHeight - 2,
+                strings(NO_PROGRAM_AVAILABLE),
+                noFocusTexture='tvguide-program-grey.png',
+                focusTexture='tvguide-program-grey-focus.png'
+            )
+
+            now  = datetime.datetime.today()
+            then = now + datetime.timedelta(minutes = 24*60)
+            program = src.Program(channel, strings(NO_PROGRAM_AVAILABLE), now, then, "", "")
+            self.controlAndProgramList.append(ControlAndProgram(control, program))
 
         # add program controls
         if focusFunction is None:
@@ -1068,7 +1110,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     #SJP added touch parameter
     def __new__(cls, database, program, showRemind, touch):
         xml_file = os.path.join('script-tvguide-menu.xml')
-        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+        if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
             
         return super(PopupMenu, cls).__new__(cls, XML, PATH)
@@ -1104,9 +1146,9 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
             self.setFocusId(self.C_POPUP_CHOOSE_STREAM)
         # SJP - if in touch screen mode always enable Play button and
         # set focus to it
-        if self.touch:
+        if self.touch or self.program.title == strings(NO_PROGRAM_AVAILABLE):
             playControl.setEnabled(True)
-            self.setFocusId(self.C_POPUP_PLAY)
+            self.setFocusId(self.C_POPUP_PLAY)        
         if self.database.getCustomStreamUrl(self.program.channel):
             chooseStrmControl = self.getControl(self.C_POPUP_CHOOSE_STREAM)
             chooseStrmControl.setLabel(strings(REMOVE_STRM_FILE))
@@ -1160,7 +1202,7 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
 
     def __new__(cls, database):
         xml_file = os.path.join('script-tvguide-channels.xml')
-        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+        if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
         
         return super(ChannelsMenu, cls).__new__(cls, XML, PATH)
@@ -1287,6 +1329,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_STRM_TAB = 101
     C_STREAM_FAVOURITES_TAB = 102
     C_STREAM_ADDONS_TAB = 103
+    C_STREAM_MASHUP_TAB = 104
     C_STREAM_STRM_BROWSE = 1001
     C_STREAM_STRM_FILE_LABEL = 1005
     C_STREAM_STRM_PREVIEW = 1002
@@ -1304,16 +1347,25 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_ADDONS_OK = 3006
     C_STREAM_ADDONS_CANCEL = 3007
 
+    C_STREAM_MASHUP = 4001
+    C_STREAM_MASHUP_STREAMS = 4002
+    C_STREAM_MASHUP_NAME = 4003
+    C_STREAM_MASHUP_DESCRIPTION = 4004
+    C_STREAM_MASHUP_PREVIEW = 4005
+    C_STREAM_MASHUP_OK = 4006
+    C_STREAM_MASHUP_CANCEL = 4007
+
     C_STREAM_VISIBILITY_MARKER = 100
 
     VISIBLE_STRM = 'strm'
     VISIBLE_FAVOURITES = 'favourites'
     VISIBLE_ADDONS = 'addons'
-
+    VISIBLE_MASHUP= 'mashup'
 
     def __new__(cls, database, channel):
         xml_file = os.path.join('script-tvguide-streamsetup.xml')
-        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+        
+        if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
             
         return super(StreamSetupDialog, cls).__new__(cls, XML, PATH)
@@ -1329,6 +1381,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 
         self.player = xbmc.Player()
         self.previousAddonId = None
+        self.previousProvider = None
         self.strmFile = None
         self.streamingService = streaming.StreamsService()
 
@@ -1340,6 +1393,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onInit'})
     def onInit(self):
         self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
+        if not os.path.exists(mashfile):
+            self.getControl(self.C_STREAM_MASHUP_TAB).setVisible(False)
 
         favourites = self.streamingService.loadFavourites()
         items = list()
@@ -1363,7 +1418,19 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl = self.getControl(StreamSetupDialog.C_STREAM_ADDONS)
         listControl.addItems(items)
         self.updateAddonInfo()
-        
+
+        items  = list()
+        for provider in self.streamingService.getMashup():
+            try:
+                item = xbmcgui.ListItem(provider, iconImage=self.streamingService.getMashupIcon(provider))
+                item.setProperty('provider', provider)
+                items.append(item)
+            except:
+                pass
+        listControl = self.getControl(StreamSetupDialog.C_STREAM_MASHUP)
+        listControl.addItems(items)
+        self.updateMashupInfo()
+    
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onAction'})
     def onAction(self, action):
@@ -1373,6 +1440,10 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 
         elif self.getFocusId() == self.C_STREAM_ADDONS:
             self.updateAddonInfo()
+
+        elif self.getFocusId() == self.C_STREAM_MASHUP:
+            self.updateMashupInfo()
+
 
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onClick'})
@@ -1400,19 +1471,28 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 self.database.setCustomStreamUrl(self.channel, stream)
             self.close()
             
+        elif controlId == self.C_STREAM_MASHUP_OK:
+            listControl = self.getControl(self.C_STREAM_MASHUP_STREAMS)
+            item = listControl.getSelectedItem()
+            if item:
+                stream = item.getProperty('stream')
+                self.database.setCustomStreamUrl(self.channel, stream)
+            self.close()
+
         elif controlId == self.C_STREAM_STRM_OK:
             self.database.setCustomStreamUrl(self.channel, self.strmFile)
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL]:
+        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_MASHUP_CANCEL]:
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW]:
+        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_MASHUP_PREVIEW]:
             if self.player.isPlaying():
                 self.player.stop()
                 self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(PREVIEW_STREAM))
+                self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 return
 
             stream = None
@@ -1427,12 +1507,24 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 item = listControl.getSelectedItem()
                 if item:
                     stream = item.getProperty('stream')
+            elif visible == self.VISIBLE_MASHUP:
+                listControl = self.getControl(self.C_STREAM_MASHUP_STREAMS)
+                item = listControl.getSelectedItem()
+                if item:
+                    stream = item.getProperty('stream')
             elif visible == self.VISIBLE_STRM:
                 stream = self.strmFile
 
             if stream is not None:
+                # Rich to delete these - various tests.
+                # path = os.path.join(ADDON.getAddonInfo('path'), 'preview.py')
+                # prev = xbmc.executebuiltin('XBMC.RunScript(%s,%s,%s)' % (path, stream, windowed))
+                # self.player.play(prev)
+                # xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+                # self.player.play = xbmc.executebuiltin('XBMC.RunPlugin(%s)' % stream)
                 self.player.play(item = stream, windowed = True)
                 if self.player.isPlaying():
+                    self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(STOP_PREVIEW))
@@ -1445,6 +1537,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_FAVOURITES)
         elif controlId == self.C_STREAM_ADDONS_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_ADDONS)
+        elif controlId == self.C_STREAM_MASHUP_TAB:
+            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_MASHUP)
 
     def updateAddonInfo(self):
         listControl = self.getControl(self.C_STREAM_ADDONS)
@@ -1470,6 +1564,31 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.reset()
         listControl.addItems(items)
 
+    def updateMashupInfo(self):
+        pass
+        listControl = self.getControl(self.C_STREAM_MASHUP)
+        item = listControl.getSelectedItem()
+        if item is None:
+            return
+
+        provider = item.getProperty('provider')
+        if provider == self.previousProvider:
+            return
+
+        self.previousProvider = provider
+        self.getControl(self.C_STREAM_MASHUP_NAME).setLabel('[B]%s[/B]' % provider)
+        self.getControl(self.C_STREAM_MASHUP_DESCRIPTION).setText('')
+
+        streams = self.streamingService.getMashupStreams(provider)
+        items = list()
+        for (label, stream) in streams:
+            if label.upper() != 'ICON':
+                item = xbmcgui.ListItem(label)
+                item.setProperty('stream', stream)
+                items.append(item)
+        listControl = self.getControl(StreamSetupDialog.C_STREAM_MASHUP_STREAMS)
+        listControl.reset()
+        listControl.addItems(items)
 
 class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
     C_SELECTION_LIST = 1000
@@ -1526,7 +1645,7 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
 
     def __new__(cls, database, categoriesList):
         xml_file = os.path.join('script-tvguide-categories.xml')
-        if os.path.join(SKIN, 'resources', 'skins', 'Default', '720p', xml_file):
+        if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
             
         return super(CategoriesMenu, cls).__new__(cls, XML, PATH)
@@ -1545,7 +1664,7 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
             self.currentCategories = list(categoriesList)
         else:
             self.currentCategories = list()
-        
+
         self.workingCategories = list(self.currentCategories)
 
         self.swapInProgress = False

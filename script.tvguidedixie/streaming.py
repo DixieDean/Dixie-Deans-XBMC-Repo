@@ -26,7 +26,6 @@ import ConfigParser
 import os
 import xbmcaddon
 
-
 class StreamsService(object):
     def __init__(self):
         path = os.path.join(xbmc.translatePath('special://home/addons') , 'script.tvguidedixie', 'resources', 'addons.ini')
@@ -38,6 +37,29 @@ class StreamsService(object):
             self.addonsParser.read(path)
         except:
             print 'unable to parse addons.ini'
+
+        self.loadMashup()
+
+    def loadMashup(self):
+        Dixie = os.path.join(xbmc.translatePath('special://userdata/addon_data'), 'plugin.video.movie25', 'Dixie')
+        mashfile = os.path.join(Dixie,'mashup.ini')
+        if os.path.exists(mashfile):
+            print '************** Mashfile streaming.py ***************'
+            print Dixie
+            print mashfile 
+            os.remove(mashfile)
+        for path, subdirs, files in os.walk(Dixie):
+            for filename in files:
+                with open(Dixie+'/'+filename) as infile:
+                    for line in infile:
+                        open(mashfile,'a').write(line)
+        self.mashupParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
+        self.mashupParser.optionxform = lambda option: option
+        try:
+            self.mashupParser.read(mashfile)
+        except:
+            print 'unable to parse mashup.ini'
+
 
     def loadFavourites(self):
         entries = list()
@@ -63,6 +85,19 @@ class StreamsService(object):
                 pass
 
         return entries
+
+    def getMashup(self):
+        return self.mashupParser.sections()
+
+    def getMashupStreams(self, provider):
+        return self.mashupParser.items(provider)
+
+    def getMashupIcon(self, provider):
+        streams = self.getMashupStreams(provider)
+        for (label, stream) in streams:
+            if label.upper() == 'ICON':
+                return stream
+        return ''
         
     def getAddons(self):
         return self.addonsParser.sections()
