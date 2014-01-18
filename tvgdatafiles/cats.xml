@@ -2,7 +2,7 @@
    <Document>
          <!--Created with XmlGrid Free Online XML Editor (http://xmlgrid.net)-->
          <cats>
-               <category>All Channels|International|Ireland</category>
+               <category>All Channels|International</category>
                <channel>3e</channel>
          </cats>
          <cats>
@@ -26,11 +26,11 @@
                <channel>5 USA</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA|OffSide Streams|USTVNOW</category>
+               <category>All Channels|Entertainment|International|North America|OffSide Streams|StreamTVBox|USTVNOW</category>
                <channel>ABC</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA|USTVNOW</category>
+               <category>All Channels|Entertainment|International|North America|USTVNOW</category>
                <channel>AETV</channel>
          </cats>
          <cats>
@@ -82,7 +82,7 @@
                <channel>BeIN Sports 11 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|NTV</category>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BeIN Sports 12 HD</channel>
          </cats>
          <cats>
@@ -102,7 +102,7 @@
                <channel>alibi</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>AMC HD</channel>
          </cats>
          <cats>
@@ -118,19 +118,19 @@
                <channel>Animal Planet</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>Animal Planet HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|NTV</category>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
                <channel>At The Races</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|OffSide Streams|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BBC One</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|OffSide Streams|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BBC Two</channel>
          </cats>
          <cats>
@@ -146,7 +146,7 @@
                <channel>BBC THREE</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Sports|International|North America|OffSide Streams|StreamTVBox</category>
                <channel>Bein Sports HD</channel>
          </cats>
          <cats>
@@ -154,11 +154,11 @@
                <channel>Box Nation</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>Bravo HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>BRAVO HD</channel>
          </cats>
          <cats>
@@ -166,7 +166,7 @@
                <channel>Breaking Bad 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|NTV</category>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BT Sport 1</channel>
          </cats>
          <cats>
@@ -186,15 +186,15 @@
                <channel>Cartoon Network UK</channel>
          </cats>
          <cats>
-               <category>All Channels|Kids|International|USA|USTVNOW</category>
+               <category>All Channels|Kids|International|North America|USTVNOW</category>
                <channel>Cartoon Network US</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>CBS</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA|USTVNOW</category>
+               <category>All Channels|Entertainment|International|North America|USTVNOW</category>
                <channel>CBS PA</channel>
          </cats>
          <cats>
@@ -226,11 +226,11 @@
                <channel>Crime and Investigation</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|OffSide Streams|StreamTVBox</category>
+             <category>All Channels|News & Documentaries|International|North America|USTVNOW|OffSide Streams|StreamTVBox</category>
                <channel>CNN</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA|USTVNOW|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|News & Documentaries|International|North America|USTVNOW|OffSide Streams|StreamTVBox</category>
                <channel>CNN HD</channel>
          </cats>
          <cats>
@@ -238,7 +238,7 @@
                <channel>Comedy Central</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA|USTVNOW</category>
+               <category>All Channels|Entertainment|International|North America|USTVNOW</category>
                <channel>Comedy Central HD</channel>
          </cats>
          
@@ -252,7 +252,7 @@
                <channel>CSI 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|Canada|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Entertainment|International|North America|OffSide Streams|StreamTVBox</category>
                <channel>CTV HD</channel>
          </cats>
          <cats>
@@ -280,15 +280,15 @@
                <channel>Discovery Home</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>Discovery HD</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>Discovery US</channel>
          </cats>
          <cats>
-               <category>All Channels|Kids|International|USA</category>
+               <category>All Channels|Kids|International|North America</category>
                <channel>Disney Channel US</channel>
          </cats>
          <cats>
@@ -320,11 +320,11 @@
                <channel>ESPN UK</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>ESPN USA</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>ESPNU</channel>
          </cats>
          <cats>
@@ -360,19 +360,19 @@
                <channel>FOX News</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>Fox News US</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>Fox News HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>FOX 5 USA</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>Fox Sports 1</channel>
          </cats>
          <cats>
@@ -388,19 +388,19 @@
                <channel>FX</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>FX</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|USA</category>
+               <category>All Channels|Movies|International|North America</category>
                <channel>FX Movie Channel</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|USA</category>
+               <category>All Channels|Movies|International|North America</category>
                <channel>FXX HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>FXX HD</channel>
          </cats>
          <cats>
@@ -408,15 +408,15 @@
                <channel>GOLD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>HBO Comedy</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|Sports|International|USA</category>
+               <category>All Channels|Movies|Sports|International|North America</category>
                <channel>HBO HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|USA</category>
+               <category>All Channels|Movies|International|North America</category>
                <channel>HBO2</channel>
          </cats>
          <cats>
@@ -428,7 +428,7 @@
                <channel>History</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>History US</channel>
          </cats>
          <cats>
@@ -488,7 +488,7 @@
                <channel>Kiss TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual|International|USA</category>
+               <category>All Channels|Lifestyle & Factual|International|North America</category>
                <channel>Lifetime HD</channel>
          </cats>
          <cats>
@@ -524,7 +524,7 @@
                <channel>Movies4Men</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>MSG Network</channel>
          </cats>
          <cats>
@@ -540,7 +540,7 @@
                <channel>MTV HITS</channel>
          </cats>
          <cats>
-               <category>All Channels|Music|International|USA</category>
+               <category>All Channels|Music|International|North America</category>
                <channel>MTV US</channel>
          </cats>
          <cats>
@@ -548,7 +548,7 @@
                <channel>Nat Geo Channel UK</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|USA</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>Nat Geo US</channel>
          </cats>
          <cats>
@@ -556,11 +556,27 @@
                <channel>Nat Geo Wild</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>NBC</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <channel>NBC Sports ET1</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <channel>NBC Sports ET2</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <channel>NBC Sports ET3</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <channel>NBC Sports ET4</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Sports|OffSide Streams|StreamTVBox|North America</category>
                <channel>NBC Sports HD</channel>
          </cats>
          <cats>
@@ -568,19 +584,19 @@
                <channel>NCIS 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>NFL TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>NHL TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>NBA TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>Fox Sports 2</channel>
          </cats>
          
@@ -598,7 +614,7 @@
                <channel>Nickelodeon</channel>
          </cats>
          <cats>
-               <category>All Channels|Kids|International|USA</category>
+               <category>All Channels|Kids|International|North America</category>
                <channel>Nickelodeon US</channel>
          </cats>
          <cats>
@@ -614,15 +630,15 @@
                <channel>Racing UK</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>Sportsnet World HD</channel>
          </cats>
          <cats>
-               <category>All Channels|International|Ireland</category>
+               <category>All Channels|International</category>
                <channel>RTE One</channel>
          </cats>
          <cats>
-               <category>All Channels|International|Ireland</category>
+               <category>All Channels|International</category>
                <channel>RTE Two</channel>
          </cats>
          <cats>
@@ -634,15 +650,15 @@
                <channel>Seinfeld 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|Ireland</category>
+               <category>All Channels|Sports|International</category>
                <channel>Setanta Ireland</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|Ireland</category>
+               <category>All Channels|Sports|International</category>
                <channel>Setanta Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|USA</category>
+               <category>All Channels|Movies|International|North America</category>
                <channel>Showtime</channel>
          </cats>
          <cats>
@@ -742,15 +758,15 @@
                <channel>South Park 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>Spike HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|Canada</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>Sportsnet One HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|Canada</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>Sportsnet Ontario</channel>
          </cats>
          <cats>
@@ -762,11 +778,11 @@
                <channel>Star Trek Next Generation 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|USA</category>
+               <category>All Channels|Movies|International|North America</category>
                <channel>Starz</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>SYFY HD</channel>
          </cats>
          <cats>
@@ -774,7 +790,7 @@
                <channel>SYFY UK</channel>
          </cats>
          <cats>
-               <category>All Channels|International|International|USA</category>
+               <category>All Channels|International|International|North America</category>
                <channel>TBS HD</channel>
          </cats>
          <cats>
@@ -794,7 +810,7 @@
                <channel>The Big Bang Theory 247</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|Canada</category>
+               <category>All Channels|News & Documentaries|International|North America</category>
                <channel>The Discovery Channel Canada HD</channel>
          </cats>
          <cats>
@@ -814,7 +830,7 @@
                <channel>TLC</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>TNT HD</channel>
          </cats>
          <cats>
@@ -822,7 +838,7 @@
                <channel>Tom and Jerry 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|USA</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>Trace Sports</channel>
          </cats>
          <cats>
@@ -830,11 +846,11 @@
                <channel>True Blood 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|Canada</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>TSN 2 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|Canada</category>
+               <category>All Channels|Sports|International|North America</category>
                <channel>TSN HD</channel>
          </cats>
          <cats>
@@ -854,7 +870,7 @@
                <channel>Universal HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>USA Network</channel>
          </cats>
          <cats>
@@ -979,11 +995,11 @@
                <channel>Christmas 24</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>WPIX 11</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|USA</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>WWOR 9</channel>
          </cats>
          <cats>
@@ -1107,59 +1123,59 @@
                <channel>A&E</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>Premier Sports</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>Ten Cricket</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>OSN 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>OSN 2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>OSN 3</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>OSN 4</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>6EREN DK</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>BeIN Sports English</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>Bloomberg</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>Colors</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>Star Gold</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>Star Plus</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>SET Asia</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams</category>
+               <category>All Channels|OffSide Streams|StreamTVBox</category>
                <channel>SET Max</channel>
          </cats>
          <cats>
