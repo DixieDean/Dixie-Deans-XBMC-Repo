@@ -874,7 +874,7 @@
                <channel>BBC Red Button</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|NTV|Lifestyle & Factual</category>
                <channel>Sky Arts 1</channel>               
          </cats>
          <cats>
@@ -882,23 +882,23 @@
                <channel>Sky Arts 2</channel>               
          </cats>
          <cats>
-               <category>All Channels|Entertainment|Lifestyle & Factual</category>
+               <category>All Channels|NTV|Entertainment|Lifestyle & Factual</category>
                <channel>Sky Living</channel>               
          </cats>
          <cats>
-               <category>All Channels|Kids</category>
+               <category>All Channels|NTV|Kids</category>
                <channel>Cartoonito</channel>               
          </cats>
          <cats>
-               <category>All Channels|Kids</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|Kids</category>
                <channel>CBBC</channel>               
          </cats>
          <cats>
-               <category>All Channels|Kids</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|Kids</category>
                <channel>CBeebies</channel>               
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|News & Documentaries</category>
                <channel>H2</channel>               
          </cats>
          <cats>
@@ -914,44 +914,28 @@
                <channel>CBS Reality +1</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
                <channel>Pick</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
-               <channel>Really</channel>               
-         </cats>
-         <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|NTV|Lifestyle & Factual</category>
                <channel>Alibi</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
                <channel>Really</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|Lifestyle & Factual</category>
                <channel>Food Network</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual|International|North America|OffSide Streams|StreamTVBox|USTVNOW</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Lifestyle & Factual|International|North America</category>
                <channel>Food Network US</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|Lifestyle & Factual</category>
                <channel>Food Network +1</channel>               
-         </cats>
-         <cats>
-               <category>All Channels|Lifestyle & Factual</category>
-               <channel>Really</channel>               
-         </cats>
-         <cats>
-               <category>All Channels|Movies</category>
-               <channel>Hallmark Xmas</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Movies</category>
-               <channel>Christmas 24</channel>
          </cats>
          <cats>
                <category>All Channels|Entertainment|International|North America</category>
@@ -995,10 +979,6 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Thanksgiving</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
                <channel>Sons Of Anarchy</channel>
          </cats>
          <cats>
@@ -1020,14 +1000,6 @@
          <cats>
                <category>All Channels|24/7</category>
                <channel>Dr Who</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Movies</category>
-               <channel>Sky Christmas</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Movies</category>
-               <channel>True Christmas</channel>
          </cats>
          <cats>
                <category>All Channels|Music</category>
@@ -1102,11 +1074,11 @@
                <channel>OSN 4</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV</category>
                <channel>6EREN DK</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BeIN Sports English</channel>
          </cats>
          <cats>
