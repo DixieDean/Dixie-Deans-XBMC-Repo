@@ -6,7 +6,7 @@
                <channel>3e</channel>
          </cats>
          <cats>
-               <category>All Channels|Music|FilmOn|ExPatTV</category>
+               <category>All Channels|Music|(Not)FilmOn|ExPatTV</category>
                <channel>4Music</channel>
          </cats>
          <cats>
@@ -14,19 +14,23 @@
                <channel>4seven</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|NTV|FilmOn</category>
+               <category>All Channels|Entertainment|NTV|(Not)FilmOn</category>
                <channel>5 Star</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|FilmOn</category>
+               <category>All Channels|Entertainment|(Not)FilmOn</category>
                <channel>5 Star +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>5 USA</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America|OffSide Streams|StreamTVBox|USTVNOW</category>
+               <category>All Channels|Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>5 USA +1</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Entertainment|International|North America|OffSide Streams|StreamTVBox|USTVNOW|(Not)FilmOn</category>
                <channel>ABC</channel>
          </cats>
          <cats>
@@ -34,7 +38,7 @@
                <channel>AETV</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|News & Documentaries|OffSide Streams|StreamTVBox|(Not)FilmOn</category>
                <channel>Al Jazeera English</channel>
          </cats>
          <cats>
@@ -102,7 +106,7 @@
                <channel>alibi</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
                <channel>AMC HD</channel>
          </cats>
          <cats>
@@ -118,7 +122,7 @@
                <channel>Animal Planet</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
+               <category>All Channels|News & Documentaries|USTVNOW|International|North America</category>
                <channel>Animal Planet HD</channel>
          </cats>
          <cats>
@@ -126,27 +130,27 @@
                <channel>At The Races</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BBC One</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
                <channel>BBC Two</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|TV Catchup|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|News & Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>BBC FOUR</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|TV Catchup|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|News & Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>BBC News</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>BBC THREE</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Sports|International|North America|OffSide Streams|StreamTVBox|NTV</category>
                <channel>Bein Sports HD</channel>
          </cats>
          <cats>
@@ -154,11 +158,7 @@
                <channel>Box Nation</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
-               <channel>Bravo HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|Entertainment|International|North America</category>
                <channel>BRAVO HD</channel>
          </cats>
          <cats>
@@ -186,19 +186,15 @@
                <channel>Cartoon Network UK</channel>
          </cats>
          <cats>
-               <category>All Channels|Kids|International|North America|USTVNOW</category>
+               <category>All Channels|USTVNOW|Kids|International|North America</category>
                <channel>Cartoon Network US</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|North America|Entertainment</category>
                <channel>CBS</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America|USTVNOW</category>
-               <channel>CBS PA</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>Channel 4</channel>
          </cats>
          <cats>
@@ -206,11 +202,11 @@
                <channel>Channel 4 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>Channel 5</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|FilmOn</category>
+               <category>All Channels|Entertainment|(Not)FilmOn</category>
                <channel>Channel 5 +1</channel>
          </cats>
          <cats>
@@ -224,10 +220,6 @@
          <cats>
                <category>All Channels|News & Documentaries|NTV</category>
                <channel>Crime and Investigation</channel>
-         </cats>
-         <cats>
-             <category>All Channels|News & Documentaries|International|North America|USTVNOW|OffSide Streams|StreamTVBox</category>
-               <channel>CNN</channel>
          </cats>
          <cats>
                <category>All Channels|News & Documentaries|International|North America|USTVNOW|OffSide Streams|StreamTVBox</category>
@@ -252,7 +244,7 @@
                <channel>CSI 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Entertainment|International|North America</category>
                <channel>CTV HD</channel>
          </cats>
          <cats>
@@ -260,7 +252,7 @@
                <channel>Curb Your Enthusiasm 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|FilmOn|ExPatTV|NTV</category>
+               <category>All Channels|Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>Dave</channel>
          </cats>
          <cats>
@@ -272,7 +264,7 @@
                <channel>Discovery Science</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|NTV</category>
+               <category>All Channels|News & Documentaries|OffSide Streams|StreamTVBox|NTV</category>
                <channel>Discovery Channel</channel>
          </cats>
          <cats>
@@ -280,11 +272,7 @@
                <channel>Discovery Home</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
-               <channel>Discovery HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
+               <category>All Channels|USTVNOW|News & Documentaries|International|North America</category>
                <channel>Discovery US</channel>
          </cats>
          <cats>
@@ -304,7 +292,7 @@
                <channel>E!</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|NTV|Entertainment</category>
                <channel>E4</channel>
          </cats>
          <cats>
@@ -312,27 +300,31 @@
                <channel>E4+1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|Lifestyle & Factual</category>
+               <category>All Channels|NTV|Entertainment|Lifestyle & Factual</category>
                <channel>Eden</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>ESPN UK</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>ESPN USA</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
+               <channel>ESPN2 USA</channel>
+         </cats>
+         <cats>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
                <channel>ESPNU</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
                <channel>Eurosport</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
                <channel>Eurosport 2</channel>
          </cats>
          <cats>
@@ -340,7 +332,7 @@
                <channel>Family Guy 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|ExPatTV|NTV|Movies</category>
                <channel>Film4</channel>
          </cats>
          <cats>
@@ -348,32 +340,28 @@
                <channel>Film4 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|NTV|Entertainment</category>
                <channel>FOX UK</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries</category>
-               <channel>FOX News HD</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>FOX</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries</category>
+               <category>All Channels|NTV|News & Documentaries</category>
                <channel>FOX News</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
-               <channel>Fox News US</channel>
-         </cats>
-         <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
+               <category>All Channels|USTVNOW|News & Documentaries|International|North America</category>
                <channel>Fox News HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
-               <channel>FOX 5 USA</channel>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <channel>Fox Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
-               <channel>Fox Sports 1</channel>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <channel>Fox Sports 2</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -384,11 +372,7 @@
                <channel>Futurama 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
-               <channel>FX</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
                <channel>FX</channel>
          </cats>
          <cats>
@@ -396,15 +380,11 @@
                <channel>FX Movie Channel</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Movies|International|North America</category>
                <channel>FXX HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
-               <channel>FXX HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
                <channel>GOLD</channel>
          </cats>
          <cats>
@@ -412,7 +392,7 @@
                <channel>HBO Comedy</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies|Sports|International|North America</category>
                <channel>HBO HD</channel>
          </cats>
          <cats>
@@ -556,27 +536,23 @@
                <channel>Nat Geo Wild</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
-               <channel>NBC</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
                <channel>NBC Sports ET1</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
                <channel>NBC Sports ET2</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
                <channel>NBC Sports ET3</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
                <channel>NBC Sports ET4</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|North America</category>
                <channel>NBC Sports HD</channel>
          </cats>
          <cats>
@@ -584,25 +560,21 @@
                <channel>NCIS 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
                <channel>NFL TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
                <channel>NHL TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>NBA TV</channel>
          </cats>
-         <cats>
-               <category>All Channels|Sports|International|North America</category>
-               <channel>Fox Sports 2</channel>
-         </cats>
          
          
          <cats>
-               <category>All Channels|Kids</category>
+               <category>All Channels|NTV|Kids</category>
                <channel>Nick Jr</channel>
          </cats>
          <cats>
@@ -610,11 +582,11 @@
                <channel>Nick Jr 2</channel>
          </cats>
          <cats>
-               <category>All Channels|Kids</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Kids</category>
                <channel>Nickelodeon</channel>
          </cats>
          <cats>
-               <category>All Channels|Kids|International|North America</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|NTV|Kids|International|North America</category>
                <channel>Nickelodeon US</channel>
          </cats>
          <cats>
@@ -622,23 +594,23 @@
                <channel>PPV Events</channel>
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
                <channel>Quest</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Racing UK</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>Sportsnet World HD</channel>
          </cats>
          <cats>
-               <category>All Channels|International</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|International</category>
                <channel>RTE One</channel>
          </cats>
          <cats>
-               <category>All Channels|International</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|International</category>
                <channel>RTE Two</channel>
          </cats>
          <cats>
@@ -650,27 +622,27 @@
                <channel>Seinfeld 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
                <channel>Setanta Ireland</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International</category>
+               <category>All Channels|NTV|Sports|International</category>
                <channel>Setanta Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Movies|International|North America</category>
                <channel>Showtime</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Action</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|NTV|Entertainment</category>
                <channel>Sky Atlantic</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Comedy</channel>
          </cats>
          <cats>
@@ -678,79 +650,75 @@
                <channel>Sky Disney</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Drama</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Family</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Modern Greats</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries</category>
+               <category>All Channels|(Not)FilmOn|OffSide Streams|StreamTVBox|NTV|News & Documentaries</category>
                <channel>Sky News</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Poker</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Premiere</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Sci-FiHorror</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
-               <channel>Sky Sci-fiHorror</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Select</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Showcase</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Sports 2</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Sports 3</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Sports 4</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Sports F1</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Sky Sports News</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
                <channel>Sky Thriller</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|NTV|Entertainment</category>
                <channel>Sky 1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|NTV|Entertainment</category>
                <channel>Sky 2</channel>
          </cats>
          <cats>
@@ -758,15 +726,15 @@
                <channel>South Park 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|Entertainment|International|North America</category>
                <channel>Spike HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>Sportsnet One HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>Sportsnet Ontario</channel>
          </cats>
          <cats>
@@ -782,7 +750,7 @@
                <channel>Starz</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|Entertainment|International|North America</category>
                <channel>SYFY HD</channel>
          </cats>
          <cats>
@@ -790,11 +758,11 @@
                <channel>SYFY UK</channel>
          </cats>
          <cats>
-               <category>All Channels|International|International|North America</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|International|North America</category>
                <channel>TBS HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|NTV|Movies</category>
                <channel>TCM</channel>
          </cats>
          <cats>
@@ -810,10 +778,6 @@
                <channel>The Big Bang Theory 247</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
-               <channel>The Discovery Channel Canada HD</channel>
-         </cats>
-         <cats>
                <category>All Channels|24/7</category>
                <channel>The Fresh Prince OF Bel Air 247</channel>
          </cats>
@@ -826,11 +790,11 @@
                <channel>The Simpsons 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|NTV|Entertainment</category>
                <channel>TLC</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
                <channel>TNT HD</channel>
          </cats>
          <cats>
@@ -846,11 +810,11 @@
                <channel>True Blood 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>TSN 2 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>TSN HD</channel>
          </cats>
          <cats>
@@ -870,11 +834,11 @@
                <channel>Universal HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
                <channel>USA Network</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|NTV|Music</category>
                <channel>VH1</channel>
          </cats>
          <cats>
@@ -882,15 +846,15 @@
                <channel>VH1 Classic</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|Music</category>
                <channel>Vintage TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
                <channel>Virgin TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|NTV|Music</category>
                <channel>VIVA</channel>
          </cats>
          <cats>
@@ -902,11 +866,11 @@
                <channel>X-Files 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
                <channel>Yesterday</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|TV Catchup|Entertainment</category>
                <channel>BBC Red Button</channel>               
          </cats>
          <cats>
@@ -938,20 +902,16 @@
                <channel>H2</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
                <channel>CBS Drama</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
-               <channel>CBS Drama</channel>               
-         </cats>
-         <cats>
-               <category>All Channels|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
                <channel>CBS Reality</channel>               
          </cats>
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
-               <channel>Drama</channel>               
+               <category>All Channels|(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <channel>CBS Reality +1</channel>               
          </cats>
          <cats>
                <category>All Channels|Lifestyle & Factual</category>
@@ -973,14 +933,13 @@
                <category>All Channels|Lifestyle & Factual</category>
                <channel>Food Network</channel>               
          </cats>
-         
          <cats>
-               <category>All Channels|Lifestyle & Factual</category>
-               <channel>Food Network +1</channel>               
+               <category>All Channels|Lifestyle & Factual|International|North America|OffSide Streams|StreamTVBox|USTVNOW</category>
+               <channel>Food Network US</channel>               
          </cats>
          <cats>
                <category>All Channels|Lifestyle & Factual</category>
-               <channel>Really</channel>               
+               <channel>Food Network +1</channel>               
          </cats>
          <cats>
                <category>All Channels|Lifestyle & Factual</category>
@@ -1091,35 +1050,31 @@
                <channel>USTVNOW</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>ABC PA</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>ABC</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>CBS PA</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>CBS</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>NBC PA</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>NBC</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>FOX PA</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>My9</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>My9 PA</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>CW</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>CW PA</channel>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>PBS</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>PBS PA</channel>
-         </cats>
-         <cats>
-               <category>All Channels|USTVNOW</category>
+               <category>All Channels|USTVNOW|North America</category>
                <channel>A&E</channel>
          </cats>
          <cats>
