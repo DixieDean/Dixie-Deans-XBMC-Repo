@@ -400,7 +400,7 @@
                <channel>HBO2</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
                <channel>Heart TV</channel>
          </cats>
          <cats>
@@ -428,35 +428,35 @@
                <channel>It's Always Sunny In Philadelphia 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment</category>
                <channel>ITV1 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
                <channel>ITV1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
                <channel>ITV2</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment</category>
                <channel>ITV2 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
                <channel>ITV3</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment</category>
                <channel>ITV3 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
                <channel>ITV4</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment</category>
                <channel>ITV4 +1</channel>
          </cats>
          <cats>
@@ -464,7 +464,7 @@
                <channel>King Of Queens 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
                <channel>Kiss TV</channel>
          </cats>
          <cats>
@@ -488,7 +488,7 @@
                <channel>Modern Family 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|Lifestyle & Factual</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment|Lifestyle & Factual</category>
                <channel>More4</channel>
          </cats>
          <cats>
@@ -500,7 +500,7 @@
                <channel>Motors TV</channel>
          </cats>
          <cats>
-               <category>All Channels|Movies</category>
+               <category>All Channels|TV Catchup|NTV|Movies</category>
                <channel>Movies4Men</channel>
          </cats>
          <cats>
@@ -508,7 +508,7 @@
                <channel>MSG Network</channel>
          </cats>
          <cats>
-               <category>All Channels|Music</category>
+               <category>All Channels|NTV|Music</category>
                <channel>MTV</channel>
          </cats>
          <cats>
@@ -524,15 +524,15 @@
                <channel>MTV US</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries</category>
+               <category>All Channels|NTV|News & Documentaries</category>
                <channel>Nat Geo Channel UK</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|North America</category>
+               <category>All Channels|USTVNOW|News & Documentaries|International|North America</category>
                <channel>Nat Geo US</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries</category>
+               <category>All Channels|NTV|News & Documentaries</category>
                <channel>Nat Geo Wild</channel>
          </cats>
          <cats>
@@ -571,8 +571,6 @@
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>NBA TV</channel>
          </cats>
-         
-         
          <cats>
                <category>All Channels|NTV|Kids</category>
                <channel>Nick Jr</channel>
