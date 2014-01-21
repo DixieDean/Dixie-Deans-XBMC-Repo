@@ -226,6 +226,14 @@
                <channel>CNN HD</channel>
          </cats>
          <cats>
+               <category>All Channels|News & Documentaries|International|North America|USTVNOW</category>
+               <channel>CNBC</channel>
+         </cats>
+         <cats>
+               <category>All Channels|News & Documentaries|International|North America</category>
+               <channel>CNN</channel>
+         </cats>
+         <cats>
                <category>All Channels|Entertainment|NTV</category>
                <channel>Comedy Central</channel>
          </cats>
@@ -286,6 +294,10 @@
          <cats>
                <category>All Channels|Kids</category>
                <channel>Disney XD</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Lifestyle & Factual</category>
+               <channel>Drama</channel>               
          </cats>
          <cats>
                <category>All Channels|Entertainment|Lifestyle & Factual</category>
@@ -470,6 +482,10 @@
          <cats>
                <category>All Channels|Lifestyle & Factual|International|North America</category>
                <channel>Lifetime HD</channel>
+         </cats>
+         <cats>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>LIFE</channel>
          </cats>
          <cats>
                <category>All Channels|Music</category>
