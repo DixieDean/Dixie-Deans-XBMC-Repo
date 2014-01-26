@@ -127,6 +127,7 @@ class StreamsService(object):
                 return stream
 
         # Check all mashup and return all matches
+        matches = list()
         for provider in self.getMashup():
             streams = self.getMashupStreams(provider)
             for (label, stream) in streams:
@@ -134,7 +135,6 @@ class StreamsService(object):
                     matches.append((self.getMashupIcon(provider), label, stream))
 
         # Second check all addons and return all matches
-        matches = list()
         for id in self.getAddons():
             try:
                 xbmcaddon.Addon(id)

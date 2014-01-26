@@ -1,3 +1,7 @@
+v1.5.2
+Fixed error in the Detect Stream feature - If more than one match was found an error occured.
+Slight change to Preview Stream code.
+
 v1.5.1
 New dialog window for logo pack download.
 Added new skin download on first run.

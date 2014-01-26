@@ -1554,7 +1554,10 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
                 xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d)' % (path, stream, 1))
                 # xbmc.executebuiltin('XBMC.RunPlugin(%s)' % stream)
-                xbmc.sleep(8000)
+                retries = 10
+                while retries > 0 and not self.player.isPlaying():
+                   retries -= 1
+                   xbmc.sleep(1000)
                 if self.player.isPlaying():
                     self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
