@@ -1,3 +1,10 @@
+v1.5.1
+New dialog window for logo pack download.
+Added new skin download on first run.
+Automatically checks for missing (default) skins.
+Added Buggalo email for error reporting.
+Various bug fixes.
+
 v1.5.0
 New feature - Default Logo Pack downloader.
 New feature (credit to twinther, spoyser) - If no program data is available and default program is shown.

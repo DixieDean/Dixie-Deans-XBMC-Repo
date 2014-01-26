@@ -20,7 +20,7 @@
 import buggalo
 import gui
 
-#buggalo.SUBMIT_URL = 'http://tommy.winther.nu/exception/submit.php'
+buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
 
 try:
     w = gui.TVGuide()

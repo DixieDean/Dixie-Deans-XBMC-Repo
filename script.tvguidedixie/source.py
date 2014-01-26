@@ -34,18 +34,23 @@ import xbmcgui
 import xbmcvfs
 import sqlite3
 
+SOURCE     = ADDON.getSetting('source')
+DIXIELOGOS = ADDON.getSetting('dixie.logo.folder')
+XMLTVLOGOS = ADDON.getSetting('xmltv.logo.folder')
+datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+extras     = os.path.join(datapath, 'extras')
+logopath   = os.path.join(extras, 'logos')
+logos      = None
 
-LOGOS      = ADDON.getSetting('dixie.logo.folder')
-logos_path = os.path.join(xbmc.translatePath('special://home/userdata/addon_data') , 'script.tvguidedixie', 'extras', 'logos', LOGOS)
-# ADDON.setSetting('dixie.logo.folder', logos_path)
-print '========== Logo Pack =========='
-print logos_path
+if SOURCE == 'DIXIE':
+    logos = os.path.join(logopath, DIXIELOGOS)
+else:
+    logos = XMLTVLOGOS
 
+print '****** TV GUIDE DIXIE INFORMATION ******'
+print '*************** LOGO PACK **************'
+print logos
 
-# logo_files = os.listdir(logos_path)
-# print '========== Logo Files =========='
-# print logo_files
-# 
 
 SETTINGS_TO_CHECK = ['source', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom', 'categories.xml']
 
@@ -135,9 +140,9 @@ class Database(object):
         self.updateFailed = False
         self.settingsChanged = None
 
-        #buggalo.addExtraData('source', self.source.KEY)
-        #for key in SETTINGS_TO_CHECK:
-        #    buggalo.addExtraData('setting: %s' % key, ADDON.getSetting(key))
+        buggalo.addExtraData('source', self.source.KEY)
+        for key in SETTINGS_TO_CHECK:
+           buggalo.addExtraData('setting: %s' % key, ADDON.getSetting(key))
 
         self.channelList = list()
 
@@ -964,8 +969,8 @@ class DIXIESource(Source):
 
     def __init__(self, addon):
         self.logoFolder = None
-        if os.path.exists(logos_path):
-            self.logoFolder = logos_path
+        if os.path.exists(logos):
+            self.logoFolder = logos
         self.dixieUrl = addon.getSetting('dixie.url')
         self.KEY += '.' + self.dixieUrl.upper()
         self.xml = None
@@ -1000,7 +1005,7 @@ class DIXIESource(Source):
     #SJP1 this method returns a dictionary mapping channels to categories
     def getCategories(self):
         cat  = dict()
-        path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'cats.xml')
+        path = os.path.join(datapath, 'cats.xml')
         url = 'https://raw2.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/tvgdatafiles/cats.xml'
         f = urllib2.urlopen(url, timeout=30)
         xml = f.read()
@@ -1063,7 +1068,7 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 title = elem.findtext("display-name")
                 logo = None
                 if logoFolder:
-                    logoFile = os.path.join(logos_path, title + '.png')
+                    logoFile = os.path.join(logos, title + '.png')
                     if xbmcvfs.exists(logoFile):
                         logo = logoFile
 
@@ -1090,7 +1095,7 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
     
 def parseCATEGORIES(self, f, context):
     import os
-    path = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'cats.xml')
+    path = os.path.join(datapath, 'cats.xml')
     if os.path.exists(path):
         f = open(path)
         xml = f.read()
