@@ -42,63 +42,63 @@
                <channel>Al Jazeera English</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 1 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 2 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 3 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 4 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 5 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 6 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 7 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 8 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 9 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 10 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 11 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 12 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 13 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 14 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports 15 HD</channel>
          </cats>
          <cats>
@@ -126,7 +126,7 @@
                <channel>Animal Planet HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>At The Races</channel>
          </cats>
          <cats>
@@ -150,11 +150,11 @@
                <channel>BBC THREE</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|International|North America|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|International|North America|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Bein Sports HD</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Box Nation</channel>
          </cats>
          <cats>
@@ -166,11 +166,11 @@
                <channel>Breaking Bad 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BT Sport 1</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BT Sport 2</channel>
          </cats>
          <cats>
@@ -214,7 +214,7 @@
                <channel>Cheers 247</channel>
          </cats>
          <cats>
-               <category>All Channels|Sports|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>Chelsea TV</channel>
          </cats>
          <cats>
@@ -470,46 +470,6 @@
          <cats>
                <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment</category>
                <channel>ITV4 +1</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+1 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+2 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+3 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+4 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+5 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+6 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+7 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+8 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+9 HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|Sports</category>
-               <channel>JSC+10 HD</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1076,10 +1036,6 @@
                <channel>Jukebox Hyped Tracks</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW</category>
-               <channel>USTVNOW</channel>
-         </cats>
-         <cats>
                <category>All Channels|USTVNOW|North America</category>
                <channel>ABC</channel>
          </cats>
@@ -1108,35 +1064,35 @@
                <channel>A&E</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>Premier Sports</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>Ten Cricket</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>OSN 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>OSN 2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>OSN 3</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
                <channel>OSN 4</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>6EREN DK</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BeIN Sports English</channel>
          </cats>
          <cats>
