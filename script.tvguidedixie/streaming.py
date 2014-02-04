@@ -32,8 +32,6 @@ datapath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 class StreamsService(object):
     def __init__(self):
         path = os.path.join(datapath, 'addons.ini')
-        url = 'https://raw2.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/tvgdatafiles/addons.ini'
-        urllib.urlretrieve(url, path)
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option
         try:
@@ -77,9 +75,10 @@ class StreamsService(object):
                         value = value[11:-2]
                     elif value[0:10] == 'PlayMedia(':
                         value = value[10:-1]
+                    elif value[0:22] == 'ActivateWindow(10025,"':
+                        value = value[22:-2]
                     else:
                         continue
-
                     entries.append((node.get('name'), value))
             except ExpatError:
                 pass

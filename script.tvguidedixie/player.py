@@ -1,17 +1,51 @@
-import xbmc
 
-def play(url, windowed):
-    if checkForAlternateStreaming(url):
+import xbmc
+import xbmcaddon
+import xbmcgui
+
+
+def CheckIdle(maxIdle):
+    idle = xbmc.getGlobalIdleTime()
+    if idle < maxIdle:
         return
 
-    xbmc.Player().play(item = url, windowed = windowed)
-    print '****** Attempt 1 ******'
-    print url
-    xbmc.sleep(100)
-    if not xbmc.Player().isPlaying():
-        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-        print '****** Attempt 2 ******'
+    delay = 60
+    count = delay
+    dp = xbmcgui.DialogProgress()
+    dp.create("TV Guide Dixie","Streaming will automatically quit in %d seconds" % count, "Press Cancel to contine viewing")
+    dp.update(0)
+              
+    while xbmc.Player().isPlaying() and count > 0 and not dp.iscanceled():
+        xbmc.sleep(1000)
+        count -= 1
+        perc = int(((delay - count) / float(delay)) * 100)
+        if count > 1:
+            dp.update(perc,"Streaming will automatically quit in %d seconds" % count, "Press Cancel to contine viewing")
+        else:
+            dp.update(perc,"Streaming will automatically quit in %d second" % count, "Press Cancel to contine viewing")            
+
+    if not dp.iscanceled():
+        xbmc.Player().stop()
+
+
+def play(url, windowed):
+    ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
+    maxIdle = int(ADDON.getSetting('idle')) * 60 * 60
+    if not checkForAlternateStreaming(url):
+        xbmc.Player().play(item = url, windowed = windowed)
+        print '****** Attempt 1 ******'
         print url
+        xbmc.sleep(100)
+        if not xbmc.Player().isPlaying():
+            xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+            print '****** Attempt 2 ******'
+            print url
+
+    xbmc.sleep(1000)
+    while xbmc.Player().isPlaying():
+        xbmc.sleep(5000)
+        CheckIdle(maxIdle)
+
 
 def checkForAlternateStreaming(url):
     if "plugin.video.ntv" in url:
@@ -68,9 +102,16 @@ def checkForAlternateStreaming(url):
 
 def alternateStream(url):
     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+    
+    retries = 10
+    while retries > 0 and not xbmc.Player().isPlaying():
+        retries -= 1
+        xbmc.sleep(1000)
+        
     print '****** Alternate Method ******'
     print url
     return True
+
 
 
 if __name__ == '__main__': 

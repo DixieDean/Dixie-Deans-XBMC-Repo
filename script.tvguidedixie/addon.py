@@ -17,13 +17,33 @@
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
 #
+
+
+busy = None
+try:
+    import xbmcgui
+    busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
+    busy.show()
+
+    try:    busy.getControl(10).setVisible(False)
+    except: pass
+
+except:
+    busy = None
+
 import buggalo
 import gui
 
 buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
 
+
 try:
     w = gui.TVGuide()
+
+    if busy:
+        busy.close()
+        busy = None
+
     w.doModal()
     del w
 

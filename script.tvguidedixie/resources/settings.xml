@@ -20,9 +20,11 @@
 
     <category label="30114">
         <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="Dixie"/>
-		<setting id="mashmode" type="text" label="MASHMODE" default="false" visible="false"/>
+        <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="3" />
+        <setting id="mashmode" type="text" label="MASHMODE" default="false" visible="false"/>
         <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" />
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" />
+        
         <setting label="30119" type="lsep" />
         <setting id="alternative.playback" label="30120" type="bool" default="false" />
         <setting label="30121" type="lsep" />

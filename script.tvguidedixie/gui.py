@@ -62,7 +62,7 @@ try:
         import urllib, dxmnew
         try: os.makedirs(Path)
         except: pass
-        Url  = 'https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/skins-update.zip'
+        Url  = 'https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/tvgdatafiles/source.db.zip'
         LocalName = 'skins.zip'
         LocalFile = xbmc.translatePath(os.path.join(Path, LocalName))
         try: urllib.urlretrieve(Url,LocalFile)

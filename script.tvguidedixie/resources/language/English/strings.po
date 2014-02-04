@@ -241,7 +241,7 @@ msgid "Choose stream"
 msgstr ""
 
 msgctxt "#30305"
-msgid "Configure the stream for this channel."
+msgid ""
 msgstr ""
 
 msgctxt "#30306"

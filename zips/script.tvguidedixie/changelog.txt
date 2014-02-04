@@ -1,3 +1,8 @@
+v1.5.3
+Added 'working' dialog as the addon starts.
+All live streaming video addons should now work via 'Add To Tavorites'.
+Added ability to auto-stop a stream after a set period.
+
 v1.5.2
 Fixed error in the Detect Stream feature - If more than one match was found an error occured.
 Slight change to Preview Stream code.
