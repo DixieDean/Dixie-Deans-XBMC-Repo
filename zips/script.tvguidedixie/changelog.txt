@@ -1,6 +1,9 @@
+v1.5.4
+Buf fix on clean install error.
+
 v1.5.3
 Added 'working' dialog as the addon starts.
-All live streaming video addons should now work via 'Add To Tavorites'.
+All live streaming video addons should now work via 'Add To Favorites'.
 Added ability to auto-stop a stream after a set period.
 
 v1.5.2
