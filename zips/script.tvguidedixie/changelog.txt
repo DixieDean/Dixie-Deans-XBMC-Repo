@@ -1,5 +1,9 @@
+v1.5.5
+Updated addons.ini file loading process.
+
+
 v1.5.4
-Buf fix on clean install error.
+Bug fix on clean install error.
 
 v1.5.3
 Added 'working' dialog as the addon starts.
