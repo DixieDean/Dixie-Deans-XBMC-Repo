@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tv generator-info-name="WebGrab+Plus/w MDB &amp; REX Postprocess -- version 1.1.1/53.1 -- Jan van Straaten" generator-info-url="http://www.webgrabplus.com">
+  <channel id="WPIX 11">
+    <display-name lang="en">WPIX 11</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="WWOR 9">
+    <display-name lang="en">WWOR 9</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="WABCH 607">
+    <display-name lang="en">ABC</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="WCBSDT 602">
+    <display-name lang="en">CBS</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="WNBC-DT 604">
+    <display-name lang="en">NBC</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="WNYW 5">
+    <display-name lang="en">FOX 5 USA</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="CNNHD 650">
+    <display-name lang="en">CNN HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="CTVTO 108">
+    <display-name lang="en">CTV HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="USA 109">
+    <display-name lang="en">USA Network</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="A&amp;E 105">
+    <display-name lang="en">A&amp;E</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="BRAVO 106">
+    <display-name lang="en">BRAVO HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="COMEDY 117">
+    <display-name lang="en">Comedy Central HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="MTVHD 675">
+    <display-name lang="en">MTV US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="HALLHD 644">
+    <display-name lang="en">Hallmark Xmas</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="FNCHD 653">
+    <display-name lang="en">Fox News HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="SPK 110">
+    <display-name lang="en">Spike HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="TBSHD 622">
+    <display-name lang="en">TBS HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="TDCHD 574">
+    <display-name lang="en">Discovery HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="HBOHDe 700">
+    <display-name lang="en">HBO HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="SyfyHD 630">
+    <display-name lang="en">SYFY HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="AMCHD 667">
+    <display-name lang="en">AMC HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="TNTHD 623">
+    <display-name lang="en">TNT HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="HBO2HD 702">
+    <display-name lang="en">HBO2</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="HBOCHD 705">
+    <display-name lang="en">HBO Comedy</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="FX HD 626">
+    <display-name lang="en">FX</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="FXXHD 698">
+    <display-name lang="en">FXX HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="FXM 141">
+    <display-name lang="en">FX Movie Channel</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="SHOHDe 720">
+    <display-name lang="en">Showtime</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="STARZ 430">
+    <display-name lang="en">Starz</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="MGMHD 762">
+    <display-name lang="en">MGM HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="DISHD 647">
+    <display-name lang="en">Disney Channel US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="NICHD 649">
+    <display-name lang="en">Nickelodeon US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="TOONHD 633">
+    <display-name lang="en">Cartoon Network US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="DSCHD 661">
+    <display-name lang="en">Discovery US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="HISHD 662">
+    <display-name lang="en">History US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="NGCHD 670">
+    <display-name lang="en">Nat Geo US</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="ANIMAL 120">
+    <display-name lang="en">Animal Planet HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="SN1HD 501">
+    <display-name lang="en">Sportsnet One HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="SNOHD 502">
+    <display-name lang="en">Sportsnet Ontario</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="SNWL 429">
+    <display-name lang="en">Sportsnet World HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="NBCSP 382">
+    <display-name lang="en">NBC Sports HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="NFL 389">
+    <display-name lang="en">NFL TV</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="NHLHD 693">
+    <display-name lang="en">NHL TV</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="NBA TV 392">
+    <display-name lang="en">NBA TV</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="beIn 598">
+    <display-name lang="en">Bein Sports HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="FS1HD 689">
+    <display-name lang="en">Fox Sports 1</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="FS2 383">
+    <display-name lang="en">Fox Sports 2</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="TSNHD 506">
+    <display-name lang="en">TSN HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="TSN2D 507">
+    <display-name lang="en">TSN 2 HD</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="ESPNHD 681">
+    <display-name lang="en">ESPN USA</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="ESPNU 680">
+    <display-name lang="en">ESPNU</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="MSGHD 678">
+    <display-name lang="en">MSG Network</display-name>
+    <url>http://www.tvguide.com</url>
+  </channel>
+  <channel id="DK 6eren HD">
+    <display-name lang="da">6EREN DK</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO NRK1 HD">
+    <display-name lang="da">NRK1</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO NRK2 HD">
+    <display-name lang="da">NRK2</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO NRK3 HD">
+    <display-name lang="da">NRK3</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO NRK3/Super">
+    <display-name lang="da">NRK3/Super</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="TVNORGE">
+    <display-name lang="nb">TV Norge</display-name>
+    <url>http://www.altibox.no</url>
+  </channel>
+  <channel id="NO TV 2">
+    <display-name lang="da">TV2 Norge</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO TV3">
+    <display-name lang="da">TV3 Norge</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK DR1 HD">
+    <display-name lang="da">DR 1</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK DR2">
+    <display-name lang="da">DR 2</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV2">
+    <display-name lang="da">Danmark TV2</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO TV 2 Bliss">
+    <display-name lang="da">TV 2 Bliss</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV2 Charlie">
+    <display-name lang="da">TV 2 Charlie</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV2 Fri">
+    <display-name lang="da">TV 2 Fri</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV2 Lorry HD">
+    <display-name lang="da">TV 2 Lorry</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV2 Zulu">
+    <display-name lang="da">TV 2 Zulu</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV3+">
+    <display-name lang="da">TV 3 Plus</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO TV 2 SPORT">
+    <display-name lang="da">TV 2 SPORT</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO TV 2 SPORT 2">
+    <display-name lang="da">TV 2 SPORT 2</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK Kanal 4">
+    <display-name lang="da">Dansk Kanal4</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK Kanal 5 HD">
+    <display-name lang="da">Dansk Kanal5</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK TV3 Puls">
+    <display-name lang="da">TV 3 Puls</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE SVT 1 HD">
+    <display-name lang="da">TV1 Sverige</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE SVT 2 HD">
+    <display-name lang="da">TV2 Sverige</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE TV3 HD">
+    <display-name lang="da">TV3 Sverige</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE TV4 HD">
+    <display-name lang="da">TV4 Sverige</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE TV6 HD">
+    <display-name lang="da">TV 6 Sverige</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE TV4 Guld">
+    <display-name lang="da">TV4 Guld</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE TV4 Sport">
+    <display-name lang="da">TV4 Sport</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE Viasat Fotboll HD ">
+    <display-name lang="da">Viasat Fotboll</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE Viasat sport HD">
+    <display-name lang="da">Viasat Sport</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK DR K">
+    <display-name lang="da">DR K</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="DK DR Ultra">
+    <display-name lang="da">DR Ultra</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="NO TV 2 Filmkanalen">
+    <display-name lang="da">TV 2 Filmkanalen</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="SE Yle FEM">
+    <display-name lang="da">FEM</display-name>
+    <url>http://www.dk.timefor.tv</url>
+  </channel>
+  <channel id="FR Arte ">
+    <display-name lang="en">Arte</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR BFM Business">
+    <display-name lang="en">BFM Business</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR BFM TV HD">
+    <display-name lang="en">BFM TV HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR Canal+">
+    <display-name lang="en">Canal+</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR D17">
+    <display-name lang="en">D17</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR D8">
+    <display-name lang="en">D8</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR Eurosport">
+    <display-name lang="en">Eurosport</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR France 2 HD">
+    <display-name lang="en">France 2 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR France 3 HD">
+    <display-name lang="en">France 3 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR France 4 HD">
+    <display-name lang="en">France 4 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR France 5 HD">
+    <display-name lang="en">France 5 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR France 24">
+    <display-name lang="en">France 24</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR France Ô">
+    <display-name lang="en">France O</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR Gulli">
+    <display-name lang="en">Gulli</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR iTélé">
+    <display-name lang="en">iTélé</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR LCP">
+    <display-name lang="en">LCP</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR M6 HD">
+    <display-name lang="en">M6 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR M6 Boutique &amp; Co.">
+    <display-name lang="en">M6 Boutique &amp; Co.</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR National Geographic Channel">
+    <display-name lang="en">Nat Geo</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR NRJ12 HD">
+    <display-name lang="en">NRJ12 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR Paris Première HD">
+    <display-name lang="en">Paris Première HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR Téva HD">
+    <display-name lang="en">Téva HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR TF1 HD">
+    <display-name lang="en">TF1 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR TMC">
+    <display-name lang="en">TMC</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR TV5 Monde Europe">
+    <display-name lang="en">TV5 Monde Europe</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="FR W9 HD">
+    <display-name lang="en">W9 HD</display-name>
+    <url>http://www.en.timefor.tv</url>
+  </channel>
+  <channel id="RTE One">
+    <display-name lang="en">RTE One</display-name>
+    <url>http://www.entertainment.ie</url>
+  </channel>
+  <channel id="RTE Two">
+    <display-name lang="en">RTE Two</display-name>
+    <url>http://www.entertainment.ie</url>
+  </channel>
+  <channel id="TV3">
+    <display-name lang="en">TV3</display-name>
+    <url>http://www.entertainment.ie</url>
+  </channel>
+  <channel id="TG4">
+    <display-name lang="en">TG4</display-name>
+    <url>http://www.tvguide.co.uk</url>
+  </channel>
+  <channel id="3e">
+    <display-name lang="en">3e</display-name>
+    <url>http://www.entertainment.ie</url>
+  </channel>
+  <channel id="The Simpsons 247">
+    <display-name lang="en">The Simpsons 247</display-name>
+  </channel>
+  <channel id="Two And A Half Men 247">
+    <display-name lang="en">Two And A Half Men 247</display-name>
+  </channel>
+  <channel id="Anger Management 247">
+    <display-name lang="en">Anger Management 247</display-name>
+  </channel>
+  <channel id="Breaking Bad 247">
+    <display-name lang="en">Breaking Bad 247</display-name>
+  </channel>
+  <channel id="Friends 247">
+    <display-name lang="en">Friends 247</display-name>
+  </channel>
+  <channel id="X-Files 247">
+    <display-name lang="en">X-Files 247</display-name>
+  </channel>
+  <channel id="Tom and Jerry 247">
+    <display-name lang="en">Tom and Jerry 247</display-name>
+  </channel>
+  <channel id="House 247">
+    <display-name lang="en">House 247</display-name>
+  </channel>
+  <channel id="Burn Notice 247">
+    <display-name lang="en">Burn Notice 247</display-name>
+  </channel>
+  <channel id="iCarly 247">
+    <display-name lang="en">iCarly 247</display-name>
+  </channel>
+  <channel id="South Park 247">
+    <display-name lang="en">South Park 247</display-name>
+  </channel>
+  <channel id="Futurama 247">
+    <display-name lang="en">Futurama 247</display-name>
+  </channel>
+  <channel id="The Fresh Prince OF Bel Air 247">
+    <display-name lang="en">The Fresh Prince OF Bel Air 247</display-name>
+  </channel>
+  <channel id="Star Trek Enterprise 247">
+    <display-name lang="en">Star Trek Enterprise 247</display-name>
+  </channel>
+  <channel id="Star Trek Next Generation 247">
+    <display-name lang="en">Star Trek Next Generation 247</display-name>
+  </channel>
+  <channel id="Deep Space Nine 247">
+    <display-name lang="en">Deep Space Nine 247</display-name>
+  </channel>
+  <channel id="CSI 247">
+    <display-name lang="en">CSI 247</display-name>
+  </channel>
+  <channel id="Curb Your Enthusiasm 247">
+    <display-name lang="en">Curb Your Enthusiasm 247</display-name>
+  </channel>
+  <channel id="Its Always Sunny In Philadelphia 247">
+    <display-name lang="en">It's Always Sunny In Philadelphia 247</display-name>
+  </channel>
+  <channel id="Seinfeld 247">
+    <display-name lang="en">Seinfeld 247</display-name>
+  </channel>
+  <channel id="Family Guy 247">
+    <display-name lang="en">Family Guy 247</display-name>
+  </channel>
+  <channel id="The Office 247">
+    <display-name lang="en">The Office 247</display-name>
+  </channel>
+  <channel id="Scrubs 247">
+    <display-name lang="en">Scrubs 247</display-name>
+  </channel>
+  <channel id="Modern Family 247">
+    <display-name lang="en">Modern Family 247</display-name>
+  </channel>
+  <channel id="King Of Queens 247">
+    <display-name lang="en">King Of Queens 247</display-name>
+  </channel>
+  <channel id="Cheers 247">
+    <display-name lang="en">Cheers 247</display-name>
+  </channel>
+  <channel id="The Big Bang Theory 247">
+    <display-name lang="en">The Big Bang Theory 247</display-name>
+  </channel>
+  <channel id="NCIS 247">
+    <display-name lang="en">NCIS 247</display-name>
+  </channel>
+  <channel id="That 70s Show 247">
+    <display-name lang="en">That 70s Show 247</display-name>
+  </channel>
+  <channel id="Two Broke Girls 247">
+    <display-name lang="en">Two Broke Girls 247</display-name>
+  </channel>
+  <channel id="True Blood 247">
+    <display-name lang="en">True Blood 247</display-name>
+  </channel>
+  <channel id="American Dad 247">
+    <display-name lang="en">American Dad 247</display-name>
+  </channel>
+  <channel id="MASH 247">
+    <display-name lang="en">MASH 247</display-name>
+  </channel>
+  <channel id="Rules OF Engagement 247">
+    <display-name lang="en">Rules OF Engagement 247</display-name>
+  </channel>
+  <channel id="Community 247">
+    <display-name lang="en">Community 247</display-name>
+  </channel>
+  <channel id="Beavis And Butthead 247">
+    <display-name lang="en">Beavis And Butthead 247</display-name>
+  </channel>
+  <channel id="Star Trek Original">
+    <display-name lang="en">Star Trek Original</display-name>
+  </channel>
+  <channel id="Star Trek Voyager">
+    <display-name lang="en">Star Trek Voyager</display-name>
+  </channel>
+  <channel id="Sons Of Anarchy">
+    <display-name lang="en">Sons Of Anarchy</display-name>
+  </channel>
+</tv>
