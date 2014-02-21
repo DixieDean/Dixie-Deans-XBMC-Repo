@@ -21,7 +21,7 @@ msgid "No description"
 msgstr ""
 
 msgctxt "#30001"
-msgid "[B]Loading data from external source...[/B]"
+msgid "[B]Updating your EPG. Please wait.[/B]"
 msgstr ""
 
 msgctxt "#30002"
@@ -341,7 +341,7 @@ msgstr ""
 #empty strings from id 30612 to 30619
 
 msgctxt "#30620"
-msgid "Choose a favourite below. Only [I]PlayMedia[/I] favourites are supported."
+msgid "Choose a favourite below."
 msgstr ""
 
 msgctxt "#30621"

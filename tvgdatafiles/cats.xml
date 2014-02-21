@@ -110,14 +110,6 @@
                <channel>AMC HD</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>American Dad 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Anger Management 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|News & Documentaries|NTV</category>
                <channel>Animal Planet</channel>
          </cats>
@@ -162,20 +154,12 @@
                <channel>BRAVO HD</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>Breaking Bad 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BT Sport 1</channel>
          </cats>
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
                <channel>BT Sport 2</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Burn Notice 247</channel>
          </cats>
          <cats>
                <category>All Channels|Music</category>
@@ -208,10 +192,6 @@
          <cats>
                <category>All Channels|Entertainment|(Not)FilmOn</category>
                <channel>Channel 5 +1</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Cheers 247</channel>
          </cats>
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
@@ -248,24 +228,12 @@
          </cats>
          
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>CSI 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Entertainment|International|North America</category>
                <channel>CTV HD</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>Curb Your Enthusiasm 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>Dave</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Deep Space Nine 247</channel>
          </cats>
          <cats>
                <category>All Channels|News & Documentaries|NTV</category>
@@ -301,7 +269,7 @@
          </cats>
          <cats>
                <category>All Channels|Entertainment|Lifestyle & Factual</category>
-               <channel>E!</channel>
+               <channel>E</channel>
          </cats>
          <cats>
                <category>All Channels|(Not)FilmOn|ExPatTV|NTV|Entertainment</category>
@@ -340,10 +308,6 @@
                <channel>Eurosport 2</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>Family Guy 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|ExPatTV|NTV|Movies</category>
                <channel>Film4</channel>
          </cats>
@@ -374,10 +338,6 @@
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>Fox Sports 2</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Friends 247</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -428,18 +388,6 @@
                <channel>Home</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>House 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>iCarly 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>It's Always Sunny In Philadelphia 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment</category>
                <channel>ITV1 +1</channel>
          </cats>
@@ -472,10 +420,6 @@
                <channel>ITV4 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>King Of Queens 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
                <channel>Kiss TV</channel>
          </cats>
@@ -492,16 +436,8 @@
                <channel>Magic TV</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>MASH 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|Movies</category>
                <channel>MGM HD</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Modern Family 247</channel>
          </cats>
          <cats>
                <category>All Channels|(Not)FilmOn|ExPatTV|Entertainment|Lifestyle & Factual</category>
@@ -572,10 +508,6 @@
                <channel>NBC Sports HD</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>NCIS 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
                <channel>NFL TV</channel>
          </cats>
@@ -626,14 +558,6 @@
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|International</category>
                <channel>RTE Two</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Scrubs 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Seinfeld 247</channel>
          </cats>
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
@@ -740,10 +664,6 @@
                <channel>Sky 2</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>South Park 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|USTVNOW|Entertainment|International|North America</category>
                <channel>Spike HD</channel>
          </cats>
@@ -754,14 +674,6 @@
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
                <channel>Sportsnet Ontario</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Star Trek Enterprise 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Star Trek Next Generation 247</channel>
          </cats>
          <cats>
                <category>All Channels|Movies|International|North America</category>
@@ -788,26 +700,6 @@
                <channel>TG4</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>That 70s Show 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>The Big Bang Theory 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>The Fresh Prince OF Bel Air 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>The Office 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>The Simpsons 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|NTV|Entertainment</category>
                <channel>TLC</channel>
          </cats>
@@ -816,16 +708,8 @@
                <channel>TNT HD</channel>
          </cats>
          <cats>
-               <category>All Channels|24/7</category>
-               <channel>Tom and Jerry 247</channel>
-         </cats>
-         <cats>
                <category>All Channels|Sports|International|North America</category>
                <channel>Trace Sports</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>True Blood 247</channel>
          </cats>
          <cats>
                <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
@@ -838,14 +722,6 @@
          <cats>
                <category>All Channels|International</category>
                <channel>TV3</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Two And A Half Men 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Two Broke Girls 247</channel>
          </cats>
          <cats>
                <category>All Channels|Entertainment</category>
@@ -878,10 +754,6 @@
          <cats>
                <category>All Channels|News & Documentaries</category>
                <channel>Watch</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>X-Files 247</channel>
          </cats>
          <cats>
                <category>All Channels|(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
@@ -962,62 +834,6 @@
          <cats>
                <category>All Channels|Entertainment|International|North America</category>
                <channel>WWOR 9</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Rules OF Engagement 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Community 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Beavis And Butthead 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Star Trek Original</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Star Trek Voyager</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Star Trek Voyager</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Curb Your Enthusiasm 247</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Archer</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Sons Of Anarchy</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>The Office UK</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Top Gear</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Band Of Brothers</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Spaced/IT Crowd</channel>
-         </cats>
-         <cats>
-               <category>All Channels|24/7</category>
-               <channel>Dr Who</channel>
          </cats>
          <cats>
                <category>All Channels|Music</category>
@@ -1133,7 +949,7 @@
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>NRK3/Super</channel>
+               <channel>NRK3 Super</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
@@ -1258,5 +1074,319 @@
          <cats>
                <category>All Channels|NTV|OffSide Streams</category>
                <channel>No Channels</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>3rd Rock From The Sun</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>All In The Family</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>American Dad</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Anger Management</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Archer</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Arrested Development</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Becker</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Bones</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Boy Meet World</channel>
+         </cats>
+
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Breaking Bad</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Burn Notice</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Cheers</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>CSI</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Community</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Cops</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Curb Your Enthusiasm</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Deep Space Nine</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Dinos</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Eastbound and Down</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Everybody Loves Raymond</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Family Guy</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Frasier</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Friends</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Futurama</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Full House</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Growing Pains</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Hanging With Mr Cooper</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Home Improvement</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>How I Met Your Mother</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Its Always Sunny In Philadelphia</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Just Shoot Me</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>King Of Queens</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>King Of The Hill</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Malcolm In The Middle</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Married With Children</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>MASH</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Modern Family</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>New Girl</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>News Radio</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Night Court</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Northern Exposer</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Perfect Strangers</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Rescue Me</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Robot Chicken</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Roseanne</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Rules OF Engagement</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Scrubs</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Seinfeld</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>South Park</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Star Trek Enterprise</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Star Trek Next Generation</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Star Trek Original</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Star Trek Voyager</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>That 70s Show</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Big Bang Theory</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Cosby Show</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Drew Carey Show</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Fresh Prince OF Bel Air</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Office</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Simpsons</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Sopranos</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Walking Dead</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Threes Company</channel>
+         </cats>
+
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Tom and Jerry</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Trialer Park Boys</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Two And A Half Men</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Two Broke Girls</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Two Middle</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Will And Grace</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>X-Files</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Beavis And Butthead</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Star Trek Voyager</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Sons Of Anarchy</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>The Office UK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Top Gear</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Band Of Brothers</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Spaced/IT Crowd</channel>
+         </cats>
+         <cats>
+               <category>All Channels|24/7</category>
+               <channel>Dr Who</channel>
          </cats>
      </Document>

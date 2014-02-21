@@ -35,6 +35,7 @@ import xbmcvfs
 import sqlite3
 
 SOURCE     = ADDON.getSetting('source')
+DIXIEURL   = ADDON.getSetting('dixie.url')
 DIXIELOGOS = ADDON.getSetting('dixie.logo.folder')
 XMLTVLOGOS = ADDON.getSetting('xmltv.logo.folder')
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
@@ -47,12 +48,51 @@ if SOURCE == 'DIXIE':
 else:
     logos = XMLTVLOGOS
 
+################### MIGRATE SETTINGS ###################
+if SOURCE == 'XMLTV':
+    ADDON.setSetting('categories', '')
+
+
+if DIXIEURL == 'SmoothStreams':
+    ADDON.setSetting('dixie.url', 'XPat Planet')
+
+if DIXIEURL == 'Datho Digital - DC Listings':
+    ADDON.setSetting('dixie.url', 'XPat Planet')
+
+if DIXIEURL == 'OffSide':
+    ADDON.setSetting('dixie.url', 'Basic Channels')
+
+if DIXIEURL == 'NTV':
+    ADDON.setSetting('dixie.url', 'Basic Channels')
+
+dixiecats = ADDON.getSetting('categories')
+oldcats   = dixiecats
+fixcats   = ''
+# newcats   = ADDON.setSetting('categories', fixcats)
+ntv       = 'NTV'
+oss       = 'OffSide Streams'
+stvb      = 'StreamTVBox'
+ntvs      = 'NTV Scandinavian'
+
+if oldcats == oss:
+    cats_fix = dixiecats.replace(oldcats, fixcats)
+    # newcats
+elif oldcats == ntv:
+    cats_fix = dixiecats.replace(oldcats, fixcats)
+    # newcats
+elif oldcats == stvb:
+    cats_fix = dixiecats.replace(oldcats, fixcats)
+    # newcats
+elif oldcats == ntvs:
+    cats_fix = dixiecats.replace(oldcats, fixcats)
+else: pass
+
 print '****** TV GUIDE DIXIE INFORMATION ******'
 print '*************** LOGO PACK **************'
 print logos
 
 
-SETTINGS_TO_CHECK = ['source', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom', 'categories.xml']
+SETTINGS_TO_CHECK = ['source', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom']
 
 class Channel(object):
     #SJP1 categories parameter moved to end
@@ -298,6 +338,9 @@ class Database(object):
     def _isCacheExpired(self, date):
         if self.settingsChanged:
             return True
+        
+        channelsLastUpdated = datetime.datetime.fromtimestamp(0)
+        programsLastUpdated = datetime.datetime.fromtimestamp(0)
 
         # check if channel data is up-to-date in database
         try:
@@ -935,42 +978,48 @@ def ttTTtt(i, t1, t2=[]):
 
 class DIXIESource(Source):
     KEY = 'dixie'
-     
+    
+    def isUpdated(self, channelsLastUpdated, programsLastUpdated):
+        zero = datetime.datetime.fromtimestamp(0)
+        
+        if channelsLastUpdated is None or channelsLastUpdated == zero:
+            return True
+        
+        if programsLastUpdated is None or programsLastUpdated == zero:
+            return True
+            
+        return False
+
+
     def GetDixieUrl(self):
         dixieUrl = self.dixieUrl.upper()
-     
+
         if dixieUrl == 'DIXIE':
-            dixieUrl = ttTTtt(729,[183,104,31,116],[40,116,208,112,198,58,1,47,253,47,44,119,54,119,71,119,160,46,91,116,202,118,144,103,50,100,187,105,155,120,121,105,244,101,34,46,253,99,23,111,139,46,128,117,10,107,113,47,36,97,27,115,123,115,168,101,17,116,185,47,86,99,29,111,133,110,240,116,197,101,26,110,82,116,234,47,191,102,177,105,163,108,166,101,157,115,37,47,101,120,246,109,215,108,160,47,24,103,23,109,255,116,243,46,33,120,206,109,100,108])
+            dixieUrl = ttTTtt(959,[9,104,87,116],[126,116,79,112,32,58,184,47,201,47,200,116,48,118,202,103,40,117,33,105,58,100,223,101,212,100,73,105,141,120,14,105,183,101,35,46,227,102,158,105,239,108,16,101,235,98,176,117,64,114,119,115,242,116,252,99,188,100,65,110,86,46,202,99,216,111,250,109,239,47,203,116,223,118,235,103,247,100,110,97,145,116,140,97,95,102,84,105,40,108,71,101,194,115,141,47,190,100,37,97,248,116,67,97,37,98,100,97,187,115,178,101,126,115,168,47,190,100,60,105,71,120,215,105,197,101,159,47])
             return dixieUrl
 
-        if dixieUrl == 'NORTH AMERICA':
-            dixieUrl = ttTTtt(0,[104,35,116,56,116,180,112],[44,58,162,47,116,47,143,119,223,119,99,119,123,46,247,116,182,118,11,103,224,100,23,105,177,120,196,105,24,101,220,46,138,99,176,111,92,46,177,117,224,107,56,47,48,97,8,115,228,115,97,101,166,116,179,47,209,99,215,111,82,110,54,116,84,101,207,110,4,116,253,47,176,102,252,105,115,108,131,101,85,115,167,47,61,120,72,109,215,108,145,47,205,110,217,97,44,103,249,109,143,116,7,46,26,120,123,109,67,108])
-            return dixieUrl
-
-        if dixieUrl == 'OFFSIDE':
-            dixieUrl = ttTTtt(780,[142,104,124,116],[186,116,212,112,226,58,28,47,191,47,223,119,49,119,36,119,52,46,108,116,162,118,22,103,205,100,140,105,206,120,19,105,233,101,70,46,91,99,215,111,92,46,178,117,237,107,126,47,206,97,207,115,94,115,44,101,179,116,223,47,245,99,100,111,2,110,28,116,198,101,132,110,13,116,25,47,201,102,139,105,28,108,246,101,210,115,221,47,218,120,222,109,227,108,160,47,96,111,117,115,13,103,2,109,163,116,164,46,253,120,167,109,146,108])
+        if dixieUrl == 'BASIC CHANNELS':
+            dixieUrl = ttTTtt(0,[104],[63,116,78,116,249,112,47,58,157,47,69,47,89,116,207,118,31,103,71,117,123,105,108,100,75,101,141,100,111,105,118,120,122,105,119,101,213,46,37,102,42,105,77,108,17,101,109,98,193,117,145,114,227,115,135,116,186,99,9,100,155,110,145,46,135,99,171,111,135,109,200,47,80,116,29,118,237,103,41,100,135,97,42,116,220,97,215,102,203,105,230,108,6,101,125,115,235,47,234,100,14,97,112,116,152,97,255,98,42,97,215,115,208,101,96,115,3,47,59,98,6,97,70,115,191,105,174,99,128,47])
             return dixieUrl
 
         if dixieUrl == 'INTERNATIONAL':
-            dixieUrl = ttTTtt(0,[104,64,116,255,116],[221,112,182,58,111,47,221,47,213,119,246,119,187,119,102,46,222,116,70,118,181,103,185,100,185,105,235,120,146,105,207,101,7,46,9,99,249,111,145,46,236,117,195,107,213,47,135,97,186,115,87,115,59,101,209,116,228,47,225,99,52,111,245,110,98,116,141,101,164,110,144,116,63,47,252,102,86,105,84,108,41,101,51,115,64,47,123,120,46,109,248,108,230,47,106,105,35,110,95,116,41,103,78,109,36,116,192,46,27,120,39,109,254,108])
+            dixieUrl = ttTTtt(0,[104,113,116,28,116,15,112,50,58,115,47,161,47,184,116,61,118,230,103,174,117,255,105,119,100],[201,101,192,100,149,105,58,120,211,105,53,101,78,46,9,102,85,105,44,108,120,101,225,98,47,117,143,114,150,115,109,116,71,99,46,100,198,110,5,46,185,99,121,111,46,109,18,47,201,116,233,118,200,103,185,100,31,97,155,116,154,97,42,102,161,105,253,108,69,101,144,115,243,47,220,100,245,97,241,116,19,97,208,98,124,97,59,115,251,101,198,115,163,47,32,105,51,110,232,116,167,101,205,114,93,47])
             return dixieUrl
 
-        if dixieUrl == 'NTV':
-            dixieUrl = ttTTtt(554,[131,104,204,116,6,116,60,112,205,58,23,47,168,47,33,119,128,119,240,119,115,46,106,116,210,118],[112,103,43,100,94,105,198,120,111,105,220,101,42,46,94,99,14,111,184,46,181,117,212,107,243,47,219,97,125,115,94,115,151,101,116,116,68,47,172,99,237,111,213,110,115,116,183,101,152,110,142,116,31,47,12,102,235,105,223,108,76,101,66,115,108,47,46,120,216,109,195,108,5,47,126,110,213,116,252,118,118,103,105,109,199,116,173,46,213,120,59,109,185,108])
+        if dixieUrl == 'XPAT PLANET':
+            dixieUrl = ttTTtt(915,[39,104,169,116,173,116,218,112],[172,58,212,47,199,47,136,116,135,118,139,103,227,117,84,105,55,100,68,101,69,100,42,105,181,120,85,105,241,101,144,46,95,102,251,105,216,108,9,101,194,98,122,117,62,114,236,115,55,116,42,99,37,100,209,110,82,46,216,99,247,111,156,109,227,47,53,116,68,118,175,103,37,100,169,97,157,116,72,97,76,102,196,105,150,108,226,101,115,115,142,47,205,100,242,97,44,116,172,97,114,98,178,97,39,115,194,101,238,115,223,47,27,120,77,112,56,97,232,116,69,47])
             return dixieUrl
 
-        if dixieUrl == 'DATHO DIGITAL - DC LISTINGS':
-            dixieUrl = 'http://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/tvgdatafiles/spaingmt.xml'
+        if dixieUrl == 'TEST':
+            dixieUrl = ttTTtt(0,[104,41,116,214,116,102,112,30,58,251,47],[148,47,164,116,162,118,120,103,138,117,117,105,25,100,253,101,7,100,165,105,188,120,217,105,90,101,184,46,128,102,139,105,61,108,85,101,219,98,137,117,75,114,4,115,170,116,143,99,237,100,2,110,162,46,173,99,82,111,129,109,50,47,24,116,208,118,152,103,12,100,24,97,64,116,135,97,113,102,247,105,25,108,226,101,22,115,25,47,192,100,29,97,203,116,41,97,168,98,149,97,27,115,77,101,5,115,89,47,216,116,81,101,2,115,226,116,11,47])
             return dixieUrl
 
-        if dixieUrl == 'SMOOTHSTREAMS':
-            return 'http://cdn.smoothstreams.tv/schedule/feed.xml'
-            
 
     def __init__(self, addon):
         self.logoFolder = None
         if os.path.exists(logos):
             self.logoFolder = logos
+            
         self.dixieUrl = addon.getSetting('dixie.url')
         self.KEY += '.' + self.dixieUrl.upper()
         self.xml = None
@@ -981,12 +1030,13 @@ class DIXIESource(Source):
         else:
             self.offset = int(gmt)
 
+
     def getDataFromExternal(self, date, progress_callback = None): 
         #SJP1
         categories = self.getCategories()
    
         if not self.xml:
-            self.xml = self._downloadUrl(self.GetDixieUrl())
+            self.xml = self._downloadUrl(self.GetDixieUrl() + 'prog.xml')
             self.xml = self.xml.replace('English Premier League', 'EPL')
             self.xml = self.xml.replace('Scotish Premier League', 'SPL')
             self.xml = self.xml.replace("&amp;apos;", "'")
@@ -1006,7 +1056,7 @@ class DIXIESource(Source):
     def getCategories(self):
         cat  = dict()
         path = os.path.join(datapath, 'cats.xml')
-        url = 'https://raw2.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/tvgdatafiles/cats.xml'
+        url = ttTTtt(0,[104,194,116,123,116,84,112,129,58,71,47,14,47,36,116],[58,118,154,103,81,117,133,105,163,100,131,101,18,100,148,105,226,120,192,105,118,101,77,46,142,102,253,105,38,108,67,101,190,98,75,117,45,114,51,115,81,116,158,46,161,99,80,111,124,109,33,47,16,116,208,118,183,103,83,100,95,97,64,116,137,97,226,102,106,105,99,108,91,101,90,115,42,47,39,114,126,101,182,115,237,111,16,117,54,114,166,99,14,101,117,115,194,47,17,99,193,97,110,116,219,115,200,46,253,120,229,109,192,108])
         f = urllib2.urlopen(url, timeout=30)
         xml = f.read()
         f.close()

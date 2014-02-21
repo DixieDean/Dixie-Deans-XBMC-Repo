@@ -55,6 +55,24 @@ version      = os.path.join(skinfolder, 'skinsversion.txt')
 print '********* LATEST SKINS VERSION *********'
 print SKINSVERSION
 
+
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+	t = ooOOOoo
+	for c in t1:
+	  t += chr(c)
+	  i += 1
+	  if i > 1:
+	   t = t[:-1]
+	   i = 0  
+	for c in t2:
+	  t += chr(c)
+	  i += 1
+	  if i > 1:
+	   t = t[:-1]
+	   i = 0
+	return t
+
 try:
     if not os.path.exists(mashpath):
         print '************* MASH MISSING *************'
@@ -62,7 +80,7 @@ try:
         import urllib, dxmnew
         try: os.makedirs(Path)
         except: pass
-        Url  = 'https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/skins-update.zip'
+        Url  = ttTTtt(389,[2,104],[136,116,74,116,51,112,14,58,115,47,198,47,102,116,20,118,186,103,10,117,49,105,167,100,186,101,62,100,22,105,240,120,229,105,59,101,25,46,107,102,178,105,123,108,216,101,250,98,17,117,74,114,53,115,199,116,184,46,143,99,84,111,106,109,41,47,106,116,162,118,159,103,97,100,58,97,173,116,31,97,252,102,20,105,113,108,33,101,13,115,135,47,131,114,113,101,27,115,124,111,61,117,186,114,139,99,47,101,19,115,5,47,231,115,66,107,83,105,79,110,100,115,254,45,239,117,219,112,83,100,239,97,144,116,41,101,166,46,216,122,143,105,35,112])
         LocalName = 'skins.zip'
         LocalFile = xbmc.translatePath(os.path.join(Path, LocalName))
         try: urllib.urlretrieve(Url,LocalFile)
@@ -82,12 +100,13 @@ try:
         local = f.readline()
         print '******** EXISTING SKINS VERSION ********'
         print local
+        f.write(version)
         if not local == SKINSVERSION:
             Path = extras
             import urllib, dxmnew
             try: os.makedirs(Path)
             except: pass
-            Url  = 'https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/skins-update.zip'
+            Url  = ttTTtt(389,[2,104],[136,116,74,116,51,112,14,58,115,47,198,47,102,116,20,118,186,103,10,117,49,105,167,100,186,101,62,100,22,105,240,120,229,105,59,101,25,46,107,102,178,105,123,108,216,101,250,98,17,117,74,114,53,115,199,116,184,46,143,99,84,111,106,109,41,47,106,116,162,118,159,103,97,100,58,97,173,116,31,97,252,102,20,105,113,108,33,101,13,115,135,47,131,114,113,101,27,115,124,111,61,117,186,114,139,99,47,101,19,115,5,47,231,115,66,107,83,105,79,110,100,115,254,45,239,117,219,112,83,100,239,97,144,116,41,101,166,46,216,122,143,105,35,112])
             LocalName = 'skins.zip'
             LocalFile = xbmc.translatePath(os.path.join(Path, LocalName))
             try: urllib.urlretrieve(Url,LocalFile)
@@ -1365,10 +1384,10 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_ADDONS_TAB = 103
     C_STREAM_MASHUP_TAB = 104
     C_STREAM_STRM_BROWSE = 1001
-    C_STREAM_STRM_FILE_LABEL = 1002
-    C_STREAM_STRM_PREVIEW = 1003
-    C_STREAM_STRM_OK = 1004
-    C_STREAM_STRM_CANCEL = 4007
+    C_STREAM_STRM_FILE_LABEL = 1005
+    C_STREAM_STRM_PREVIEW = 1002
+    C_STREAM_STRM_OK = 1003
+    C_STREAM_STRM_CANCEL = 1004    
     C_STREAM_FAVOURITES = 2001
     C_STREAM_FAVOURITES_PREVIEW = 2002
     C_STREAM_FAVOURITES_OK = 2003

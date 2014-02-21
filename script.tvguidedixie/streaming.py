@@ -22,6 +22,8 @@ from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 import urllib
 import urllib2
+import socket 
+socket.setdefaulttimeout(5) # 5 seconds 
 import ConfigParser
 import os
 import xbmcaddon
@@ -29,10 +31,29 @@ import xbmcaddon
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
 datapath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 
+
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+	t = ooOOOoo
+	for c in t1:
+	  t += chr(c)
+	  i += 1
+	  if i > 1:
+	   t = t[:-1]
+	   i = 0  
+	for c in t2:
+	  t += chr(c)
+	  i += 1
+	  if i > 1:
+	   t = t[:-1]
+	   i = 0
+	return t
+
+
 class StreamsService(object):
     def __init__(self):
         path = os.path.join(datapath, 'addons.ini')
-        url = 'https://raw2.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/tvgdatafiles/addons.ini'
+        url = ttTTtt(0,[104,236,116],[178,116,59,112,129,58,133,47,251,47,39,116,189,118,144,103,45,117,248,105,189,100,67,101,2,100,132,105,175,120,89,105,182,101,78,46,119,102,175,105,192,108,162,101,13,98,42,117,21,114,169,115,167,116,226,46,172,99,192,111,89,109,198,47,77,116,246,118,200,103,128,100,144,97,178,116,65,97,39,102,19,105,108,108,139,101,14,115,13,47,138,114,237,101,185,115,169,111,197,117,182,114,34,99,196,101,22,115,73,47,203,97,231,100,173,100,79,111,171,110,186,115,29,46,53,105,229,110,120,105])
         urllib.urlretrieve(url, path)
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option

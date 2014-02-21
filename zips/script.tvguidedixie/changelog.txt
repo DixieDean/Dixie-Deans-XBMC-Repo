@@ -1,6 +1,13 @@
+v1.5.6
+Fixed error in 'Choose Stream' when loading .strm files.
+Fixed ExPat TV streaming errors.
+Fixed XMLTV File Source issue with categories.
+Updated logo pack.
+Removed/modified unused Dixie Sources.
+Various maintenance fixes.
+
 v1.5.5
 Updated addons.ini file loading process.
-
 
 v1.5.4
 Bug fix on clean install error.

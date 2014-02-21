@@ -16,7 +16,6 @@
 #  along with this Program; see the file LICENSE.txt.  If not, write to
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
-#
 
 
 busy = None

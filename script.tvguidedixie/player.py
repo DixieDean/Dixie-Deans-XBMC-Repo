@@ -53,10 +53,10 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
 
-    if 'plugin.video.expattv' in url:
-        print '****** Alternate  ExPat ******'
-        print url
-        return alternateStream(url)
+    # if 'plugin.video.expattv' in url:
+    #     print '****** Alternate  ExPat ******'
+    #     print url
+    #     return alternateStream(url)
 
     if 'plugin.video.filmon' in url:
         print '****** Alternate  FilmOn ******'
