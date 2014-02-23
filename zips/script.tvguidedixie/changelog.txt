@@ -1,3 +1,7 @@
+v1.5.7
+Removed check for more EPG data every 24 hours.
+Changed update method for addons.ini file.
+
 v1.5.6
 Fixed error in 'Choose Stream' when loading .strm files.
 Fixed ExPat TV streaming errors.

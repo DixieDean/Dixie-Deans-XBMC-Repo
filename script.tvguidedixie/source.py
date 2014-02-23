@@ -52,6 +52,8 @@ else:
 if SOURCE == 'XMLTV':
     ADDON.setSetting('categories', '')
 
+if DIXIEURL == 'North America':
+    ADDON.setSetting('dixie.url', 'Dixie')
 
 if DIXIEURL == 'SmoothStreams':
     ADDON.setSetting('dixie.url', 'XPat Planet')
@@ -361,8 +363,6 @@ class Database(object):
         row = c.fetchone()
         if row:
             programsLastUpdated = row['programs_updated']
-        else:
-            programsLastUpdated = datetime.datetime.fromtimestamp(0)
         c.close()
 
         return self.source.isUpdated(channelsLastUpdated, programsLastUpdated)
@@ -401,6 +401,8 @@ class Database(object):
             c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
             updatesId = c.lastrowid
             c.execute("DELETE FROM programs WHERE source=?", [self.source.KEY])
+            
+            startDates = []
 
             imported = imported_channels = imported_programs = 0
             for item in self.source.getDataFromExternal(date, progress_callback):
@@ -425,10 +427,19 @@ class Database(object):
                     else:
                         channel = program.channel
                         
+                    if program.startDate.date() not in startDates:
+                        startDates.append(program.startDate.date())
+                        
                     c.execute('INSERT INTO programs(channel, title, start_date, end_date, description, subTitle, image_large, image_small, source, updates_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                         [channel, program.title, program.startDate, program.endDate, program.description, program.subTitle, program.imageLarge, program.imageSmall, self.source.KEY, updatesId])
-
-
+                        
+            # programs updated
+            startDates.sort()
+            #startDates = startDates[:-1] #remove last date, will cause new data to be fetched when just 1 day of data left
+            for date in startDates:        
+                dateStr = date.strftime('%Y-%m-%d')
+                c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
+                
             # channels updated
             c.execute("UPDATE sources SET channels_updated=? WHERE id=?", [datetime.datetime.now(), self.source.KEY])
             self.conn.commit()
@@ -588,8 +599,6 @@ class Database(object):
                     categoriesList.append(category)
 
         c.close()
-        print '========Categories Are...=========='
-        print categoriesList
         return categoriesList
 
 
@@ -754,7 +763,7 @@ class Database(object):
             c.execute("ALTER TABLE channels add column 'categories' 'TEXT'")
             c.execute("ALTER TABLE programs add column 'subTitle' 'TEXT'")
         except:
-            pass        	
+            pass            
 
         try:
             if version < [1, 3, 0]:
@@ -960,25 +969,25 @@ class XMLTVSource(Source):
         
 ooOOOoo = ''
 def ttTTtt(i, t1, t2=[]):
-	t = ooOOOoo
-	for c in t1:
-	  t += chr(c)
-	  i += 1
-	  if i > 1:
-	   t = t[:-1]
-	   i = 0  
-	for c in t2:
-	  t += chr(c)
-	  i += 1
-	  if i > 1:
-	   t = t[:-1]
-	   i = 0
-	return t        
+    t = ooOOOoo
+    for c in t1:
+      t += chr(c)
+      i += 1
+      if i > 1:
+       t = t[:-1]
+       i = 0  
+    for c in t2:
+      t += chr(c)
+      i += 1
+      if i > 1:
+       t = t[:-1]
+       i = 0
+    return t        
         
 
 class DIXIESource(Source):
     KEY = 'dixie'
-    
+
     def isUpdated(self, channelsLastUpdated, programsLastUpdated):
         zero = datetime.datetime.fromtimestamp(0)
         
@@ -989,7 +998,6 @@ class DIXIESource(Source):
             return True
             
         return False
-
 
     def GetDixieUrl(self):
         dixieUrl = self.dixieUrl.upper()
