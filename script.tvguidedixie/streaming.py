@@ -75,6 +75,8 @@ class StreamsService(object):
                         value = value[10:-1]
                     elif value[0:22] == 'ActivateWindow(10025,"':
                         value = value[22:-2]
+                    elif value[0:21] == 'ActivateWindow(10025,"':
+                        value = value[22:-1]
                     else:
                         continue
                     entries.append((node.get('name'), value))

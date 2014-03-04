@@ -24,12 +24,17 @@ import socket
 socket.setdefaulttimeout(5) # 5 seconds 
 import os
 import shutil
+xbmc.Player().stop
+print 'stopping any playing video'
+print xbmc.Player().stop
+
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
 default_ini = os.path.join(addonpath, 'addons.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
+
 
 if not os.path.exists(current_ini):
     try: os.makedirs(datapath)
@@ -39,24 +44,24 @@ if not os.path.exists(current_ini):
 
 ooOOOoo = ''
 def ttTTtt(i, t1, t2=[]):
-	t = ooOOOoo
-	for c in t1:
-	  t += chr(c)
-	  i += 1
-	  if i > 1:
-	   t = t[:-1]
-	   i = 0  
-	for c in t2:
-	  t += chr(c)
-	  i += 1
-	  if i > 1:
-	   t = t[:-1]
-	   i = 0
-	return t
+    t = ooOOOoo
+    for c in t1:
+      t += chr(c)
+      i += 1
+      if i > 1:
+       t = t[:-1]
+       i = 0  
+    for c in t2:
+      t += chr(c)
+      i += 1
+      if i > 1:
+       t = t[:-1]
+       i = 0
+    return t
 
 path = os.path.join(datapath, 'addons.ini')
 try:
-    url = ttTTtt(470,[186,104,207,116,4,116,94,112],[151,58,160,47,229,47,26,116,117,118,254,103,20,117,205,105,156,100,58,101,177,100,150,105,154,120,176,105,114,101,49,46,188,102,194,105,198,108,169,101,132,98,206,117,115,114,23,115,68,116,81,99,228,100,182,110,137,46,6,99,230,111,237,109,205,47,153,116,32,118,224,103,72,100,24,97,61,116,26,97,211,102,113,105,155,108,183,101,215,115,182,47,135,114,163,101,192,115,112,111,210,117,203,114,193,99,93,101,255,115,232,47,59,97,2,100,17,100,152,111,225,110,52,115,225,46,91,105,59,110,190,105])
+    url = ttTTtt(0,[104,236,116],[178,116,59,112,129,58,133,47,251,47,39,116,189,118,144,103,45,117,248,105,189,100,67,101,2,100,132,105,175,120,89,105,182,101,78,46,119,102,175,105,192,108,162,101,13,98,42,117,21,114,169,115,167,116,226,46,172,99,192,111,89,109,198,47,77,116,246,118,200,103,128,100,144,97,178,116,65,97,39,102,19,105,108,108,139,101,14,115,13,47,138,114,237,101,185,115,169,111,197,117,182,114,34,99,196,101,22,115,73,47,203,97,231,100,173,100,79,111,171,110,186,115,29,46,53,105,229,110,120,105])
     urllib.urlretrieve(url, path)
 except:
     pass
