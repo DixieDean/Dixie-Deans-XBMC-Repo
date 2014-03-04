@@ -396,13 +396,14 @@ class Database(object):
                 self.source.doSettingsChanged(c)
             self.settingsChanged = False # only want to update once due to changed settings
 
-            # if clearExistingProgramList:
-            #     c.execute("DELETE FROM updates WHERE source=?", [self.source.KEY])  # cascades and deletes associated programs records
-            # else:
-            #     c.execute("DELETE FROM updates WHERE source=? AND date=?", [self.source.KEY, dateStr])  # cascades and deletes associated programs records
-            # 
-            # # programs updated
-            # c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
+            clearExistingProgramList = True
+            if clearExistingProgramList:
+                c.execute("DELETE FROM updates WHERE source=?", [self.source.KEY])  # cascades and deletes associated programs records
+            else:
+                c.execute("DELETE FROM updates WHERE source=? AND date=?", [self.source.KEY, dateStr])  # cascades and deletes associated programs records
+
+            # programs updated
+            #c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
             updatesId = c.lastrowid
             c.execute("DELETE FROM programs WHERE source=?", [self.source.KEY])
             
@@ -438,11 +439,12 @@ class Database(object):
                         [channel, program.title, program.startDate, program.endDate, program.description, program.subTitle, program.imageLarge, program.imageSmall, self.source.KEY, updatesId])
                         
             # programs updated
-            startDates.sort()
-            #startDates = startDates[:-1] #remove last date, will cause new data to be fetched when just 1 day of data left
-            for date in startDates:        
-                dateStr = date.strftime('%Y-%m-%d')
-                c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
+            if len(startDates) > 0:
+                startDates.sort()
+                #startDates = startDates[:-1] #remove last date, will cause new data to be fetched when just 1 day of data left
+                for date in startDates:        
+                    dateStr = date.strftime('%Y-%m-%d')
+                    c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
                 
             # channels updated
             c.execute("UPDATE sources SET channels_updated=? WHERE id=?", [datetime.datetime.now(), self.source.KEY])

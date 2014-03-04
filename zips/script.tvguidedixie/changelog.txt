@@ -1,4 +1,7 @@
-v1.5.7
+v1.5.9
+Further fix to error on loading new data.
+
+v1.5.8
 Fixed possible error on loading new data.
 
 v1.5.7
