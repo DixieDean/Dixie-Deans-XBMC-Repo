@@ -1193,15 +1193,3 @@ def instantiateSource():
         activeSource = SOURCES['YouSee.tv']
 
     return activeSource(ADDON)
-
-
-  }
-
-    try:
-        activeSource = SOURCES[ADDON.getSetting('source')]
-    except KeyError:
-        activeSource = SOURCES['YouSee.tv']
-
-    return activeSource(ADDON)
-
-
