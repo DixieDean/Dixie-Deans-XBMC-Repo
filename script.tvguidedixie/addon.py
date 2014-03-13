@@ -34,6 +34,16 @@ datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
 default_ini = os.path.join(addonpath, 'addons.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
+cats        = ADDON.getSetting('categories')
+oss         = 'OffSide Streams'
+stvb        = 'StreamTVBox'
+
+
+if oss or stvb in cats:
+    cats = cats.replace(oss, '').replace(stvb, '')
+    while '||' in cats:
+        cats = cats.replace('||', '|')
+    ADDON.setSetting('categories', cats)
 
 
 if not os.path.exists(current_ini):

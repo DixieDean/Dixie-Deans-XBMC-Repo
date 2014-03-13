@@ -1,3 +1,8 @@
+v1.6.0
+Improved program data updates.
+Removed some categories from the settings.
+Minor code changes.
+
 v1.5.9
 Further fix to error on loading new data.
 

@@ -68,30 +68,10 @@ if DIXIEURL == 'NTV':
     ADDON.setSetting('dixie.url', 'Basic Channels')
 
 if DIXIEURL == 'PLUGINSXBMC':
-    print '********* Dont steal my code **********'
     ADDON.setSetting('dixie.url', 'Basic Channels')
 
-dixiecats = ADDON.getSetting('categories')
-oldcats   = dixiecats
-fixcats   = ''
-# newcats   = ADDON.setSetting('categories', fixcats)
-ntv       = 'NTV'
-oss       = 'OffSide Streams'
-stvb      = 'StreamTVBox'
-ntvs      = 'NTV Scandinavian'
-
-if oldcats == oss:
-    cats_fix = dixiecats.replace(oldcats, fixcats)
-    # newcats
-elif oldcats == ntv:
-    cats_fix = dixiecats.replace(oldcats, fixcats)
-    # newcats
-elif oldcats == stvb:
-    cats_fix = dixiecats.replace(oldcats, fixcats)
-    # newcats
-elif oldcats == ntvs:
-    cats_fix = dixiecats.replace(oldcats, fixcats)
-else: pass
+if DIXIEURL == 'EPGAARRONLEE':
+    ADDON.setSetting('dixie.url', 'Basic Channels')
 
 print '****** TV GUIDE DIXIE INFORMATION ******'
 print '*************** LOGO PACK **************'
@@ -434,14 +414,20 @@ class Database(object):
                         
                     if program.startDate.date() not in startDates:
                         startDates.append(program.startDate.date())
-                        
-                    c.execute('INSERT INTO programs(channel, title, start_date, end_date, description, subTitle, image_large, image_small, source, updates_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                        [channel, program.title, program.startDate, program.endDate, program.description, program.subTitle, program.imageLarge, program.imageSmall, self.source.KEY, updatesId])
+                    
+                    try:   
+                        c.execute('INSERT INTO programs(channel, title, start_date, end_date, description, subTitle, image_large, image_small, source, updates_id) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                            [channel, program.title, program.startDate, program.endDate, program.description, program.subTitle, program.imageLarge, program.imageSmall, self.source.KEY, updatesId])
+                    except:
+                        print "*****ERROR****"
+                        print "program.startDate = %s : type = %s" % (str(program.startDate), str(type(program.startDate)))
+                        print "program.endDate   = %s : type = %s" % (str(program.endDate),   str(type(program.endDate)))
+                        raise
                         
             # programs updated
             if len(startDates) > 0:
                 startDates.sort()
-                #startDates = startDates[:-1] #remove last date, will cause new data to be fetched when just 1 day of data left
+                startDates = startDates[:-1] #remove last date, will cause new data to be fetched when just 1 day of data left
                 for date in startDates:        
                     dateStr = date.strftime('%Y-%m-%d')
                     c.execute("INSERT INTO updates(source, date, programs_updated) VALUES(?, ?, ?)", [self.source.KEY, dateStr, datetime.datetime.now()])
@@ -1200,6 +1186,16 @@ def instantiateSource():
         'XMLTV' : XMLTVSource,
         'DIXIE' : DIXIESource
     }
+
+    try:
+        activeSource = SOURCES[ADDON.getSetting('source')]
+    except KeyError:
+        activeSource = SOURCES['YouSee.tv']
+
+    return activeSource(ADDON)
+
+
+  }
 
     try:
         activeSource = SOURCES[ADDON.getSetting('source')]

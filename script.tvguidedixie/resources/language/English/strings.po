@@ -159,11 +159,11 @@ msgid "Timezone - Include DST if required."
 msgstr ""
 
 msgctxt "#30125"
-msgid "Delete Database"
+msgid "Reset EPG"
 msgstr ""
 
 msgctxt "#30126"
-msgid "BEWARE! - All your channel settings will be lost"
+msgid "Click here to reset the EPG - All your custom settings will be lost"
 msgstr ""
 
 #empty strings from id 30127 to 30149
