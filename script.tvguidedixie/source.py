@@ -48,6 +48,10 @@ if SOURCE == 'DIXIE':
 else:
     logos = XMLTVLOGOS
 
+print '*************** LOGO PACK **************'
+print logos
+
+
 ################### MIGRATE SETTINGS ###################
 if SOURCE == 'XMLTV':
     ADDON.setSetting('categories', '')
@@ -72,10 +76,6 @@ if DIXIEURL == 'PLUGINSXBMC':
 
 if DIXIEURL == 'EPGAARRONLEE':
     ADDON.setSetting('dixie.url', 'Basic Channels')
-
-print '****** TV GUIDE DIXIE INFORMATION ******'
-print '*************** LOGO PACK **************'
-print logos
 
 
 SETTINGS_TO_CHECK = ['source', 'xmltv.file', 'xmltv.logo.folder', 'dixie.url', 'dixie.logo.folder', 'gmtfrom']

@@ -16,10 +16,12 @@
         
 	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
 	<setting id="categories" label="categories" type="text" default="" visible="false"/>
+    <setting id="VERSION" type="text" label="Current Version" default="1.6.1" visible="false"/>
     </category>
 
     <category label="30114">
         <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="Dixie"/>
+        <setting id="local.ini" label="Allow Enhanced Add-on Linking" type="bool" default="False" />
         <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="3" />
         <setting id="mashmode" type="text" label="MASHMODE" default="false" visible="false"/>
         <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" />
@@ -30,13 +32,15 @@
         <setting label="30121" type="lsep" />
     </category>
 
-    <category label="30112">
-        <setting id="notifications.enabled" label="30106" type="bool" default="false" />
-        <setting label="30108" type="action" action="RunScript($CWD/notification.py)" />
-    </category>
+    <!-- <category label="30112">
+        <setting id="notifications.enabled" label="30106" type="bool" default="false" visible="false"/>
+        <setting label="30108" type="action" action="RunScript($CWD/notification.py)" visible="false"/>
+    </category> -->
     
     <category label="30122">
         <setting id="enable.touch" label="30123" type="bool" default="false" />
+        <setting id="notifications.enabled" label="30106" type="bool" default="false" visible="false"/>
+        <setting label="30108" type="action" action="RunScript($CWD/notification.py)" visible="false"/>
     </category>
     
     <category label="30125">

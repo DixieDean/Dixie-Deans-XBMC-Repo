@@ -34,9 +34,6 @@ import xbmc
 import os
 import shutil
 
-# addon        = xbmcaddon.Addon()
-# addonid      = addon.getAddonInfo('id')
-# addonversion = addon.getAddonInfo('version')
 
 ADDON        = xbmcaddon.Addon(id = 'script.tvguidedixie')
 MASHMODE     = (ADDON.getSetting('mashmode') == 'true')
@@ -50,8 +47,6 @@ skinpath     = os.path.join(skinfolder, SKIN)
 mashfile     = os.path.join(xbmc.translatePath('special://profile/addon_data/plugin.video.movie25/Dixie/mashup.ini'))
 version      = os.path.join(skinfolder, 'skinsversion.txt')
 
-# print '*********** IS MASHMODE ON? ************'
-# print addonid, addonversion
 print '********* LATEST SKINS VERSION *********'
 print SKINSVERSION
 
@@ -1188,7 +1183,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onInit'})
     def onInit(self):
         playControl = self.getControl(self.C_POPUP_PLAY)
-        remindControl = self.getControl(self.C_POPUP_REMIND)
+        remindControl = self.getControl(self.C_POPUP_REMIND).setVisible(False)
         channelLogoControl = self.getControl(self.C_POPUP_CHANNEL_LOGO)
         channelTitleControl = self.getControl(self.C_POPUP_CHANNEL_TITLE)
         programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
@@ -1215,10 +1210,10 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
 
         programTitleControl.setLabel(self.program.title)
 
-        if self.showRemind:
-            remindControl.setLabel(strings(REMIND_PROGRAM))
-        else:
-            remindControl.setLabel(strings(DONT_REMIND_PROGRAM))
+        # if self.showRemind:
+        #     remindControl.setLabel(strings(REMIND_PROGRAM))
+        # else:
+        #     remindControl.setLabel(strings(DONT_REMIND_PROGRAM))
 
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onAction'})
     def onAction(self, action):

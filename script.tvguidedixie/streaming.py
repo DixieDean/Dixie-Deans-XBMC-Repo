@@ -25,17 +25,29 @@ import os
 import xbmcaddon
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
+LOCAL       = (ADDON.getSetting('local.ini') == 'true')
 datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 
 class StreamsService(object):
     def __init__(self):
-        path = os.path.join(datapath, 'addons.ini')
+        path  = os.path.join(datapath, 'addons.ini')
+        local = os.path.join(datapath, 'local.ini')
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option
-        try:
-            self.addonsParser.read(path)
-        except:
-            print 'unable to parse addons.ini'
+        
+        if not LOCAL:
+            try:
+                self.addonsParser.read(path)
+            except:
+                print 'unable to parse addons.ini'
+        else:
+            try:
+                self.addonsParser.read(path)
+                self.addonsParser.read(local)
+                self.addonsParser.append(path)
+            except:
+                print 'unable to parse local.ini and addons.ini'
+            
 
         self.loadMashup()
 

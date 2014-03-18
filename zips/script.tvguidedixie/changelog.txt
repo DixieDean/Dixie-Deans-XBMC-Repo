@@ -1,3 +1,8 @@
+v1.6.2
+Added 'Enhanced Add-on Linking' feature.
+Temporarily removed 'Notifications/Reminders'.
+Minor code changes.
+
 v1.6.1
 Improved program data updates.
 Removed some categories from the settings.
