@@ -30,7 +30,7 @@
                <channel>5 USA +1</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|International|North America|OffSide Streams|StreamTVBox|USTVNOW|(Not)FilmOn</category>
+               <category>All Channels|Entertainment|International|North America|Premium Channels|USTVNOW|(Not)FilmOn</category>
                <channel>ABC</channel>
          </cats>
          <cats>
@@ -38,67 +38,67 @@
                <channel>AETV</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|OffSide Streams|StreamTVBox|(Not)FilmOn</category>
+               <category>All Channels|News & Documentaries|Premium Channels|(Not)FilmOn</category>
                <channel>Al Jazeera English</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 1 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 2 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 3 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 4 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 5 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 6 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 7 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 8 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 9 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 10 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 11 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 12 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 13 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 14 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports 15 HD</channel>
          </cats>
          <cats>
@@ -106,7 +106,7 @@
                <channel>alibi</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
+               <category>All Channels|Premium Channels|USTVNOW|Entertainment|International|North America</category>
                <channel>AMC HD</channel>
          </cats>
          <cats>
@@ -118,15 +118,15 @@
                <channel>Animal Planet HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>At The Races</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|Premium Channels|NTV</category>
                <channel>BBC One</channel>
          </cats>
          <cats>
-               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|Premium Channels|NTV</category>
                <channel>BBC Two</channel>
          </cats>
          <cats>
@@ -142,11 +142,15 @@
                <channel>BBC THREE</channel>
          </cats>
          <cats>
-               <category>All Channels|International|North America|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|International|North America|Premium Channels|NTV|Sports</category>
                <channel>Bein Sports HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>BET</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Box Nation</channel>
          </cats>
          <cats>
@@ -154,11 +158,11 @@
                <channel>BRAVO HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BT Sport 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BT Sport 2</channel>
          </cats>
          <cats>
@@ -194,7 +198,7 @@
                <channel>Channel 5 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Chelsea TV</channel>
          </cats>
          <cats>
@@ -202,7 +206,7 @@
                <channel>Crime and Investigation</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|International|North America|USTVNOW|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|News & Documentaries|International|North America|USTVNOW|Premium Channels</category>
                <channel>CNN HD</channel>
          </cats>
          <cats>
@@ -228,7 +232,7 @@
          </cats>
          
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Entertainment|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Entertainment|International|North America</category>
                <channel>CTV HD</channel>
          </cats>
          <cats>
@@ -240,7 +244,11 @@
                <channel>Discovery Science</channel>
          </cats>
          <cats>
-               <category>All Channels|News & Documentaries|OffSide Streams|StreamTVBox|NTV</category>
+               <category>All Channels|News & Documentaries|NTV</category>
+               <channel>Discovery History</channel>
+         </cats>
+         <cats>
+               <category>All Channels|News & Documentaries|Premium Channels|NTV</category>
                <channel>Discovery Channel</channel>
          </cats>
          <cats>
@@ -284,27 +292,27 @@
                <channel>Eden</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>ESPN UK</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|NTV|Sports|International|North America</category>
                <channel>ESPN USA</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|Sports|International|North America</category>
                <channel>ESPN2 USA</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|Sports|International|North America</category>
                <channel>ESPNU</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Eurosport</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Eurosport 2</channel>
          </cats>
          <cats>
@@ -332,11 +340,11 @@
                <channel>Fox News HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>Fox Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>Fox Sports 2</channel>
          </cats>
          <cats>
@@ -344,7 +352,7 @@
                <channel>Futurama 247</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|Entertainment|International|North America</category>
                <channel>FX</channel>
          </cats>
          <cats>
@@ -352,11 +360,11 @@
                <channel>FX Movie Channel</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Movies|International|North America</category>
+               <category>All Channels|Premium Channels|Movies|International|North America</category>
                <channel>FXX HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
+               <category>All Channels|Premium Channels|NTV|Entertainment</category>
                <channel>GOLD</channel>
          </cats>
          <cats>
@@ -364,7 +372,7 @@
                <channel>HBO Comedy</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Movies|Entertainment|International|North America</category>
                <channel>HBO HD</channel>
          </cats>
          <cats>
@@ -372,8 +380,12 @@
                <channel>HBO2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
+               <category>All Channels|Premium Channels|Music</category>
                <channel>Heart TV</channel>
+         </cats>
+         <cats>
+               <category>All Channels|USTVNOW|North America</category>
+               <channel>HGTV</channel>
          </cats>
          <cats>
                <category>All Channels|News & Documentaries</category>
@@ -392,11 +404,11 @@
                <channel>ITV1 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
+               <category>All Channels|TV Catchup|(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
                <channel>ITV1</channel>
          </cats>
          <cats>
-               <category>All Channels|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
                <channel>ITV2</channel>
          </cats>
          <cats>
@@ -404,7 +416,7 @@
                <channel>ITV2 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
                <channel>ITV3</channel>
          </cats>
          <cats>
@@ -412,7 +424,7 @@
                <channel>ITV3 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|(Not)FilmOn|ExPatTV|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
+               <category>All Channels|(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
                <channel>ITV4</channel>
          </cats>
          <cats>
@@ -420,7 +432,7 @@
                <channel>ITV4 +1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
+               <category>All Channels|Premium Channels|Music</category>
                <channel>Kiss TV</channel>
          </cats>
          <cats>
@@ -460,7 +472,7 @@
                <channel>MSG Network</channel>
          </cats>
          <cats>
-               <category>All Channels|NTV|Music</category>
+               <category>All Channels|NTV|Entertainment</category>
                <channel>MTV</channel>
          </cats>
          <cats>
@@ -472,7 +484,7 @@
                <channel>MTV HITS</channel>
          </cats>
          <cats>
-               <category>All Channels|Music|International|North America</category>
+               <category>All Channels|Entertainment|International|North America</category>
                <channel>MTV US</channel>
          </cats>
          <cats>
@@ -488,35 +500,35 @@
                <channel>Nat Geo Wild</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
+               <category>All Channels|Premium Channels|Sports|North America</category>
                <channel>NBC Sports ET1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
+               <category>All Channels|Premium Channels|Sports|North America</category>
                <channel>NBC Sports ET2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
+               <category>All Channels|Premium Channels|Sports|North America</category>
                <channel>NBC Sports ET3</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|North America</category>
+               <category>All Channels|Premium Channels|Sports|North America</category>
                <channel>NBC Sports ET4</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|North America</category>
                <channel>NBC Sports HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|Sports|International|North America</category>
                <channel>NFL TV</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|Sports|International|North America</category>
                <channel>NHL TV</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>NBA TV</channel>
          </cats>
          <cats>
@@ -528,11 +540,11 @@
                <channel>Nick Jr 2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Kids</category>
+               <category>All Channels|Premium Channels|NTV|Kids</category>
                <channel>Nickelodeon</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|NTV|Kids|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|NTV|Kids|International|North America</category>
                <channel>Nickelodeon US</channel>
          </cats>
          <cats>
@@ -544,35 +556,35 @@
                <channel>Quest</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Racing UK</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>Sportsnet World HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|International</category>
+               <category>All Channels|Premium Channels|NTV|International</category>
                <channel>RTE One</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|International</category>
+               <category>All Channels|Premium Channels|NTV|International</category>
                <channel>RTE Two</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Setanta Ireland</channel>
          </cats>
          <cats>
-               <category>All Channels|NTV|Sports|International</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Setanta Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Movies|International|North America</category>
+               <category>All Channels|Premium Channels|Movies|International|North America</category>
                <channel>Showtime</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Action</channel>
          </cats>
          <cats>
@@ -580,7 +592,7 @@
                <channel>Sky Atlantic</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Comedy</channel>
          </cats>
          <cats>
@@ -588,75 +600,75 @@
                <channel>Sky Disney</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Drama</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Family</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Modern Greats</channel>
          </cats>
          <cats>
-               <category>All Channels|(Not)FilmOn|OffSide Streams|StreamTVBox|NTV|News & Documentaries</category>
+               <category>All Channels|(Not)FilmOn|Premium Channels|NTV|News & Documentaries</category>
                <channel>Sky News</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Poker</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Premiere</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Sci-FiHorror</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Sci-fiHorror</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Select</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Showcase</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Sports 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Sports 2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Sports 3</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Sports 4</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Sports F1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>Sky Sports News</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Movies</category>
+               <category>All Channels|Premium Channels|NTV|Movies</category>
                <channel>Sky Thriller</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Entertainment</category>
+               <category>All Channels|Premium Channels|NTV|Entertainment</category>
                <channel>Sky 1</channel>
          </cats>
          <cats>
@@ -668,11 +680,11 @@
                <channel>Spike HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>Sportsnet One HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>Sportsnet Ontario</channel>
          </cats>
          <cats>
@@ -688,7 +700,7 @@
                <channel>SYFY UK</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|International|North America</category>
                <channel>TBS HD</channel>
          </cats>
          <cats>
@@ -704,7 +716,7 @@
                <channel>TLC</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|Entertainment|International|North America</category>
                <channel>TNT HD</channel>
          </cats>
          <cats>
@@ -712,11 +724,11 @@
                <channel>Trace Sports</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>TSN 2 HD</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports|International|North America</category>
+               <category>All Channels|Premium Channels|NTV|Sports|International|North America</category>
                <channel>TSN HD</channel>
          </cats>
          <cats>
@@ -728,7 +740,7 @@
                <channel>Universal HD</channel>
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Entertainment|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|Entertainment|International|North America</category>
                <channel>USA Network</channel>
          </cats>
          <cats>
@@ -744,7 +756,7 @@
                <channel>Vintage TV</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Music</category>
+               <category>All Channels|Premium Channels|Music</category>
                <channel>Virgin TV</channel>
          </cats>
          <cats>
@@ -788,7 +800,7 @@
                <channel>CBeebies</channel>               
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|News & Documentaries</category>
+               <category>All Channels|Premium Channels|NTV|News & Documentaries</category>
                <channel>H2</channel>               
          </cats>
          <cats>
@@ -820,7 +832,7 @@
                <channel>Food Network</channel>               
          </cats>
          <cats>
-               <category>All Channels|USTVNOW|OffSide Streams|StreamTVBox|Lifestyle & Factual|International|North America</category>
+               <category>All Channels|USTVNOW|Premium Channels|Lifestyle & Factual|International|North America</category>
                <channel>Food Network US</channel>               
          </cats>
          <cats>
@@ -880,88 +892,116 @@
                <channel>A&E</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>Premier Sports</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>Ten Cricket</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>OSN 1</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>OSN 2</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>OSN 3</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|Sports</category>
+               <category>All Channels|Premium Channels|Sports</category>
                <channel>OSN 4</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>6EREN DK</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox|NTV|Sports</category>
+               <category>All Channels|Premium Channels|NTV|Sports</category>
                <channel>BeIN Sports English</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Premium Channels</category>
                <channel>Bloomberg</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Premium Channels</category>
                <channel>Colors</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Premium Channels</category>
                <channel>Star Gold</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Premium Channels</category>
                <channel>Star Plus</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Premium Channels</category>
                <channel>SET Asia</channel>
          </cats>
          <cats>
-               <category>All Channels|OffSide Streams|StreamTVBox</category>
+               <category>All Channels|Premium Channels</category>
                <channel>SET Max</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>NRK1</channel>
+               <channel>7eren</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>NRK2</channel>
+               <channel>C More Series</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>NRK3</channel>
+               <channel>Canal 9 DK</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>NRK3 Super</channel>
+               <channel>C More First</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV Norge</channel>
+               <channel>C More Fotboll SE</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV2 Norge</channel>
+               <channel>C More Hits</channel>
          </cats>
          <cats>
-               <category>All Channels|NTV|Entertainment|International</category>
-               <channel>TV3 Norge</channel>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>C More Sport</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Canal 8 Sport</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Discovery DK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Discovery NO</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Discovery SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Disney Channel DK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Disney Kanalen SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>DK 4</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
@@ -973,7 +1013,91 @@
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>Danmark TV2</channel>
+               <channel>DR 3</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>DR K</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>DR Ramasjang</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>DR Ultra</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>FEM</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Golf DK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Golf NO</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Golf SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Kanal 4</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Kanal 5 DK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Kanal 5 SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Kanal 9 SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>NRK 1</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>NRK 2</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>NRK 3</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>Sjuan</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>SVT 1</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>SVT 2</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>SVT 24</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TLC DK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 10 SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 DK</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
@@ -985,6 +1109,14 @@
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Film3</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Filmkanalen</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
                <channel>TV 2 Fri</channel>
          </cats>
          <cats>
@@ -993,7 +1125,35 @@
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 News</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 NO</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Nyhetsskanalen</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Sport</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Zebra</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
                <channel>TV 2 Zulu</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 3 DK</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 3 NO</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
@@ -1001,39 +1161,39 @@
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV 2 SPORT</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV 2 SPORT 2</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>Dansk Kanal4</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV|Entertainment|International</category>
-               <channel>Dansk Kanal5</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV|Entertainment|International</category>
                <channel>TV 3 Puls</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV1 Sverige</channel>
+               <channel>TV 3 SE</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV2 Sverige</channel>
+               <channel>TV 3 Sport 1</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV3 Sverige</channel>
+               <channel>TV 3 Sport 2</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV4 Sverige</channel>
+               <channel>TV 4 Fakta</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Guld</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 4 SE</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Komedi</channel>
+         </cats>
+         <cats>
+               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Sport</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
@@ -1041,39 +1201,11 @@
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV4 Guld</channel>
+               <channel>TV 8 SE</channel>
          </cats>
          <cats>
                <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV4 Sport</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>Viasat Fotboll</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>Viasat Sport</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>DR K</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>DR Ultra</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>TV 2 Filmkanalen</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV Scandinavian|Entertainment|International</category>
-               <channel>FEM</channel>
-         </cats>
-         <cats>
-               <category>All Channels|NTV|OffSide Streams</category>
-               <channel>No Channels</channel>
+               <channel>TV Norge</channel>	
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1109,9 +1241,8 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Boy Meet World</channel>
+               <channel>Boy Meets World</channel>
          </cats>
-
          <cats>
                <category>All Channels|24/7</category>
                <channel>Breaking Bad</channel>
@@ -1146,7 +1277,7 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Dinos</channel>
+               <channel>Dinosaurs</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1238,7 +1369,7 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Northern Exposer</channel>
+               <channel>Northern Exposure</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1258,7 +1389,7 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Rules OF Engagement</channel>
+               <channel>Rules Of Engagement</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1306,7 +1437,7 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>The Fresh Prince OF Bel Air</channel>
+               <channel>The Fresh Prince Of Bel Air</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1335,7 +1466,7 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Trialer Park Boys</channel>
+               <channel>Trailer Park Boys</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1347,7 +1478,7 @@
          </cats>
          <cats>
                <category>All Channels|24/7</category>
-               <channel>Two Middle</channel>
+               <channel>The Middle</channel>
          </cats>
          <cats>
                <category>All Channels|24/7</category>
@@ -1388,5 +1519,37 @@
          <cats>
                <category>All Channels|24/7</category>
                <channel>Dr Who</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Music</category>
+               <channel>Vevo</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>BBC Radio 1</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>BBC Radio 2</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>BBC Radio 3</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>BBC Radio 4</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>TalkSport</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>Heart</channel>
+         </cats>
+         <cats>
+               <category>All Channels|Radio|Music</category>
+               <channel>Magic</channel>
          </cats>
      </Document>
