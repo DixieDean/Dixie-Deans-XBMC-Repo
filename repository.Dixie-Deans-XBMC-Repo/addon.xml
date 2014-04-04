@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.Dixie-Deans-XBMC-Repo" name="Dixie-Deans-XBMC-Repo" version="1.0.3" provider-name="DixieDean">
-	<extension point="xbmc.addon.repository" name="Dixie-Deans-XBMC-Repo-1.0.3">
+<addon id="repository.Dixie-Deans-XBMC-Repo" name="Dixie-Deans-XBMC-Repo" version="1.0.4" provider-name="DixieDean">
+	<extension point="xbmc.addon.repository" name="Dixie-Deans-XBMC-Repo-1.0.4">
 		<info compressed="false">http://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/addons.xml</info>
 		<checksum>https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/zips</datadir>
+		<datadir zip="true">https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/tree/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install MY Addons</summary>

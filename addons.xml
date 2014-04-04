@@ -1,32 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.LiveTV"
-       name="LiveTv"
-       version="1.4"
-       provider-name="Mikey1234">
-  <requires>
-    <import addon="xbmc.python" version="2.0"/>
-	<import addon="script.module.beautifulsoup" version="3.0.8"/>
-    <import addon="script.module.simplejson" />
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-            library="default.py">
-        <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>LiveTV</summary>
-    <description>LiveTV lets you add streams by adding items to an xml file.</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
 <addon id="plugin.video.musicvideojukebox"
        name="Music Video Jukebox"
-       version="2.0.1"
+       version="2.0.2"
        provider-name="iZE">
   <requires>
-    <import addon="xbmc.python" version="1.0"/>
-    <import addon="plugin.video.youtube" version="2.1.0" />
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="plugin.video.youtube" version="4.4.6" />
   </requires>
   <extension point="xbmc.python.pluginsource"
             library="Default.py">
@@ -53,28 +33,15 @@
     </extension>
 </addon>
 
-<addon id="repository.Dixie-Deans-XBMC-Repo" name="Dixie-Deans-XBMC-Repo" version="1.0.3" provider-name="DixieDean">
-	<extension point="xbmc.addon.repository" name="Dixie-Deans-XBMC-Repo-1.0.3">
+<addon id="repository.Dixie-Deans-XBMC-Repo" name="Dixie-Deans-XBMC-Repo" version="1.0.4" provider-name="DixieDean">
+	<extension point="xbmc.addon.repository" name="Dixie-Deans-XBMC-Repo-1.0.4">
 		<info compressed="false">http://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/addons.xml</info>
 		<checksum>https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">http://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/zips</datadir>
+		<datadir zip="true">https://github.com/DixieDean/Dixie-Deans-XBMC-Repo/tree/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install MY Addons</summary>
 		<description>Download and install addons from DixieDean... For updates and information visit www.tvguidedixie.com</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.mikey1234" name="Mikey1234 Repository" version="1.0.2" provider-name="Mikey1234">
-	<extension point="xbmc.addon.repository" name="XBMCHUB.com Addon Repository">
-		<info compressed="false">http://mikey1234-repo.googlecode.com/svn/addons/addons.xml</info>
-		<checksum>http://mikey1234-repo.googlecode.com/svn/addons/addons.xml.md5</checksum>
-		<datadir zip="true">http://mikey1234-repo.googlecode.com/svn/addons</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>The Best Third Party Addons for XBMC, Mikey1234</summary>
-		<description>The Best Third Party Addons for XBMC, Mikey1234</description>
 		<platform>all</platform>
 	</extension>
 </addon>

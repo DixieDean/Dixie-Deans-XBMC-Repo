@@ -1,3 +1,8 @@
+Version 2.0.2
+Edited by DixieDean
+-------------
+Make compatible with XBMC Gotham
+
 Version 2.0.1
 -------------
 - Major update: added more LastFM functionality
