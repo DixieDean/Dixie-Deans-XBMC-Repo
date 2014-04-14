@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.Dixie-Deans-XBMC-Repo"
 	name="Dixie-Deans-XBMC-Repo"
-	version="1.0.6"
+	version="1.0.7"
 	provider-name="DixieDean">
 	<extension point="xbmc.addon.repository"
-		name="Dixie-Deans-XBMC-Repo-1.0.6">
+		name="Dixie-Deans-XBMC-Repo-1.0.7">
 		<info compressed="false">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml</info>
 		<checksum>https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Install MY Addons</summary>
+		<summary>Install My Addons</summary>
 		<description>Download and install addons from DixieDean... For updates and information visit www.tvguidedixie.com</description>
 		<platform>all</platform>
 	</extension>
