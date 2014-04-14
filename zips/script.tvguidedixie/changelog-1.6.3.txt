@@ -1,6 +1,3 @@
-v1.6.3
-Re-enabled 'Notifications/Reminders'.
-
 v1.6.2
 Added 'Enhanced Add-on Linking' feature.
 Temporarily removed 'Notifications/Reminders'.

@@ -1183,7 +1183,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onInit'})
     def onInit(self):
         playControl = self.getControl(self.C_POPUP_PLAY)
-        remindControl = self.getControl(self.C_POPUP_REMIND).setVisible(False)
+        remindControl = self.getControl(self.C_POPUP_REMIND)
         channelLogoControl = self.getControl(self.C_POPUP_CHANNEL_LOGO)
         channelTitleControl = self.getControl(self.C_POPUP_CHANNEL_TITLE)
         programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
@@ -1210,10 +1210,10 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
 
         programTitleControl.setLabel(self.program.title)
 
-        # if self.showRemind:
-        #     remindControl.setLabel(strings(REMIND_PROGRAM))
-        # else:
-        #     remindControl.setLabel(strings(DONT_REMIND_PROGRAM))
+        if self.showRemind:
+            remindControl.setLabel(strings(REMIND_PROGRAM))
+        else:
+            remindControl.setLabel(strings(DONT_REMIND_PROGRAM))
 
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onAction'})
     def onAction(self, action):

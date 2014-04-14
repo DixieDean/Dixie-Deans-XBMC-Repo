@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.6.2" provider-name="DixieDean, twinther">
+<addon id="script.tvguidedixie" name="TV Guide Dixie" version="1.6.3" provider-name="DixieDean, twinther">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.simplejson" version="2.0.10"/>
         <import addon="script.module.elementtree" version="1.2.7"/>
         <import addon="script.module.buggalo" version="1.1.2"/>
-    	<import addon="plugin.video.ustvnow-dixie" version="1.0"/>
     </requires>
     <extension point="xbmc.python.script" library="addon.py"><provides>video</provides></extension>
     <extension point="xbmc.python.script" library="addon.py"/>
