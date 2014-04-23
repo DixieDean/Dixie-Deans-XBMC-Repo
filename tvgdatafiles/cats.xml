@@ -1,0 +1,2040 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <Document>
+         <!--Created with XmlGrid Free Online XML Editor (http://xmlgrid.net)-->
+         <cats>
+               <category>International</category>
+               <channel>3e</channel>
+         </cats>
+         <cats>
+               <category>Music|(Not)FilmOn|ExPatTV</category>
+               <channel>4Music</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries</category>
+               <channel>4seven</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|NTV|(Not)FilmOn</category>
+               <channel>5 Star</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|(Not)FilmOn</category>
+               <channel>5 Star +1</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>5 USA</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>5 USA +1</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America|Premium Channels|USTVNOW|(Not)FilmOn</category>
+               <channel>ABC</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America|USTVNOW</category>
+               <channel>AETV</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|Premium Channels|(Not)FilmOn</category>
+               <channel>Al Jazeera English</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 1 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 2 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 3 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 4 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 5 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 6 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 7 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 8 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 9 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 10 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 11 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 12 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 13 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 14 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports 15 HD</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|NTV</category>
+               <channel>alibi</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|USTVNOW|Entertainment|International|North America</category>
+               <channel>AMC HD</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|NTV</category>
+               <channel>Animal Planet</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|USTVNOW|International|North America</category>
+               <channel>Animal Planet HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>At The Races</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|Premium Channels|NTV</category>
+               <channel>BBC One</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|Premium Channels|NTV</category>
+               <channel>BBC Two</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>BBC FOUR</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>BBC News</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>BBC THREE</channel>
+         </cats>
+         <cats>
+               <category>International|North America|Premium Channels|NTV|Sports</category>
+               <channel>Bein Sports HD</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>BET</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Box Nation</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Entertainment|International|North America</category>
+               <channel>BRAVO HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BT Sport 1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BT Sport 2</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>Capital TV</channel>
+         </cats>
+         <cats>
+               <category>Kids</category>
+               <channel>Cartoon Network UK</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Kids|International|North America</category>
+               <channel>Cartoon Network US</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America|Entertainment</category>
+               <channel>CBS</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>Channel 4</channel>
+         </cats>
+         <cats>
+               <category>Entertainment</category>
+               <channel>Channel 4 +1</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>Channel 5</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|(Not)FilmOn</category>
+               <channel>Channel 5 +1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Chelsea TV</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|NTV</category>
+               <channel>Crime and Investigation</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|International|North America|USTVNOW|Premium Channels</category>
+               <channel>CNN HD</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|International|North America|USTVNOW</category>
+               <channel>CNBC</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|International|North America</category>
+               <channel>CNN</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|NTV</category>
+               <channel>Comedy Central</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America|USTVNOW</category>
+               <channel>Comedy Central HD</channel>
+         </cats>
+         
+         <cats>
+               <category>Entertainment</category>
+               <channel>Comedy Central Extra</channel>
+         </cats>
+         
+         <cats>
+               <category>Premium Channels|NTV|Entertainment|International|North America</category>
+               <channel>CTV HD</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|(Not)FilmOn|ExPatTV|NTV</category>
+               <channel>Dave</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|NTV</category>
+               <channel>Discovery Science</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|NTV</category>
+               <channel>Discovery History</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|Premium Channels|NTV</category>
+               <channel>Discovery Channel</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|NTV</category>
+               <channel>Discovery Home</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|News & Documentaries|International|North America</category>
+               <channel>Discovery US</channel>
+         </cats>
+         <cats>
+               <category>Kids|International|North America</category>
+               <channel>Disney Channel US</channel>
+         </cats>
+         <cats>
+               <category>Kids</category>
+               <channel>Disney Channel</channel>
+         </cats>
+         <cats>
+               <category>Kids</category>
+               <channel>Disney XD</channel>
+         </cats>
+         <cats>
+               <category>Lifestyle & Factual</category>
+               <channel>Drama</channel>               
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|NTV|Sports|International|North America</category>
+               <channel>Dixie Info</channel>               
+         </cats>
+         <cats>
+               <category>Entertainment|Lifestyle & Factual</category>
+               <channel>E</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|NTV|Entertainment</category>
+               <channel>E4</channel>
+         </cats>
+         <cats>
+               <category>Entertainment</category>
+               <channel>E4+1</channel>
+         </cats>
+         <cats>
+               <category>NTV|Entertainment|Lifestyle & Factual</category>
+               <channel>Eden</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>ESPN UK</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|NTV|Sports|International|North America</category>
+               <channel>ESPN USA</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|International|North America</category>
+               <channel>ESPN2 USA</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|International|North America</category>
+               <channel>ESPNU</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Eurosport</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Eurosport 2</channel>
+         </cats>
+         <cats>
+               <category>ExPatTV|NTV|Movies</category>
+               <channel>Film4</channel>
+         </cats>
+         <cats>
+               <category>Movies</category>
+               <channel>Film4 +1</channel>
+         </cats>
+         <cats>
+               <category>NTV|Entertainment</category>
+               <channel>FOX UK</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>FOX</channel>
+         </cats>
+         <cats>
+               <category>NTV|News & Documentaries</category>
+               <channel>FOX News</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|News & Documentaries|International|North America</category>
+               <channel>Fox News HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>Fox Sports 1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>Fox Sports 2</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Futurama 247</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|Entertainment|International|North America</category>
+               <channel>FX</channel>
+         </cats>
+         <cats>
+               <category>Movies|International|North America</category>
+               <channel>FX Movie Channel</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Movies|International|North America</category>
+               <channel>FXX HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Entertainment</category>
+               <channel>GOLD</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America</category>
+               <channel>HBO Comedy</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies|Entertainment|International|North America</category>
+               <channel>HBO HD</channel>
+         </cats>
+         <cats>
+               <category>Movies|International|North America</category>
+               <channel>HBO2</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Music</category>
+               <channel>Heart TV</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>HGTV</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries</category>
+               <channel>History</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries|International|North America</category>
+               <channel>History US</channel>
+         </cats>
+         <cats>
+               <category>Lifestyle & Factual</category>
+               <channel>Home</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Entertainment</category>
+               <channel>ITV1 +1</channel>
+         </cats>
+         <cats>
+               <category>TV Catchup|(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
+               <channel>ITV1</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
+               <channel>ITV2</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Entertainment</category>
+               <channel>ITV2 +1</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
+               <channel>ITV3</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Entertainment</category>
+               <channel>ITV3 +1</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Premium Channels|NTV|Entertainment</category>
+               <channel>ITV4</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Entertainment</category>
+               <channel>ITV4 +1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Music</category>
+               <channel>Kiss TV</channel>
+         </cats>
+         <cats>
+               <category>Lifestyle & Factual|International|North America</category>
+               <channel>Lifetime HD</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>LIFE</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>Magic TV</channel>
+         </cats>
+         <cats>
+               <category>Movies</category>
+               <channel>MGM HD</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Entertainment|Lifestyle & Factual</category>
+               <channel>More4</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|Lifestyle & Factual</category>
+               <channel>More4 +1</channel>
+         </cats>
+         <cats>
+               <category>Sports</category>
+               <channel>Motors TV</channel>
+         </cats>
+         <cats>
+               <category>TV Catchup|NTV|Movies</category>
+               <channel>Movies4Men</channel>
+         </cats>
+         <cats>
+               <category>Sports|International|North America</category>
+               <channel>MSG Network</channel>
+         </cats>
+         <cats>
+               <category>NTV|Entertainment</category>
+               <channel>MTV</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>MTV DANCE</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>MTV HITS</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America</category>
+               <channel>MTV US</channel>
+         </cats>
+         <cats>
+               <category>NTV|News & Documentaries</category>
+               <channel>Nat Geo Channel UK</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|News & Documentaries|International|North America</category>
+               <channel>Nat Geo US</channel>
+         </cats>
+         <cats>
+               <category>NTV|News & Documentaries</category>
+               <channel>Nat Geo Wild</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|North America</category>
+               <channel>NBC Sports ET1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|North America</category>
+               <channel>NBC Sports ET2</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|North America</category>
+               <channel>NBC Sports ET3</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|North America</category>
+               <channel>NBC Sports ET4</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|North America</category>
+               <channel>NBC Sports HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|International|North America</category>
+               <channel>NFL TV</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports|International|North America</category>
+               <channel>NHL TV</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>NBA TV</channel>
+         </cats>
+         <cats>
+               <category>NTV|Kids</category>
+               <channel>Nick Jr</channel>
+         </cats>
+         <cats>
+               <category>Kids</category>
+               <channel>Nick Jr 2</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Kids</category>
+               <channel>Nickelodeon</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|NTV|Kids|International|North America</category>
+               <channel>Nickelodeon US</channel>
+         </cats>
+         <cats>
+               <category>Sports</category>
+               <channel>PPV Events</channel>
+         </cats>
+         <cats>
+               <category>TV Catchup|(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <channel>Quest</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Racing UK</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>Sportsnet World HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|International</category>
+               <channel>RTE One</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|International</category>
+               <channel>RTE Two</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Setanta Ireland</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Setanta Sports 1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Movies|International|North America</category>
+               <channel>Showtime</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Action</channel>
+         </cats>
+         <cats>
+               <category>NTV|Entertainment</category>
+               <channel>Sky Atlantic</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Comedy</channel>
+         </cats>
+         <cats>
+               <category>Movies</category>
+               <channel>Sky Disney</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Drama</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Family</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Modern Greats</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|Premium Channels|NTV|News & Documentaries</category>
+               <channel>Sky News</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Poker</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Premiere</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Sci-FiHorror</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Sci-fiHorror</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Select</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Showcase</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Sports 1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Sports 2</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Sports 3</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Sports 4</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Sports F1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>Sky Sports News</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Movies</category>
+               <channel>Sky Thriller</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Entertainment</category>
+               <channel>Sky 1</channel>
+         </cats>
+         <cats>
+               <category>NTV|Entertainment</category>
+               <channel>Sky 2</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Entertainment|International|North America</category>
+               <channel>Spike HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>Sportsnet One HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>Sportsnet Ontario</channel>
+         </cats>
+         <cats>
+               <category>Movies|International|North America</category>
+               <channel>Starz</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Entertainment|International|North America</category>
+               <channel>SYFY HD</channel>
+         </cats>
+         <cats>
+               <category>Entertainment</category>
+               <channel>SYFY UK</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|International|North America</category>
+               <channel>TBS HD</channel>
+         </cats>
+         <cats>
+               <category>NTV|Movies</category>
+               <channel>TCM</channel>
+         </cats>
+         <cats>
+               <category>International</category>
+               <channel>TG4</channel>
+         </cats>
+         <cats>
+               <category>NTV|Entertainment</category>
+               <channel>TLC</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|Entertainment|International|North America</category>
+               <channel>TNT HD</channel>
+         </cats>
+         <cats>
+               <category>Sports|International|North America</category>
+               <channel>Trace Sports</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>TSN 2 HD</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports|International|North America</category>
+               <channel>TSN HD</channel>
+         </cats>
+         <cats>
+               <category>International</category>
+               <channel>TV3</channel>
+         </cats>
+         <cats>
+               <category>Entertainment</category>
+               <channel>Universal HD</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|Entertainment|International|North America</category>
+               <channel>USA Network</channel>
+         </cats>
+         <cats>
+               <category>NTV|Music</category>
+               <channel>VH1</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>VH1 Classic</channel>
+         </cats>
+         <cats>
+               <category>TV Catchup|(Not)FilmOn|Music</category>
+               <channel>Vintage TV</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Music</category>
+               <channel>Virgin TV</channel>
+         </cats>
+         <cats>
+               <category>TV Catchup|(Not)FilmOn|ExPatTV|NTV|Music</category>
+               <channel>VIVA</channel>
+         </cats>
+         <cats>
+               <category>News & Documentaries</category>
+               <channel>Watch</channel>
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
+               <channel>Yesterday</channel>
+         </cats>
+         <cats>
+               <category>TV Catchup|Entertainment</category>
+               <channel>BBC Red Button</channel>               
+         </cats>
+         <cats>
+               <category>NTV|Lifestyle & Factual</category>
+               <channel>Sky Arts 1</channel>               
+         </cats>
+         <cats>
+               <category>Lifestyle & Factual</category>
+               <channel>Sky Arts 2</channel>               
+         </cats>
+         <cats>
+               <category>NTV|Entertainment|Lifestyle & Factual</category>
+               <channel>Sky Living</channel>               
+         </cats>
+         <cats>
+               <category>NTV|Kids</category>
+               <channel>Cartoonito</channel>               
+         </cats>
+         <cats>
+               <category>TV Catchup|(Not)FilmOn|ExPatTV|Kids</category>
+               <channel>CBBC</channel>               
+         </cats>
+         <cats>
+               <category>TV Catchup|(Not)FilmOn|ExPatTV|Kids</category>
+               <channel>CBeebies</channel>               
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|News & Documentaries</category>
+               <channel>H2</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
+               <channel>CBS Drama</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <channel>CBS Reality</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <channel>CBS Reality +1</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
+               <channel>Pick</channel>               
+         </cats>
+         <cats>
+               <category>NTV|Lifestyle & Factual</category>
+               <channel>Alibi</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <channel>Really</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <channel>Travel Channel +1</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <channel>Food Network</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <channel>Good Food</channel>               
+         </cats>
+         <cats>
+               <category>USTVNOW|Premium Channels|Lifestyle & Factual|International|North America</category>
+               <channel>Food Network US</channel>               
+         </cats>
+         <cats>
+               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <channel>Food Network +1</channel>               
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America</category>
+               <channel>WPIX 11</channel>
+         </cats>
+         <cats>
+               <category>Entertainment|International|North America</category>
+               <channel>WWOR 9</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>RAM FM</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>Muzu.tv</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>Jukebox Top Tracks</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>Jukebox Hyped Tracks</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>ABC</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>CBS</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>NBC</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>My9</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>CW</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>PBS</channel>
+         </cats>
+         <cats>
+               <category>USTVNOW|North America</category>
+               <channel>AE</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>Premier Sports</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>Ten Cricket</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>OSN 1</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>OSN 2</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>OSN 3</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|Sports</category>
+               <channel>OSN 4</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>6EREN DK</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels|NTV|Sports</category>
+               <channel>BeIN Sports English</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels</category>
+               <channel>Bloomberg</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels</category>
+               <channel>Colors</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels</category>
+               <channel>Star Gold</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels</category>
+               <channel>Star Plus</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels</category>
+               <channel>SET Asia</channel>
+         </cats>
+         <cats>
+               <category>Premium Channels</category>
+               <channel>SET Max</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>7eren</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>C More Series</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Canal 9 DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>C More First</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>C More Fotboll SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>C More Hits</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>C More Sport</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Canal 8 Sport</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Discovery DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Discovery NO</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Discovery SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Disney Channel DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Disney Kanalen SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DK 4</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DR 1</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DR 2</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DR 3</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DR K</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DR Ramasjang</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>DR Ultra</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>FEM</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Golf DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Golf NO</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Golf SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Kanal 4</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Kanal 5 DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Kanal 5 SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Kanal 9 SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>NRK 1</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>NRK 2</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>NRK 3</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>Sjuan</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>SVT 1</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>SVT 2</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>SVT 24</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TLC DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 10 SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Bliss</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Charlie</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Film3</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Filmkanalen</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Fri</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Lorry</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 News</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 NO</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Nyhetsskanalen</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Sport</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Zebra</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 2 Zulu</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 DK</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 NO</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 Plus</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 Puls</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 Sport 1</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 3 Sport 2</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Fakta</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Guld</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 4 SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Komedi</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 4 Sport</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 6 Sverige</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV 8 SE</channel>
+         </cats>
+         <cats>
+               <category>Scandinavian|Entertainment|International</category>
+               <channel>TV Norge</channel>	
+         </cats>
+		 
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES 324</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES 33</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Antena 3</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Antena 3 Internacional</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Boing</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Calle13</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Canal 24H</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Canal 3 xl</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Canal de las Estrallas</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Canal Súper 3</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Canal Vasco</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES CanalSur Televisión </channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Clan</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES CNN International</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Cosmopolitan TV</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Cuatro</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Divinity</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Esports 3</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES ETB 1</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES ETB 2</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES ETB 3</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES ETB K</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES ETB Sat</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Extremadura TV </channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES FDF</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Galicia TV América</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Galicia TV Europa</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES La 1</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES La 2</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES La Otra</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES La Siete</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES laSexta</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES laSexta3</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES MTV</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Nat Geo Wild</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES National Geographic Channel </channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Nickelodeon</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Onda Madrid</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Paramount Channel</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Paramount Comedy</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES SyFy</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TCM</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Telecinco</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TeleMadrid</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Telesur</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TNT</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Trace Sports</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Trace Sports HD</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TV 3</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TV3 HD</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TV3Cat</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TV5 Monde Europe</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES TvE International Europa</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES Viajar</channel>
+         </cats>
+         <cats>
+               <category>Spanish|Entertainment|International</category>
+               <channel>ES xplora</channel>
+         </cats>
+
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Arte</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>BFM Business</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>BFM TV HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Canal+</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>D17</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>D8</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Eurosport</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>France 2 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>France 3 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>France 4 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>France 5 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>France 24</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>France O</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Gulli</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>iTele</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>LCP</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>M6 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>M6 Boutique And Co</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Nat Geo</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>NRJ12 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Paris Premiere HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>Teva HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>TF1 HD</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>TMC</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>TV5 Monde Europe</channel>
+         </cats>
+         <cats>
+               <category>French|Entertainment|International</category>
+               <channel>W9 HD</channel>
+         </cats>
+		 
+         <cats>
+               <category>24/7</category>
+               <channel>3rd Rock From The Sun</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>All In The Family</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>American Dad</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Anger Management</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Archer</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Arrested Development</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Becker</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Bones</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Boy Meets World</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Breaking Bad</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Burn Notice</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Cheers</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>CSI</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Community</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Cops</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Curb Your Enthusiasm</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Deep Space Nine</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Dinosaurs</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Eastbound and Down</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Everybody Loves Raymond</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Family Guy</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Frasier</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Friends</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Futurama</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Full House</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Growing Pains</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Hanging With Mr Cooper</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Home Improvement</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>How I Met Your Mother</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Its Always Sunny In Philadelphia</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Just Shoot Me</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>King Of Queens</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>King Of The Hill</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Malcolm In The Middle</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Married With Children</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>MASH</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Modern Family</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>New Girl</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>News Radio</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Night Court</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Northern Exposure</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Perfect Strangers</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Rescue Me</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Robot Chicken</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Roseanne</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Rules Of Engagement</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Scrubs</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Seinfeld</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>South Park</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Star Trek Enterprise</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Star Trek Next Generation</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Star Trek Original</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Star Trek Voyager</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>That 70s Show</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Big Bang Theory</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Cosby Show</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Drew Carey Show</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Fresh Prince Of Bel Air</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Office</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Simpsons</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Sopranos</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Walking Dead</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Threes Company</channel>
+         </cats>
+
+         <cats>
+               <category>24/7</category>
+               <channel>Tom and Jerry</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Trailer Park Boys</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Two And A Half Men</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Two Broke Girls</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Middle</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Will And Grace</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>X-Files</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Beavis And Butthead</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Star Trek Voyager</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Sons Of Anarchy</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>The Office UK</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Top Gear</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Band Of Brothers</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Spaced/IT Crowd</channel>
+         </cats>
+         <cats>
+               <category>24/7</category>
+               <channel>Dr Who</channel>
+         </cats>
+         <cats>
+               <category>Music</category>
+               <channel>Vevo</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>BBC Radio 1</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>BBC Radio 2</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>BBC Radio 3</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>BBC Radio 4</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>BBC Five Live</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>TalkSport</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>Heart</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>Magic</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>XFM London</channel>
+         </cats>
+         <cats>
+               <category>Radio|Music</category>
+               <channel>Team Rock</channel>
+         </cats>
+		 
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC2</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC3</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC4</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC Action</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC Drama</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>MBC Max</channel>
+         </cats>
+         <cats>
+               <category>International|Arabic</category>
+               <channel>OTV</channel>
+         </cats>
+		 
+	     <cats>
+	         <channel>WGBH World</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WGBX Kids</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WGBX HDTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WCVB MeTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WYDNDT</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFXT Movies</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WSBK HDTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WLVI HDTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WHDH ThisTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WGBH HDTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WGBX Create</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WBPX HDTV</channel>
+	         <category>North America|Boston|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KXLA-DT</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>PBS SoCal World</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KPXN HDTV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KTLA HDTV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>qubo</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KTLA Antenna TV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>ION Life</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KMEX Univision 34</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KMEX GetTV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KJLADT</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KDOC HDTV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KCET HDTV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>KAZA HDTV</channel>
+	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+     </Document>
