@@ -39,14 +39,14 @@ class StreamsService(object):
             try:
                 self.addonsParser.read(path)
             except:
-                print 'unable to parse addons.ini'
+                pass
         else:
             try:
                 self.addonsParser.read(path)
                 self.addonsParser.read(local)
                 self.addonsParser.append(path)
             except:
-                print 'unable to parse local.ini and addons.ini'
+                pass
             
 
         self.loadMashup()
@@ -66,7 +66,7 @@ class StreamsService(object):
         try:
             self.mashupParser.read(mashfile)
         except:
-            print 'unable to parse mashup.ini'
+            pass
 
 
     def loadFavourites(self):

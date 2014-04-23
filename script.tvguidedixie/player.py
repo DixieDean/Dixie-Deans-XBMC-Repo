@@ -5,6 +5,9 @@ import xbmcgui
 
 
 def CheckIdle(maxIdle):
+    if maxIdle == 0:
+        return
+    
     idle = xbmc.getGlobalIdleTime()
     if idle < maxIdle:
         return
@@ -30,7 +33,9 @@ def CheckIdle(maxIdle):
 
 def play(url, windowed):
     ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
-    maxIdle = int(ADDON.getSetting('idle')) * 60 * 60
+    getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
+    maxIdle = getIdle * 60 * 60
+
     if not checkForAlternateStreaming(url):
         xbmc.Player().play(item = url, windowed = windowed)
         print '****** Attempt 1 ******'
@@ -53,10 +58,10 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
 
-    # if 'plugin.video.expattv' in url:
-    #     print '****** Alternate  ExPat ******'
-    #     print url
-    #     return alternateStream(url)
+    if 'plugin.video.expattv' in url:
+        print '****** Alternate  ExPat ******'
+        print url
+        return alternateStream(url)
 
     if 'plugin.video.filmon' in url:
         print '****** Alternate  FilmOn ******'

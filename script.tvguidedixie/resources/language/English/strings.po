@@ -21,11 +21,11 @@ msgid "No description"
 msgstr ""
 
 msgctxt "#30001"
-msgid "[B]Updating your EPG. Please wait.[/B]"
+msgid "[B]Loading EPG.[/B]"
 msgstr ""
 
 msgctxt "#30002"
-msgid "Calculating remaining time..."
+msgid "Please wait..."
 msgstr ""
 
 msgctxt "#30003"
@@ -33,7 +33,7 @@ msgid "Approximately %d seconds left..."
 msgstr ""
 
 msgctxt "#30004"
-msgid "Loading of data already in progress..."
+msgid "Loading in progress..."
 msgstr ""
 
 msgctxt "#30005"
@@ -53,7 +53,7 @@ msgid "Cancel"
 msgstr ""
 
 msgctxt "#30009"
-msgid "No program available"
+msgid "No listings available but streams will still play."
 msgstr ""
 
 #empty strings from id 30010 to 30099
@@ -115,7 +115,7 @@ msgid "Play channels using the Danish Live TV addon"
 msgstr ""
 
 msgctxt "#30114"
-msgid "Startup"
+msgid "Extra Features"
 msgstr ""
 
 msgctxt "#30115"
@@ -159,14 +159,18 @@ msgid "Timezone - Include DST if required."
 msgstr ""
 
 msgctxt "#30125"
-msgid "Reset EPG"
+msgid "Maintenance"
 msgstr ""
 
 msgctxt "#30126"
-msgid "Click here to reset the EPG - All your custom settings will be lost"
+msgid "Click here to reset the EPG. Your settings will NOT be lost."
 msgstr ""
 
-#empty strings from id 30127 to 30149
+msgctxt "#30127"
+msgid "Click here to clear any start-up errors. BEWARE! All your settings will be lost."
+msgstr ""
+
+#empty strings from id 30128 to 30149
 
 msgctxt "#30150"
 msgid "Oops, sorry about that!"
@@ -272,7 +276,39 @@ msgctxt "#30312"
 msgid "Cancel"
 msgstr ""
 
-#empty strings from id 30312 to 30499
+msgctxt "#30313"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30314"
+msgid "iPlayer"
+msgstr ""
+
+msgctxt "#30315"
+msgid "Movie Trailers"
+msgstr ""
+
+msgctxt "#30316"
+msgid "ITV Player"
+msgstr ""
+
+msgctxt "#30317"
+msgid "Super Favourites"
+msgstr ""
+
+msgctxt "#30318"
+msgid "VPN"
+msgstr ""
+
+msgctxt "#30319"
+msgid "USTV Catch Up"
+msgstr ""
+
+msgctxt "#30320"
+msgid "4oD"
+msgstr ""
+
+#empty strings from id 30321 to 30499
 
 msgctxt "#30500"
 msgid "[B]Edit channel order and visibility[/B]"

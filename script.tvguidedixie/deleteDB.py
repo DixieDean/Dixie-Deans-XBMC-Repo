@@ -8,7 +8,7 @@ def deleteDB():
     try:
         xbmc.log("[script.tvguidedixie] Deleting database...", xbmc.LOGDEBUG)
         dbPath = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
-        dbPath = os.path.join(dbPath, 'source.db')
+        dbPath = os.path.join(dbPath, 'program.db')
 
         delete_file(dbPath)
         
@@ -37,9 +37,9 @@ def delete_file(filename):
 if __name__ == '__main__':
     if deleteDB():
         d = xbmcgui.Dialog()
-        d.ok('TV Guide Dixie', 'Database successfully deleted.', 'It will be re-created next time', 'you start the guide')    
+        d.ok('TV Guide Dixie', 'EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
     else:
         d = xbmcgui.Dialog()
-        d.ok('TV Guide Dixie', 'Failed to delete database.', 'Database may be locked,', 'please restart XBMC and try again')    
+        d.ok('TV Guide Dixie', 'Failed to reset EPG.', 'Database may be locked,', 'please restart XBMC and try again')    
 
 

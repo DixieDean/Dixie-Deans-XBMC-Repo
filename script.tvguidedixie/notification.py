@@ -43,7 +43,7 @@ class Notification(object):
             self._scheduleNotification(channelTitle, programTitle, startTime)
 
     def _scheduleNotification(self, channelTitle, programTitle, startTime):
-        t = startTime - datetime.datetime.now()
+        t = startTime - datetime.datetime.now() + src.GMTOFFSET
         timeToNotification = ((t.days * 86400) + t.seconds) / 60
         if timeToNotification < 0:
             return

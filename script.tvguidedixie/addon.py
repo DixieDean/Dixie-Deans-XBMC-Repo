@@ -20,31 +20,79 @@
 import xbmc
 import xbmcaddon
 import urllib
+import urllib2
+import cookielib
+# from t0mm0.common.net import Net
+from hashlib import md5
 import socket 
-socket.setdefaulttimeout(5) # 5 seconds 
 import os
 import shutil
-xbmc.Player().stop
+import download
+import extract
+import update
+import dixie
 
+
+xbmc.Player().stop
+socket.setdefaulttimeout(5) # 5 seconds 
+
+VERSION     = '2.0.1'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'TV Guide Dixie'
-VERSION     = '1.6.2'
+MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
+SKIN        = ADDON.getSetting('dixie.skin')
+SKINVERSION = '5'
+
 addon       = xbmcaddon.Addon()
 addonid     = addon.getAddonInfo('id')
 versioninfo = addon.getAddonInfo('version')
 datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+extras      = os.path.join(datapath, 'extras')
+logos       = os.path.join(extras, 'logos')
+logofolder  = os.path.join(logos, 'None')
+skinfolder  = os.path.join(extras, 'skins')
+skin        = ADDON.getSetting('dixie.skin')
+dest        = os.path.join(skinfolder, 'skins-update.zip')
 addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
 default_ini = os.path.join(addonpath, 'addons.ini')
 local_ini   = os.path.join(addonpath, 'local.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
-cats        = ADDON.getSetting('categories')
-oss         = 'OffSide Streams'
-stvb        = 'StreamTVBox'
+database    = os.path.join(datapath, 'program.db')
 
-print '****** TV GUIDE DIXIE INFORMATION ******'
-print addonid, versioninfo
+print '****** TV GUIDE DIXIE LAUNCHED ******'
+print versioninfo
+
+
+def FirstRun():
+        d = xbmcgui.Dialog()
+        d.ok(TITLE + ' - ' + VERSION, 'This is a new version of TV Guide Dixie.' , 'It requires some extra stuff to be installed.',  'Unfortunately, your previous settings will be lost.')
+        
+        db =  os.path.join(datapath, 'source.db')
+        try:
+            os.remove(db)
+        except:
+            pass
+        
+        try:
+            os.makedirs(logofolder)
+        except:
+            pass
+        
+        update.checkForUpdate(silent = 0)
+
+
+def CheckDixieURL():
+   curr = ADDON.getSetting('dixie.url')
+   prev = ADDON.getSetting('DIXIEURL')
+
+   dixie.SetSetting('DIXIEURL', curr)
+
+   if prev != curr:
+       os.remove(database)
+       
+       CheckForUpdate()
 
 
 def CheckVersion():
@@ -54,17 +102,56 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev == '1.6.1':
+    if prev == '0.0.0':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'For updates, channel status and support...' , '[COLOR FF00FF00]www.tvguidedixie.com[/COLOR] or [COLOR FF00FF00]@DixieDean69[/COLOR]',  'Thank you for using TV Guide Dixie. Enjoy.')
 
-    ADDON.setSetting('VERSION', curr)
+    
+    dixie.SetSetting('VERSION', curr)
 
-if oss or stvb in cats:
-    cats = cats.replace(oss, '').replace(stvb, '')
-    while '||' in cats:
-        cats = cats.replace('||', '|')
-    ADDON.setSetting('categories', cats)
+
+def CheckSkin():
+    path = os.path.join(skinfolder, skin)
+
+    if not os.path.exists(path):
+        DownloadSkins()
+
+
+def CheckSkinVersion():
+    prev = ADDON.getSetting('SKINVERSION')
+    curr = SKINVERSION
+
+    if not prev == curr:
+        DownloadSkins()
+
+    dixie.SetSetting('SKINVERSION', curr)
+
+
+def CheckForUpdate():
+    if xbmcgui.Window(10000).getProperty('TVDIXIE_UPDATING') != 'True':
+        import update
+        update.checkForUpdate(silent = True)
+        return
+
+    while xbmcgui.Window(10000).getProperty('TVDIXIE_UPDATING') == 'True':
+        xbmc.sleep(1000)
+
+
+def DownloadSkins():
+    url  = dixie.GetExtraUrl() + 'skins-update.zip'
+
+    try:
+        os.makedirs(skinfolder)
+    except:
+        pass
+
+    download.download(url, dest)
+    extract.all(dest, extras)
+
+    try:
+        os.remove(dest)
+    except:
+        pass
 
 
 if not os.path.exists(current_ini):
@@ -74,38 +161,12 @@ if not os.path.exists(current_ini):
     shutil.copy(local_ini, datapath)
 
 
-ooOOOoo = ''
-def ttTTtt(i, t1, t2=[]):
-    t = ooOOOoo
-    for c in t1:
-      t += chr(c)
-      i += 1
-      if i > 1:
-       t = t[:-1]
-       i = 0  
-    for c in t2:
-      t += chr(c)
-      i += 1
-      if i > 1:
-       t = t[:-1]
-       i = 0
-    return t
-
-
-path = current_ini
-try:
-    url = ttTTtt(0,[104,236,116],[178,116,59,112,129,58,133,47,251,47,39,116,189,118,144,103,45,117,248,105,189,100,67,101,2,100,132,105,175,120,89,105,182,101,78,46,119,102,175,105,192,108,162,101,13,98,42,117,21,114,169,115,167,116,226,46,172,99,192,111,89,109,198,47,77,116,246,118,200,103,128,100,144,97,178,116,65,97,39,102,19,105,108,108,139,101,14,115,13,47,138,114,237,101,185,115,169,111,197,117,182,114,34,99,196,101,22,115,73,47,203,97,231,100,173,100,79,111,171,110,186,115,29,46,53,105,229,110,120,105])
-    urllib.urlretrieve(url, path)
-except:
-    pass
-
-
 busy = None
 try:
     import xbmcgui
     busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
     busy.show()
-
+    
     try:    busy.getControl(10).setVisible(False)
     except: pass
 
@@ -120,15 +181,26 @@ buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
 
 
 try:
+    if not ADDON.getSetting('firstrun') == 'true':
+        FirstRun()
+        ADDON.setSetting('firstrun', 'true')
+    
+    CheckDixieURL()
     CheckVersion()
+    CheckSkin()
+    CheckSkinVersion()
+    CheckForUpdate()
+
+
+    xbmc.executebuiltin('XBMC.ActivateWindow(home)')
     w = gui.TVGuide()
 
     if busy:
-        busy.close()
-        busy = None
+       busy.close()
+       busy = None
 
     w.doModal()
     del w
 
 except Exception:
-    buggalo.onExceptionRaised()
+   buggalo.onExceptionRaised()
