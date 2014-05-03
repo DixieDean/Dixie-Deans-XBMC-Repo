@@ -147,11 +147,11 @@ msgid "Alternative streaming is not compatible with OSD menu"
 msgstr ""
 
 msgctxt "#30122"
-msgid "Touch Screen"
+msgid "Back Up"
 msgstr ""
 
 msgctxt "#30123"
-msgid "Enable Touch Screen Mode"
+msgid "Enable Touch Screen"
 msgstr ""
 
 msgctxt "#30124"
@@ -163,14 +163,26 @@ msgid "Maintenance"
 msgstr ""
 
 msgctxt "#30126"
-msgid "Click here to reset the EPG. Your settings will NOT be lost."
+msgid "Click to - Reset Programme Listings."
 msgstr ""
 
 msgctxt "#30127"
-msgid "Click here to clear any start-up errors. BEWARE! All your settings will be lost."
+msgid "Click to - Clear start-up errors. All settings will be lost."
 msgstr ""
 
-#empty strings from id 30128 to 30149
+msgctxt "#30128"
+msgid "Choose Back Up Location..."
+msgstr ""
+
+msgctxt "#30129"
+msgid "Back Up"
+msgstr ""
+
+msgctxt "#30130"
+msgid "Restore"
+msgstr ""
+
+#empty strings from id 30130 to 30149
 
 msgctxt "#30150"
 msgid "Oops, sorry about that!"

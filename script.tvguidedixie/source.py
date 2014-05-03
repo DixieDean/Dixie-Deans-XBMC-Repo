@@ -48,6 +48,7 @@ GMTOFFSET  = dixie.GetGMTOffset()
 datapath   = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
 extras     = os.path.join(datapath, 'extras')
 logopath   = os.path.join(extras, 'logos')
+
 if len (DIXIELOGOS):
     logos = os.path.join(logopath, DIXIELOGOS)
 else:
@@ -1109,20 +1110,21 @@ class DIXIESource(Source):
         return parseXMLTV(context, io, len(self.xml), self.logoFolder, progress_callback, self.offset, categories)
 
 
-    def doSettingsChanged(self, cs, cp):   
-        cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
+    def doSettingsChanged(self, cs, cp):
+        return
+        # cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM programs WHERE source=?', [self.KEY])
         #cp.execute("DELETE FROM updates WHERE source=?", [self.KEY])
 
 
-    def getCategories(self):
+    def getCategories(self):        
         cat  = dict()
-        path = os.path.join(datapath, 'cats.xml')
-        url = dixie.GetExtraUrl() + 'cats.xml'
+        path = os.path.join(datapath, 'cats.xml')        
         try:
-            f = urllib2.urlopen(url, timeout=10)
-            xml = f.read()
-            f.close()
+            if os.path.exists(path):
+                f = open(path)
+                xml = f.read()
+                f.close()
         except: pass
         
         xml = xml.replace('&', '&amp;')
@@ -1182,7 +1184,9 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 title = elem.findtext("display-name")
                 logo = None
                 if logoFolder:
-                    logoFile = os.path.join(logos, title + '.png')
+                    folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+                    logoFile = os.path.join(folder + DIXIELOGOS + '/' + title + '.png')
+
                     if xbmcvfs.exists(logoFile):
                         logo = logoFile
 
@@ -1209,7 +1213,6 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
     
 
 def parseCATEGORIES(self, f, context):
-    import os
     path = os.path.join(datapath, 'cats.xml')
     if os.path.exists(path):
         f = open(path)

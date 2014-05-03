@@ -701,7 +701,7 @@ class TVGuide(xbmcgui.WindowXML):
             if not wasPlaying:
                 self._hideEpg()
 
-        threading.Timer(5, self.waitForPlayBackStopped).start()
+        threading.Timer(2, self.waitForPlayBackStopped).start()
         self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
 
         return url is not None

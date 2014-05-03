@@ -33,15 +33,15 @@ import update
 import dixie
 
 
-xbmc.Player().stop
-socket.setdefaulttimeout(5) # 5 seconds 
+socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.1'
+VERSION     = '2.0.2'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'TV Guide Dixie'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
+DIXIELOGOS  = ADDON.getSetting('dixie.logo.folder')
 SKIN        = ADDON.getSetting('dixie.skin')
 SKINVERSION = '5'
 
@@ -61,26 +61,20 @@ local_ini   = os.path.join(addonpath, 'local.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 database    = os.path.join(datapath, 'program.db')
 
+
+if DIXIELOGOS == 'None':
+    dixie.SetSetting('dixie.logo.folder', '')
+
+dixie.SetSetting('gmtfrom', 'GMT')
+
 print '****** TV GUIDE DIXIE LAUNCHED ******'
 print versioninfo
 
 
-def FirstRun():
-        d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'This is a new version of TV Guide Dixie.' , 'It requires some extra stuff to be installed.',  'Unfortunately, your previous settings will be lost.')
-        
-        db =  os.path.join(datapath, 'source.db')
-        try:
-            os.remove(db)
-        except:
-            pass
-        
-        try:
-            os.makedirs(logofolder)
-        except:
-            pass
-        
-        update.checkForUpdate(silent = 0)
+try:
+    os.makedirs(logofolder)
+except:
+    pass
 
 
 def CheckDixieURL():
@@ -102,12 +96,23 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev == '0.0.0':
+    if prev == '2.0.1':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'For updates, channel status and support...' , '[COLOR FF00FF00]www.tvguidedixie.com[/COLOR] or [COLOR FF00FF00]@DixieDean69[/COLOR]',  'Thank you for using TV Guide Dixie. Enjoy.')
+        d.ok(TITLE + ' - ' + VERSION, 'For all listings, change settings from "Basic" to "Dixie"', 'Full listings are FREE for a limited period only.', 'Please go to www.tvguidedixie.com for more info.')
 
     
     dixie.SetSetting('VERSION', curr)
+
+
+def GetCats():
+    path = os.path.join(datapath, 'cats.xml')
+    if not os.path.exists(path):
+        try:
+            url = dixie.GetExtraUrl() + 'cats.xml'
+            urllib.urlretrieve(url, path)
+        
+        except:
+            pass
 
 
 def CheckSkin():
@@ -154,11 +159,20 @@ def DownloadSkins():
         pass
 
 
-if not os.path.exists(current_ini):
-    try: os.makedirs(datapath)
-    except: pass
-    shutil.copy(default_ini, datapath)
-    shutil.copy(local_ini, datapath)
+try:
+    path = os.path.join(datapath, 'tvgdinstall.txt')
+    
+    if not os.path.exists(path):
+        url = dixie.GetExtraUrl() + 'tvgdinstall.txt'
+        urllib.urlretrieve(url, path)
+
+    if not os.path.exists(current_ini):
+        try: os.makedirs(datapath)
+        except: pass
+        shutil.copy(default_ini, datapath)
+        shutil.copy(local_ini, datapath)
+except:
+    pass
 
 
 busy = None
@@ -180,13 +194,10 @@ import gui
 buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
 
 
-try:
-    if not ADDON.getSetting('firstrun') == 'true':
-        FirstRun()
-        ADDON.setSetting('firstrun', 'true')
-    
+try:    
     CheckDixieURL()
     CheckVersion()
+    GetCats()
     CheckSkin()
     CheckSkinVersion()
     CheckForUpdate()
