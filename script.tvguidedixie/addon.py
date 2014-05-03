@@ -143,7 +143,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'skins-update.zip'
+    url  = dixie.GetExtraUrl() + 'skins-28-04-2014.zip'
 
     try:
         os.makedirs(skinfolder)
