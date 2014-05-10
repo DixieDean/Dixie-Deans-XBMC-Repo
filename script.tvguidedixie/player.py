@@ -58,10 +58,10 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
 
-    # if 'plugin.video.expattv' in url:
-    #     print '****** Alternate  ExPat ******'
-    #     print url
-    #     return alternateStream(url)
+    if 'plugin.video.expattv' in url:
+        print '****** Alternate  ExPat ******'
+        print url
+        return alternateStream(url)
 
     if 'plugin.video.filmon' in url:
         print '****** Alternate  FilmOn ******'
@@ -108,6 +108,21 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
         
+    if 'plugin.video.irishtv' in url:
+        print '****** Alternate IrishTV ******'
+        print url
+        return alternateStream(url)
+        
+    if 'plugin.video.F.T.V' in url:
+        print '****** Alternate F.T.V ******'
+        print url
+        return alternateStream(url)
+        
+    if 'plugin.program.skygo.launcher' in url:
+        print '****** Alternate SkyGo ******'
+        print url
+        return alternateStream(url)
+        
     return False
 
 def alternateStream(url):
@@ -139,3 +154,4 @@ if __name__ == '__main__':
 # plugin.audio.ramfm
 # plugin.video.tgun
 # plugin.video.movie25
+# plugin.program.skygo.launcher

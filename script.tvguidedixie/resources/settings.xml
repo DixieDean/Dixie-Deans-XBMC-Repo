@@ -16,12 +16,12 @@
 	    <setting id="current.channels" label="Current Channels"     type="number" default="0"        visible="false" />
 	    <setting id="updated.channels" label="Updated Channels"     type="number" default="0"        visible="false" />
         
-		<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
-		<setting id="categories" label="categories" type="text" default="" visible="false"/>
-	    <setting id="VERSION" type="text" label="Current Version" default="0.0.0" visible="false"/>
-		<setting id="SKINVERSION" type="text" label="Skin Version" default="5" visible="false"/>
-		<setting id="DIXIEURL"  type="labelenum" values="Basic Channels|North America|International|Dixie" default="Dixie" visible="false"/>
-	</category>
+	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
+	<setting id="categories" label="categories" type="text" default="" visible="false"/>
+    <setting id="VERSION" type="text" label="Current Version" default="0.0.0" visible="false"/>
+	<setting id="SKINVERSION" type="text" label="Skin Version" default="1" visible="false"/>
+	<setting id="DIXIEURL"  type="labelenum" values="Basic Channels|North America|International|Dixie" default="Dixie" visible="false"/>
+</category>
 
     <category label="30114">
         <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="FXB v2.2"/>

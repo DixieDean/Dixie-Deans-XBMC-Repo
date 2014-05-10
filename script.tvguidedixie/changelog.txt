@@ -1,3 +1,9 @@
+v2.0.3
+Name change to OnTapp.tv
+Fixed cats.xml download
+Updated player.py (FTV, SkyGo, Cliq!)
+
+
 v2.0.2
 Added back-up and restore feature.
 Logo locations are device independent.

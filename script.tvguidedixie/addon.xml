@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.tvguidedixie" name="TV Guide Dixie" version="2.0.2" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.0.3" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.simplejson" version="2.0.10"/>
@@ -13,7 +13,7 @@
         <summary lang="da">TV Guide med XMLTV og streaming support</summary>
         <summary lang="de">TV Guide mit XMLTV und Streamingunterstützung</summary>
         <summary lang="el">Οδηγός Τηλεόρασης με XMLTV και υποστήριξη ροών</summary>
-        <summary lang="en">TV Guide with streaming support from multiple live TV addons</summary>
+        <summary lang="en">Formerly TV guide Dixie. With streaming support via multiple live TV addons</summary>
         <summary lang="es">TV Guide con XMLTV y soporte para streaming</summary>
         <summary lang="gl">Guía de TV con soporte XMLTV e transmisións</summary>
         <summary lang="it">Guida TV con supporto XMLTV e streaming</summary>
@@ -27,7 +27,7 @@
         <description lang="da">TV guiden giver dig et overblik over hvad der er på TV lige nu, så slipper du for at zappe væk fra XBMC![CR]EPG data kan indlæses fra YouSee.tv, DR.dk, TvTid.dk, XMLTV fil,  eller en ekstern JSON kilde.[CR][CR]Naviger med piletasterne og skift side med kanal + og -.[CR][CR]Har du kommentarer, ris eller ros til denne addon er du velkommen til at delta    ge i debatten på min blog på http://tommy.winther.nu</description>
         <description lang="de">Der TV-Guide gibt Dir einen Überblick, was gerade im TV läuft, so dass man nicht von XBMC wegschalten muss! [CR]EPG-Daten können von YouSee.tv, DR.dk, TvTid.dk, XMLTV-Dateien oder über eine woanders abgelegte JSON-Quelle eingebunden werden.[CR][CR] Navigiere mit den Pfeiltasten und wechsle die Seite mittels der Kanalwahltasten +/-. [CR][CR]Wenn Du Kommentare oder Vorschläge zu diesem addon hast, fühl Dich eingeladen, in der Debatte auf meinem Blog unter http://tommy.winther.nu teilzunehmen.</description>
         <description lang="el">Ο Οδηγός TV σας δίνει μια περίληψη του τι παίζει στην τηλεόραση αυτή τη στιγμή, ούτως ώστε να μη χρειαστεί να κλείσετε το XBMC![CR]Δεδομένα EPG μπορούν να ληφθούν μέσω των YouSee.tv, DR.dk, TvTid.dk, αρχείων XMLTV ή απομακρυσμένες πηγές JSON.[CR][CR]Περιηγηθείτε χρησιμοποιώντας τα βέλη κατεύθυνσης και αλλάξτε σελίδα μέσω των πλήκτρων Κανάλι + / -.[CR][CR]Αν έχετε σχόλια ή προτάσεις για αυτό το πρόσθετο μπορείτε να συμμετάσχετε ελεύθερα στη συζήτηση στο blog μου στο http://tommy.winther.nu</description>
-        <description lang="en">A comprehensive EPG that is compatible with many popular live TV addons. TV Guide Dixie gives you an overview of what is on TV right now whilst automatically triggering your favourite live TV addons.[CR]EPG data can be retrieved from specialised DIXIE Url sources.[CR][CR]Navigate using the arrow keys and change page using channel + / -.[CR]</description>
+        <description lang="en">A comprehensive EPG that is compatible with many popular live TV addons. OnTapp.tv gives you an overview of what is on TV right now whilst automatically triggering your favourite live TV addons.[CR]EPG data can be retrieved from specialised DIXIE Url sources.[CR][CR]Navigate using the arrow keys and change page using channel + / -.[CR]</description>
         <description lang="es">TV Guide ofrece una visión general de lo que hay en la televisión ahora mismo, así no tienes que cambiar el canal en XBMC![CR]Los datos EPG pueden ser obtenidos de YouSee.tv, DR.dk, TvTid.dk, archivo XMLTV o de una fuente remota de JSON.[CR][CR]Navegue usando las teclas de flecha y cambie de página mediante canal + / -.[CR][CR]Si usted tiene comentarios o sugerencias para este complemente, no dude en participar en el debate de mi blog en http://tommy.winther.nu</description>
         <description lang="gl">A Guía de TV fornece dunha visión xeral do que está a acontecer na TV nestes intres, para que non teña que trocar de canle fóra do XBMC![CR]Os datos da Guía pódense obter de YouSee.tv, DR.dk, TvTid.dk, do ficheiro de XMLTV ou dunha fonte JSON remota.[CR][CR]Navegue usando as frechas e troque a página usando canle + / -.[CR][CR]Se ten comentarios ou suxestións, pode facelos no meu blogue en http://tommy.winther.nu</description>
         <description lang="it">La guida TV ti da un'idea di cosa c'è in TV ora, così non dovrai cambiare canale in XBMC![CR]I dati EPG possono essere recuperati da YouSee.tv, DR.dk, TvTid.dk, da file XMLTV o sorgenti JSON remote.[CR][CR]Naviga usando le freccie e cambia pagina usando Canale +/-.[CR][CR]Se hai commenti o suggerimenti per questo addon, sei libero di partecipare alla discussione sul mio blog su http://tommy.winther.nu</description>

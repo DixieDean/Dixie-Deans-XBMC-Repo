@@ -1196,10 +1196,10 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                     try:
                         category = categories[title]
                         result.categories = category
-                        #print 'The category for %s is %s' % (title, category)
+                        print 'The category for %s is %s' % (title, category)
                     except:
                         pass
-                        #print 'Couldn't find %s in the categories' % title
+                        print 'Couldnt find %s in the categories' % (title)
 
             if result:
                 elements_parsed += 1

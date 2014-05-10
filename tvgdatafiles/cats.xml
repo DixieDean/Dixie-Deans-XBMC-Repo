@@ -2,6 +2,10 @@
    <Document>
          <!--Created with XmlGrid Free Online XML Editor (http://xmlgrid.net)-->
          <cats>
+               <category>Entertainment|International|North America|Premium Channels|USTVNOW|(Not)FilmOn|NTV</category>
+               <channel>Dixie Info</channel>
+         </cats>
+		 <cats>
                <category>International</category>
                <channel>3e</channel>
          </cats>
@@ -10,7 +14,7 @@
                <channel>4Music</channel>
          </cats>
          <cats>
-               <category>News & Documentaries</category>
+               <category>News and Documentaries</category>
                <channel>4seven</channel>
          </cats>
          <cats>
@@ -38,7 +42,7 @@
                <channel>AETV</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|Premium Channels|(Not)FilmOn</category>
+               <category>News and Documentaries|Premium Channels|(Not)FilmOn</category>
                <channel>Al Jazeera English</channel>
          </cats>
          <cats>
@@ -102,7 +106,7 @@
                <channel>BeIN Sports 15 HD</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|NTV</category>
+               <category>News and Documentaries|NTV</category>
                <channel>alibi</channel>
          </cats>
          <cats>
@@ -110,11 +114,11 @@
                <channel>AMC HD</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|NTV</category>
+               <category>News and Documentaries|NTV</category>
                <channel>Animal Planet</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|USTVNOW|International|North America</category>
+               <category>News and Documentaries|USTVNOW|International|North America</category>
                <channel>Animal Planet HD</channel>
          </cats>
          <cats>
@@ -130,11 +134,11 @@
                <channel>BBC Two</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <category>News and Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>BBC FOUR</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
+               <category>News and Documentaries|TV Catchup|(Not)FilmOn|ExPatTV|NTV</category>
                <channel>BBC News</channel>
          </cats>
          <cats>
@@ -202,19 +206,19 @@
                <channel>Chelsea TV</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|NTV</category>
+               <category>News and Documentaries|NTV</category>
                <channel>Crime and Investigation</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|International|North America|USTVNOW|Premium Channels</category>
+               <category>News and Documentaries|International|North America|USTVNOW|Premium Channels</category>
                <channel>CNN HD</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|International|North America|USTVNOW</category>
+               <category>News and Documentaries|International|North America|USTVNOW</category>
                <channel>CNBC</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|International|North America</category>
+               <category>News and Documentaries|International|North America</category>
                <channel>CNN</channel>
          </cats>
          <cats>
@@ -240,23 +244,23 @@
                <channel>Dave</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|NTV</category>
+               <category>News and Documentaries|NTV</category>
                <channel>Discovery Science</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|NTV</category>
+               <category>News and Documentaries|NTV</category>
                <channel>Discovery History</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|Premium Channels|NTV</category>
+               <category>News and Documentaries|Premium Channels|NTV</category>
                <channel>Discovery Channel</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|NTV</category>
+               <category>News and Documentaries|NTV</category>
                <channel>Discovery Home</channel>
          </cats>
          <cats>
-               <category>USTVNOW|News & Documentaries|International|North America</category>
+               <category>USTVNOW|News and Documentaries|International|North America</category>
                <channel>Discovery US</channel>
          </cats>
          <cats>
@@ -272,7 +276,7 @@
                <channel>Disney XD</channel>
          </cats>
          <cats>
-               <category>Lifestyle & Factual</category>
+               <category>Lifestyle and Factual</category>
                <channel>Drama</channel>               
          </cats>
          <cats>
@@ -280,7 +284,7 @@
                <channel>Dixie Info</channel>               
          </cats>
          <cats>
-               <category>Entertainment|Lifestyle & Factual</category>
+               <category>Entertainment|Lifestyle and Factual</category>
                <channel>E</channel>
          </cats>
          <cats>
@@ -292,7 +296,7 @@
                <channel>E4+1</channel>
          </cats>
          <cats>
-               <category>NTV|Entertainment|Lifestyle & Factual</category>
+               <category>NTV|Entertainment|Lifestyle and Factual</category>
                <channel>Eden</channel>
          </cats>
          <cats>
@@ -336,11 +340,11 @@
                <channel>FOX</channel>
          </cats>
          <cats>
-               <category>NTV|News & Documentaries</category>
+               <category>NTV|News and Documentaries</category>
                <channel>FOX News</channel>
          </cats>
          <cats>
-               <category>USTVNOW|News & Documentaries|International|North America</category>
+               <category>USTVNOW|News and Documentaries|International|North America</category>
                <channel>Fox News HD</channel>
          </cats>
          <cats>
@@ -392,15 +396,15 @@
                <channel>HGTV</channel>
          </cats>
          <cats>
-               <category>News & Documentaries</category>
+               <category>News and Documentaries</category>
                <channel>History</channel>
          </cats>
          <cats>
-               <category>News & Documentaries|International|North America</category>
+               <category>News and Documentaries|International|North America</category>
                <channel>History US</channel>
          </cats>
          <cats>
-               <category>Lifestyle & Factual</category>
+               <category>Lifestyle and Factual</category>
                <channel>Home</channel>
          </cats>
          <cats>
@@ -440,7 +444,7 @@
                <channel>Kiss TV</channel>
          </cats>
          <cats>
-               <category>Lifestyle & Factual|International|North America</category>
+               <category>Lifestyle and Factual|International|North America</category>
                <channel>Lifetime HD</channel>
          </cats>
          <cats>
@@ -456,11 +460,11 @@
                <channel>MGM HD</channel>
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|Entertainment|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|Entertainment|Lifestyle and Factual</category>
                <channel>More4</channel>
          </cats>
          <cats>
-               <category>Entertainment|Lifestyle & Factual</category>
+               <category>Entertainment|Lifestyle and Factual</category>
                <channel>More4 +1</channel>
          </cats>
          <cats>
@@ -492,15 +496,15 @@
                <channel>MTV US</channel>
          </cats>
          <cats>
-               <category>NTV|News & Documentaries</category>
+               <category>NTV|News and Documentaries</category>
                <channel>Nat Geo Channel UK</channel>
          </cats>
          <cats>
-               <category>USTVNOW|News & Documentaries|International|North America</category>
+               <category>USTVNOW|News and Documentaries|International|North America</category>
                <channel>Nat Geo US</channel>
          </cats>
          <cats>
-               <category>NTV|News & Documentaries</category>
+               <category>NTV|News and Documentaries</category>
                <channel>Nat Geo Wild</channel>
          </cats>
          <cats>
@@ -556,7 +560,7 @@
                <channel>PPV Events</channel>
          </cats>
          <cats>
-               <category>TV Catchup|(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <category>TV Catchup|(Not)FilmOn|ExPatTV|Lifestyle and Factual</category>
                <channel>Quest</channel>
          </cats>
          <cats>
@@ -616,7 +620,7 @@
                <channel>Sky Modern Greats</channel>
          </cats>
          <cats>
-               <category>(Not)FilmOn|Premium Channels|NTV|News & Documentaries</category>
+               <category>(Not)FilmOn|Premium Channels|NTV|News and Documentaries</category>
                <channel>Sky News</channel>
          </cats>
          <cats>
@@ -768,11 +772,11 @@
                <channel>VIVA</channel>
          </cats>
          <cats>
-               <category>News & Documentaries</category>
+               <category>News and Documentaries</category>
                <channel>Watch</channel>
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle and Factual</category>
                <channel>Yesterday</channel>
          </cats>
          <cats>
@@ -780,15 +784,15 @@
                <channel>BBC Red Button</channel>               
          </cats>
          <cats>
-               <category>NTV|Lifestyle & Factual</category>
+               <category>NTV|Lifestyle and Factual</category>
                <channel>Sky Arts 1</channel>               
          </cats>
          <cats>
-               <category>Lifestyle & Factual</category>
+               <category>Lifestyle and Factual</category>
                <channel>Sky Arts 2</channel>               
          </cats>
          <cats>
-               <category>NTV|Entertainment|Lifestyle & Factual</category>
+               <category>NTV|Entertainment|Lifestyle and Factual</category>
                <channel>Sky Living</channel>               
          </cats>
          <cats>
@@ -804,51 +808,51 @@
                <channel>CBeebies</channel>               
          </cats>
          <cats>
-               <category>Premium Channels|NTV|News & Documentaries</category>
+               <category>Premium Channels|NTV|News and Documentaries</category>
                <channel>H2</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle and Factual</category>
                <channel>CBS Drama</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|Lifestyle and Factual</category>
                <channel>CBS Reality</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|Lifestyle and Factual</category>
                <channel>CBS Reality +1</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|NTV|Lifestyle and Factual</category>
                <channel>Pick</channel>               
          </cats>
          <cats>
-               <category>NTV|Lifestyle & Factual</category>
+               <category>NTV|Lifestyle and Factual</category>
                <channel>Alibi</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|ExPatTV|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|ExPatTV|Lifestyle and Factual</category>
                <channel>Really</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|Lifestyle and Factual</category>
                <channel>Travel Channel +1</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|Lifestyle and Factual</category>
                <channel>Food Network</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|Lifestyle and Factual</category>
                <channel>Good Food</channel>               
          </cats>
          <cats>
-               <category>USTVNOW|Premium Channels|Lifestyle & Factual|International|North America</category>
+               <category>USTVNOW|Premium Channels|Lifestyle and Factual|International|North America</category>
                <channel>Food Network US</channel>               
          </cats>
          <cats>
-               <category>(Not)FilmOn|Lifestyle & Factual</category>
+               <category>(Not)FilmOn|Lifestyle and Factual</category>
                <channel>Food Network +1</channel>               
          </cats>
          <cats>
@@ -1903,7 +1907,6 @@
                <category>Radio|Music</category>
                <channel>Team Rock</channel>
          </cats>
-		 
          <cats>
                <category>International|Arabic</category>
                <channel>MBC</channel>
@@ -1936,8 +1939,7 @@
                <category>International|Arabic</category>
                <channel>OTV</channel>
          </cats>
-		 
-	     <cats>
+		 <cats>
 	         <channel>WGBH World</channel>
 	         <category>North America|Boston|Entertainment</category>
 	     </cats>
@@ -2036,5 +2038,165 @@
 	     <cats>
 	         <channel>KAZA HDTV</channel>
 	         <category>North America|Los Angeles|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WRC HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WTTG HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WJLA HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WUSA HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFDC HDTV Univision 14</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WDCA HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WDCW HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WETA UK</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WETA Kids</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WETA HDTV</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>ION Life DC</channel>
+	         <category>North America|Washington|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>CBC Toronto</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>City Toronto</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>CTV Toronto</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>HGTV Canada</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>CBLFT Toronto</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>TFO Ontario</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>Oasis HDTV Canada</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>Nat Geo Canada</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>Comedy Network Canada</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>History Canada</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>H2 Canada</channel>
+	         <category>North America|Canada|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFLA HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFLA MeTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WUSF</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>ION Life FL</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>qubo FL</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WMOR ThisTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WEDU HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WEDU+</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFTS HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFTS LiveWell FL</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WTAM-LP</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WFTS LiveWell</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WTSP HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WTSP Antenna TV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WTTA HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WTVT HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WUSF HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
+	     </cats>
+	     <cats>
+	         <channel>WWSB HDTV</channel>
+	         <category>North America|Tampa|Entertainment</category>
 	     </cats>
      </Document>

@@ -35,7 +35,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.2'
+VERSION     = '2.0.3'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -82,11 +82,14 @@ def CheckDixieURL():
    prev = ADDON.getSetting('DIXIEURL')
 
    dixie.SetSetting('DIXIEURL', curr)
-
+   
    if prev != curr:
-       os.remove(database)
-       
-       CheckForUpdate()
+       try:
+           os.remove(database)
+       except:
+           pass
+           
+           CheckForUpdate()
 
 
 def CheckVersion():
@@ -96,9 +99,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev == '2.0.1':
+    if prev != '2.0.3':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'For all listings, change settings from "Basic" to "Dixie"', 'Full listings are FREE for a limited period only.', 'Please go to www.tvguidedixie.com for more info.')
+        d.ok(TITLE + ' - ' + VERSION, 'For all listings, change settings from "Basic" to "Dixie"', 'TV Guide Dixie has changed its name.', 'Please go to www.ontapp.tv for more info.')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -106,13 +109,11 @@ def CheckVersion():
 
 def GetCats():
     path = os.path.join(datapath, 'cats.xml')
-    if not os.path.exists(path):
-        try:
-            url = dixie.GetExtraUrl() + 'cats.xml'
-            urllib.urlretrieve(url, path)
-        
-        except:
-            pass
+    url  = dixie.GetExtraUrl() + 'cats.xml'
+    try:
+        urllib.urlretrieve(url, path)
+    except:
+        pass
 
 
 def CheckSkin():
