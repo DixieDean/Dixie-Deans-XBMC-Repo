@@ -62,7 +62,8 @@ class Service(object):
 try:
     #if ADDON.getSetting('cache.data.on.xbmc.startup') == 'true':
     #    Service()
-    Service()
+    # Service()
+    pass
 
 except source.SourceNotConfiguredException:
     pass
