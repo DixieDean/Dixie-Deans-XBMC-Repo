@@ -41,9 +41,9 @@ def delete_file(filename):
 if __name__ == '__main__':
     if resetAll():
         d = xbmcgui.Dialog()
-        d.ok('TV Guide Dixie', 'TV Guide Dixie 2.0 successfully reset.', 'Everything will be re-created next time', 'you start the guide')    
+        d.ok('TV Guide Dixie', 'OnTapp.TV successfully reset.', 'Everything will be re-created next time', 'you start the guide')    
     else:
         d = xbmcgui.Dialog()
-        d.ok('TV Guide Dixie', 'Failed to reset TV Guide Dixie 2.0.', 'Some files may be locked,', 'please restart XBMC and try again')    
+        d.ok('TV Guide Dixie', 'Failed to reset OnTapp.TV.', 'Some files may be locked,', 'please restart XBMC and try again')    
 
 

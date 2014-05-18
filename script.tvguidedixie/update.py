@@ -26,6 +26,8 @@ import datetime
 
 import urllib2
 import urllib
+import requests
+from requests.auth import HTTPBasicAuth
 import json
 
 import dixie
@@ -34,6 +36,8 @@ import dixie
 ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
 TITLE    = ADDON.getAddonInfo('name')
 DIXIEURL = ADDON.getSetting('dixie.url').upper()
+username = ADDON.getSetting('username')
+password = ADDON.getSetting('password')
 
 
 try:
@@ -111,12 +115,18 @@ def deleteFile(filename, attempts = 5):
 
 
 def checkForUpdate(silent = 1):
-    #silent = 0
+    # silent = 0
     xbmcgui.Window(10000).setProperty('TVDIXIE_UPDATING', 'True')
 
     silent = int(silent) == 1
 
     response = getResponse()
+    
+    if 'Error' in response:
+        # if not silent:
+        ok(TITLE, response['Error'],'Please subscribe at','www.ontapp.tv')
+        return allDone(silent)
+        
     isValid  = len(response) > 0
 
     if not isValid:
@@ -160,12 +170,17 @@ def setAlarm(mins):
 
 def getResponse():
     try:
-        url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-        response = urllib2.urlopen(url).read()
+        url = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+        r   = requests.get(url)
+        print '------------- OTT login status -------------'
+        print (r.status_code)
+        if r.status_code == 200:
+            response = r.text
+            return json.loads(u"" + (response))
     except:
-        return []
-
-    return json.loads(u"" + (response))
+        pass
+        
+    return {'Error' : 'Login Failed'}
 
 
 def updateAvailable(latest):
@@ -265,14 +280,12 @@ def getDownloadPath(date):
 
 
 
-def download(url, dest, dp = None, start = 0, range = 100):    
-    if not dp:
-        urllib.urlretrieve(url,dest)
-    else:
-        dp.update(int(start))
-        urllib.urlretrieve(url,dest,lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,dp,start,range,url))
+def download(url, dest, dp = None, start = 0, range = 100):
+        r = requests.get(url)
+        with open(dest, 'wb') as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
 
- 
 
 def _pbhook(numblocks, blocksize, filesize, dp, start, range, url=None):
     try:
@@ -296,7 +309,15 @@ def doMain():
 
 if __name__ == '__main__': 
     try:
-        print '+++++++++++++ TV Guide Dixie - Running EPG Update +++++++++++++'
-        doMain()
+        url = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+        r   = requests.get(url)
+        print '------------- OTT login status -------------'
+        print (r.status_code)
+        if r.status_code == 401:
+            pass
+        
+        else:
+            print '+++++++++++++ TV Guide Dixie - Running EPG Update +++++++++++++'
+            doMain()
     except:
         xbmcgui.Window(10000).clearProperty('TVDIXIE_UPDATE')    

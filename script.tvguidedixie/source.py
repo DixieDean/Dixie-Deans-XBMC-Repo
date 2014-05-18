@@ -25,7 +25,9 @@ import datetime
 import time
 import urllib2
 import urllib
+import requests
 
+from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree
 
 import buggalo
@@ -48,6 +50,9 @@ GMTOFFSET  = dixie.GetGMTOffset()
 datapath   = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
 extras     = os.path.join(datapath, 'extras')
 logopath   = os.path.join(extras, 'logos')
+username   = ADDON.getSetting('username')
+password   = ADDON.getSetting('password')
+
 
 if len (DIXIELOGOS):
     logos = os.path.join(logopath, DIXIELOGOS)
@@ -1035,10 +1040,9 @@ class Source(object):
         return False
 
     def _downloadUrl(self, url):
-        u = urllib2.urlopen(url, timeout=30)
-        content = u.read()
-        u.close()
-
+        r = requests.get(url)
+        content = r.content
+        
         return content
 
 
@@ -1196,10 +1200,10 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                     try:
                         category = categories[title]
                         result.categories = category
-                        print 'The category for %s is %s' % (title, category)
+                        # print 'The category for %s is %s' % (title, category)
                     except:
                         pass
-                        print 'Couldnt find %s in the categories' % (title)
+                        # print 'Couldnt find %s in the categories' % (title)
 
             if result:
                 elements_parsed += 1
@@ -1255,10 +1259,3 @@ def instantiateSource():
     activeSource = DIXIESource
     return activeSource(ADDON)
 
-    #SOURCES = {'XMLTV' : XMLTVSource, 'DIXIE' : DIXIESource }
-    #try:
-    #    activeSource = SOURCES[ADDON.getSetting('source')]
-    #except KeyError:
-    #    activeSource = SOURCES['DIXIE']
-
-    #return activeSource(ADDON)

@@ -8,7 +8,7 @@ import shutil
 
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
-TITLE       = 'TV Guide Dixie'
+TITLE       = 'OnTapp.TV'
 source      = xbmc.translatePath('special://profile/addon_data/')
 folder      = source + 'script.tvguidedixie'
 location    = ADDON.getSetting('backup.location')

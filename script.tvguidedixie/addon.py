@@ -35,11 +35,11 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.3'
+VERSION     = '2.0.5'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
-TITLE       = 'TV Guide Dixie'
+TITLE       = 'OnTapp.TV'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 DIXIELOGOS  = ADDON.getSetting('dixie.logo.folder')
 SKIN        = ADDON.getSetting('dixie.skin')
@@ -66,8 +66,10 @@ if DIXIELOGOS == 'None':
     dixie.SetSetting('dixie.logo.folder', '')
 
 dixie.SetSetting('gmtfrom', 'GMT')
+dixie.SetSetting('autoStart', 'false')
 
-print '****** TV GUIDE DIXIE LAUNCHED ******'
+
+print '****** ONTAPP.TV LAUNCHED ******'
 print versioninfo
 
 
@@ -99,9 +101,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.0.3':
+    if prev != '2.0.5':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'For all listings, change settings from "Basic" to "Dixie"', 'TV Guide Dixie has changed its name.', 'Please go to www.ontapp.tv for more info.')
+        d.ok(TITLE + ' - ' + VERSION, 'New G-Box Midnight MX2 setting.', 'Change to this in Source Settings if you own one.', 'For all support and news - www.ontapp.tv')
 
     
     dixie.SetSetting('VERSION', curr)
