@@ -25,9 +25,9 @@ import datetime
 import time
 import urllib2
 import urllib
-import requests
-
-from requests.auth import HTTPBasicAuth
+# import requests
+# 
+# from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree
 
 import buggalo
@@ -1040,8 +1040,9 @@ class Source(object):
         return False
 
     def _downloadUrl(self, url):
-        r = requests.get(url)
-        content = r.content
+        u = urllib2.urlopen(url, timeout=30)
+        content = u.read()
+        u.close()
         
         return content
 

@@ -35,7 +35,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.5'
+VERSION     = '2.0.6'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -101,7 +101,7 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.0.5':
+    if prev != '2.0.6':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'New G-Box Midnight MX2 setting.', 'Change to this in Source Settings if you own one.', 'For all support and news - www.ontapp.tv')
 
@@ -202,7 +202,7 @@ try:
     CheckVersion()
     GetCats()
     CheckSkin()
-    CheckSkinVersion()
+    # CheckSkinVersion()
     CheckForUpdate()
 
 

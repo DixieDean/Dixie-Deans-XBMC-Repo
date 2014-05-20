@@ -26,8 +26,8 @@ import datetime
 
 import urllib2
 import urllib
-import requests
-from requests.auth import HTTPBasicAuth
+# import requests
+# from requests.auth import HTTPBasicAuth
 import json
 
 import dixie
@@ -115,18 +115,12 @@ def deleteFile(filename, attempts = 5):
 
 
 def checkForUpdate(silent = 1):
-    # silent = 0
-    xbmcgui.Window(10000).setProperty('TVDIXIE_UPDATING', 'True')
+    #silent = 0
+    xbmcgui.Window(10000).setProperty('OTT_UPDATING', 'True')
 
     silent = int(silent) == 1
 
     response = getResponse()
-    
-    if 'Error' in response:
-        # if not silent:
-        ok(TITLE, response['Error'],'Please subscribe at','www.ontapp.tv')
-        return allDone(silent)
-        
     isValid  = len(response) > 0
 
     if not isValid:
@@ -144,11 +138,10 @@ def checkForUpdate(silent = 1):
     allDone(silent)
 
 
-
 def allDone(silent, mins = 1 * 60 * 12): #12 hours
     setAlarm(mins)
 
-    xbmcgui.Window(10000).clearProperty('TVDIXIE_UPDATING')
+    xbmcgui.Window(10000).clearProperty('OTT_UPDATING')
 
     # if not silent:
     #     ADDON.openSettings() 
@@ -170,17 +163,12 @@ def setAlarm(mins):
 
 def getResponse():
     try:
-        url = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-        r   = requests.get(url)
-        print '------------- OTT login status -------------'
-        print (r.status_code)
-        if r.status_code == 200:
-            response = r.text
-            return json.loads(u"" + (response))
+        url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+        response = urllib2.urlopen(url).read()
     except:
-        pass
-        
-    return {'Error' : 'Login Failed'}
+        return []
+
+    return json.loads(u"" + (response))
 
 
 def updateAvailable(latest):
@@ -237,9 +225,9 @@ def getUpdate(response, silent):
 
     dixie.SetSetting('updated.channels', channel)
 
-    xbmcgui.Window(10000).setProperty('TVDIXIE_UPDATE', date)
+    xbmcgui.Window(10000).setProperty('OTT_UPDATE', date)
 
-    if xbmcgui.Window(10000).getProperty('TVDIXIE_RUNNING') == 'True':     
+    if xbmcgui.Window(10000).getProperty('OTT_RUNNING') == 'True':     
         return
 
     newEPGAvailable()
@@ -250,7 +238,7 @@ def getUpdate(response, silent):
 
 
 def newEPGAvailable():
-    date = xbmcgui.Window(10000).getProperty('TVDIXIE_UPDATE')
+    date = xbmcgui.Window(10000).getProperty('OTT_UPDATE')
 
     dir = xbmc.translatePath(ADDON.getAddonInfo('profile'))
     deleteFile(os.path.join(dir, 'program.db'))   
@@ -264,7 +252,7 @@ def newEPGAvailable():
 
     dixie.SetSetting('epg.date', date)
 
-    xbmcgui.Window(10000).clearProperty('TVDIXIE_UPDATE')
+    xbmcgui.Window(10000).clearProperty('OTT_UPDATE')
 
 
 
@@ -280,11 +268,12 @@ def getDownloadPath(date):
 
 
 
-def download(url, dest, dp = None, start = 0, range = 100):
-        r = requests.get(url)
-        with open(dest, 'wb') as f:
-                for chunk in r.iter_content(1024):
-                    f.write(chunk)
+def download(url, dest, dp = None, start = 0, range = 100):    
+    if not dp:
+        urllib.urlretrieve(url,dest)
+    else:
+        dp.update(int(start))
+        urllib.urlretrieve(url,dest,lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,dp,start,range,url))
 
 
 def _pbhook(numblocks, blocksize, filesize, dp, start, range, url=None):
@@ -309,15 +298,7 @@ def doMain():
 
 if __name__ == '__main__': 
     try:
-        url = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-        r   = requests.get(url)
-        print '------------- OTT login status -------------'
-        print (r.status_code)
-        if r.status_code == 401:
-            pass
-        
-        else:
-            print '+++++++++++++ TV Guide Dixie - Running EPG Update +++++++++++++'
-            doMain()
+        print '+++++++++++++ OnTapp.TV - Running EPG Update +++++++++++++'
+        doMain()
     except:
-        xbmcgui.Window(10000).clearProperty('TVDIXIE_UPDATE')    
+        xbmcgui.Window(10000).clearProperty('OTT_UPDATE')    
