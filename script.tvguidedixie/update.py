@@ -115,7 +115,7 @@ def deleteFile(filename, attempts = 5):
 
 
 def checkForUpdate(silent = 1):
-    #silent = 0
+    # silent = 0
     xbmcgui.Window(10000).setProperty('OTT_UPDATING', 'True')
 
     silent = int(silent) == 1
@@ -227,13 +227,13 @@ def getUpdate(response, silent):
 
     xbmcgui.Window(10000).setProperty('OTT_UPDATE', date)
 
-    if xbmcgui.Window(10000).getProperty('OTT_RUNNING') == 'True':     
+    if xbmcgui.Window(10000).getProperty('OTT_RUNNING') == 'True':
         return
 
     newEPGAvailable()
 
     if not silent:
-         ok(TITLE, '', 'EPG successfully updated.', '')
+        ok(TITLE, '', 'EPG successfully updated.', '')
 
 
 
@@ -271,6 +271,7 @@ def getDownloadPath(date):
 def download(url, dest, dp = None, start = 0, range = 100):    
     if not dp:
         urllib.urlretrieve(url,dest)
+        print '--------- OTT Downloading zip ---------'
     else:
         dp.update(int(start))
         urllib.urlretrieve(url,dest,lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,dp,start,range,url))

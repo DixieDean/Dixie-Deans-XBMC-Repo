@@ -1,6 +1,5 @@
 #
-#      Copyright (C) 2012 Tommy Winther
-#      http://tommy.winther.nu
+#      Copyright (C) 2014 Sean Poyser
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -10,19 +9,20 @@
 #  This Program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details
+#  GNU General Public License for more details.
 #
 #  You should have received a copy of the GNU General Public License
-#  along with this Program; see the file LICENSE.txt.  If not, write to
+#  along with XBMC; see the file COPYING.  If not, write to
 #  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #  http://www.gnu.org/copyleft/gpl.html
+#
 
 import xbmc
 import xbmcaddon
+import xbmcgui
 import urllib
 import urllib2
 import cookielib
-# from t0mm0.common.net import Net
 from hashlib import md5
 import socket 
 import os
@@ -136,12 +136,12 @@ def CheckSkinVersion():
 
 
 def CheckForUpdate():
-    if xbmcgui.Window(10000).getProperty('TVDIXIE_UPDATING') != 'True':
+    if xbmcgui.Window(10000).getProperty('OTT_UPDATING') != 'True':
         import update
         update.checkForUpdate(silent = True)
         return
 
-    while xbmcgui.Window(10000).getProperty('TVDIXIE_UPDATING') == 'True':
+    while xbmcgui.Window(10000).getProperty('OTT_UPDATING') == 'True':
         xbmc.sleep(1000)
 
 
@@ -180,7 +180,6 @@ except:
 
 busy = None
 try:
-    import xbmcgui
     busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
     busy.show()
     
@@ -202,19 +201,23 @@ try:
     CheckVersion()
     GetCats()
     CheckSkin()
-    # CheckSkinVersion()
+    CheckSkinVersion()
     CheckForUpdate()
-
-
+    
+    xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
     xbmc.executebuiltin('XBMC.ActivateWindow(home)')
+    
     w = gui.TVGuide()
-
+    
     if busy:
        busy.close()
        busy = None
-
+       
     w.doModal()
     del w
+    
+    xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
 
+    
 except Exception:
    buggalo.onExceptionRaised()

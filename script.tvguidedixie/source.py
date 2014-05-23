@@ -595,7 +595,7 @@ class Database(object):
 
 
     def _getEPGView(self, channelStart, date, progress_callback, clearExistingProgramList, categories, nmrChannels):
-        update = xbmcgui.Window(10000).getProperty('TVDIXIE_UPDATE')
+        update = xbmcgui.Window(10000).getProperty('OTT_UPDATE')
         if len(update) > 0:
             self.removeProgramDB()
             import update
