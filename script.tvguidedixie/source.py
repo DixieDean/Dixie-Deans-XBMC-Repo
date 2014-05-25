@@ -53,13 +53,12 @@ logopath   = os.path.join(extras, 'logos')
 username   = ADDON.getSetting('username')
 password   = ADDON.getSetting('password')
 
+USE_DB_FILE = True
 
 if len (DIXIELOGOS):
     logos = os.path.join(logopath, DIXIELOGOS)
 else:
-    logos = None
-
-USE_DB_FILE = True
+    logos = dixie.SetSetting('dixie.logo.folder', 'None')
 
 
 SETTINGS_TO_CHECK = ['source', 'dixie.url', 'dixie.logo.folder', 'categories.xml']
@@ -1190,8 +1189,7 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 logo = None
                 if logoFolder:
                     folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
-                    logoFile = os.path.join(folder + DIXIELOGOS + '/' + title + '.png')
-
+                    logoFile = os.path.join(folder, DIXIELOGOS, title + '.png')
                     if xbmcvfs.exists(logoFile):
                         logo = logoFile
 

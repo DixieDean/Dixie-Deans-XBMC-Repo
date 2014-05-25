@@ -271,7 +271,6 @@ def getDownloadPath(date):
 def download(url, dest, dp = None, start = 0, range = 100):    
     if not dp:
         urllib.urlretrieve(url,dest)
-        print '--------- OTT Downloading zip ---------'
     else:
         dp.update(int(start))
         urllib.urlretrieve(url,dest,lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,dp,start,range,url))

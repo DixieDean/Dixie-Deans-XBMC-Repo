@@ -1500,7 +1500,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onClick'})
     def onClick(self, controlId):
         if controlId == self.C_STREAM_STRM_BROWSE:
-            stream = xbmcgui.Dialog().browse(1, ADDON.getLocalizedString(30304), 'video', '.strm')
+            stream = xbmcgui.Dialog().browse(1, ADDON.getLocalizedString(30304), 'video', mask='.xsp|.strm')
             if stream:
                 self.database.setCustomStreamUrl(self.channel, stream)
                 self.getControl(self.C_STREAM_STRM_FILE_LABEL).setText(stream)

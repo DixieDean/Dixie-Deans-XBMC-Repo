@@ -35,7 +35,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.6'
+VERSION     = '2.0.8'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -62,8 +62,8 @@ current_ini = os.path.join(datapath, 'addons.ini')
 database    = os.path.join(datapath, 'program.db')
 
 
-if DIXIELOGOS == 'None':
-    dixie.SetSetting('dixie.logo.folder', '')
+if ADDON.getSetting('dixie.url') == 'G-Box Midnight MX2':
+    dixie.SetSetting('dixie.url', 'Dixie')
 
 dixie.SetSetting('gmtfrom', 'GMT')
 dixie.SetSetting('autoStart', 'false')
@@ -101,9 +101,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.0.6':
+    if prev != '2.0.8':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'New G-Box Midnight MX2 setting.', 'Change to this in Source Settings if you own one.', 'For all support and news - www.ontapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'For all support and news - www.ontapp.tv')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -116,13 +116,6 @@ def GetCats():
         urllib.urlretrieve(url, path)
     except:
         pass
-
-
-def CheckSkin():
-    path = os.path.join(skinfolder, skin)
-
-    if not os.path.exists(path):
-        DownloadSkins()
 
 
 def CheckSkinVersion():
@@ -162,6 +155,31 @@ def DownloadSkins():
         pass
 
 
+def CopyKeymap():
+    src = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'zOTT.xml')
+    dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
+    
+    if os.path.exists(dst):
+        return
+        
+    shutil.copyfile(src, dst)
+    
+    xbmc.sleep(1000)
+    xbmc.executebuiltin('Action(reloadkeymaps)')
+
+
+def RemoveKeymap():
+    dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
+    
+    if not os.path.exists(dst):
+        return
+        
+    os.remove(dst)
+    
+    xbmc.sleep(1000)
+    xbmc.executebuiltin('Action(reloadkeymaps)')
+
+
 try:
     path = os.path.join(datapath, 'tvgdinstall.txt')
     
@@ -178,46 +196,48 @@ except:
     pass
 
 
-busy = None
-try:
-    busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
-    busy.show()
-    
-    try:    busy.getControl(10).setVisible(False)
-    except: pass
-
-except:
+def main():
     busy = None
+    try:
+        busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
+        busy.show()
 
-import buggalo
-import gui
+        try:    busy.getControl(10).setVisible(False)
+        except: pass
 
+    except:
+        busy = None
 
-buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
+    import buggalo
+    import gui
 
-
-try:    
-    CheckDixieURL()
-    CheckVersion()
-    GetCats()
-    CheckSkin()
-    CheckSkinVersion()
-    CheckForUpdate()
+    buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
+        
+    try:
+        CheckDixieURL()
+        CheckVersion()
+        GetCats()
+        CheckSkinVersion()
+        CheckForUpdate()
     
-    xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
-    xbmc.executebuiltin('XBMC.ActivateWindow(home)')
+        xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
+        xbmc.executebuiltin('XBMC.ActivateWindow(home)')
     
-    w = gui.TVGuide()
+        w = gui.TVGuide()
     
-    if busy:
-       busy.close()
-       busy = None
-       
-    w.doModal()
-    del w
+        if busy:
+           busy.close()
+           busy = None
     
-    xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
+        CopyKeymap()
+        w.doModal()
+        RemoveKeymap()
+        del w
+    
+        xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
 
-    
-except Exception:
-   buggalo.onExceptionRaised()
+    except Exception:
+       buggalo.onExceptionRaised()
+
+
+main()

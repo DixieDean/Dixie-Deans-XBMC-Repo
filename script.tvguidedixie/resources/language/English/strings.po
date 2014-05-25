@@ -345,7 +345,7 @@ msgid "[B]Setup stream[/B]"
 msgstr ""
 
 msgctxt "#30601"
-msgid ".strm file"
+msgid "Playlist or .strm"
 msgstr ""
 
 msgctxt "#30602"
