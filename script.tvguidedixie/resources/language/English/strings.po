@@ -297,7 +297,7 @@ msgid "iPlayer"
 msgstr ""
 
 msgctxt "#30315"
-msgid "Movie Trailers"
+msgid "Super Search"
 msgstr ""
 
 msgctxt "#30316"
@@ -313,7 +313,7 @@ msgid "VPN"
 msgstr ""
 
 msgctxt "#30319"
-msgid "USTV Catch Up"
+msgid "USTV-VoD"
 msgstr ""
 
 msgctxt "#30320"

@@ -117,6 +117,10 @@ CHANNELS_PER_PAGE = 8
 TEXT_COLOR = '0xffffffff'
 FOCUSED_COLOR = '0xffffffff'
 SHADOW_COLOR = 'None'
+REMOVE_STRM_FILE    = strings(REMOVE_STRM_FILE)
+CHOOSE_STRM_FILE    = strings(CHOOSE_STRM_FILE)
+REMIND_PROGRAM      = strings(REMIND_PROGRAM)
+DONT_REMIND_PROGRAM = strings(DONT_REMIND_PROGRAM)
 
 HALF_HOUR = datetime.timedelta(minutes = 30)
 
@@ -565,7 +569,7 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin('XBMC.RunAddon(plugin.program.datho.vpn)')
 
         elif buttonClicked == PopupMenu.C_POPUP_TRAILERS:
-            xbmc.executebuiltin(trailers)
+            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s")' % (10025,'plugin.program.super.favourites', 0, program.title))
 
         elif buttonClicked == PopupMenu.C_POPUP_QUIT:
             self.close()
@@ -1192,22 +1196,28 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
             channelTitleControl.setLabel(self.program.channel.title)
        
         if self.database.getCustomStreamUrl(self.program.channel):    
-            try:    self.getControl(self.C_POPUP_CHOOSE_STREAM).setLabel(strings(REMOVE_STRM_FILE))
+            try:    self.getControl(self.C_POPUP_CHOOSE_STREAM).setLabel(REMOVE_STRM_FILE)
             except: pass
-            xbmcgui.Window(10000).setProperty('TVG_CHOOSE', strings(REMOVE_STRM_FILE))
+            xbmcgui.Window(10000).setProperty('TVG_CHOOSE', REMOVE_STRM_FILE)
         else:
-            try:    self.getControl(self.C_POPUP_CHOOSE_STREAM).setLabel(strings(CHOOSE_STRM_FILE))
+            try:    self.getControl(self.C_POPUP_CHOOSE_STREAM).setLabel(CHOOSE_STRM_FILE)
             except: pass
-            xbmcgui.Window(10000).setProperty('TVG_CHOOSE', strings(CHOOSE_STRM_FILE))
+            xbmcgui.Window(10000).setProperty('TVG_CHOOSE', CHOOSE_STRM_FILE)
 
         if self.showRemind:
-            try:    self.getControl(self.C_POPUP_REMIND).setLabel(strings(REMIND_PROGRAM))
+            try:    self.getControl(self.C_POPUP_REMIND).setLabel(REMIND_PROGRAM)
             except: pass
-            xbmcgui.Window(10000).setProperty('TVG_REMIND', strings(REMIND_PROGRAM))
+            xbmcgui.Window(10000).setProperty('TVG_REMIND', REMIND_PROGRAM)
         else:
-            try:    self.getControl(self.C_POPUP_REMIND).setLabel(strings(DONT_REMIND_PROGRAM))
+            try:    self.getControl(self.C_POPUP_REMIND).setLabel(DONT_REMIND_PROGRAM)
             except: pass
-            xbmcgui.Window(10000).setProperty('TVG_REMIND', strings(DONT_REMIND_PROGRAM))
+            xbmcgui.Window(10000).setProperty('TVG_REMIND', DONT_REMIND_PROGRAM)
+
+        try:
+           ctrl = self.getControl(5000)
+           self.setFocusId(5000)
+        except:
+           pass
 
         xbmcgui.Window(10000).clearProperty('TVG_popup_id')
 

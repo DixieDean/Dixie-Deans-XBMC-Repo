@@ -50,7 +50,7 @@
 	</extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.0.8" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.0.9" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.simplejson" version="2.0.10"/>

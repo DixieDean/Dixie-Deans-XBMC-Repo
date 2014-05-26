@@ -26,6 +26,14 @@ ID    = 'script.tvguidedixie'
 ADDON = xbmcaddon.Addon(id = ID)
 
 
+dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
+
+if os.path.exists(dst):
+   os.remove(dst)
+   xbmc.sleep(1000)
+   xbmc.executebuiltin('Action(reloadkeymaps)')
+
+
 import update
 update.checkForUpdate(silent = True)
 

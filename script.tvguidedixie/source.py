@@ -1025,6 +1025,7 @@ class Source(object):
         return None
 
     def doSettingsChanged(self, cs, cp):
+        # return
         cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM programs WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM updates WHERE source=?', [self.KEY])
@@ -1115,8 +1116,8 @@ class DIXIESource(Source):
 
 
     def doSettingsChanged(self, cs, cp):
-        return
-        # cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
+        # return
+        cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM programs WHERE source=?', [self.KEY])
         #cp.execute("DELETE FROM updates WHERE source=?", [self.KEY])
 
@@ -1188,10 +1189,11 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 title = elem.findtext("display-name")
                 logo = None
                 if logoFolder:
-                    folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
-                    logoFile = os.path.join(folder, DIXIELOGOS, title + '.png')
+                    # folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+                    logoFile = os.path.join(logopath, DIXIELOGOS, title + '.png')
                     if xbmcvfs.exists(logoFile):
                         logo = logoFile
+                        print logo
 
                 result = Channel(id, title, logo)
 

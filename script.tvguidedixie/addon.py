@@ -22,7 +22,6 @@ import xbmcaddon
 import xbmcgui
 import urllib
 import urllib2
-import cookielib
 from hashlib import md5
 import socket 
 import os
@@ -35,7 +34,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.8'
+VERSION     = '2.0.9'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -54,7 +53,7 @@ logos       = os.path.join(extras, 'logos')
 logofolder  = os.path.join(logos, 'None')
 skinfolder  = os.path.join(extras, 'skins')
 skin        = ADDON.getSetting('dixie.skin')
-dest        = os.path.join(skinfolder, 'skins-update.zip')
+dest        = os.path.join(skinfolder, 'skins-28-04-2014.zip')
 addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
 default_ini = os.path.join(addonpath, 'addons.ini')
 local_ini   = os.path.join(addonpath, 'local.ini')
@@ -101,7 +100,7 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.0.8':
+    if prev != '2.0.9':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'For all support and news - www.ontapp.tv')
 
@@ -229,7 +228,7 @@ def main():
            busy.close()
            busy = None
     
-        CopyKeymap()
+        # CopyKeymap()
         w.doModal()
         RemoveKeymap()
         del w
