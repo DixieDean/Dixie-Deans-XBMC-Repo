@@ -25,8 +25,6 @@ import datetime
 import time
 import urllib2
 import urllib
-import requests
-from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree
 
 import buggalo
@@ -39,6 +37,11 @@ import xbmcvfs
 import sqlite3
 
 import dixie
+
+try:
+    import requests2 as requests
+except:
+    import requests
 
 
 SOURCE     = ADDON.getSetting('source')

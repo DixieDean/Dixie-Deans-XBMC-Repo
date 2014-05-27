@@ -21,16 +21,17 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 import os
-
 import datetime
-
 import urllib2
 import urllib
-import requests
-from requests.auth import HTTPBasicAuth
 import json
 
 import dixie
+
+try:
+    import requests2 as requests
+except:
+    import requests
 
 
 ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
