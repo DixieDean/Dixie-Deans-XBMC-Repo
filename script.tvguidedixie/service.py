@@ -20,6 +20,7 @@
 import xbmcaddon
 import notification
 import xbmc
+import os
 import source
 
 ID    = 'script.tvguidedixie'
