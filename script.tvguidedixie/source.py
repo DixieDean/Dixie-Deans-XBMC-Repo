@@ -25,9 +25,8 @@ import datetime
 import time
 import urllib2
 import urllib
-# import requests
-# 
-# from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 from xml.etree import ElementTree
 
 import buggalo
@@ -1025,8 +1024,8 @@ class Source(object):
         return None
 
     def doSettingsChanged(self, cs, cp):
-        # return
-        cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
+        return
+        # cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM programs WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM updates WHERE source=?', [self.KEY])
 
@@ -1040,9 +1039,8 @@ class Source(object):
         return False
 
     def _downloadUrl(self, url):
-        u = urllib2.urlopen(url, timeout=30)
-        content = u.read()
-        u.close()
+        r = requests.get(url)
+        content = r.content
         
         return content
 
@@ -1116,8 +1114,8 @@ class DIXIESource(Source):
 
 
     def doSettingsChanged(self, cs, cp):
-        # return
-        cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
+        return
+        # cs.execute('DELETE FROM channels WHERE source=?', [self.KEY])
         #cp.execute('DELETE FROM programs WHERE source=?', [self.KEY])
         #cp.execute("DELETE FROM updates WHERE source=?", [self.KEY])
 
@@ -1179,8 +1177,8 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 mergeTitle = elem.findtext("sub-title")
                 if not description:
                     description = subTitle
-                if subTitle:
-                    title += " " + "- " + mergeTitle
+                # if subTitle:
+                #     title += " " + "- " + mergeTitle
                     
                 result = Program(channel, title, parseXMLTVDate(elem.get('start'), offset), parseXMLTVDate(elem.get('stop'), offset), description, elem.findtext("sub-title"))
 
@@ -1189,11 +1187,10 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 title = elem.findtext("display-name")
                 logo = None
                 if logoFolder:
-                    # folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
-                    logoFile = os.path.join(logopath, DIXIELOGOS, title + '.png')
+                    folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+                    logoFile = os.path.join(folder, DIXIELOGOS, title + '.png')
                     if xbmcvfs.exists(logoFile):
                         logo = logoFile
-                        print logo
 
                 result = Channel(id, title, logo)
 

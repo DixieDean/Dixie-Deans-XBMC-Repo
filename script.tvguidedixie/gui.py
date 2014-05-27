@@ -1240,7 +1240,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         if controlId == self.C_POPUP_CHOOSE_STREAM and self.database.getCustomStreamUrl(self.program.channel):
             self.database.deleteCustomStreamUrl(self.program.channel)
             chooseStrmControl = self.getControl(self.C_POPUP_CHOOSE_STREAM)
-            chooseStrmControl.setLabel(strings(CHOOSE_STRM_FILE))
+            chooseStrmControl.setLabel(CHOOSE_STRM_FILE)
 
             if not self.program.channel.isPlayable():
                 playControl = self.getControl(self.C_POPUP_PLAY)

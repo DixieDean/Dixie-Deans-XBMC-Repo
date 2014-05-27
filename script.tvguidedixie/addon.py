@@ -34,7 +34,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.0.9'
+VERSION     = '2.1.1'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -100,7 +100,7 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.0.9':
+    if prev != '2.1.1':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'For all support and news - www.ontapp.tv')
 

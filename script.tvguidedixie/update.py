@@ -26,8 +26,8 @@ import datetime
 
 import urllib2
 import urllib
-# import requests
-# from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
 import json
 
 import dixie
@@ -164,7 +164,8 @@ def setAlarm(mins):
 def getResponse():
     try:
         url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-        response = urllib2.urlopen(url).read()
+        request  = requests.get(url)
+        response = request.text
     except:
         return []
 
@@ -269,11 +270,10 @@ def getDownloadPath(date):
 
 
 def download(url, dest, dp = None, start = 0, range = 100):    
-    if not dp:
-        urllib.urlretrieve(url,dest)
-    else:
-        dp.update(int(start))
-        urllib.urlretrieve(url,dest,lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,dp,start,range,url))
+    r = requests.get(url)
+    with open(dest, 'wb') as f:
+            for chunk in r.iter_content(1024):
+                f.write(chunk)
 
 
 def _pbhook(numblocks, blocksize, filesize, dp, start, range, url=None):
