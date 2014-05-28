@@ -34,7 +34,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.2'
+VERSION     = '2.1.3'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -101,7 +101,7 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.2':
+    if prev != '2.1.3':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'For all support and news - www.ontapp.tv')
 
@@ -156,28 +156,41 @@ def DownloadSkins():
 
 
 def CopyKeymap():
-    src = os.path.join(xbmcaddon.Addon().getAddonInfo('path'), 'resources', 'zOTT.xml')
-    dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
-    
-    if os.path.exists(dst):
-        return
-        
-    shutil.copyfile(src, dst)
-    
-    xbmc.sleep(1000)
-    xbmc.executebuiltin('Action(reloadkeymaps)')
+   src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
+   if os.path.exists(src):
+       os.remove(src)
+
+   src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'super_favourites_menu.xml')
+
+   if not os.path.exists(src):
+       return
+
+   dst = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
+
+   import shutil
+   shutil.copyfile(src, dst)
+
+   os.remove(src)
+
+   xbmc.sleep(1000)
+   xbmc.executebuiltin('Action(reloadkeymaps)')
 
 
 def RemoveKeymap():
-    dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
-    
-    if not os.path.exists(dst):
-        return
-        
-    os.remove(dst)
-    
-    xbmc.sleep(1000)
-    xbmc.executebuiltin('Action(reloadkeymaps)')
+   src = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
+
+   if not os.path.exists(src):
+       return
+
+   dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'super_favourites_menu.xml')
+
+   import shutil
+   shutil.copyfile(src, dst)
+
+   os.remove(src)
+
+   xbmc.sleep(1000)
+   xbmc.executebuiltin('Action(reloadkeymaps)')
 
 
 try:
@@ -229,7 +242,7 @@ def main():
            busy.close()
            busy = None
     
-        # CopyKeymap()
+        CopyKeymap()
         w.doModal()
         RemoveKeymap()
         del w
