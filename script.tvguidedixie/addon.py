@@ -34,7 +34,7 @@ import dixie
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.3'
+VERSION     = '2.1.4'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -75,9 +75,11 @@ print versioninfo
 
 try:
     os.makedirs(logofolder)
+    
+    if not os.path.exists(skinfolder):
+        DownloadSkins()
 except:
     pass
-
 
 def CheckDixieURL():
    curr = ADDON.getSetting('dixie.url')
@@ -101,9 +103,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.3':
+    if prev != '2.1.4':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'For all support and news - www.ontapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'Subscriptions coming soon - www.ontapp.tv')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -124,8 +126,8 @@ def CheckSkinVersion():
 
     if not prev == curr:
         DownloadSkins()
-
-    dixie.SetSetting('SKINVERSION', curr)
+        
+        dixie.SetSetting('SKINVERSION', curr)
 
 
 def CheckForUpdate():
