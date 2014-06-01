@@ -35,10 +35,10 @@
 
 <addon id="repository.Dixie-Deans-XBMC-Repo"
 	name="Dixie-Deans-XBMC-Repo"
-	version="1.0.7"
+	version="1.0.8"
 	provider-name="DixieDean">
 	<extension point="xbmc.addon.repository"
-		name="Dixie-Deans-XBMC-Repo-1.0.7">
+		name="Dixie-Deans-XBMC-Repo-1.0.8">
 		<info compressed="false">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml</info>
 		<checksum>https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml.md5</checksum>
 		<datadir zip="true">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/zips</datadir>
@@ -48,6 +48,46 @@
 		<description>Download and install addons from DixieDean... For updates and information visit www.tvguidedixie.com</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="script.module.requests"
+       name="requests"
+       version="1.1.0"
+       provider-name="kennethreitz">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Python HTTP for Humans</summary>
+    <description>Packed for XBMC from https://github.com/kennethreitz/requests</description>
+    <license>Apache</license>
+    <platform>all</platform>
+    <source>https://github.com/beenje/script.module.requests</source>
+  </extension>
+</addon>
+
+<addon id="script.module.requests2"
+       name="requests2"
+       version="2.2.1"
+       provider-name="kennethreitz, beenje">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Python HTTP for Humans</summary>
+    <description>Requests v2.x packed for XBMC from https://github.com/kennethreitz/requests</description>
+    <platform>all</platform>
+    <language></language>
+    <license>Apache2</license>
+    <forum></forum>
+    <website>http://docs.python-requests.org/en/latest/</website>
+    <source>https://github.com/beenje/script.module.requests2</source>
+    <email>beenje AT gmail.com</email>
+  </extension>
 </addon>
 
 <addon id="script.tvguidedixie" name="OnTapp.TV" version="2.1.4" provider-name="Spoyser, DixieDean">
