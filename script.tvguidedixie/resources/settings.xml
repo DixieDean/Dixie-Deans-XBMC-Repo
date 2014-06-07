@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category label="30101">
+		<setting id="username"         label="Username"      type="text"   default="" visible="true" />
+		<setting id="password"         label="Password"      type="text"   default="" visible="true" />
         <setting id="dixie.url" label="30117" type="labelenum" values="Basic Channels|North America|International|Dixie" default="Dixie" visible="true" />
 		<setting label="" type="lsep" visible="true" />
  		<setting id="gmtfrom" label="30124" type="labelenum"  default="GMT"
@@ -19,7 +21,7 @@
 	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
 	<setting id="categories" label="categories" type="text" default="" visible="false"/>
     <setting id="VERSION" type="text" label="Current Version" default="0.0.0" visible="false"/>
-	<setting id="SKINVERSION" type="text" label="Skin Version" default="0" visible="false"/>
+	<setting id="SKINVERSION" type="text" label="Skin Version" default="6" visible="false"/>
 	<setting id="DIXIEURL"  type="labelenum" values="Basic Channels|North America|International|Dixie" default="Dixie" visible="false"/>
 </category>
 

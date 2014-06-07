@@ -11,7 +11,7 @@ extras   = os.path.join(datapath, 'extras')
 logos    = os.path.join(extras, 'logos')
 nologos  = os.path.join(logos, 'None')
 dest     = os.path.join(extras, 'logos.zip')
-url      = dixie.GetExtraUrl() + 'logos.zip'
+url      = dixie.GetExtraUrl() + 'resources/logos.zip'
 
 
 try:

@@ -25,16 +25,22 @@ import urllib2
 from hashlib import md5
 import socket 
 import os
+import re
 import shutil
 import download
 import extract
 import update
 import dixie
+import session
 
+try:
+    import requests2 as requests
+except:
+    import requests
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.4'
+VERSION     = '2.1.5'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -43,7 +49,7 @@ MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 DIXIELOGOS  = ADDON.getSetting('dixie.logo.folder')
 DIXIEURL    = ADDON.getSetting('dixie.url').upper()
 SKIN        = ADDON.getSetting('dixie.skin')
-SKINVERSION = '5'
+SKINVERSION = '6'
 
 addon       = xbmcaddon.Addon()
 addonid     = addon.getAddonInfo('id')
@@ -60,7 +66,8 @@ default_ini = os.path.join(addonpath, 'addons.ini')
 local_ini   = os.path.join(addonpath, 'local.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 database    = os.path.join(datapath, 'program.db')
-
+username = ADDON.getSetting('username')
+password = ADDON.getSetting('password')
 
 if ADDON.getSetting('dixie.url') == 'G-Box Midnight MX2':
     dixie.SetSetting('dixie.url', 'Dixie')
@@ -103,9 +110,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.4':
+    if prev != '2.1.5':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'New! Custom MyChannels in the Dixie URL listings.', 'There are now 5 Channels you can make your own!', 'Subscriptions coming soon - www.ontapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Subscriptions are now open!!!', 'You can get all the listing and features', 'for a few pence per week - www.on-tapp.tv/subscribe')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -113,11 +120,19 @@ def CheckVersion():
 
 def GetCats():
     path = os.path.join(datapath, 'cats.xml')
-    url  = dixie.GetExtraUrl() + 'cats.xml'
+    url  = dixie.GetExtraUrl() + 'resources/cats.xml'
+
     try:
         urllib.urlretrieve(url, path)
     except:
         pass
+
+
+def CheckSkin():
+    path = os.path.join(skinfolder, skin)
+
+    if not os.path.exists(path):
+        DownloadSkins()
 
 
 def CheckSkinVersion():
@@ -141,7 +156,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'skins-28-04-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-07-06-2014.zip'
 
     try:
         os.makedirs(skinfolder)
@@ -150,6 +165,7 @@ def DownloadSkins():
 
     download.download(url, dest)
     extract.all(dest, extras)
+    dixie.SetSetting('SKINVERSION', SKINVERSION)
 
     try:
         os.remove(dest)
@@ -199,7 +215,7 @@ try:
     path = os.path.join(datapath, 'tvgdinstall.txt')
     
     if not os.path.exists(path):
-        url = dixie.GetExtraUrl() + 'tvgdinstall.txt'
+        url = dixie.GetExtraUrl() + 'resources/tvgdinstall.txt'
         urllib.urlretrieve(url, path)
 
     if not os.path.exists(current_ini):
@@ -211,7 +227,7 @@ except:
     pass
 
 
-def main():
+def main(doLogin=True):
     busy = None
     try:
         busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
@@ -229,30 +245,61 @@ def main():
     buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
         
     try:
-        CheckDixieURL()
-        CheckVersion()
-        GetCats()
-        CheckSkinVersion()
-        CheckForUpdate()
-    
-        xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
-        xbmc.executebuiltin('XBMC.ActivateWindow(home)')
-    
-        w = gui.TVGuide()
-    
-        if busy:
-           busy.close()
-           busy = None
-    
-        CopyKeymap()
-        w.doModal()
-        RemoveKeymap()
-        del w
-    
-        xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
+        if doLogin:
+            url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+            code     = session.doLogin()
+            response = session.checkFiles(url)
+        else:
+            code = 200
+            response = ''
+            
+        if code == 503:
+            d = xbmcgui.Dialog()
+            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Something went wrong with your login', 'Please check your settings.')
+            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Daily IP Address limit reached.', 'Restricted for 2 hours.')
+            return
+        
+        if response == 401:
+            d = xbmcgui.Dialog()
+            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'Something went wrong with your login', 'You will now get Basic Channels.')
+            d.ok(TITLE + ' Error - %s.' % response, 'OnTapp.TV failed to log in', 'Check your settings.', 'Please subscribe at www.on-tapp.tv.')
+            dixie.SetSetting('dixie.url', 'Basic Channels')
+            dixie.SetSetting('DIXIEURL', 'Basic Channels')
+            return
+            
+        else:
+            # if doLogin:
+            #     xbmcgui.Dialog().ok(TITLE + ' Status', 'Status - %s' % response, 'Login OK.', 'Thank you.')
+            CheckDixieURL()
+            CheckVersion()
+            GetCats()
+            CheckSkin()
+            CheckSkinVersion()
+            CheckForUpdate()
+        
+            xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
+            xbmc.executebuiltin('XBMC.ActivateWindow(home)')
+        
+            w = gui.TVGuide()
+        
+            if busy:
+               busy.close()
+               busy = None
+           
+            CopyKeymap()
+            w.doModal()
+            RemoveKeymap()
+            del w
+        
+            xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
 
     except Exception:
        buggalo.onExceptionRaised()
 
 
-main()
+doLogin = True
+if xbmcgui.Window(10000).getProperty('OTT_LOGIN').lower() == 'false':
+    doLogin = False
+xbmcgui.Window(10000).clearProperty('OTT_LOGIN')
+
+main(doLogin)

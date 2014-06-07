@@ -33,6 +33,7 @@ import xbmcaddon
 import xbmc
 import os
 import shutil
+import urllib
 
 import dixie
 
@@ -569,7 +570,7 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin('XBMC.RunAddon(plugin.program.datho.vpn)')
 
         elif buttonClicked == PopupMenu.C_POPUP_TRAILERS:
-            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s")' % (10025,'plugin.program.super.favourites', 0, program.title))
+            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s")' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
 
         elif buttonClicked == PopupMenu.C_POPUP_QUIT:
             self.close()

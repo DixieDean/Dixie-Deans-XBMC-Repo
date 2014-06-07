@@ -21,12 +21,14 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 import os
+import re
 import datetime
 import urllib2
 import urllib
 import json
 
 import dixie
+import session
 
 try:
     import requests2 as requests
@@ -116,12 +118,21 @@ def deleteFile(filename, attempts = 5):
 
 
 def checkForUpdate(silent = 1):
-    # silent = 0
+    #silent = 0
     xbmcgui.Window(10000).setProperty('OTT_UPDATING', 'True')
 
     silent = int(silent) == 1
 
     response = getResponse()
+    
+    if 'Error' in response:
+        if not silent:
+            ok(TITLE, response['Error'],'Please subscribe at','www.ontapp.tv')
+            dixie.SetSetting('dixie.url', 'Basic Channels')
+            dixie.SetSetting('DIXIEURL', 'Basic Channels')
+        
+            return allDone(silent)
+        
     isValid  = len(response) > 0
 
     if not isValid:
@@ -129,17 +140,21 @@ def checkForUpdate(silent = 1):
             ok(TITLE, '', 'No EPG update available.', 'Please try again later.')
         return allDone(silent)
    
-    if updateAvailable(response['Date']):
-        print '%s EPG Update Available - %s' % (TITLE, response['Date'])
-        getUpdate(response, silent) 
-   
-    elif not silent:
-        ok(TITLE, 'EPG is up-to-date.')
+    try:
+        if updateAvailable(response['Date']):
+            print '%s EPG Update Available - %s' % (TITLE, response['Date'])
+            getUpdate(response, silent)
+
+        elif not silent:
+            ok(TITLE, 'EPG is up-to-date.')
+
+    except:
+        pass
 
     allDone(silent)
 
 
-def allDone(silent, mins = 1 * 60 * 12): #12 hours
+def allDone(silent, mins = 1 * 60 * 60): #2.5 days
     setAlarm(mins)
 
     xbmcgui.Window(10000).clearProperty('OTT_UPDATING')
@@ -165,11 +180,17 @@ def setAlarm(mins):
 def getResponse():
     try:
         url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-        request  = requests.get(url)
-        response = request.text
-    except:
-        return []
+        request  = requests.get(url, allow_redirects=False, auth=(username, password))
+        code     = request.status_code
+        response = request.content
 
+        if not code == 200:
+            response = re.sub('<(.+?)>', '', response)
+            return {'Error' : response}
+
+    except:
+        pass
+        
     return json.loads(u"" + (response))
 
 
@@ -266,15 +287,19 @@ def getDownloadPath(date):
         return path
     except:
         pass
+        
     return None
 
 
 
 def download(url, dest, dp = None, start = 0, range = 100):    
-    r = requests.get(url)
+    r = requests.get(url, auth=(username, password))
+
     with open(dest, 'wb') as f:
-            for chunk in r.iter_content(1024):
-                f.write(chunk)
+        for chunk in r.iter_content(1024):
+            f.write(chunk)
+
+        return
 
 
 def _pbhook(numblocks, blocksize, filesize, dp, start, range, url=None):
@@ -299,7 +324,6 @@ def doMain():
 
 if __name__ == '__main__': 
     try:
-        print '+++++++++++++ OnTapp.TV - Running EPG Update +++++++++++++'
         doMain()
     except:
-        xbmcgui.Window(10000).clearProperty('OTT_UPDATE')    
+        xbmcgui.Window(10000).clearProperty('OTT_UPDATE')

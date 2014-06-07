@@ -1042,11 +1042,17 @@ class Source(object):
         return False
 
     def _downloadUrl(self, url):
-        r = requests.get(url)
-        content = r.content
+        r = requests.get(url, auth=(username, password))
+        status = r.status_code
         
-        return content
+        if status == 200:
+            r.encoding = 'UTF-8'
+            content = r.content
 
+            return content
+
+        else:
+            return
 
 class XMLTVSource(Source):
     KEY = 'xmltv'
