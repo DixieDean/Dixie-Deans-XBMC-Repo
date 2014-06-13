@@ -103,7 +103,7 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
         
-    if 'plugin.video.moviedb' in url:
+    if 'plugin.video.moviedb' and 'www.tgun.tv' in url:
         print '****** Alternate Cliq! ******'
         print url
         return alternateStream(url)

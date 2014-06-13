@@ -21,7 +21,8 @@
 	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
 	<setting id="categories" label="categories" type="text" default="" visible="false"/>
     <setting id="VERSION" type="text" label="Current Version" default="0.0.0" visible="false"/>
-	<setting id="SKINVERSION" type="text" label="Skin Version" default="6" visible="false"/>
+	<setting id="SKINVERSION" type="text" label="Skin Version" default="7" visible="false"/>
+	<setting id="INIVERSION" type="text" label="ini Version" default="0" visible="false"/>
 	<setting id="DIXIEURL"  type="labelenum" values="Basic Channels|North America|International|Dixie" default="Dixie" visible="false"/>
 </category>
 
@@ -30,10 +31,11 @@
         <setting id="trailers.addon" label="Choose Trailers Add-on" type="labelenum" values="Apple iTunes Trailers|HD-Trailers.net" default="HD-Trailers.net" visible="false" />
         <setting id="ustv.addon" label="Choose USTV Catch Up Add-on" type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" />
         <setting id="local.ini" label="Allow Enhanced Add-on Linking" type="bool" default="true" />
+        <setting id="playlist.file" label="Choose IPTV Playlist File" type="file" default=""/>
 		<setting label="" type="lsep" visible="true" />
         <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
         <setting id="mashmode" type="text" label="MASHMODE" default="false" visible="false"/>
-        <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" visible="false"/>
+        <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" visible="false"/>
         <setting id="alternative.playback" label="30120" type="bool" default="false" visible="false"/>
         <setting id="enable.touch" label="30123" type="bool" default="false" />
@@ -49,6 +51,8 @@
     </category>
 
     <category label="30125">
+        <setting label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
+		<setting label="" type="lsep" visible="true" />
         <setting label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
 		<setting label="" type="lsep" visible="true" />
         <setting label="30127" type="action" action="RunScript($CWD/resetAll.py)" />

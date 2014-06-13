@@ -32,6 +32,7 @@ import extract
 import update
 import dixie
 import session
+import getIni
 
 try:
     import requests2 as requests
@@ -40,7 +41,7 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.5'
+VERSION     = '2.1.6'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -49,7 +50,8 @@ MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 DIXIELOGOS  = ADDON.getSetting('dixie.logo.folder')
 DIXIEURL    = ADDON.getSetting('dixie.url').upper()
 SKIN        = ADDON.getSetting('dixie.skin')
-SKINVERSION = '6'
+SKINVERSION = '7'
+INIVERSION  = '1'
 
 addon       = xbmcaddon.Addon()
 addonid     = addon.getAddonInfo('id')
@@ -60,20 +62,19 @@ logos       = os.path.join(extras, 'logos')
 logofolder  = os.path.join(logos, 'None')
 skinfolder  = os.path.join(extras, 'skins')
 skin        = ADDON.getSetting('dixie.skin')
-dest        = os.path.join(skinfolder, 'skins-28-04-2014.zip')
+dest        = os.path.join(skinfolder, 'skins-12-06-2014.zip')
 addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
 default_ini = os.path.join(addonpath, 'addons.ini')
 local_ini   = os.path.join(addonpath, 'local.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 database    = os.path.join(datapath, 'program.db')
-username = ADDON.getSetting('username')
-password = ADDON.getSetting('password')
+username    = ADDON.getSetting('username')
+password    = ADDON.getSetting('password')
 
 if ADDON.getSetting('dixie.url') == 'G-Box Midnight MX2':
     dixie.SetSetting('dixie.url', 'Dixie')
 
 dixie.SetSetting('gmtfrom', 'GMT')
-dixie.SetSetting('autoStart', 'false')
 
 
 print '****** ONTAPP.TV LAUNCHED ******'
@@ -110,9 +111,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.5':
+    if prev != '2.1.6':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Subscriptions are now open!!!', 'You can get all the listing and features', 'for a few pence per week - www.on-tapp.tv/subscribe')
+        d.ok(TITLE + ' - ' + VERSION, 'Thank you for subscribing.', 'Look out for new features in future versions!!!', 'For info and support - www.on-tapp.tv')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -130,9 +131,11 @@ def GetCats():
 
 def CheckSkin():
     path = os.path.join(skinfolder, skin)
+    curr = SKINVERSION
 
     if not os.path.exists(path):
         DownloadSkins()
+        dixie.SetSetting('SKINVERSION', curr)
 
 
 def CheckSkinVersion():
@@ -141,8 +144,16 @@ def CheckSkinVersion():
 
     if not prev == curr:
         DownloadSkins()
-        
         dixie.SetSetting('SKINVERSION', curr)
+
+
+def CheckIniVersion():
+    prev = ADDON.getSetting('INIVERSION')
+    curr = INIVERSION
+
+    if not prev == curr:
+        getIni.getIni()
+        dixie.SetSetting('INIVERSION', curr)
 
 
 def CheckForUpdate():
@@ -156,7 +167,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-07-06-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-12-06-2014.zip'
 
     try:
         os.makedirs(skinfolder)
@@ -275,6 +286,7 @@ def main(doLogin=True):
             GetCats()
             CheckSkin()
             CheckSkinVersion()
+            CheckIniVersion()
             CheckForUpdate()
         
             xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')

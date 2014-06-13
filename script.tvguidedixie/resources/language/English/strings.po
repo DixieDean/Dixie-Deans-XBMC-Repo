@@ -182,7 +182,11 @@ msgctxt "#30130"
 msgid "Restore"
 msgstr ""
 
-#empty strings from id 30130 to 30149
+msgctxt "#30131"
+msgid "Click to - Delete Cookies"
+msgstr ""
+
+#empty strings from id 30132 to 30149
 
 msgctxt "#30150"
 msgid "Oops, sorry about that!"
@@ -373,10 +377,13 @@ msgid "Stop preview"
 msgstr ""
 
 msgctxt "#30608"
+msgid "IPTV PlayList"
+msgstr ""
+
+msgctxt "#30609"
 msgid "Mash Up"
 msgstr ""
 
-#empty strings from id 30609 to 30609
 
 msgctxt "#30610"
 msgid "Browse..."
@@ -396,7 +403,12 @@ msgctxt "#30621"
 msgid "Choose a Mash Up channel below."
 msgstr ""
 
-#empty strings from id 30622 to 30699
+
+msgctxt "#30622"
+msgid "Choose a channel from the IPTV PlayList below."
+msgstr ""
+
+#empty strings from id 30623 to 30699
 
 msgctxt "#30700"
 msgid "Multiple addons provide this channels.[CR]Choose one to watch the stream."

@@ -22,6 +22,7 @@ from xml.etree import ElementTree
 from xml.parsers.expat import ExpatError
 import ConfigParser
 import os
+import re
 import xbmcaddon
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
@@ -68,7 +69,6 @@ class StreamsService(object):
         except:
             pass
 
-
     def loadFavourites(self):
         entries = list()
         path = xbmc.translatePath('special://profile/favourites.xml')
@@ -95,16 +95,33 @@ class StreamsService(object):
             except ExpatError:
                 pass
 
+        return entries
 
-    # def xbmc.PlayList.load(self, filename)
-    #     entries = list()
-    #     filename = os.path.join(datapath, extras, 'playlist.m3u')
-    #     if os.path.exists(filename):
-    #         f = open(filename)
-    #         m3u = f.read()
-    #         f.close()
+
+    def loadPlaylist(self):
+        entries = list()
+        path    = os.path.join(ADDON.getSetting('playlist.file'))
+        label   = ''
+        value   = ''
+        if os.path.exists(path):
+            f = open(path)
+            playlist = f.readlines()
+            f.close()
+
+            try:
+                for line in playlist:
+                    if line.startswith('#EXTINF:'):
+                        label = line.split(',')[-1].strip()
+                    
+                    elif line.startswith('rtmp') or line.startswith('rtmpe') or line.startswith('rtsp') or line.startswith('http'):
+                        value = line.replace('rtmp://$OPT:rtmp-raw=', '')
+                    
+                        entries.append((label, value))
+            except:
+                pass
 
         return entries
+
 
     def getMashup(self):
         return self.mashupParser.sections()
@@ -131,13 +148,20 @@ class StreamsService(object):
         @type channel: source.Channel
         """
         favourites = self.loadFavourites()
+        playlist   = self.loadPlaylist()
+        
 
         # First check favourites, if we get exact match we use it
         for label, stream in favourites:
             if label == channel.title:
                 return stream
 
-        # Check all mashup and return all matches
+        # Second check palylist, if we get exact match we use it
+        for label, stream in playlist:
+            if label == channel.title:
+                return stream
+
+        # Third check all mashup and return all matches
         matches = list()
         for provider in self.getMashup():
             streams = self.getMashupStreams(provider)
@@ -145,7 +169,7 @@ class StreamsService(object):
                 if label == channel.title:
                     matches.append((self.getMashupIcon(provider), label, stream))
 
-        # Second check all addons and return all matches
+        # Fourth check all addons and return all matches
         for id in self.getAddons():
             try:
                 xbmcaddon.Addon(id)

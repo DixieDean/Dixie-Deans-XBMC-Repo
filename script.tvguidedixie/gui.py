@@ -1392,7 +1392,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_STRM_TAB = 101
     C_STREAM_FAVOURITES_TAB = 102
     C_STREAM_ADDONS_TAB = 103
-    C_STREAM_MASHUP_TAB = 104
+    C_STREAM_PLAYLIST_TAB = 104
+    C_STREAM_MASHUP_TAB = 105
     C_STREAM_STRM_BROWSE = 1001
     C_STREAM_STRM_FILE_LABEL = 1005
     C_STREAM_STRM_PREVIEW = 1002
@@ -1417,13 +1418,20 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_MASHUP_PREVIEW = 4005
     C_STREAM_MASHUP_OK = 4006
     C_STREAM_MASHUP_CANCEL = 4007
+    
+    C_STREAM_PLAYLIST = 5001
+    C_STREAM_PLAYLIST_PREVIEW = 5002
+    C_STREAM_PLAYLIST_OK = 5003
+    C_STREAM_PLAYLIST_CANCEL = 5004
+    
 
     C_STREAM_VISIBILITY_MARKER = 100
 
     VISIBLE_STRM = 'strm'
     VISIBLE_FAVOURITES = 'favourites'
     VISIBLE_ADDONS = 'addons'
-    VISIBLE_MASHUP= 'mashup'
+    VISIBLE_MASHUP = 'mashup'
+    VISIBLE_PLAYLIST = 'playlist'
 
     def __new__(cls, database, channel):
         xml_file = os.path.join('script-tvguide-streamsetup.xml')
@@ -1492,7 +1500,17 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl = self.getControl(StreamSetupDialog.C_STREAM_MASHUP)
         listControl.addItems(items)
         self.updateMashupInfo()
-    
+        
+        playlist = self.streamingService.loadPlaylist()
+        items = list()
+        for label, value in playlist:
+            item = xbmcgui.ListItem(label)
+            item.setProperty('stream', value)
+            items.append(item)
+
+        listControl = self.getControl(StreamSetupDialog.C_STREAM_PLAYLIST)
+        listControl.addItems(items)
+
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onAction'})
     def onAction(self, action):
@@ -1532,7 +1550,15 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 stream = item.getProperty('stream')
                 self.database.setCustomStreamUrl(self.channel, stream)
             self.close()
-            
+
+        elif controlId == self.C_STREAM_PLAYLIST_OK:
+            listControl = self.getControl(self.C_STREAM_PLAYLIST)
+            item = listControl.getSelectedItem()
+            if item:
+                stream = item.getProperty('stream')
+                self.database.setCustomStreamUrl(self.channel, stream)
+            self.close()
+
         elif controlId == self.C_STREAM_MASHUP_OK:
             listControl = self.getControl(self.C_STREAM_MASHUP_STREAMS)
             item = listControl.getSelectedItem()
@@ -1545,14 +1571,15 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.database.setCustomStreamUrl(self.channel, self.strmFile)
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_MASHUP_CANCEL]:
+        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_PLAYLIST_CANCEL, self.C_STREAM_MASHUP_CANCEL]:
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_MASHUP_PREVIEW]:
+        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_PLAYLIST_PREVIEW, self.C_STREAM_MASHUP_PREVIEW]:
             if self.player.isPlaying():
                 self.player.stop()
                 self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(PREVIEW_STREAM))
+                self.getControl(self.C_STREAM_PLAYLIST_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 return
@@ -1567,6 +1594,11 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     stream = item.getProperty('stream')
             elif visible == self.VISIBLE_FAVOURITES:
                 listControl = self.getControl(self.C_STREAM_FAVOURITES)
+                item = listControl.getSelectedItem()
+                if item:
+                    stream = item.getProperty('stream')
+            elif visible == self.VISIBLE_PLAYLIST:
+                listControl = self.getControl(self.C_STREAM_PLAYLIST)
                 item = listControl.getSelectedItem()
                 if item:
                     stream = item.getProperty('stream')
@@ -1589,6 +1621,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(STOP_PREVIEW))
+                    self.getControl(self.C_STREAM_PLAYLIST_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(STOP_PREVIEW))
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onFocus'})
@@ -1599,6 +1632,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_FAVOURITES)
         elif controlId == self.C_STREAM_ADDONS_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_ADDONS)
+        elif controlId == self.C_STREAM_PLAYLIST_TAB:
+            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_PLAYLIST)
         elif controlId == self.C_STREAM_MASHUP_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_MASHUP)
 

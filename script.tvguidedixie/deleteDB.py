@@ -55,9 +55,9 @@ def delete_file(filename):
 if __name__ == '__main__':
     if deleteDB():
         d = xbmcgui.Dialog()
-        d.ok('TV Guide Dixie', 'EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
+        d.ok('OnTapp.TV', 'EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
     else:
         d = xbmcgui.Dialog()
-        d.ok('TV Guide Dixie', 'Failed to reset EPG.', 'Database may be locked,', 'please restart XBMC and try again')    
+        d.ok('OnTapp.TV', 'Failed to reset EPG.', 'Database may be locked,', 'please restart XBMC and try again')    
 
 
