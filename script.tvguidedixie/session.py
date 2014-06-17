@@ -70,24 +70,19 @@ def resetCookie():
 
 def doLogin():
     try:
-        print '----- Start OnTapp.TV Login -----'
-        print '----- content + status code -----'
         req    = Request(baseurl, payload)
         handle = opener.open(req)
         code   = handle.getcode()
 
         for index, cookie in enumerate(cj):
-            print cookie
             cj.save(cookiefile)
-            print code
-
+            print cookie
             return code
 
     except urllib2.HTTPError, error:
         if hasattr(error, 'code'):
             code = error.code
-            print code
-        
+            
             return code
 
 
@@ -109,11 +104,5 @@ def getFiles(url):
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
     request  = requests.get(url, allow_redirects=False, auth=(username, password))
     response = request.text
-    code     = request.status_code
-    reason   = request.reason
-
-    print '------ Get OnTapp.TV Files ------'
-    print '------------ content ------------'
-    print response
 
     return response

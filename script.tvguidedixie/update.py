@@ -41,6 +41,7 @@ TITLE    = ADDON.getAddonInfo('name')
 DIXIEURL = ADDON.getSetting('dixie.url').upper()
 username = ADDON.getSetting('username')
 password = ADDON.getSetting('password')
+response = ''
 
 
 try:
@@ -190,7 +191,7 @@ def getResponse():
 
     except:
         pass
-        
+
     return json.loads(u"" + (response))
 
 
@@ -296,7 +297,7 @@ def download(url, dest, dp = None, start = 0, range = 100):
     r = requests.get(url, auth=(username, password))
 
     with open(dest, 'wb') as f:
-        for chunk in r.iter_content(1024):
+        for chunk in r.iter_content(512):
             f.write(chunk)
 
         return

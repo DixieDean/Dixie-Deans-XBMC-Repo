@@ -189,15 +189,15 @@ msgstr ""
 #empty strings from id 30132 to 30149
 
 msgctxt "#30150"
-msgid "Oops, sorry about that!"
+msgid "There's a problem with your settings."
 msgstr ""
 
 msgctxt "#30151"
-msgid "It was not possible to load program data,"
+msgid "It seems you may not have a paid subscription."
 msgstr ""
 
 msgctxt "#30152"
-msgid "check settings or try again later..."
+msgid "Please log into www.on-tapp.tv to check."
 msgstr ""
 
 msgctxt "#30153"
@@ -226,6 +226,10 @@ msgstr ""
 
 msgctxt "#30159"
 msgid "Channel configuration, etc. is unfortunately lost."
+msgstr ""
+
+msgctxt "#30160"
+msgid "Or change your settings to 'Basic Channels'."
 msgstr ""
 
 #empty strings from id 30160 to 30199

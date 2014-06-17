@@ -1041,18 +1041,25 @@ class Source(object):
             return True
         return False
 
-    def _downloadUrl(self, url):
-        r = requests.get(url, auth=(username, password))
-        status = r.status_code
-        
-        if status == 200:
-            r.encoding = 'UTF-8'
-            content = r.content
-
-            return content
-
-        else:
-            return
+    # def _downloadUrl(self, url):
+    #     r = requests.get(url, auth=(username, password))
+    #     status = r.status_code
+    #     
+    #     if not status == 200:
+    #         ok(TITLE, 'OnTapp.TV failed with error code - %s.' % status, 'Please subscribe at','www.ontapp.tv')
+    #         dixie.SetSetting('dixie.url', 'Basic Channels')
+    #         dixie.SetSetting('DIXIEURL', 'Basic Channels')
+    #         status
+    #         r.encoding = 'UTF-8'
+    #         content = r.content
+    # 
+    #         return content
+    # 
+    #     else:
+    #         r.encoding = 'UTF-8'
+    #         content = r.content
+    # 
+    #         return content
 
 class XMLTVSource(Source):
     KEY = 'xmltv'
@@ -1112,10 +1119,17 @@ class DIXIESource(Source):
 
     def getDataFromExternal(self, date, progress_callback = None): 
         categories = self.getCategories()
-        xml = 'chan.xml'
+        channels   = os.path.join(datapath, 'chan.xml')
+        try:
+            if os.path.exists(channels):
+                f = open(channels)
+                xml = f.read()
+                f.close()
+        except: pass
+        
         if not self.xml:
-            self.xml = self._downloadUrl(GetDixieUrl() + 'chan.xml')
-
+            self.xml = xml
+            
         io = StringIO.StringIO(self.xml)
         
         context = ElementTree.iterparse(io, events=("start", "end"))

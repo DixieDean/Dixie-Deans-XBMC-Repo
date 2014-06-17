@@ -41,7 +41,7 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.6'
+VERSION     = '2.1.7'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -80,7 +80,6 @@ dixie.SetSetting('gmtfrom', 'GMT')
 print '****** ONTAPP.TV LAUNCHED ******'
 print versioninfo
 
-
 try:
     os.makedirs(logofolder)
     
@@ -111,9 +110,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.6':
+    if prev != '2.1.7':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Thank you for subscribing.', 'Look out for new features in future versions!!!', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'New Feature - Super Search hotkey.', 'Press "F" on your keyboard to get a Super Search in the EPG!', 'For info and support - www.on-tapp.tv')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -127,6 +126,16 @@ def GetCats():
         urllib.urlretrieve(url, path)
     except:
         pass
+
+
+def GetChannels():
+    path = os.path.join(datapath, 'chan.xml')
+    url  = dixie.GetDixieUrl(DIXIEURL) + 'chan.xml'
+    r    = requests.get(url, auth=(username, password))
+    
+    with open(path, 'wb') as f:
+        for chunk in r.iter_content(512):
+            f.write(chunk)
 
 
 def CheckSkin():
@@ -268,41 +277,51 @@ def main(doLogin=True):
             d = xbmcgui.Dialog()
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Something went wrong with your login', 'Please check your settings.')
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Daily IP Address limit reached.', 'Restricted for 2 hours.')
+            print '****** OnTapp.TV Error 503. Too many login attempts/IPs exceeded *******'
             return
         
         if response == 401:
             d = xbmcgui.Dialog()
-            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'Something went wrong with your login', 'You will now get Basic Channels.')
-            d.ok(TITLE + ' Error - %s.' % response, 'OnTapp.TV failed to log in', 'Check your settings.', 'Please subscribe at www.on-tapp.tv.')
+            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'Something went wrong with your login', 'Check your settings, or subscribe at www.on-tapp.tv.')
+            print '****** OnTapp.TV Error 401. Access Denied. Not a member. *******'
+            return
+        
+        if response == 301:
+            xbmc.executebuiltin('XBMC.RunScript($CWD/deleteDB.py)')
+            d = xbmcgui.Dialog()
+            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'It looks like you do not have a paid subcription.', 'Check your settings, or subscribe at www.on-tapp.tv.')
+            d.ok(TITLE + ' Error - %s.' % response, 'Your settings have been changed to...', 'Basic Channels.', 'Please subscribe at www.on-tapp.tv.')
             dixie.SetSetting('dixie.url', 'Basic Channels')
             dixie.SetSetting('DIXIEURL', 'Basic Channels')
+            xbmc.executebuiltin('XBMC.RunScript($CWD/deleteDB.py)')
+            print '****** OnTapp.TV Error 301. Free member. No paid subscription. *******'
             return
             
         else:
-            # if doLogin:
-            #     xbmcgui.Dialog().ok(TITLE + ' Status', 'Status - %s' % response, 'Login OK.', 'Thank you.')
             CheckDixieURL()
             CheckVersion()
+            GetChannels()
             GetCats()
             CheckSkin()
             CheckSkinVersion()
             CheckIniVersion()
             CheckForUpdate()
-        
+            print '****** OnTapp.TV - All OK *******'
+
             xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
             xbmc.executebuiltin('XBMC.ActivateWindow(home)')
-        
+
             w = gui.TVGuide()
-        
+
             if busy:
                busy.close()
                busy = None
-           
+
             CopyKeymap()
             w.doModal()
             RemoveKeymap()
             del w
-        
+
             xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
 
     except Exception:

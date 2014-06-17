@@ -34,7 +34,7 @@ current_ini = os.path.join(datapath, 'addons.ini')
 def getIni():
     path = current_ini
     try:
-        url = dixie.GetExtraUrl() + 'addons.ini'
+        url = dixie.GetExtraUrl() + 'resources/addons.ini'
         urllib.urlretrieve(url, path)
     except:
         pass

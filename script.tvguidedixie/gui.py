@@ -36,6 +36,7 @@ import shutil
 import urllib
 
 import dixie
+import deleteDB
 
 xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
 
@@ -113,6 +114,7 @@ ACTION_MOUSE_MOVE = 107
 KEY_NAV_BACK = 92
 KEY_CONTEXT_MENU = 117
 KEY_HOME = 159
+KEY_SUPER_SEARCH = 77
 
 CHANNELS_PER_PAGE = 8
 TEXT_COLOR = '0xffffffff'
@@ -299,6 +301,14 @@ class TVGuide(xbmcgui.WindowXML):
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onAction'})
     def onAction(self, action):
         debug('Mode is: %s' % self.mode)
+        try:
+            program = self._getProgramFromControl(controlInFocus)
+            if program is None:
+                return
+            # if program is not None:
+            #     self._showContextMenu(program)
+        except:
+            pass
 
         if self.mode == MODE_TV:
             self.onActionTVMode(action)
@@ -371,6 +381,12 @@ class TVGuide(xbmcgui.WindowXML):
                 self._showOsd()
 
     def onActionEPGMode(self, action):
+
+        def onInit(self):
+            programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
+            programTitleControl.setLabel(self.program.title)       
+        
+        
         if action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, ACTION_PREVIOUS_MENU]:
             self.close()
             return
@@ -428,6 +444,12 @@ class TVGuide(xbmcgui.WindowXML):
             program = self._getProgramFromControl(controlInFocus)
             if program is not None:
                 self._showContextMenu(program)
+        elif action.getId() == KEY_SUPER_SEARCH:
+            try:
+                program = self._getProgramFromControl(controlInFocus)
+                xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s")' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
+            except:
+                pass
 
 
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onClick'})
@@ -901,9 +923,14 @@ class TVGuide(xbmcgui.WindowXML):
         del self.controlAndProgramList[:]
 
     def onEPGLoadError(self):
+        print 'Delete DB OnTapp.TV - onEPGLoadError'
+        deleteDB.deleteDB()
         self.redrawingEPG = False
         self._hideControl(self.C_MAIN_LOADING)
-        xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(LOAD_ERROR_LINE2))
+        xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(LOAD_ERROR_LINE2), strings(LOAD_ERROR_LINE3))
+        dixie.SetSetting('dixie.url', 'Basic Channels')
+        dixie.SetSetting('DIXIEURL', 'Basic Channels')
+        print '****** OnTapp.TV Error 301. Free member. No paid subscription. *******'
         self.close()
 
 
