@@ -41,7 +41,7 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.7'
+VERSION     = '2.1.8'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -110,9 +110,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.7':
+    if prev != '2.1.8':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'New Feature - Super Search hotkey.', 'Press "F" on your keyboard to get a Super Search in the EPG!', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'We have added XBMC Log Uploader.', 'Go to Add-on Settings => Maintenance ', 'Set your email and upload your xbmc log.')
 
     
     dixie.SetSetting('VERSION', curr)
@@ -293,7 +293,6 @@ def main(doLogin=True):
             d.ok(TITLE + ' Error - %s.' % response, 'Your settings have been changed to...', 'Basic Channels.', 'Please subscribe at www.on-tapp.tv.')
             dixie.SetSetting('dixie.url', 'Basic Channels')
             dixie.SetSetting('DIXIEURL', 'Basic Channels')
-            xbmc.executebuiltin('XBMC.RunScript($CWD/deleteDB.py)')
             print '****** OnTapp.TV Error 301. Free member. No paid subscription. *******'
             return
             

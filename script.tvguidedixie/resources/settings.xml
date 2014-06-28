@@ -51,10 +51,12 @@
     </category>
 
     <category label="30125">
+		<setting type="lsep" label="Log uploader courtesy of Tristan Fischer (sphere@dersphere.de)"/>
+		<setting type="lsep" label="Upload your log file to xbmclogs.com"/>
+		<setting label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.xbmc.debug.log/addon.py)"/>
+		<setting label="" type="lsep" visible="true" />
         <setting label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
-		<setting label="" type="lsep" visible="true" />
         <setting label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
-		<setting label="" type="lsep" visible="true" />
         <setting label="30127" type="action" action="RunScript($CWD/resetAll.py)" />
     </category>
 

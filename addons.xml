@@ -90,7 +90,7 @@
   </extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.1.7" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.1.8" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="1.1.0"/>
@@ -98,6 +98,7 @@
         <import addon="script.module.simplejson" version="2.0.10"/>
         <import addon="script.module.elementtree" version="1.2.7"/>
         <import addon="script.module.buggalo" version="1.1.2"/>
+        <import addon="script.xbmc.debug.log" version="12.0.2"/>
     </requires>
     <extension point="xbmc.python.script" library="addon.py"><provides>video</provides></extension>
     <extension point="xbmc.python.script" library="addon.py"/>
