@@ -2,7 +2,7 @@
 <settings>
 	<category label="30101">
 		<setting id="username"         label="Username"      type="text"   default="" visible="true" />
-		<setting id="password"         label="Password"      type="text"   default="" visible="true" />
+		<setting id="password"         label="Password"      type="text"   default="" visible="true" option="hidden" />
         <setting id="dixie.url" label="30117" type="labelenum" values="Basic Channels|North America|International|Dixie" default="Dixie" visible="true" />
 		<setting label="" type="lsep" visible="true" />
  		<setting id="gmtfrom" label="30124" type="labelenum"  default="GMT"
