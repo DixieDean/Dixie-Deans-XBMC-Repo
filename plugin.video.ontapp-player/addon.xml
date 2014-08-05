@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.ontapp-player" name="OnTapp.TV Player" version="0.0.1" provider-name="DixieDean">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">OnTapp.TV Player</summary>
+    <description lang="en">Play built-in streams in OnTapp.TV</description>
+    <platform>all</platform>
+  </extension>
+</addon>

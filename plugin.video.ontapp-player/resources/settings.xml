@@ -1,0 +1,7 @@
+<settings>
+
+<category label="Auto View">
+	<setting id="auto-view" type="bool" label="Enable Automatic View" default="false"/>
+	<setting id="default" type="number" label="Default" default="50" enable="!eq(-1,false)"/>
+</category>
+</settings>
