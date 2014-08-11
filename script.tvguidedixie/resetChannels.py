@@ -17,31 +17,17 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-import os
 import xbmc
 import xbmcgui
 import xbmcaddon
-import urllib
-
-import dixie
-
-ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
-datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-current_ini = os.path.join(datapath, 'addons.ini')
+import shutil
 
 
-
-def getIni():
-    path = current_ini
-    try:
-        url = dixie.GetExtraUrl() + 'resources/addons.ini'
-        urllib.urlretrieve(url, path)
-    except:
-        pass
+def resetChannels():
+    path = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/channels')
+    shutil.rmtree(path)
 
 
-if __name__ == '__main__':
-    getIni()
-    d = xbmcgui.Dialog()
-    # d.ok('TV Guide Dixie', 'Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
-
+resetChannels()
+d = xbmcgui.Dialog()
+d.ok('OnTapp.TV', 'OnTapp.TV Channels successfully reset.', 'Everything will be re-created next time', 'you start the guide')    

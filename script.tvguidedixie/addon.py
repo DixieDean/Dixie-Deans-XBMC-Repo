@@ -1,5 +1,5 @@
 #
-#      Copyright (C) 2014 Sean Poyser
+#      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -41,16 +41,16 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.1.8'
+VERSION     = '2.2.0'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'OnTapp.TV'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
-DIXIELOGOS  = ADDON.getSetting('dixie.logo.folder')
-DIXIEURL    = ADDON.getSetting('dixie.url').upper()
+DIXIEURL    = dixie.GetSetting('dixie.url').upper()
+DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
 SKIN        = ADDON.getSetting('dixie.skin')
-SKINVERSION = '7'
+SKINVERSION = '8'
 INIVERSION  = '1'
 
 addon       = xbmcaddon.Addon()
@@ -71,14 +71,13 @@ database    = os.path.join(datapath, 'program.db')
 username    = ADDON.getSetting('username')
 password    = ADDON.getSetting('password')
 
-if ADDON.getSetting('dixie.url') == 'G-Box Midnight MX2':
-    dixie.SetSetting('dixie.url', 'Dixie')
 
 dixie.SetSetting('gmtfrom', 'GMT')
+dixie.SetSetting('dixie.url', 'All Channels')
+dixie.SetSetting('DIXIEURL', 'All Channels')
 
 
-print '****** ONTAPP.TV LAUNCHED ******'
-print versioninfo
+print '****** ONTAPP.TV %s LAUNCHED ******' % str(versioninfo)
 
 try:
     os.makedirs(logofolder)
@@ -88,20 +87,6 @@ try:
 except:
     pass
 
-def CheckDixieURL():
-   curr = ADDON.getSetting('dixie.url')
-   prev = ADDON.getSetting('DIXIEURL')
-
-   dixie.SetSetting('DIXIEURL', curr)
-   
-   if prev != curr:
-       try:
-           os.remove(database)
-       except:
-           pass
-           
-           CheckForUpdate()
-
 
 def CheckVersion():
     prev = ADDON.getSetting('VERSION')
@@ -110,10 +95,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if prev != '2.1.8':
+    if curr != '2.2.0':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'We have added XBMC Log Uploader.', 'Go to Add-on Settings => Maintenance ', 'Set your email and upload your xbmc log.')
-
+        d.ok(TITLE + ' - ' + VERSION, 'Major upgrade of OnTapp. All channels in one place.', 'Unfortunately, your previous custom streams may be lost.', 'For info and support - www.on-tapp.tv')
     
     dixie.SetSetting('VERSION', curr)
 
@@ -138,6 +122,16 @@ def GetChannels():
             f.write(chunk)
 
 
+def CheckForChannels():
+    dir    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    folder = os.path.join(dir, 'channels')
+    files  = []
+    try:    current, dirs, files = os.walk(folder).next()
+    except: pass
+    if len(files) == 0:
+        dixie.SetSetting('updated.channels', -1) #force refresh of channels
+
+
 def CheckSkin():
     path = os.path.join(skinfolder, skin)
     curr = SKINVERSION
@@ -157,12 +151,7 @@ def CheckSkinVersion():
 
 
 def CheckIniVersion():
-    prev = ADDON.getSetting('INIVERSION')
-    curr = INIVERSION
-
-    if not prev == curr:
-        getIni.getIni()
-        dixie.SetSetting('INIVERSION', curr)
+    getIni.getIni()
 
 
 def CheckForUpdate():
@@ -176,7 +165,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-12-06-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-05-08-2014.zip'
 
     try:
         os.makedirs(skinfolder)
@@ -263,6 +252,7 @@ def main(doLogin=True):
     import gui
 
     buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
+
         
     try:
         if doLogin:
@@ -283,21 +273,18 @@ def main(doLogin=True):
         if response == 401:
             d = xbmcgui.Dialog()
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'Something went wrong with your login', 'Check your settings, or subscribe at www.on-tapp.tv.')
-            print '****** OnTapp.TV Error 401. Access Denied. Not a member. *******'
+            print '****** OnTapp.TV Error 401. Access Denied. Not a paid member. *******'
             return
         
         if response == 301:
             xbmc.executebuiltin('XBMC.RunScript($CWD/deleteDB.py)')
             d = xbmcgui.Dialog()
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'It looks like you do not have a paid subcription.', 'Check your settings, or subscribe at www.on-tapp.tv.')
-            d.ok(TITLE + ' Error - %s.' % response, 'Your settings have been changed to...', 'Basic Channels.', 'Please subscribe at www.on-tapp.tv.')
-            dixie.SetSetting('dixie.url', 'Basic Channels')
-            dixie.SetSetting('DIXIEURL', 'Basic Channels')
             print '****** OnTapp.TV Error 301. Free member. No paid subscription. *******'
             return
-            
-        else:
-            CheckDixieURL()
+
+        if doLogin:
+            # CheckDixieURL()
             CheckVersion()
             GetChannels()
             GetCats()
@@ -305,23 +292,25 @@ def main(doLogin=True):
             CheckSkinVersion()
             CheckIniVersion()
             CheckForUpdate()
-            print '****** OnTapp.TV - All OK *******'
+            CheckForChannels()
 
-            xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
-            xbmc.executebuiltin('XBMC.ActivateWindow(home)')
+        print '****** OnTapp.TV - All OK *******'
 
-            w = gui.TVGuide()
+        xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
+        xbmc.executebuiltin('XBMC.ActivateWindow(home)')
 
-            if busy:
-               busy.close()
-               busy = None
+        w = gui.TVGuide()
 
-            CopyKeymap()
-            w.doModal()
-            RemoveKeymap()
-            del w
+        if busy:
+           busy.close()
+           busy = None
 
-            xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
+        CopyKeymap()
+        w.doModal()
+        RemoveKeymap()
+        del w
+
+        xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
 
     except Exception:
        buggalo.onExceptionRaised()
@@ -331,5 +320,6 @@ doLogin = True
 if xbmcgui.Window(10000).getProperty('OTT_LOGIN').lower() == 'false':
     doLogin = False
 xbmcgui.Window(10000).clearProperty('OTT_LOGIN')
+
 
 main(doLogin)

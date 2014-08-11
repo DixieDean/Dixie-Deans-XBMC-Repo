@@ -63,7 +63,7 @@ msgid "General"
 msgstr ""
 
 msgctxt "#30101"
-msgid "Source"
+msgid "Main Settings"
 msgstr ""
 
 msgctxt "#30102"
@@ -167,7 +167,7 @@ msgid "Click to - Reset Programme Listings."
 msgstr ""
 
 msgctxt "#30127"
-msgid "Click to - Clear start-up errors. All settings will be lost."
+msgid "Click to - Reset your channels. Some of your custom settings may be lost."
 msgstr ""
 
 msgctxt "#30128"
@@ -189,15 +189,15 @@ msgstr ""
 #empty strings from id 30132 to 30149
 
 msgctxt "#30150"
-msgid "There's a problem with your settings."
+msgid "There's a problem with the listings."
 msgstr ""
 
 msgctxt "#30151"
-msgid "It seems you may not have a paid subscription."
+msgid "Please try again later."
 msgstr ""
 
 msgctxt "#30152"
-msgid "Please log into www.on-tapp.tv to check."
+msgid "You can report this error at www.on-tapp.tv/forum."
 msgstr ""
 
 msgctxt "#30153"

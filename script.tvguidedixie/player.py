@@ -1,3 +1,22 @@
+#
+#      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com)
+#
+#  This Program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2, or (at your option)
+#  any later version.
+#
+#  This Program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with XBMC; see the file COPYING.  If not, write to
+#  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+#  http://www.gnu.org/copyleft/gpl.html
+#
+
 
 import xbmc
 import xbmcaddon
@@ -15,7 +34,7 @@ def CheckIdle(maxIdle):
     delay = 60
     count = delay
     dp = xbmcgui.DialogProgress()
-    dp.create("TV Guide Dixie","Streaming will automatically quit in %d seconds" % count, "Press Cancel to contine viewing")
+    dp.create("OnTappTV","Streaming will automatically quit in %d seconds" % count, "Press Cancel to contine viewing")
     dp.update(0)
               
     while xbmc.Player().isPlaying() and count > 0 and not dp.iscanceled():
@@ -32,6 +51,10 @@ def CheckIdle(maxIdle):
 
 
 def play(url, windowed):
+    if url.lower().startswith('plugin://plugin.video.skygo'):
+        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+        return
+       
     ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
@@ -118,11 +141,11 @@ def checkForAlternateStreaming(url):
         print url
         return alternateStream(url)
         
-    if 'plugin.program.skygo.launcher' in url:
-        print '****** Alternate SkyGo ******'
+    if 'plugin.video.sportsaholic' in url:
+        print '****** Alternate sportsaholic ******'
         print url
         return alternateStream(url)
-        
+
     return False
 
 def alternateStream(url):

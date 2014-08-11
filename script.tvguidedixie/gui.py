@@ -1,5 +1,5 @@
 #
-#      Copyright (C) 2014 Sean Poyser
+#      Copyright (C) 2014 Sean Poyser - With acknowledgement to some original code by twinther (Tommy Winther)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -544,6 +544,8 @@ class TVGuide(xbmcgui.WindowXML):
             d = StreamSetupDialog(self.database, program.channel)
             d.doModal()
             del d
+            self._showContextMenu(program)
+            return
 
         elif buttonClicked == PopupMenu.C_POPUP_PLAY:
             if self.touch:
@@ -589,10 +591,10 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
 
         elif buttonClicked == PopupMenu.C_POPUP_VPN:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.program.datho.vpn)')
+            xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/menu.py,%s)' % self.database.getStreamUrl(program.channel))
 
-        elif buttonClicked == PopupMenu.C_POPUP_TRAILERS:
-            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s")' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
+        elif buttonClicked == PopupMenu.C_POPUP_SUPER_SEARCH:
+            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s",return)' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
 
         elif buttonClicked == PopupMenu.C_POPUP_QUIT:
             self.close()
@@ -928,9 +930,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.redrawingEPG = False
         self._hideControl(self.C_MAIN_LOADING)
         xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(LOAD_ERROR_LINE2), strings(LOAD_ERROR_LINE3))
-        dixie.SetSetting('dixie.url', 'Basic Channels')
-        dixie.SetSetting('DIXIEURL', 'Basic Channels')
-        print '****** OnTapp.TV Error 301. Free member. No paid subscription. *******'
+        print '****** OnTapp.TV. Possible unicode text error. *******'
         self.close()
 
 
@@ -1165,7 +1165,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     C_POPUP_ITVPLAYER = 4010
     C_POPUP_4OD = 4014
     C_POPUP_USTV = 4011
-    C_POPUP_TRAILERS = 4009
+    C_POPUP_SUPER_SEARCH = 4009
     C_POPUP_SUPERFAVES = 4012
     C_POPUP_VPN = 4013
     C_POPUP_HOME = 4006
@@ -1196,18 +1196,23 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
 
 
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onInit'})
-    def onInit(self):        
+    def onInit(self):
+        self.getControl(self.C_POPUP_4OD).setVisible(False) #RD -Temporary hide of the 4oD button until a new use is found for it.
+
         programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
         programTitleControl.setLabel(self.program.title)       
 
         playControl = self.getControl(self.C_POPUP_PLAY)
         playControl.setLabel(strings(WATCH_CHANNEL, self.program.channel.title)) 
 
-        isPlayable = self.program.channel.isPlayable()
+        #isPlayable = self.program.channel.isPlayable()
+        isPlayable = self.database.isPlayable(self.program.channel)
 
         if not isPlayable:
             playControl.setEnabled(False)
             self.setFocusId(self.C_POPUP_REMIND)
+            # self.getControl(self.C_POPUP_REMIND).setVisible(False)
+            # self.setFocusId(self.C_POPUP_CHOOSE_STREAM)
         
         if self.touch or self.program.title == strings(NO_PROGRAM_AVAILABLE):
             playControl.setEnabled(True)
@@ -1266,11 +1271,13 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onClick'})
     def onClick(self, controlId):
         if controlId == self.C_POPUP_CHOOSE_STREAM and self.database.getCustomStreamUrl(self.program.channel):
+
             self.database.deleteCustomStreamUrl(self.program.channel)
+
             chooseStrmControl = self.getControl(self.C_POPUP_CHOOSE_STREAM)
             chooseStrmControl.setLabel(CHOOSE_STRM_FILE)
 
-            if not self.program.channel.isPlayable():
+            if not self.database.isPlayable(self.program.channel):
                 playControl = self.getControl(self.C_POPUP_PLAY)
                 playControl.setEnabled(False)
 
@@ -1350,7 +1357,7 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
             listControl = self.getControl(self.C_CHANNELS_LIST)
             item = listControl.getSelectedItem()
             channel = self.channelList[int(item.getProperty('idx'))]
-            channel.visible = not channel.visible
+            channel.visible = 0 if channel.visible else 1
 
             if channel.visible:
                 iconImage = 'tvguide-channel-visible.png'

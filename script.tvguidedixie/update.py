@@ -1,5 +1,5 @@
 #
-#      Copyright (C) 2014 Sean Poyser
+#      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -196,7 +196,17 @@ def getResponse():
 
 
 def updateAvailable(latest):
-    dir = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    dir    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    folder = os.path.join(dir, 'channels')
+
+    files = []
+    try:    current, dirs, files = os.walk(folder).next()
+    except: pass
+
+    if len(files) == 0:
+        dixie.SetSetting('updated.channels', -1) #force refresh of channels
+        return True
+
     db  = os.path.join(dir, 'program.db')
     if not os.path.exists(db):
         return True

@@ -1,6 +1,5 @@
 #
-#      Copyright (C) 2014 Richard Dean
-#      write2dixie@gmail.com
+#      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
