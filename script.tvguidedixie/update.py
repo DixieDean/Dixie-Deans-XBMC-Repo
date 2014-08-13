@@ -129,8 +129,8 @@ def checkForUpdate(silent = 1):
     if 'Error' in response:
         if not silent:
             ok(TITLE, response['Error'],'Please subscribe at','www.ontapp.tv')
-            dixie.SetSetting('dixie.url', 'Basic Channels')
-            dixie.SetSetting('DIXIEURL', 'Basic Channels')
+            dixie.SetSetting('dixie.url', 'All Channels')
+            dixie.SetSetting('DIXIEURL', 'All Channels')
         
             return allDone(silent)
         
@@ -155,7 +155,7 @@ def checkForUpdate(silent = 1):
     allDone(silent)
 
 
-def allDone(silent, mins = 1 * 60 * 60): #2.5 days
+def allDone(silent, mins = 1 * 60 * 18): #18 hours
     setAlarm(mins)
 
     xbmcgui.Window(10000).clearProperty('OTT_UPDATING')

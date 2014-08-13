@@ -21,22 +21,15 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 import shutil
-import os
 
 
-def resetChannels():
-    path = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
-    chan = os.path.join(path, 'channels')
-
-    if os.path.exists(chan):
-        shutil.rmtree(chan)
-
-        d = xbmcgui.Dialog()
-        d.ok('On-Tapp.TV', 'On-Tapp.TV Channels successfully reset.', 'They will be re-created next time', 'you start the guide')
-
-    else:
-        pass
+def resetAddon():
+    path = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie')
+    shutil.rmtree(path)
+    
+    d = xbmcgui.Dialog()
+    d.ok('On-Tapp.TV', 'On-Tapp.TV successfully reset.', 'It will be re-created next time', 'you start the guide')
 
 
 if __name__ == '__main__':
-    resetChannels()
+    resetAddon()

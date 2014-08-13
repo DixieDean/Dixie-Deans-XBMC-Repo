@@ -71,7 +71,6 @@ except: pass
 
 settingsFile = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'settings.cfg')
 
-
 USE_DB_FILE = True
 
 if len (DIXIELOGOS):
@@ -518,7 +517,7 @@ class Database(object):
             except: pass
 
             for id in toDelete:
-                self.removeChannel(id)
+                self.removeCleanChannel(id)
 
             self.connP.commit()
 
@@ -567,10 +566,6 @@ class Database(object):
             channels.append(file)
 
         return channels
-
-
-    def removeChannel(self, channel):
-        removeCleanChannel(CleanFilename(channel.id))    
 
 
     def removeCleanChannel(self, id):

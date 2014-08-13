@@ -1,35 +1,5 @@
-v2.2.1 (08-13-14)
-- Small bug fix.
-- Added a full reset option to the add-on settings.
-
 v2.2.0 (08-11-14)
 - Full update from beta version
-
-v2.1.9b5 (08-04-14)
-- New channels mamagement system.
-- New default skin.
-- Added new features for public beta testing.
-
-v2.1.9b4 (08-01-14)
-- Skipped as a public release.
-
-v2.1.9b3 (07-16-14)
-Beta test version for all devices.
-- Added an 'All Channels' setting.
-- Added settings filter to handle new categories.
-- 'resetAll.py' script will now delete the new Channel databases.
-- Minor code changes.
-
-v2.1.9b2 (07-09-14)
-Beta test version for Matricom MX2 boxes.
-- Removed test urls and moved back to regular Dixie URLs.
-- Made password hidden in the settings window.
-- Included Sky-Go code to be included in full version.
-
-v2.1.9b1 (07-06-14)
-Beta test version for Matricom MX2 boxes.
-- Moved dixie.url, dixie.logo.folder and categories out of database and into a .cfg file.
-- Added creation of a separate database for each Dixie URL source.
 
 v2.1.8 (06-28-14)
 Added XBMC Log Uploader to Add-on Settings.

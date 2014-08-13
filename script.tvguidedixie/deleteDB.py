@@ -21,6 +21,12 @@ import os
 import xbmc
 import xbmcgui
 import xbmcaddon
+import settings
+import dixie
+
+addon        = xbmcaddon.Addon(id = 'script.tvguidedixie')
+settingsFile = os.path.join(xbmc.translatePath(addon.getAddonInfo('profile')), 'settings.cfg')
+
 
 def deleteDB():
     try:
@@ -45,8 +51,9 @@ def deleteDB():
 
 def delete_file(filename):
     tries = 10
-    while os.path.exists(filename) and tries > 0: 
-        try:             
+    while os.path.exists(filename) and tries > 0:
+        settings.set('ChannelsUpdated', 0, settingsFile)
+        try:
             os.remove(filename) 
             break 
         except: 

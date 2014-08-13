@@ -186,7 +186,11 @@ msgctxt "#30131"
 msgid "Click to - Delete Cookies"
 msgstr ""
 
-#empty strings from id 30132 to 30149
+msgctxt "#30132"
+msgid "Click to - Fully Reset On-TappTV. ALL settings will be lost inc. user/pass."
+msgstr ""
+
+#empty strings from id 30133 to 30149
 
 msgctxt "#30150"
 msgid "There's a problem with the listings."
@@ -229,7 +233,7 @@ msgid "Channel configuration, etc. is unfortunately lost."
 msgstr ""
 
 msgctxt "#30160"
-msgid "Or change your settings to 'Basic Channels'."
+msgid "Or check your settings."
 msgstr ""
 
 #empty strings from id 30160 to 30199

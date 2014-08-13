@@ -52,15 +52,14 @@
     </category>
 
     <category label="30125">
- 		<setting type="lsep" label="Upload your Log to xbmclogs.com. Courtesy of Tristan Fischer"/>
  		<setting label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)"/>
- 		<setting type="lsep" label="If you want to receive an email containing direct links"/>
- 		<setting type="lsep" label="to your uploaded logs you have to set your email address"/>
+ 		<setting type="lsep" label="Set your email address to receive emails containing xbmclogs.com links"/>
  		<setting id="email" type="text" label="Email address"/>
 		<setting label="" type="lsep" visible="true" />
         <setting label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
         <setting label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
         <setting label="30127" type="action" action="RunScript($CWD/resetChannels.py)" />
+        <setting label="30132" type="action" action="RunScript($CWD/resetAddon.py)" />
     </category>
 
 
