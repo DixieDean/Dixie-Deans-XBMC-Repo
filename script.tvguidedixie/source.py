@@ -436,7 +436,7 @@ class Database(object):
                 settings.set(param, value, settingsFile)
 
         print 'Settings changed: ' + str(settingsChanged)
-        return True #SJP settingsChanged
+        return settingsChanged
 
 
     def _isCacheExpired(self, date):
