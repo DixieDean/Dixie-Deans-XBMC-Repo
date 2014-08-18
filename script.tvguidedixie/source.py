@@ -295,9 +295,8 @@ class Database(object):
         for ch in channels:            
             logoFile = os.path.join(folder, DIXIELOGOS, ch.title + '.png')
             if logoFile != ch.logo:
-                if len(ch.logo) > 0:
-                    ch.logo = logoFile
-                    self.replaceChannel(ch)
+                ch.logo = logoFile
+                self.replaceChannel(ch)
                     
         return True
 

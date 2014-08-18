@@ -41,7 +41,7 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.2.2'
+VERSION     = '2.2.3'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -77,6 +77,7 @@ dixie.SetSetting('dixie.url', 'All Channels')
 dixie.SetSetting('DIXIEURL', 'All Channels')
 
 
+
 print '****** ONTAPP.TV %s LAUNCHED ******' % str(versioninfo)
 
 try:
@@ -95,11 +96,41 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr != '2.2.2':
+    if curr == '2.2.3':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Minor bugfix for OnTapp. All channels in one place.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Logo Pack fix.', 'For info and support - www.on-tapp.tv')
     
     dixie.SetSetting('VERSION', curr)
+
+
+def showChangelog(addonID=None):
+    try:
+        if addonID:
+            ADDON = xbmcaddon.Addon(addonID)
+        else: 
+            ADDON = xbmcaddon.Addon()
+
+        f     = open(ADDON.getAddonInfo('changelog'))
+        text  = f.read()
+        title = '%s - %s' % (xbmc.getLocalizedString(24054), ADDON.getAddonInfo('name'))
+
+        showText(title, text)
+
+    except:
+        pass
+
+
+def showText(heading, text):
+    id = 10147
+
+    xbmc.executebuiltin('ActivateWindow(%d)' % id)
+
+    win = xbmcgui.Window(id)
+
+    xbmc.sleep(1000)
+
+    win.getControl(1).setLabel(heading)
+    win.getControl(5).setText(text)
 
 
 def GetCats():
