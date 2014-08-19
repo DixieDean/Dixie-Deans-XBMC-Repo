@@ -96,9 +96,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.2.3':
+    if curr == '2.2.4':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Logo Pack fix.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'NTV fix.', 'For info and support - www.on-tapp.tv')
     
     dixie.SetSetting('VERSION', curr)
 

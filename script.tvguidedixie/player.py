@@ -76,10 +76,10 @@ def play(url, windowed):
 
 
 def checkForAlternateStreaming(url):
-    if "plugin.video.ntv" in url:
-        print '****** Alternate NTV ******'
-        print url
-        return alternateStream(url)
+    # if "plugin.video.ntv" in url:
+    #     print '****** Alternate NTV ******'
+    #     print url
+    #     return alternateStream(url)
 
     if 'plugin.video.expattv' in url:
         print '****** Alternate  ExPat ******'
