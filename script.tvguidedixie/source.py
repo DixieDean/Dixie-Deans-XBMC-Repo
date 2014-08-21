@@ -518,8 +518,6 @@ class Database(object):
             for id in toDelete:
                 self.removeCleanChannel(id)
 
-            self.connP.commit()
-
             if imported_channels == 0:
                 self.updateFailed = True
             if imported_programs == 0:
@@ -547,9 +545,13 @@ class Database(object):
             self.updateFailed = True
         finally:            
             update = dixie.GetSetting('updated.channels')
-            dixie.SetSetting('current.channels', update)
-            self.channelDict = {}
-            self.updateInProgress = False
+            if int(update) < 0:
+                dixie.SetSetting('updated.channels', 0)
+                dixie.SetSetting('current.channels', 0)
+            else:
+                dixie.SetSetting('current.channels', update)
+                self.channelDict = {}
+                self.updateInProgress = False
 
 
     def getAllChannels(self):
