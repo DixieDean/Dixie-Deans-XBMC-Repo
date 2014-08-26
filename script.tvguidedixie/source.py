@@ -515,8 +515,8 @@ class Database(object):
             try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)
             except: pass
 
-            for id in toDelete:
-                self.removeCleanChannel(id)
+            # for id in toDelete:
+            #     self.removeCleanChannel(id)
 
             if imported_channels == 0:
                 self.updateFailed = True
