@@ -41,7 +41,7 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.2.5'
+VERSION     = '2.2.6'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -96,9 +96,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.2.5':
+    if curr == '2.2.6':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Speed improvement for lower powered devices like MX2 and R-Pi.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Improved Super Favourites integration.', 'For info and support - www.on-tapp.tv')
         showChangelog()
     
     dixie.SetSetting('VERSION', curr)
