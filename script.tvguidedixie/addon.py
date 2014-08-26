@@ -41,7 +41,7 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.2.6'
+VERSION     = '2.2.7'
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
@@ -96,9 +96,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.2.6':
+    if curr == '2.2.7':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Improved Super Favourites integration.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Improved Super Favourites integration.', 'Fix for some 3rd party add-ons not streaming correctly.', 'For info and support - www.on-tapp.tv')
         showChangelog()
     
     dixie.SetSetting('VERSION', curr)
@@ -125,14 +125,20 @@ def showText(heading, text):
     id = 10147
 
     xbmc.executebuiltin('ActivateWindow(%d)' % id)
+    xbmc.sleep(100)
 
     win = xbmcgui.Window(id)
 
-    xbmc.sleep(1000)
-
-    win.getControl(1).setLabel(heading)
-    win.getControl(5).setText(text)
-
+    retry = 50
+    while (retry > 0):
+        try:
+            xbmc.sleep(10)
+            retry -= 1
+            win.getControl(1).setLabel(heading)
+            win.getControl(5).setText(text)
+            return
+        except:
+            pass
 
 def GetCats():
     path = os.path.join(datapath, 'cats.xml')
