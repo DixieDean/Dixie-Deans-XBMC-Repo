@@ -19,6 +19,74 @@
 #
 
 
+import xbmc
+import xbmcaddon
+import os
+import dixie
+
+
+ADDON = xbmcaddon.Addon(dixie.ID)
+
+ORIGINAL = 'settings.xml'
+BACKUP   = 'settings.bak'
+
+
+def DeleteFile(file):
+    tries = 10
+    while os.path.exists(file) and tries > 0:
+        tries -= 1 
+        try: 
+            os.remove(file) 
+            break 
+        except: 
+            xbmc.sleep(100)
+
+
+def validate():
+    if checkSettings():
+        backupSettings()
+    else:
+        restoreSettings()
+        
+
+def checkSettings():
+    validator = dixie.GetSetting('validator')
+
+    return validator != '0'
+
+
+def backupSettings():
+    path = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    src  = os.path.join(path, ORIGINAL)
+    dst  = os.path.join(path, BACKUP)
+
+    try:
+        DeleteFile(dst)
+        import shutil
+        shutil.copyfile(src, dst)
+        dixie.SetSetting('validator', 1)
+    except Exception, e:
+        pass
+
+
+def restoreSettings():
+    path = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    dst  = os.path.join(path, ORIGINAL)
+    src  = os.path.join(path, BACKUP)
+
+    if not os.path.exists(src):
+        return backupSettings()
+
+    try:
+        DeleteFile(dst)
+        import shutil
+        shutil.copyfile(src, dst)
+        dixie.SetSetting('validator', 1)
+        xbmc.sleep(500)
+    except Exception, e:
+        pass
+
+
 def get(param, file):
     try:
         config = []

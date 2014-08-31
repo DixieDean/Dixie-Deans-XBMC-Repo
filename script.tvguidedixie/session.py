@@ -33,22 +33,31 @@ import urllib2
 from urllib2 import HTTPError
 
 
+def getUsername():
+    return dixie.GetSetting('username')
+
+
+def getPassword():
+    return dixie.GetSetting('password')
+
+def getAccount():
+    return { 'log' : getUsername(), 'pwd' : getPassword(), 'wp-submit' : 'Log In' }
+
+
+def getPayload():
+    return urllib.urlencode(getAccount())
 
 ADDON      = xbmcaddon.Addon(id = 'script.tvguidedixie')
-DIXIEURL   = ADDON.getSetting('dixie.url').upper()
-username   = ADDON.getSetting('username')
-password   = ADDON.getSetting('password')
+DIXIEURL   = dixie.GetSetting('dixie.url').upper()
 baseurl    = dixie.GetLoginUrl()
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 cookiepath = os.path.join(datapath, 'cookies')
 cookiefile = os.path.join(cookiepath, 'on-tapp.lwp')
-account    = { 'log' : username, 'pwd' : password, 'wp-submit' : 'Log In' }
 
 
 urlopen = urllib2.urlopen
 Request = urllib2.Request
 cj      = cookielib.LWPCookieJar()
-payload = urllib.urlencode(account)
 opener  = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 urllib2.install_opener(opener)
 
@@ -69,7 +78,9 @@ def resetCookie():
 
 
 def doLogin():
+    code = 0
     try:
+        payload = getPayload()
         req    = Request(baseurl, payload)
         handle = opener.open(req)
         code   = handle.getcode()
@@ -83,12 +94,12 @@ def doLogin():
         if hasattr(error, 'code'):
             code = error.code
             
-            return code
+    return code
 
 
 def checkFiles(url):
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-    request  = requests.get(url, allow_redirects=False, auth=(username, password))
+    request  = requests.get(url, allow_redirects=False, auth=(getUsername(), getPassword()))
     response = request.text
     code     = request.status_code
     reason   = request.reason
@@ -102,7 +113,7 @@ def checkFiles(url):
 
 def getFiles(url):
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-    request  = requests.get(url, allow_redirects=False, auth=(username, password))
+    request  = requests.get(url, allow_redirects=False, auth=(getUsername(), getPassword()))
     response = request.text
 
     return response

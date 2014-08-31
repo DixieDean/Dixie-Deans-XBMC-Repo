@@ -101,15 +101,24 @@ def CleanFilename(text):
 
 
 class Channel(object):
-    def __init__(self, id, title, logo = None, streamUrl = None, visible = 1, weight = -1, categories = ''):
-        self.id = id
-        self.title = title
-        self.categories = categories
-        self.logo = logo
-        self.streamUrl = streamUrl
+    def __init__(self, id, title, logo = None, streamUrl = None, visible =1, weight = -1, categories = ''):
+        try:    visible = visible.replace('\r', '')
+        except: pass
+
+        try:    weight = weight.replace('\r', '')
+        except: pass
+
+        try:    self.streamUrl = streamUrl.replace('\r', '')
+        except: self.streamUrl = streamUrl
+
+        try:    self.logo = logo.replace('\\', '/').replace('\r', '')
+        except: self.logo = logo
+
+        self.id = id.replace('\r', '')
+        self.title = title.replace('\r', '')
+        self.categories = categories.replace('\r', '')
         self.visible = int(visible)
         self.weight = int(weight)
-
 
     def clone(self):
         c = Channel(self.id, self.title, self.logo, self.streamUrl, self.visible, self.weight, self.categories)

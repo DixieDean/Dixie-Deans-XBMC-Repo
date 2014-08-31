@@ -33,12 +33,65 @@ def CheckIdle(maxIdle):
         xbmc.Player().stop()
 
 
+def get_params(p):
+    param=[]
+    paramstring=p
+    if len(paramstring)>=2:
+        params=p
+        cleanedparams=params.replace('?','')
+        if (params[len(params)-1]=='/'):
+           params=params[0:len(params)-2]
+        pairsofparams=cleanedparams.split('&')
+        param={}
+        for i in range(len(pairsofparams)):
+            splitparams={}
+            splitparams=pairsofparams[i].split('=')
+            if (len(splitparams))==2:
+                param[splitparams[0]]=splitparams[1]
+    return param
+
+
+def playSF(url):
+    try:
+        import urllib
+        params = url.split('?', 1)[-1]    
+        params = get_params(params)
+
+        try:    path = urllib.unquote_plus(params['path'])
+        except: path = None
+
+        if path:
+            path = os.path.join(path, 'favourites.xml')
+
+            sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
+            sfPath  = sfAddon.getAddonInfo('path')
+
+            sys.path.insert(0, sfPath)
+
+            import favourite
+            faves = favourite.getFavourites(path)
+
+            if len(faves) == 1:
+                import re
+                return False, re.compile('"(.+?)"').search(faves[0][2]).group(1)
+
+    except:
+        pass
+
+    url = 'ActivateWindow(10025,%s)' % url
+    xbmc.executebuiltin(url)
+    return True, ''
+
+
+
 def play(url, windowed):
     #is it a SF folder?
     if url.startswith('plugin://plugin.program.super.favourites') and 'mode=400' in url:
-        url = 'ActivateWindow(10025,"%s")' % url
-        xbmc.executebuiltin(url)
-        return
+        handled, sfURL = playSF(url)
+        if handled:
+            return
+        else:
+            url = sfURL    
 
     if url.lower().startswith('plugin://plugin.video.skygo'):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
@@ -98,7 +151,10 @@ def checkForAlternateStreaming(url):
         
     if 'plugin.video.F.T.V' in url:        
         return alternateStream(url)
-        
+
+    if 'plugin.video.sportsaholic' in url:        
+        return alternateStream(url)
+
     return False
 
 def alternateStream(url):

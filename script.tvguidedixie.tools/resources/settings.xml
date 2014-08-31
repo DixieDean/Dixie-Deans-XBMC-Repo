@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="General">	
+		<setting id="VERSION" type="text"      label=""          default="0.0.0"                                              visible="true"/>
+		<setting id="SORT"    type="labelenum" label="Sort mode" default="Alphabetical" values="Alphabetical|ONTapp.TV Order" visible="true"/>		
+	</category>
+</settings> 

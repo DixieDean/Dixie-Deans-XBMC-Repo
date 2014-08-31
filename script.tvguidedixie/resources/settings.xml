@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category label="30101">
+	    <setting id="validator"        label="validator"     type="text"   default="0" visible="false" />
 		<setting id="username"         label="Username"      type="text"   default="" visible="true" />
 		<setting id="password"         label="Password"      type="text"   default="" visible="true" option="hidden" />
         <setting id="dixie.url" label="30117" type="labelenum" values="All Channels" default="All Channels" visible="false" />

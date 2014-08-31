@@ -41,9 +41,12 @@ except:
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
-VERSION     = '2.2.7'
+import settings
+settings.validate()
 
-ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
+VERSION     = '2.2.8'
+
+ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'OnTapp.TV'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
@@ -96,9 +99,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.2.7':
+    if curr == '2.2.8':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Improved Super Favourites integration.', 'Fix for some 3rd party add-ons not streaming correctly.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'A few improvements to the add-on.', 'Please read changelog for details.', 'For info and support - www.on-tapp.tv')
         showChangelog()
     
     dixie.SetSetting('VERSION', curr)
