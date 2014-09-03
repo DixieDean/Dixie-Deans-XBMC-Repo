@@ -146,8 +146,11 @@ def checkForUpdate(silent = 1):
             print '%s EPG Update Available - %s' % (TITLE, response['Date'])
             getUpdate(response, silent)
 
-        elif not silent:
-            ok(TITLE, 'EPG is up-to-date.')
+        else:
+            #do restore to ensure not malformed
+            restoreFromZip()
+            if not silent:
+                ok(TITLE, 'EPG is up-to-date.')
 
     except:
         pass
@@ -230,50 +233,80 @@ def getUpdate(response, silent):
 
     path = getDownloadPath(date)
 
-    db = path.replace('.zip', '.db')
+    db = path.replace('.newzip', '.db')
     if not os.path.exists(db):
         dp = None
     
         if not silent:
-            dp = progress(TITLE, 'Updating EPG.', 'Please Wait.')
+            dp = progress(TITLE, 'Updating EPG.', 'Please Wait.')        
 
         try:
             download(link, path, dp)
         except:
             deleteFile(path) 
-            return False        
+            return False  
+
+        profile = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+
+        #delete existng zips files
+        file = []
+        try:    current, dirs, files = os.walk(profile).next()
+        except: pass
+
+        for file in files:
+            if file.endswith('.zip'):
+                filename = os.path.join(profile, file)
+                deleteFile(filename)
+
+        oldpath = path
+        path    = path.replace('.newzip', '.zip')
+
+        try:    os.rename(oldpath, path)
+        except: pass
 
         #doesn't seem to want to work!
         #if generateMD5(path) != md5:
         #    deleteFile(path) 
         #    return False
 
-        zip = path
-        dst = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-
         import dxmnew
-        dxmnew.unzipAndMove(zip, dst, None)
+        dxmnew.unzipAndMove(path, profile, None)
 
-        try:    deleteFile(zip)
-        except: pass
+        #try:    deleteFile(path)
+        #except: pass
 
     dixie.SetSetting('updated.channels', channel)
 
-    xbmcgui.Window(10000).setProperty('OTT_UPDATE', date)
+    #xbmcgui.Window(10000).setProperty('OTT_UPDATE', date)
 
     if xbmcgui.Window(10000).getProperty('OTT_RUNNING') == 'True':
         return
 
-    newEPGAvailable()
+    newEPGAvailable(date)
 
     if not silent:
         ok(TITLE, '', 'EPG successfully updated.', '')
 
 
+def restoreFromZip():
+    profile = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 
-def newEPGAvailable():
-    date = xbmcgui.Window(10000).getProperty('OTT_UPDATE')
+    file = []
+    try:    current, dirs, files = os.walk(profile).next()
+    except: pass
 
+    for file in files:
+        if file.endswith('.zip'):
+            date = file.split('-', 1)[-1].replace('.zip', '')
+
+            import dxmnew
+            dxmnew.unzipAndMove(os.path.join(profile, file), profile, None)
+
+            newEPGAvailable(date)
+            return
+
+
+def newEPGAvailable(date):
     dir = xbmc.translatePath(ADDON.getAddonInfo('profile'))
     deleteFile(os.path.join(dir, 'program.db'))   
 
@@ -286,7 +319,7 @@ def newEPGAvailable():
 
     dixie.SetSetting('epg.date', date)
 
-    xbmcgui.Window(10000).clearProperty('OTT_UPDATE')
+    #xbmcgui.Window(10000).clearProperty('OTT_UPDATE')
 
 
 
@@ -294,7 +327,7 @@ def getDownloadPath(date):
     try:
         path = ADDON.getAddonInfo('profile')
         path = xbmc.translatePath(path)
-        path = os.path.join(path, 'program-%s.zip' % date)
+        path = os.path.join(path, 'program-%s.newzip' % date)
         return path
     except:
         pass

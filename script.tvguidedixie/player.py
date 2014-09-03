@@ -61,19 +61,26 @@ def playSF(url):
         except: path = None
 
         if path:
-            path = os.path.join(path, 'favourites.xml')
+            try:    current, dirs, files = os.walk(path).next()
+            except: pass
+            
+            if len(dirs) == 0:
+                path = os.path.join(path, 'favourites.xml')
 
-            sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
-            sfPath  = sfAddon.getAddonInfo('path')
+                sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
+                sfPath  = sfAddon.getAddonInfo('path')
 
-            sys.path.insert(0, sfPath)
+                sys.path.insert(0, sfPath)
 
-            import favourite
-            faves = favourite.getFavourites(path)
+                import favourite
+                faves = favourite.getFavourites(path)
 
-            if len(faves) == 1:
-                import re
-                return False, re.compile('"(.+?)"').search(faves[0][2]).group(1)
+                if len(faves) == 1:
+                    fave = faves[0][2]
+                    if fave.lower().startswith('playmedia'):
+                        import re
+                        cmd = re.compile('"(.+?)"').search(fave).group(1)
+                        return False, cmd
 
     except:
         pass

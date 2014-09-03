@@ -44,7 +44,7 @@ socket.setdefaulttimeout(10) # 10 seconds
 import settings
 settings.validate()
 
-VERSION     = '2.2.8'
+VERSION     = '2.2.9'
 
 ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
@@ -99,7 +99,7 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.2.8':
+    if curr == '2.2.9':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'A few improvements to the add-on.', 'Please read changelog for details.', 'For info and support - www.on-tapp.tv')
         showChangelog()
