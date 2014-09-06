@@ -56,13 +56,17 @@ GOTHAM   = utils.GOTHAM
 
 # -----Addon Modes ----- #
 
-_OTT        = 0
-_MAIN       = 100
-_CHANNEL    = 200
-_RENAME     = 300
-_TOGGLESORT = 400
-_SETTINGS   = 500
-_LOGO       = 600
+_OTT          = 0
+_MAIN         = 100
+_CHANNEL      = 200
+_RENAME       = 300
+_TOGGLESORT   = 400
+_SETTINGS     = 500
+_LOGO         = 600
+_SELECT       = 700
+_CANCELSELECT = 800
+_INSERTABOVE  = 900
+_INSERTBELOW  = 1000
 
 
 # --------------------- Addon Settings --------------------- #
@@ -72,37 +76,182 @@ ALPHASORT = ADDON.getSetting('SORT').lower() == 'alphabetical'
 # ---------------------------------------------------------- #
 
 
+# --------------------- 'Global' Variables --------------------- #
+
+START_WEIGHT = -1
+END_WEIGHT   = -1
+
+try:    
+    START_WEIGHT = int(xbmcgui.Window(10000).getProperty('OTT_TOOLS_START'))
+
+    try:   
+        END_WEIGHT = int(xbmcgui.Window(10000).getProperty('OTT_TOOLS_END'))
+    except: 
+        pass
+except: 
+    pass
+
+# -------------------------------------------------------------- #
+
+
+
 def main():
     utils.CheckVersion()
 
-    channels = getAllChannels()
+    channels   = getAllChannels(ALPHASORT)
+    totalItems = len(channels)
+    count      = 1
 
-    sorted = []
-
-    for id in channels:
-        channel = getChannelFromFile(id)
+    for ch in channels:        
+        channel = ch[2]
+        id      = ch[1]         
         title   = channel.title
         logo    = channel.logo
-
-        sorter  = channel.title.lower() if ALPHASORT else channel.weight
-
-        sorted.append([sorter, title, id, logo])
-
-    sorted.sort()
-    totalItems = len(sorted)
-
-    for ch in sorted:
-        title   = ch[1]
-        id      = ch[2]
-        logo    = ch[3]
+        weight  = channel.weight
 
         menu  = []
-        menu.append(('Rename channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _RENAME, urllib.quote_plus(ch[2]))))
-        menu.append(('Change logo',    'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _LOGO,   urllib.quote_plus(ch[2]))))
+        menu.append(('Rename channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _RENAME, urllib.quote_plus(id))))
+        menu.append(('Change logo',    'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _LOGO,   urllib.quote_plus(id))))
+
+        if weight != START_WEIGHT and weight != END_WEIGHT:
+            menu.append(('Select Channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s&weight=%d)' % (sys.argv[0], _SELECT, urllib.quote_plus(id), weight)))
+
+        if inSelection(weight):
+            #title = '[COLOR red]' + title  + '[/COLOR]'
+            title = '[I]' + title  + '[/I]'
+        elif isSelection():
+            menu.append(('Insert Above', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTABOVE, weight)))
+            menu.append(('Insert Below', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTBELOW, weight)))
+
+        if START_WEIGHT > -1:
+            menu.append(('Clear Selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _CANCELSELECT)))
+
+        count += 1
 
         addStdMenu(menu)
 
         addDir(title, _CHANNEL, id, thumbnail=logo, fanart=FANART, isFolder=True, menu=menu, infolabels={}, totalItems=totalItems)
+
+
+def insertSelection(above, theWeight):
+    channels   = getAllChannels() #these will be sorted by weight
+
+    toMove   = []
+    original = []
+
+    while len(channels) > 0:
+        channel = channels.pop(0)
+        weight  = channel[2].weight
+        if inSelection(weight):
+            toMove.append(channel)
+        else:
+            original.append(channel)
+
+    fullList = []
+
+    if above:
+        fullList = insertAbove(theWeight, original, toMove)
+    else:
+        fullList = insertBelow(theWeight, original, toMove)
+
+    writeChannelsToFile(fullList)
+
+    cancelSelection()
+    
+    return True
+
+
+def insertBelow(theWeight, original, toMove):
+    fullList = []
+
+    inserted = False
+
+    for channel in original:
+        weight = channel[2].weight
+
+        if weight > theWeight and not inserted:
+            inserted = True
+            for ch in toMove:
+                fullList.append(ch)
+                   
+        fullList.append(channel)
+
+    #special case if inserting below bottom
+    if not inserted:
+        for ch in toMove:
+            fullList.append(ch)
+
+    return fullList
+
+
+def insertAbove(theWeight, original, toMove):
+    fullList = []
+
+    inserted = False
+
+    for channel in original:
+        weight = channel[2].weight
+
+        if weight >= theWeight and not inserted:
+            inserted = True
+            for ch in toMove:
+                fullList.append(ch)
+
+        fullList.append(channel)
+
+    return fullList
+  
+        
+
+def inSelection(weight):
+    return weight >= START_WEIGHT and weight <= END_WEIGHT
+
+
+def isSelection():
+    return START_WEIGHT > -1
+
+    
+def cancelSelection():
+    xbmcgui.Window(10000).clearProperty('OTT_TOOLS_START')
+    xbmcgui.Window(10000).clearProperty('OTT_TOOLS_END')
+    return True
+
+
+def selectChannel(weight):
+    value = str(weight)
+
+    if START_WEIGHT < 0: # nothing set
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_START', value)
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_END',   value)
+        return True
+
+    if weight > END_WEIGHT: #after current end
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_END', value)
+        return True
+
+    if weight > START_WEIGHT and END_WEIGHT < 0: #only start set
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_END', value)
+        return True
+
+    if weight > START_WEIGHT and weight < END_WEIGHT: #between current start and end
+        startDelta = weight     - START_WEIGHT
+        endDelta   = END_WEIGHT - weight
+        if startDelta < endDelta:
+            xbmcgui.Window(10000).setProperty('OTT_TOOLS_START', value)
+        else:
+            xbmcgui.Window(10000).setProperty('OTT_TOOLS_END', value)
+        return True
+
+    if weight < START_WEIGHT and END_WEIGHT < 0: #before start, end not set
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_START', value)
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_END',   str(START_WEIGHT))
+        return True
+
+    if weight < START_WEIGHT:
+        xbmcgui.Window(10000).setProperty('OTT_TOOLS_START', value)
+        return True
+
+    return False
 
 
 def addStdMenu(menu):
@@ -215,7 +364,19 @@ def updateChannel(channel, id):
     return True
 
 
-def getAllChannels():
+
+def writeChannelsToFile(fullList):
+    weight = 1
+    for item in fullList:
+        id        = item[1]
+        ch        = item[2]
+        ch.weight = weight
+        weight   += 1
+
+        updateChannel(ch, id)
+        
+
+def getAllChannels(alphaSort = False):
     channels = []
 
     try:
@@ -226,7 +387,19 @@ def getAllChannels():
     for file in files:
         channels.append(file)
 
-    return channels
+    sorted = []
+
+    for id in channels:
+        channel = getChannelFromFile(id)
+
+        sorter  = channel.title.lower() if ALPHASORT else channel.weight
+
+        sorted.append([sorter, id, channel])
+
+    sorted.sort()
+
+    return sorted
+
 
 
 def getChannelFromFile(id):
@@ -284,7 +457,7 @@ def addDir(label, mode, id = '', thumbnail='', fanart=FANART, isFolder=True, men
     if len(fanart) > 0:
         u += '&fanart=' + urllib.quote_plus(fanart)
 
-    liz = xbmcgui.ListItem(urllib.unquote_plus(label), iconImage=thumbnail, thumbnailImage=thumbnail)
+    liz = xbmcgui.ListItem(label, iconImage=thumbnail, thumbnailImage=thumbnail)
 
     if len(infolabels) > 0:
         liz.setInfo(type='Video', infoLabels=infolabels)
@@ -330,6 +503,7 @@ except: id = ''
 utils.log(sys.argv[2])
 utils.log(sys.argv)
 utils.log('Mode = %d' % mode)
+utils.log(params)
 
 
 if mode == _MAIN:
@@ -354,6 +528,34 @@ if mode == _OTT:
 
 if mode == _SETTINGS:
     doRefresh = openSettings()
+
+
+if mode == _SELECT:
+    try:    
+        weight = int(params['weight'])
+        doRefresh = selectChannel(weight)
+    except:
+        doRefresh = False
+
+
+if mode == _CANCELSELECT:
+    doRefresh = cancelSelection()
+
+
+if mode == _INSERTABOVE:
+    try:
+        weight = int(params['weight'])
+        doRefresh = insertSelection(above=True, theWeight=weight)
+    except:
+        pass
+
+
+if mode == _INSERTBELOW:
+    try:
+        weight = int(params['weight'])
+        doRefresh = insertSelection(above=False, theWeight=weight)
+    except:
+        pass
 
 
 if doRefresh:

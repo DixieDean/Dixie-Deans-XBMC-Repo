@@ -131,7 +131,7 @@
     </extension>
 </addon>
 
-<addon id="script.tvguidedixie.tools" name="OnTapp.TV Tools" version="1.0.0" provider-name="spoyser, DixieDean">
+<addon id="script.tvguidedixie.tools" name="OnTapp.TV Tools" version="1.0.1" provider-name="spoyser, DixieDean">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
