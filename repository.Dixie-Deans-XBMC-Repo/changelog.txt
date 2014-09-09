@@ -1,3 +1,6 @@
+[B]Version 1.0.9[/B]
+- Update Requests zip file.
+
 [B]Version 1.0.8[/B]
 - Added Requests module
 - Updated icon and fanart.
