@@ -111,6 +111,16 @@ ACTION_MOUSE_WHEEL_UP = 104
 ACTION_MOUSE_WHEEL_DOWN = 105
 ACTION_MOUSE_MOVE = 107
 
+ACTION_TOUCH_TAP           = 401
+ACTION_TOUCH_LONGPRESS     = 411
+ACTION_GESTURE_SWIPE_LEFT  = 511
+ACTION_GESTURE_SWIPE_RIGHT = 521
+ACTION_GESTURE_SWIPE_UP    = 531
+ACTION_GESTURE_SWIPE_DOWN  = 541
+ACTION_GESTURE_ZOOM        = 502
+ACTION_GESTURE_ROTATE      = 503
+ACTION_GESTURE_PAN         = 504
+
 KEY_NAV_BACK = 92
 KEY_CONTEXT_MENU = 117
 KEY_HOME = 159
@@ -198,6 +208,7 @@ class TVGuide(xbmcgui.WindowXML):
     def __init__(self):
         super(TVGuide, self).__init__()
         self.initialized = False
+        self.refresh = False
         self.notification = None
         self.redrawingEPG = False
         self.timebarVisible = False
@@ -266,10 +277,14 @@ class TVGuide(xbmcgui.WindowXML):
 
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onInit'})
     def onInit(self):
-        if self.initialized:#
-            # onInit(..) is invoked again by XBMC after a video addon exits after being invoked by XBMC.RunPlugin(..)
-
+        if self.initialized:
+            if self.refresh:
+                self.refresh = False
+                self.database.resetChannels()
+                self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+                   # onInit(..) is invoked again by XBMC after a video addon exits after being invoked by XBMC.RunPlugin(..)
             return
+
         self.initialized = True
         self._hideControl(self.C_MAIN_MOUSE_CONTROLS, self.C_MAIN_OSD)
         self._showControl(self.C_MAIN_EPG, self.C_MAIN_LOADING)
@@ -337,8 +352,7 @@ class TVGuide(xbmcgui.WindowXML):
 
     def onActionOSDMode(self, action):
         if action.getId() == ACTION_SHOW_INFO:
-            self._hideOsd()
-            
+            self._hideOsd()            
 
         elif action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, KEY_CONTEXT_MENU, ACTION_PREVIOUS_MENU]:
             self._hideOsd()
@@ -380,25 +394,23 @@ class TVGuide(xbmcgui.WindowXML):
                 self.osdProgram = nextProgram
                 self._showOsd()
 
-    def onActionEPGMode(self, action):
-
-        def onInit(self):
-            programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
-            programTitleControl.setLabel(self.program.title)       
+    def onActionEPGMode(self, action):        
+        actionId = self.checkTouch(action)
+        if actionId == None:
+            return  
         
-        
-        if action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, ACTION_PREVIOUS_MENU]:
+        if actionId in [ACTION_PARENT_DIR, KEY_NAV_BACK, ACTION_PREVIOUS_MENU]:
             self.close()
             return
 
-        elif action.getId() == ACTION_MOUSE_MOVE:
+        elif actionId == ACTION_MOUSE_MOVE:
             self._showControl(self.C_MAIN_MOUSE_CONTROLS)
             return
 
-        elif action.getId() == KEY_CONTEXT_MENU:
+        elif actionId == KEY_CONTEXT_MENU:
             if self.player.isPlaying():
-                self._hideEpg()
-
+                self._hideEpg()        
+       
         controlInFocus = None
         currentFocus = self.focusPoint
         try:
@@ -408,48 +420,93 @@ class TVGuide(xbmcgui.WindowXML):
                 currentFocus = Point()
                 currentFocus.x = left + (controlInFocus.getWidth() / 2)
                 currentFocus.y = top + (controlInFocus.getHeight() / 2)
-        except Exception:
+        except Exception, e:
             control = self._findControlAt(self.focusPoint)
             if control is None and len(self.controlAndProgramList) > 0:
                 control = self.controlAndProgramList[0].control
             if control is not None:
-                self.setFocus(control)
-                return
+                if not self.touch:
+                    self.setFocus(control)
+                return                
 
-        if action.getId() == ACTION_LEFT:
+        if actionId == ACTION_LEFT:
             self._left(currentFocus)
-        elif action.getId() == ACTION_RIGHT:
+        elif actionId == ACTION_RIGHT:
             self._right(currentFocus)
-        elif action.getId() == ACTION_UP:
+        elif actionId == ACTION_UP:
             self._up(currentFocus)
-        elif action.getId() == ACTION_DOWN:
+        elif actionId == ACTION_DOWN:
             self._down(currentFocus)
-        elif action.getId() == ACTION_NEXT_ITEM:
+        elif actionId == ACTION_NEXT_ITEM:
             self._nextDay()
-        elif action.getId() == ACTION_PREV_ITEM:
+        elif actionId == ACTION_PREV_ITEM:
             self._previousDay()
-        elif action.getId() == ACTION_PAGE_UP:
+        elif actionId == ACTION_PAGE_UP:
             self._moveUp(CHANNELS_PER_PAGE)
-        elif action.getId() == ACTION_PAGE_DOWN:
+        elif actionId == ACTION_PAGE_DOWN:
             self._moveDown(CHANNELS_PER_PAGE)
-        elif action.getId() == ACTION_MOUSE_WHEEL_UP:
+        elif actionId == ACTION_MOUSE_WHEEL_UP:
             self._moveUp(scrollEvent = True)
-        elif action.getId() == ACTION_MOUSE_WHEEL_DOWN:
+        elif actionId == ACTION_MOUSE_WHEEL_DOWN:
             self._moveDown(scrollEvent = True)
-        elif action.getId() == KEY_HOME:
+        elif actionId == KEY_HOME:
             self.viewStartDate = datetime.datetime.today()
             self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-        elif action.getId() in [KEY_CONTEXT_MENU] and controlInFocus is not None:
+        elif actionId in [KEY_CONTEXT_MENU] and controlInFocus is not None:
             program = self._getProgramFromControl(controlInFocus)
             if program is not None:
                 self._showContextMenu(program)
-        elif action.getId() == KEY_SUPER_SEARCH:
+        elif actionId == KEY_SUPER_SEARCH:
             try:
                 program = self._getProgramFromControl(controlInFocus)
                 xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s")' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
             except:
                 pass
+
+
+    def checkTouch(self,  action):        
+        id = action.getId()
+
+        if id not in [ACTION_GESTURE_ZOOM, ACTION_GESTURE_ROTATE, ACTION_GESTURE_PAN, ACTION_TOUCH_TAP, ACTION_TOUCH_LONGPRESS, ACTION_GESTURE_SWIPE_LEFT, ACTION_GESTURE_SWIPE_RIGHT, ACTION_GESTURE_SWIPE_UP, ACTION_GESTURE_SWIPE_DOWN]:
+            return id
+
+        if id in [ACTION_GESTURE_ZOOM, ACTION_GESTURE_ROTATE]:
+            return id
+
+        if id == ACTION_TOUCH_TAP:
+            return id        
+
+        try:    controlInFocus = self.getFocus()
+        except: controlInFocus = None
+        if controlInFocus:
+            if self._getProgramFromControl(controlInFocus) != None:
+                return id
+
+        #never triggered due to back action
+        #if id == ACTION_TOUCH_LONGPRESS:
+        #    return KEY_HOME
+
+        if id == ACTION_GESTURE_SWIPE_LEFT:
+            self.onClick(self.C_MAIN_MOUSE_LEFT)
+            return None
+
+        if id == ACTION_GESTURE_SWIPE_RIGHT:
+            self.onClick(self.C_MAIN_MOUSE_RIGHT)
+            return None
+
+        if id == ACTION_GESTURE_SWIPE_UP:
+            #return ACTION_MOUSE_WHEEL_UP
+            self.onClick(self.C_MAIN_MOUSE_UP)
+            return None
+
+        if id == ACTION_GESTURE_SWIPE_DOWN:
+            #return ACTION_MOUSE_WHEEL_DOWN
+            self.onClick(self.C_MAIN_MOUSE_DOWN)
+            return None
+
+        return id
+
 
 
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onClick'})
@@ -581,8 +638,9 @@ class TVGuide(xbmcgui.WindowXML):
         elif buttonClicked == PopupMenu.C_POPUP_ITVPLAYER:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.video.itv)')
 
-        elif buttonClicked == PopupMenu.C_POPUP_4OD:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.4od)')
+        elif buttonClicked == PopupMenu.C_POPUP_OTTOOLS:
+            self.refresh = True
+            xbmc.executebuiltin('XBMC.RunAddon(script.tvguidedixie.tools)')
 
         elif buttonClicked == PopupMenu.C_POPUP_USTV:
             xbmc.executebuiltin(ustv)
@@ -1163,7 +1221,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     C_POPUP_SETTINGS = 4007
     C_POPUP_IPLAYER = 4008
     C_POPUP_ITVPLAYER = 4010
-    C_POPUP_4OD = 4014
+    C_POPUP_OTTOOLS = 4014
     C_POPUP_USTV = 4011
     C_POPUP_SUPER_SEARCH = 4009
     C_POPUP_SUPERFAVES = 4012
@@ -1197,7 +1255,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
 
     @buggalo.buggalo_try_except({'method' : 'PopupMenu.onInit'})
     def onInit(self):
-        self.getControl(self.C_POPUP_4OD).setVisible(False) #RD -Temporary hide of the 4oD button until a new use is found for it.
+        # self.getControl(self.C_POPUP_OTTOOLS).setVisible(False) RD -Temporary hide of the 4oD button until a new use is found for it.
 
         programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
         programTitleControl.setLabel(self.program.title)       

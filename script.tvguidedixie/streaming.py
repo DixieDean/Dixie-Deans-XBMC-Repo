@@ -83,6 +83,7 @@ class StreamsService(object):
                 doc = ElementTree.fromstring(xml)
                 for node in doc.findall('favourite'):
                     value = node.text
+                    value = node.text.replace(',return','')
                     if value[0:11] == 'PlayMedia("':
                         value = value[11:-2]
                     elif value[0:10] == 'PlayMedia(':

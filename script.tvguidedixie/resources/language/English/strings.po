@@ -329,7 +329,7 @@ msgid "USTV-VoD"
 msgstr ""
 
 msgctxt "#30320"
-msgid "4oD"
+msgid "On-Tapp.TV Tools"
 msgstr ""
 
 #empty strings from id 30321 to 30499

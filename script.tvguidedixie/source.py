@@ -1108,6 +1108,14 @@ class Database(object):
         c.close()
 
 
+    def resetChannels(self):
+        self._invokeAndBlockForResult(self._resetChannels)
+
+
+    def _resetChannels(self):
+        self.channelDict = {}
+
+
 class Source(object):
     def getDataFromExternal(self, date, progress_callback = None):
         """
