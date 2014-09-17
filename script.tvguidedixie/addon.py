@@ -41,7 +41,7 @@ socket.setdefaulttimeout(10) # 10 seconds
 import settings
 settings.validate()
 
-VERSION     = '2.3.1'
+VERSION     = '2.3.2'
 
 ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
@@ -96,7 +96,7 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.3.1':
+    if curr == '2.3.2':
         d = xbmcgui.Dialog()
         d.ok(TITLE + ' - ' + VERSION, 'New default skin. FXB v3.0.', '', 'For info and support - www.on-tapp.tv')
         showChangelog()
