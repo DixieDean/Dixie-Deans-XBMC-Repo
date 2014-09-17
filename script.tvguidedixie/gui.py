@@ -44,7 +44,7 @@ xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.0.6'
+VERSION     = '2.3.1'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 SKIN        = ADDON.getSetting('dixie.skin')
 GMTOFFSET   = dixie.GetGMTOffset()
@@ -646,7 +646,12 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin(ustv)
 
         elif buttonClicked == PopupMenu.C_POPUP_SUPERFAVES:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
+            import sys
+            sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
+            sfPath  = sfAddon.getAddonInfo('path')
+            sys.path.insert(0, sfPath)
+            import chooser
+            chooser.Main()
 
         elif buttonClicked == PopupMenu.C_POPUP_VPN:
             xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/menu.py,%s)' % self.database.getStreamUrl(program.channel))

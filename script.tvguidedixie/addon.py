@@ -22,6 +22,7 @@ import xbmcaddon
 import xbmcgui
 import urllib
 import urllib2
+import requests
 from hashlib import md5
 import socket 
 import os
@@ -34,17 +35,13 @@ import dixie
 import session
 import getIni
 
-try:
-    import requests2 as requests
-except:
-    import requests
 
 socket.setdefaulttimeout(10) # 10 seconds 
 
 import settings
 settings.validate()
 
-VERSION     = '2.3.0'
+VERSION     = '2.3.1'
 
 ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
@@ -53,7 +50,7 @@ MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 DIXIEURL    = dixie.GetSetting('dixie.url').upper()
 DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
 SKIN        = ADDON.getSetting('dixie.skin')
-SKINVERSION = '8'
+SKINVERSION = '9'
 INIVERSION  = '1'
 
 addon       = xbmcaddon.Addon()
@@ -99,9 +96,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.3.0':
+    if curr == '2.3.1':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'On-Tapp Tools button.', 'Better Touch Screen support.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'New default skin. FXB v3.0.', '', 'For info and support - www.on-tapp.tv')
         showChangelog()
     
     dixie.SetSetting('VERSION', curr)
@@ -206,7 +203,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-05-08-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-17-09-2014.zip'
 
     try:
         os.makedirs(skinfolder)

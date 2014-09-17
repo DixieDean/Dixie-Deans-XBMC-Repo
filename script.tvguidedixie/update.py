@@ -25,15 +25,11 @@ import re
 import datetime
 import urllib2
 import urllib
+import requests
 import json
 
 import dixie
 import session
-
-try:
-    import requests2 as requests
-except:
-    import requests
 
 
 ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
@@ -158,7 +154,7 @@ def checkForUpdate(silent = 1):
     allDone(silent)
 
 
-def allDone(silent, mins = 1 * 60 * 18): #18 hours
+def allDone(silent, mins = 1 * 60 * 24): #24 hours
     setAlarm(mins)
 
     xbmcgui.Window(10000).clearProperty('OTT_UPDATING')

@@ -22,11 +22,7 @@ import xbmcaddon
 import os
 import dixie
 
-try:
-    import requests2 as requests
-except:
-    import requests
-
+import requests
 import cookielib
 import urllib
 import urllib2

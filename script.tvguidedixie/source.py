@@ -25,6 +25,7 @@ import datetime
 import time
 import urllib2
 import urllib
+import requests
 from xml.etree import ElementTree
 
 import buggalo
@@ -41,11 +42,6 @@ import settings
 
 import re
 import io
-
-try:
-    import requests2 as requests
-except:
-    import requests
 
 
 SOURCE     = dixie.GetSetting('source')

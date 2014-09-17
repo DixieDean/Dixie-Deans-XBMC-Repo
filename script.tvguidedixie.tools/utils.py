@@ -47,7 +47,7 @@ OTT_PROFILE  = xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
 OTT_CHANNELS = os.path.join(OTT_PROFILE, 'channels')
 
 
-VERSION = '1.0.0'
+VERSION = '1.0.2'
 ICON    =  os.path.join(HOME, 'icon.png')
 FANART  =  os.path.join(HOME, 'fanart.jpg')
 GETTEXT =  ADDON.getLocalizedString

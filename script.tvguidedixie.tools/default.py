@@ -67,11 +67,16 @@ _SELECT       = 700
 _CANCELSELECT = 800
 _INSERTABOVE  = 900
 _INSERTBELOW  = 1000
+_TOGGLEHIDE   = 1100
+_HIDE         = 1200
+_SHOW         = 1300
 
 
 # --------------------- Addon Settings --------------------- #
 
-ALPHASORT = ADDON.getSetting('SORT').lower() == 'alphabetical'
+ALPHASORT  = ADDON.getSetting('SORT').lower()       == 'alphabetical'
+SHOWHIDDEN = ADDON.getSetting('SHOWHIDDEN').lower() == 'true'
+SHOWSTREAM = ADDON.getSetting('SHOWSTREAM').lower() == 'true'
 
 # ---------------------------------------------------------- #
 
@@ -91,6 +96,10 @@ try:
 except: 
     pass
 
+if ALPHASORT:
+    START_WEIGHT = -1
+    END_WEIGHT   = -1
+
 # -------------------------------------------------------------- #
 
 
@@ -100,7 +109,6 @@ def main():
 
     channels   = getAllChannels(ALPHASORT)
     totalItems = len(channels)
-    count      = 1
 
     for ch in channels:        
         channel = ch[2]
@@ -108,29 +116,48 @@ def main():
         title   = channel.title
         logo    = channel.logo
         weight  = channel.weight
+        hidden  = channel.visible == 0
+        stream  = channel.streamUrl
+
+        if hidden and not SHOWHIDDEN:
+            continue
 
         menu  = []
         menu.append(('Rename channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _RENAME, urllib.quote_plus(id))))
-        menu.append(('Change logo',    'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _LOGO,   urllib.quote_plus(id))))
 
-        if weight != START_WEIGHT and weight != END_WEIGHT:
-            menu.append(('Select Channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s&weight=%d)' % (sys.argv[0], _SELECT, urllib.quote_plus(id), weight)))
+        if inSelection(weight):            
+            menu.append(('Hide Selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _HIDE)))
+            if SHOWHIDDEN:
+                menu.append(('Show Selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _SHOW)))
+        else:
+            hideLabel = 'Show channel' if hidden else 'Hide channel'
+            menu.append((hideLabel, 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _TOGGLEHIDE, urllib.quote_plus(id))))
 
-        if inSelection(weight):
-            #title = '[COLOR red]' + title  + '[/COLOR]'
+        menu.append(('Change logo', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _LOGO, urllib.quote_plus(id))))
+
+        if (not ALPHASORT) and (weight != START_WEIGHT) and (weight != END_WEIGHT):
+            menu.append(('Select channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s&weight=%d)' % (sys.argv[0], _SELECT, urllib.quote_plus(id), weight)))
+
+        if inSelection(weight):            
             title = '[I]' + title  + '[/I]'
-        elif isSelection():
-            menu.append(('Insert Above', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTABOVE, weight)))
-            menu.append(('Insert Below', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTBELOW, weight)))
+        elif isSelection() and (not ALPHASORT):
+            menu.append(('Insert selection above', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTABOVE, weight)))
+            menu.append(('Insert selection below', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTBELOW, weight)))
 
         if START_WEIGHT > -1:
-            menu.append(('Clear Selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _CANCELSELECT)))
-
-        count += 1
+            menu.append(('Clear selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _CANCELSELECT)))
 
         addStdMenu(menu)
 
-        addDir(title, _CHANNEL, id, thumbnail=logo, fanart=FANART, isFolder=True, menu=menu, infolabels={}, totalItems=totalItems)
+        if SHOWSTREAM:
+            if len(stream) > 0:
+                title += ' (stream set)'
+
+        if hidden:
+            title = '[COLOR red]' + title  + '[/COLOR]'
+
+        #addDir(title, _CHANNEL, id, thumbnail=logo, fanart=FANART, isFolder=False, menu=menu, infolabels={}, totalItems=totalItems)
+        addDir(title, _SELECT, id, weight=weight, thumbnail=logo, fanart=FANART, isFolder=False, menu=menu, infolabels={}, totalItems=totalItems)
 
 
 def insertSelection(above, theWeight):
@@ -201,7 +228,6 @@ def insertAbove(theWeight, original, toMove):
 
     return fullList
   
-        
 
 def inSelection(weight):
     return weight >= START_WEIGHT and weight <= END_WEIGHT
@@ -255,10 +281,11 @@ def selectChannel(weight):
 
 
 def addStdMenu(menu):
-    sort = 'Sort by ONTapp.TV Order' if ALPHASORT else 'Sort Alphabetically'
+    sort = 'Sort by ONTapp.TV order' if ALPHASORT else 'Sort alphabetically'
     menu.append((sort, 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _TOGGLESORT)))
 
-    menu.append(('Launch ONTapp.TV', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _OTT)))
+    if xbmcgui.Window(10000).getProperty('OTT_RUNNING').lower() != 'true':
+        menu.append(('Launch ONTapp.TV', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _OTT)))
 
     menu.append(('Add-on settings', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _SETTINGS)))
 
@@ -290,6 +317,41 @@ def rename(id):
     channel.title = name
 
     return updateChannel(channel, id)
+
+
+def toggleHide(id):
+    channel = getChannelFromFile(id)    
+    channel.visible = not channel.visible
+    return updateChannel(channel, id)
+
+
+def showSelection(_show):
+    channels   = getAllChannels() #these will be sorted by weight
+
+    show = 1 if _show else 0
+
+    updated = False
+
+    for ch in channels:
+        channel = ch[2]
+        id      = ch[1]
+        weight  = channel.weight
+
+        if weight > END_WEIGHT:
+            break
+
+        if weight >= START_WEIGHT:
+            updated = True
+            channel.visible = show
+            updateChannel(channel, id)
+
+    if not SHOWHIDDEN and not _show:
+        cancelSelection()
+
+    #actually makes sense to always cancel selection
+    cancelSelection()
+
+    return updated
 
 
 def updateLogo(id):
@@ -442,7 +504,7 @@ def refresh():
     xbmc.executebuiltin('Container.Refresh')
 
     
-def addDir(label, mode, id = '', thumbnail='', fanart=FANART, isFolder=True, menu=None, infolabels={}, totalItems=0):
+def addDir(label, mode, id = '', weight = -1, thumbnail='', fanart=FANART, isFolder=True, menu=None, infolabels={}, totalItems=0):
     u  = sys.argv[0]
 
     u += '?label=' + urllib.quote_plus(label)
@@ -450,6 +512,9 @@ def addDir(label, mode, id = '', thumbnail='', fanart=FANART, isFolder=True, men
 
     if len(id) > 0:
         u += '&id=' + urllib.quote_plus(id)
+
+    if weight > 0:
+        u += '&weight=' + urllib.quote_plus(str(weight))
 
     if len(thumbnail) > 0:
         u += '&image=' + urllib.quote_plus(thumbnail)
@@ -512,7 +577,13 @@ if mode == _MAIN:
 
 if mode == _RENAME:
     doRefresh = rename(id)
-    
+
+
+if mode == _TOGGLEHIDE:
+    doRefresh = toggleHide(id)
+
+if mode == _HIDE or mode == _SHOW:
+    doRefresh = showSelection(mode == _SHOW)
 
 if mode == _LOGO:
     doRefresh = updateLogo(id)
@@ -531,9 +602,11 @@ if mode == _SETTINGS:
 
 
 if mode == _SELECT:
+    doRefresh = False
     try:    
-        weight = int(params['weight'])
-        doRefresh = selectChannel(weight)
+        if not ALPHASORT:
+            weight = int(params['weight'])
+            doRefresh = selectChannel(weight)
     except:
         doRefresh = False
 

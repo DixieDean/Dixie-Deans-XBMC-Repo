@@ -21,7 +21,7 @@
 
 
 class Channel(object):
-    def __init__(self, id, title, logo = None, streamUrl = None, visible = 1, weight = -1, categories = ''):
+    def __init__(self, id, title, logo = None, streamUrl = '', visible = 1, weight = -1, categories = ''):
         self.id         = id
         self.title      = title
         self.categories = categories
