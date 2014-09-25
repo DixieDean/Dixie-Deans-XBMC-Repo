@@ -385,7 +385,7 @@ msgid "Stop preview"
 msgstr ""
 
 msgctxt "#30608"
-msgid "IPTV PlayList"
+msgid "Super Favourites"
 msgstr ""
 
 msgctxt "#30609"
@@ -413,7 +413,7 @@ msgstr ""
 
 
 msgctxt "#30622"
-msgid "Choose a channel from the IPTV PlayList below."
+msgid "Click Browse... below and navigate to your Super Favourite. When you have chosen it you can preview the stream to test if it works in On-Tapp."
 msgstr ""
 
 #empty strings from id 30623 to 30699

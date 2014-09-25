@@ -53,18 +53,62 @@ def get_params(p):
 
 def playSF(url):
     try:
+        if url.startswith('__SF__'):
+            url = url.replace('__SF__', '')
+
+        if url.lower().startswith('playmedia'):
+            xbmc.executebuiltin(url)
+            return True, ''
+
+        if url.lower().startswith('runscript'):
+            xbmc.executebuiltin(url)
+            return True, ''
+
+
+        if url.lower().startswith('activatewindow'):
+            import sys
+            sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
+            sfPath  = sfAddon.getAddonInfo('path')
+            sys.path.insert(0, sfPath)
+
+            import favourite
+            import re
+            import urllib
+
+            original = re.compile('"(.+?)"').search(url).group(1)
+
+            cmd = urllib.unquote_plus(original)
+
+            noFanart = favourite.removeFanart(cmd)
+            if noFanart.endswith(os.path.sep):
+                noFanart = noFanart[:-1]
+
+            url = url.replace(original, noFanart)
+
+            xbmc.executebuiltin(url)
+            return True, ''
+
         import urllib
         params = url.split('?', 1)[-1]    
         params = get_params(params)
 
+        try:    mode = int(urllib.unquote_plus(params['mode']))
+        except: return False, url
+
+        if mode != 400:
+            return False, url
+        
         try:    path = urllib.unquote_plus(params['path'])
         except: path = None
 
+        dirs = []
         if path:
             try:    current, dirs, files = os.walk(path).next()
             except: pass
             
             if len(dirs) == 0:
+                import sys
+
                 path = os.path.join(path, 'favourites.xml')
 
                 sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
@@ -82,7 +126,8 @@ def playSF(url):
                         cmd = re.compile('"(.+?)"').search(fave).group(1)
                         return False, cmd
 
-    except:
+    except Exception, e:
+        print str(e)
         pass
 
     url = 'ActivateWindow(10025,%s)' % url
@@ -92,8 +137,7 @@ def playSF(url):
 
 
 def play(url, windowed):
-    #is it a SF folder?
-    if url.startswith('plugin://plugin.program.super.favourites') and 'mode=400' in url:
+    if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, sfURL = playSF(url)
         if handled:
             return
@@ -150,8 +194,8 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.movie25' in url:
         return alternateStream(url)
         
-    if 'plugin.video.moviedb' and 'www.tgun.tv' in url:
-        return alternateStream(url)
+    # if 'plugin.video.moviedb' and 'www.tgun.tv' in url:
+    #     return alternateStream(url)
         
     if 'plugin.video.irishtv' in url:
         return alternateStream(url)

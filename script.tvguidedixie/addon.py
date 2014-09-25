@@ -41,7 +41,7 @@ socket.setdefaulttimeout(10) # 10 seconds
 import settings
 settings.validate()
 
-VERSION     = '2.3.2'
+VERSION     = '2.3.3'
 
 ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
@@ -50,7 +50,7 @@ MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 DIXIEURL    = dixie.GetSetting('dixie.url').upper()
 DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
 SKIN        = ADDON.getSetting('dixie.skin')
-SKINVERSION = '9'
+SKINVERSION = '10'
 INIVERSION  = '1'
 
 addon       = xbmcaddon.Addon()
@@ -62,7 +62,7 @@ logos       = os.path.join(extras, 'logos')
 logofolder  = os.path.join(logos, 'None')
 skinfolder  = os.path.join(extras, 'skins')
 skin        = ADDON.getSetting('dixie.skin')
-dest        = os.path.join(skinfolder, 'skins-12-06-2014.zip')
+dest        = os.path.join(skinfolder, 'skins-25-09-2014.zip')
 addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
 default_ini = os.path.join(addonpath, 'addons.ini')
 local_ini   = os.path.join(addonpath, 'local.ini')
@@ -96,9 +96,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.3.2':
+    if curr == '2.3.3':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'New default skin. FXB v3.0.', '', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Now you can add any streams you have in your Super Favourites.', 'Just add from the Choose Stream menu.', 'For info and support - www.on-tapp.tv')
         showChangelog()
     
     dixie.SetSetting('VERSION', curr)
@@ -203,7 +203,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-17-09-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-25-09-2014.zip'
 
     try:
         os.makedirs(skinfolder)
