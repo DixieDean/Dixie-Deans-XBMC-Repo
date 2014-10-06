@@ -71,8 +71,6 @@ def GetLoginUrl():
     return loginurl
 
 
-
-
 def GetGMTOffset():
     gmt = xbmcaddon.Addon(id = ID).getSetting('gmtfrom').replace('GMT', '')
 
@@ -91,3 +89,44 @@ def SetSetting(param, value):
 
 def GetSetting(param):
     return xbmcaddon.Addon(id = ID).getSetting(param)
+
+
+def GetCats():
+    import xbmc
+    import os
+    import urllib
+
+    ADDON    = xbmcaddon.Addon(ID)
+    DATAPATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+
+    path = os.path.join(DATAPATH, 'cats.xml')
+    url  = GetExtraUrl() + 'resources/cats.xml'
+
+    try:
+        urllib.urlretrieve(url, path)
+    except:
+        pass
+
+
+def GetChannels():
+    import xbmc
+    import os
+    import requests
+
+    ADDON    = xbmcaddon.Addon(ID)
+    DATAPATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    DIXIEURL = GetSetting('dixie.url').upper()
+
+    path = os.path.join(DATAPATH , 'chan.xml')
+    url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
+
+    username = ADDON.getSetting('username')
+    password = ADDON.getSetting('password')
+
+    r = requests.get(url, auth=(username, password))
+    
+    with open(path, 'wb') as f:
+        for chunk in r.iter_content(512):
+            f.write(chunk)
+
+    return path

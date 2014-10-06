@@ -22,7 +22,6 @@ import xbmcaddon
 import xbmcgui
 import urllib
 import urllib2
-import requests
 from hashlib import md5
 import socket 
 import os
@@ -41,7 +40,7 @@ socket.setdefaulttimeout(10) # 10 seconds
 import settings
 settings.validate()
 
-VERSION     = '2.3.3'
+VERSION     = '2.3.4'
 
 ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
@@ -68,8 +67,6 @@ default_ini = os.path.join(addonpath, 'addons.ini')
 local_ini   = os.path.join(addonpath, 'local.ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 database    = os.path.join(datapath, 'program.db')
-username    = ADDON.getSetting('username')
-password    = ADDON.getSetting('password')
 
 
 dixie.SetSetting('gmtfrom', 'GMT')
@@ -96,9 +93,9 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.3.3':
+    if curr == '2.3.4':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Now you can add any streams you have in your Super Favourites.', 'Just add from the Choose Stream menu.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Now, you can create your own channels!', 'Just use On-Tapp.TV Tools.', 'For info and support - www.on-tapp.tv')
         showChangelog()
     
     dixie.SetSetting('VERSION', curr)
@@ -139,25 +136,6 @@ def showText(heading, text):
             return
         except:
             pass
-
-def GetCats():
-    path = os.path.join(datapath, 'cats.xml')
-    url  = dixie.GetExtraUrl() + 'resources/cats.xml'
-
-    try:
-        urllib.urlretrieve(url, path)
-    except:
-        pass
-
-
-def GetChannels():
-    path = os.path.join(datapath, 'chan.xml')
-    url  = dixie.GetDixieUrl(DIXIEURL) + 'chan.xml'
-    r    = requests.get(url, auth=(username, password))
-    
-    with open(path, 'wb') as f:
-        for chunk in r.iter_content(512):
-            f.write(chunk)
 
 
 def CheckForChannels():
@@ -322,10 +300,7 @@ def main(doLogin=True):
             return
 
         if doLogin:
-            # CheckDixieURL()
             CheckVersion()
-            GetChannels()
-            GetCats()
             CheckSkin()
             CheckSkinVersion()
             CheckIniVersion()

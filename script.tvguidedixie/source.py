@@ -37,6 +37,8 @@ import xbmcgui
 import xbmcvfs
 import sqlite3
 
+from channel import Channel
+
 import dixie
 import settings
 
@@ -93,71 +95,6 @@ def CleanFilename(text):
     except: text = text.decode('utf-8').encode('ascii', 'ignore')
 
     return text
-
-
-
-class Channel(object):
-    def __init__(self, id, title, logo = None, streamUrl = None, visible =1, weight = -1, categories = ''):
-        try:    visible = visible.replace('\r', '')
-        except: pass
-
-        try:    weight = weight.replace('\r', '')
-        except: pass
-
-        try:    self.streamUrl = streamUrl.replace('\r', '')
-        except: self.streamUrl = streamUrl
-
-        try:    self.logo = logo.replace('\\', '/').replace('\r', '')
-        except: self.logo = logo
-
-        self.id = id.replace('\r', '')
-        self.title = title.replace('\r', '')
-        self.categories = categories.replace('\r', '')
-        self.visible = int(visible)
-        self.weight = int(weight)
-
-    def clone(self):
-        c = Channel(self.id, self.title, self.logo, self.streamUrl, self.visible, self.weight, self.categories)
-        return c
-
-
-    def compare(self, channel):      
-        if self.visible != channel.visible:
-            return False
-
-        if self.weight != channel.weight:
-            return False
-
-        if self.title != channel.title:
-            return False
-
-
-        if self.logo != channel.logo:
-            return False
-
-        return True
-
-
-    def __eq__(self, other):
-        if not hasattr(self, 'id'):
-            return False
-
-        if not hasattr(other, 'id'):
-            return False
-
-        return self.id == other.id
-
-
-    def __repr__(self):
-        try:
-            return 'Channel(id=%s, title=%s, categories=%s, logo=%s, streamUrl=%s, weight=%s, visible=%s)' \
-               % (self.id, self.title, self.categories, self.logo, self.streamUrl, str(self.weight), str(self.visible))
-        except:
-            return 'Can\'t display channel'
-
-
-    def getWeight(self):
-        return self.weight
 
 
 class Program(object):
@@ -491,6 +428,8 @@ class Database(object):
             if progress_callback:
                 progress_callback(0)
 
+            dixie.GetCats()
+
             if self.settingsChanged:
                 self.source.doSettingsChanged()
 
@@ -594,35 +533,8 @@ class Database(object):
         if id not in self.channelDict:           
             self.channelDict[id] = channel.clone()
 
-        if not os.path.exists(path):            
-            f = open(path, mode='w')
-
-            try:    f.write(channel.id.encode('utf8') + '\n')
-            except: f.write(channel.id + '\n')
-
-            f.write(channel.title.encode('utf8') + '\n')
-
-            if channel.logo:
-                f.write(channel.logo.encode('utf8') + '\n')
-            else:
-                f.write('\n')
-
-            if channel.streamUrl:
-                f.write(channel.streamUrl.encode('utf8') + '\n')
-            else:
-                f.write('\n')
-
-            if channel.visible:
-                f.write('1\n')
-            else:
-                f.write('0\n')
-
-            f.write(str(channel.weight) + '\n')
-            f.write(channel.categories.encode('utf8') + '\n')
-
-            f.close()
-            return        
-
+        if not os.path.exists(path): 
+            channel.writeToFile(path)
 
 
     def replaceChannel(self, channel):
@@ -645,6 +557,8 @@ class Database(object):
         f = open(path, mode='r')
         cfg = f.readlines()
         f.close
+
+        return Channel(cfg)
         
         ch = Channel(cfg[0].replace('\n', ''), cfg[1].replace('\n', ''), cfg[2].replace('\n', ''), cfg[3].replace('\n', ''), cfg[4].replace('\n', ''), cfg[5].replace('\n', ''), cfg[6].replace('\n', ''))
 
@@ -768,7 +682,7 @@ class Database(object):
             channels = self.getAllChannels()
         else:
             channels = self.channelDict.keys()
-
+    
         for channel in channels:
             if channel in self.channelDict:
                 theChannel = self.channelDict[channel]
@@ -791,7 +705,7 @@ class Database(object):
                             channelList.append(theChannel.clone())
                             break
 
-        channelList.sort(key=lambda x: x.weight)        
+        channelList.sort(key=lambda x: x.weight)
         return channelList
 
 
@@ -819,6 +733,8 @@ class Database(object):
             for category in categories:
                 if category not in categoriesList:
                     categoriesList.append(category)       
+
+        categoriesList.sort()
 
         return categoriesList
 
@@ -1201,7 +1117,7 @@ class DIXIESource(Source):
 
     def getDataFromExternal(self, date, progress_callback = None): 
         categories = self.getCategories()
-        channels   = os.path.join(datapath, 'chan.xml')
+        channels   = dixie.GetChannels()
         try:
             if os.path.exists(channels):
                 f = open(channels)
@@ -1300,7 +1216,7 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                     try:
                         category = categories[title]
                         result.categories = category
-                        # print 'The category for %s is %s' % (title, category)
+                        #print 'The category for %s is %s' % (title, category)
                     except:
                         pass
                         print 'Couldnt find %s in the categories' % (title)

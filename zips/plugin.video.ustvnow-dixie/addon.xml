@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.ustvnow-dixie" version="1.2.1" name="USTVNOW-Dixie" provider-name="t0mm0, DixieDean">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Plays live streams and recordings from ustvnow.com</summary>
+        <description>Live streaming US TV. You MUST log in to view streams (see addon settings). You can also play any recordings you have made on ustvnow.com. Modified to work with TV Guide Dixie.</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+

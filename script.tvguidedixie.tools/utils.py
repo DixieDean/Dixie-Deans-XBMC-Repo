@@ -47,7 +47,7 @@ OTT_PROFILE  = xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
 OTT_CHANNELS = os.path.join(OTT_PROFILE, 'channels')
 
 
-VERSION = '1.0.2'
+VERSION = '1.0.3'
 ICON    =  os.path.join(HOME, 'icon.png')
 FANART  =  os.path.join(HOME, 'fanart.jpg')
 GETTEXT =  ADDON.getLocalizedString
@@ -61,7 +61,7 @@ GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
 def log(text):
     try:
         output = '%s V%s : %s' % (TITLE, VERSION, text)
-        print(output)
+        #print(output)
         xbmc.log(output, xbmc.LOGDEBUG)
     except:
         pass
@@ -140,6 +140,17 @@ def clean(text):
         return  None
 
     return text
+
+
+def deleteFile(path):
+    tries = 5
+    while os.path.exists(path) and tries > 0:
+        tries -= 1 
+        try: 
+            os.remove(path) 
+            break 
+        except: 
+            xbmc.sleep(500)
 
 
 def showText(heading, text):

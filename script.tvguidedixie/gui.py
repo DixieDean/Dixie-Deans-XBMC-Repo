@@ -697,7 +697,7 @@ class TVGuide(xbmcgui.WindowXML):
         if program.description:
             description = program.description
         else:
-            description = strings(NO_DESCRIPTION)
+            description = ''
         self.setControlText(self.C_MAIN_DESCRIPTION, description)
 
         if program.channel.logo is not None:
@@ -862,7 +862,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         try:
             self.channelIdx, channels, programs = self.database.getEPGView(channelStart, startTime, clearExistingProgramList = False, categories = self.categoriesList, nmrChannels = CHANNELS_PER_PAGE)
-            if len(programs) == 0:
+            if len(channels) == 0:
                 self.channelIdx, channels, programs = self.database.getEPGView(channelStart, startTime, clearExistingProgramList = False, nmrChannels = CHANNELS_PER_PAGE)
         except src.SourceException:
             self.onEPGLoadError()
@@ -937,6 +937,10 @@ class TVGuide(xbmcgui.WindowXML):
                 self.controlAndProgramList.append(ControlAndProgram(control, program))
 
         for channel in channelsWithoutPrograms:
+            description = channel.desc
+            if len(description) == 0:
+                description = strings(NO_PROGRAM_AVAILABLE)
+
             idx = channels.index(channel)
 
             control = xbmcgui.ControlButton(
@@ -944,7 +948,7 @@ class TVGuide(xbmcgui.WindowXML):
                 self.epgView.top + self.epgView.cellHeight * idx,
                 (self.epgView.right - self.epgView.left) - 2,
                 self.epgView.cellHeight - 2,
-                strings(NO_PROGRAM_AVAILABLE),
+                description,
                 noFocusTexture='tvguide-program-grey.png',
                 focusTexture='tvguide-program-grey-focus.png',
                 textColor = TEXT_COLOR,
@@ -954,7 +958,7 @@ class TVGuide(xbmcgui.WindowXML):
 
             now  = datetime.datetime.today()
             then = now + datetime.timedelta(minutes = 24*60)
-            program = src.Program(channel, strings(NO_PROGRAM_AVAILABLE), now, then, "", "")
+            program = src.Program(channel, description, now, then, "", "")
             self.controlAndProgramList.append(ControlAndProgram(control, program))
 
         # add program controls

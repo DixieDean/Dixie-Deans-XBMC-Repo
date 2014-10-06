@@ -205,7 +205,16 @@ def checkForAlternateStreaming(url):
 
     if 'plugin.video.sportsaholic' in url:        
         return alternateStream(url)
+        
+    if 'plugin.video.navi-x' in url:        
+        return alternateStream(url)
 
+    if 'plugin.video.mxnews' in url:        
+        return alternateStream(url)
+
+    if 'plugin.program.skygo.launcher' in url:        
+        return alternateStream(url)
+        
     return False
 
 def alternateStream(url):

@@ -68,7 +68,7 @@
 	</extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.3.3" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.3.4" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -115,7 +115,7 @@
     </extension>
 </addon>
 
-<addon id="script.tvguidedixie.tools" name="OnTapp.TV Tools" version="1.0.2" provider-name="spoyser, DixieDean">
+<addon id="script.tvguidedixie.tools" name="OnTapp.TV Tools" version="1.0.3" provider-name="spoyser, DixieDean">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>

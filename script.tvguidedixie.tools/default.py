@@ -26,8 +26,14 @@ import xbmcgui
 
 import urllib
 import os
+import re
 
 import utils
+
+import sys
+ott  = xbmcaddon.Addon(id = 'script.tvguidedixie')
+path = ott.getAddonInfo('path')
+sys.path.insert(0, path)
 
 from channel import Channel
 
@@ -56,20 +62,24 @@ GOTHAM   = utils.GOTHAM
 
 # -----Addon Modes ----- #
 
-_OTT          = 0
-_MAIN         = 100
-_CHANNEL      = 200
-_RENAME       = 300
-_TOGGLESORT   = 400
-_SETTINGS     = 500
-_LOGO         = 600
-_SELECT       = 700
-_CANCELSELECT = 800
-_INSERTABOVE  = 900
-_INSERTBELOW  = 1000
-_TOGGLEHIDE   = 1100
-_HIDE         = 1200
-_SHOW         = 1300
+_OTT           = 0
+_MAIN          = 100
+_EDIT          = 200
+_RENAME        = 300
+_TOGGLESORT    = 400
+_SETTINGS      = 500
+_LOGO          = 600
+_SELECT        = 700
+_CANCELSELECT  = 800
+_INSERTABOVE   = 900
+_INSERTBELOW   = 1000
+_TOGGLEHIDE    = 1100
+_HIDE          = 1200
+_SHOW          = 1300
+_PLAY          = 1400
+_EDIT          = 1500
+_NEWCHANNEL    = 1600
+_REMOVE        = 1700
 
 
 # --------------------- Addon Settings --------------------- #
@@ -118,28 +128,31 @@ def main():
         weight  = channel.weight
         hidden  = channel.visible == 0
         stream  = channel.streamUrl
+        userDef = channel.userDef == 1
+        desc    = channel.desc
 
         if hidden and not SHOWHIDDEN:
             continue
 
         menu  = []
-        menu.append(('Rename channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _RENAME, urllib.quote_plus(id))))
+        #menu.append(('Rename channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _RENAME, urllib.quote_plus(id))))
+        #menu.append(('Change logo',    'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _LOGO,   urllib.quote_plus(id))))
+        menu.append(('Edit channel',   'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _EDIT,   urllib.quote_plus(id))))
+
 
         if inSelection(weight):            
-            menu.append(('Hide Selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _HIDE)))
+            menu.append(('Hide selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _HIDE)))
             if SHOWHIDDEN:
-                menu.append(('Show Selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _SHOW)))
+                menu.append(('Show selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _SHOW)))
         else:
             hideLabel = 'Show channel' if hidden else 'Hide channel'
             menu.append((hideLabel, 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _TOGGLEHIDE, urllib.quote_plus(id))))
-
-        menu.append(('Change logo', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _LOGO, urllib.quote_plus(id))))
 
         if (not ALPHASORT) and (weight != START_WEIGHT) and (weight != END_WEIGHT):
             menu.append(('Select channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s&weight=%d)' % (sys.argv[0], _SELECT, urllib.quote_plus(id), weight)))
 
         if inSelection(weight):            
-            title = '[I]' + title  + '[/I]'
+            pass
         elif isSelection() and (not ALPHASORT):
             menu.append(('Insert selection above', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTABOVE, weight)))
             menu.append(('Insert selection below', 'XBMC.RunPlugin(%s?mode=%d&weight=%d)' % (sys.argv[0], _INSERTBELOW, weight)))
@@ -147,17 +160,35 @@ def main():
         if START_WEIGHT > -1:
             menu.append(('Clear selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _CANCELSELECT)))
 
+        menu.append(('Create new channel', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _NEWCHANNEL)))
+
+
+        if userDef:
+            menu.append(('Remove channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _REMOVE, urllib.quote_plus(id))))
+
+        #if len(stream):
+        #    menu.append(('Activate stream', 'XBMC.RunPlugin(%s?mode=%d&stream=%s)' % (sys.argv[0], _PLAY, urllib.quote_plus(stream))))
+
         addStdMenu(menu)
+
+
+        if userDef:
+            title += ' (user-defined)'
 
         if SHOWSTREAM:
             if len(stream) > 0:
                 title += ' (stream set)'
 
-        if hidden:
-            title = '[COLOR red]' + title  + '[/COLOR]'
+        if len(desc):
+            title += ' - %s' % desc
 
-        #addDir(title, _CHANNEL, id, thumbnail=logo, fanart=FANART, isFolder=False, menu=menu, infolabels={}, totalItems=totalItems)
-        addDir(title, _SELECT, id, weight=weight, thumbnail=logo, fanart=FANART, isFolder=False, menu=menu, infolabels={}, totalItems=totalItems)
+        if hidden:
+            title = '[COLOR red]' + title  + '[/COLOR]'        
+
+        if inSelection(weight):            
+            title = '[I]' + title  + '[/I]'
+
+        addDir(title, _EDIT, id, weight=weight, thumbnail=logo, fanart=FANART, isFolder=False, menu=menu, infolabels={}, totalItems=totalItems)
 
 
 def insertSelection(above, theWeight):
@@ -354,6 +385,136 @@ def showSelection(_show):
     return updated
 
 
+def editChannel(id):
+    channel = getChannelFromFile(id) 
+    if not channel:
+        return False
+
+    RENAME       = 100
+    LOGO         = 200
+    TOGGLEHIDE   = 300
+    SELECT       = 400
+    REMOVE       = 500
+    DESC         = 600
+
+    title   = channel.title
+    weight  = channel.weight
+    hidden  = channel.visible == 0
+    userDef = channel.userDef == 1
+
+    hideLabel = 'Show channel' if hidden else 'Hide channel'
+
+    menu = []
+    menu.append(['Rename channel', RENAME])
+    menu.append(['Change logo',    LOGO])
+
+    menu.append(['Edit description', DESC])
+    menu.append([hideLabel,          TOGGLEHIDE])
+
+    if not inSelection(weight):            
+        menu.append(['Select channel', SELECT])
+
+    if userDef:
+        menu.append(['Remove channel', REMOVE])
+    
+    option = selectMenu(title, menu)
+
+    if option == RENAME:
+        return rename(id)
+
+    if option == LOGO:
+        return updateLogo(id)
+
+    if option == TOGGLEHIDE:
+        return toggleHide(id)
+
+    if option == SELECT:
+        return selectChannel(weight)
+
+    if option == REMOVE:
+        return removeChannel(id)
+
+    if option == DESC:
+        return editDescription(id)
+
+    return False
+
+
+def editDescription(id):
+    channel = getChannelFromFile(id) 
+
+    if not channel:
+        return False
+
+    desc = getText('Enter channel description', text=channel.desc)
+
+    if not desc:
+        return False
+
+    channel.desc = desc
+    return updateChannel(channel, id)
+
+
+def removeChannel(id):
+    channel = getChannelFromFile(id) 
+
+    if not channel:
+        return False
+
+    if channel.userDef != 1:
+        return False
+
+    if not utils.DialogYesNo('Remove %s' % channel.title, noLabel='Cancel', yesLabel='Confirm'):
+        return False
+
+    path = os.path.join(OTT_CHANNELS, id)
+    utils.deleteFile(path)
+
+    return True
+
+
+
+def newChannel():
+    title = ''
+
+    while True:
+        title = getText('Please enter channel name', title)
+        if not title :
+            return False
+
+        id = createID(title)
+
+        try:
+            current, dirs, files = os.walk(OTT_CHANNELS).next()
+        except Exception, e:
+            return False
+
+        duplicate = False
+    
+        for file in files:
+            if id.lower() == file.lower():
+                duplicate = True
+                break
+
+        if not duplicate:
+            break
+
+        utils.DialogOK('%s clashes with an existing channel.' % title, 'Please enter a different name.')
+
+    weight  = 0
+    channel = Channel(id, title, weight=weight, categories='User Defined', userDef=True, desc='')
+    item    = [weight, id,  channel]
+
+    channels = getAllChannels()
+    channels.insert(0, item)
+
+    writeChannelsToFile(channels)
+    
+    editDescription(id)
+
+    return True
+
+
 def updateLogo(id):
     channel = getChannelFromFile(id)    
     logo    = channel.logo
@@ -372,14 +533,33 @@ def updateLogo(id):
 
 
 def getImage(logo):
-    logo = logo.replace('\\', '/')
-    root  = logo.rsplit('/', 1)[0] + '/'
+    if len(logo) == 0:
+        root = ''
+    else:
+        logo = logo.replace('\\', '/')
+        root  = logo.rsplit('/', 1)[0] + '/'
+
     image = xbmcgui.Dialog().browse(2, 'Choose logo', 'files', '', False, False, root)
     
     if image and image != root:
         return image
 
     return None
+
+
+def getText(title, text=''):
+    kb = xbmc.Keyboard(text.strip(), title)
+    kb.doModal()
+    if not kb.isConfirmed():
+        return None
+
+    text = kb.getText().strip()
+
+    if len(text) < 1:
+        return None
+
+    return text
+
 
 
 def convertToHome(image):
@@ -393,38 +573,9 @@ def convertToHome(image):
 
 
 def updateChannel(channel, id):
-    path = os.path.join(OTT_CHANNELS, id) 
+    path = os.path.join(OTT_CHANNELS, id)
 
-    try:    f = open(path, mode='w')
-    except: return
-
-    try:    f.write(channel.id.encode('utf8') + '\n')
-    except: f.write(channel.id + '\n')
-
-    f.write(channel.title.encode('utf8') + '\n')
-
-    if channel.logo:
-        f.write(channel.logo.encode('utf8') + '\n')
-    else:
-        f.write('\n')
-
-    if channel.streamUrl:
-        f.write(channel.streamUrl.encode('utf8') + '\n')
-    else:
-        f.write('\n')
-
-    if channel.visible:
-        f.write('1\n')
-    else:
-        f.write('0\n')
-
-    f.write(str(channel.weight) + '\n')
-    f.write(channel.categories.encode('utf8') + '\n')
-
-    f.close()
-
-    return True
-
+    return channel.writeToFile(path)
 
 
 def writeChannelsToFile(fullList):
@@ -473,10 +624,8 @@ def getChannelFromFile(id):
     f = open(path, mode='r')
     cfg = f.readlines()
     f.close
-        
-    ch = Channel(cfg[0].replace('\n', ''), cfg[1].replace('\n', ''), cfg[2].replace('\n', ''), cfg[3].replace('\n', ''), cfg[4].replace('\n', ''), cfg[5].replace('\n', ''), cfg[6].replace('\n', ''))
 
-    return ch
+    return Channel(cfg)
 
 
 def getText(title, text='', hidden=False):
@@ -494,10 +643,35 @@ def getText(title, text='', hidden=False):
     return text
 
 
+def createID(title):
+    title = title.replace('*', '_star')
+    title = title.replace('+', '_plus')
+    title = title.replace(' ', '_')
+
+    title = re.sub('[:\\/?\<>|"]', '', title)
+    title = title.strip()
+    try:    title = title.encode('ascii', 'ignore')
+    except: title = title.decode('utf-8').encode('ascii', 'ignore')
+
+    return title.lower()
+
+
+def selectMenu(title, menu):
+    options = []
+    for option in menu:
+        options.append(option[0])
+
+    option = xbmcgui.Dialog().select(title, options)
+
+    if option < 0:
+        return -1
+
+    return menu[option][1]
+
+
 def openSettings():
     ADDON.openSettings()
     return True
-
 
 
 def refresh():
@@ -606,10 +780,24 @@ if mode == _SELECT:
     try:    
         if not ALPHASORT:
             weight = int(params['weight'])
-            doRefresh = selectChannel(weight)
+            doRefresh = selectChannel(weight)                    
     except:
         doRefresh = False
 
+if mode == _PLAY:
+    doRefresh = False
+    try:
+        stream   = urllib.unquote_plus(params['stream'])
+
+        #ottAddon = xbmcaddon.Addon(id = 'script.tvguidedixie')
+        #path     = ottAddon.getAddonInfo('path')
+
+        #sys.path.insert(0, path)
+
+        import player
+        player.play(stream, False)
+    except Exception, e:
+        pass
 
 if mode == _CANCELSELECT:
     doRefresh = cancelSelection()
@@ -629,6 +817,17 @@ if mode == _INSERTBELOW:
         doRefresh = insertSelection(above=False, theWeight=weight)
     except:
         pass
+
+if mode == _EDIT:
+    doRefresh = editChannel(id)
+
+
+if mode == _NEWCHANNEL:
+    doRefresh = newChannel()
+
+
+if mode == _REMOVE:
+    doRefresh = removeChannel(id)
 
 
 if doRefresh:

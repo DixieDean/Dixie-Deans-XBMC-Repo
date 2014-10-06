@@ -1,0 +1,12 @@
+[B]Version 1.2.1[/B]
+- New Icon/Fanart. 
+
+[B]Version 1.2[/B]
+- New Icon/Fanart. 
+
+[B]Version 1.1[/B]
+- Fixed missing Live/Recordings lists. 
+
+[B]Version 1.0[/B]
+- Initial version
+- Modified to work in conjunction with the TV Guide Dixie add-on.
