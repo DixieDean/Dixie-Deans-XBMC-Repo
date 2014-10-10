@@ -214,7 +214,10 @@ def checkForAlternateStreaming(url):
 
     if 'plugin.program.skygo.launcher' in url:        
         return alternateStream(url)
-        
+
+    if 'plugin.program.advanced.launcher' in url:        
+        return alternateStream(url)
+
     return False
 
 def alternateStream(url):

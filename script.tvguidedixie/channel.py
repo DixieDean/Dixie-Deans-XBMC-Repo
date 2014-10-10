@@ -18,17 +18,17 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-
+import os
 
 class Channel(object):
-    def __init__(self, id, title='', logo='', streamUrl='', visible=1, weight=-1, categories='', userDef=0, desc=''):
+    def __init__(self, id, title='', logo='', streamUrl='', visible=1, weight=-1, categories='', userDef=0, desc='', isClone=0):
         if isinstance(id, list):
             self.setFromList(id)
         else:
-            self.set(id, title, logo, streamUrl, visible, weight, categories, userDef, desc)
+            self.set(id, title, logo, streamUrl, visible, weight, categories, userDef, desc, isClone)
 
 
-    def set(self, id, title, logo, streamUrl, visible, weight, categories, userDef, desc):
+    def set(self, id, title, logo, streamUrl, visible, weight, categories, userDef, desc, isClone):
         self.id         = id
         self.title      = title
         self.categories = categories
@@ -38,10 +38,12 @@ class Channel(object):
         self.weight     = int(weight)
         self.userDef    = int(userDef)
         self.desc       = desc
+        self.isClone    = int(isClone)
 
 
     def setFromList(self, list):
         userDef = False
+        isClone = False
         desc    = ''
 
         if len(list) > 7:
@@ -49,16 +51,27 @@ class Channel(object):
 
         if len(list) > 8:
             desc = list[8].replace('\n', '')
+
+        if len(list) > 9:
+            isClone = list[9].replace('\n', '')
         
-        self.set(list[0].replace('\n', ''), list[1].replace('\n', ''), list[2].replace('\n', ''), list[3].replace('\n', ''), list[4].replace('\n', ''), list[5].replace('\n', ''), list[6].replace('\n', ''), userDef, desc)
+        self.set(list[0].replace('\n', ''), list[1].replace('\n', ''), list[2].replace('\n', ''), list[3].replace('\n', ''), list[4].replace('\n', ''), list[5].replace('\n', ''), list[6].replace('\n', ''), userDef, desc, isClone)
 
 
     def writeToFile(self, filename):
-        try:    f = open(filename, mode='w')
-        except: return False
+        cloneID = -1
+        localID = self.id
 
-        try:    f.write(self.id.encode('utf8') + '\n')
-        except: f.write(self.id + '\n')
+
+        if self.isClone:
+            filename, cloneID = self.cloneFilename(filename)
+            localID += cloneID
+            
+        try:    f = open(filename, mode='w')
+        except: return False        
+
+        try:    f.write(localID.encode('utf8') + '\n')
+        except: f.write(localID + '\n')
 
         f.write(self.title.encode('utf8') + '\n')
 
@@ -90,12 +103,32 @@ class Channel(object):
         else:
             f.write('\n')
 
+        if self.isClone:
+            f.write('1\n')
+        else:
+            f.write('0\n')
+
         f.close()
         return True
 
 
+    def cloneFilename(self, filename):
+        if '_clone_' in filename:
+            return filename, ''
+
+        index    = 1
+        root     = filename
+        filename = root + '_clone_%d' % index
+
+        while os.path.exists(filename):
+            index += 1
+            filename = root + '_clone_%d' % index
+
+        return filename, '_clone_%d' % index
+
+
     def clone(self):
-        c = Channel(self.id, self.title, self.logo, self.streamUrl, self.visible, self.weight, self.categories, self.userDef, self.desc)
+        c = Channel(self.id, self.title, self.logo, self.streamUrl, self.visible, self.weight, self.categories, self.userDef, self.desc, self.isClone)
         return c
 
 
@@ -128,8 +161,8 @@ class Channel(object):
 
     def __repr__(self):
         try:
-            return 'Channel(id=%s, title=%s, categories=%s, logo=%s, streamUrl=%s, weight=%s, visible=%s userDef=%s desc=%s)' \
-               % (self.id, self.title, self.categories, self.logo, self.streamUrl, str(self.weight), str(self.visible), str(self.userDef), self.desc)
+            return 'Channel(id=%s, title=%s, categories=%s, logo=%s, streamUrl=%s, weight=%s, visible=%s userDef=%s desc=%s isClone=%s)' \
+               % (self.id, self.title, self.categories, self.logo, self.streamUrl, str(self.weight), str(self.visible), str(self.userDef), self.desc, str(self.isClone))
         except:
             return 'Can\'t display channel'
 

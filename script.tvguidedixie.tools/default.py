@@ -80,6 +80,7 @@ _PLAY          = 1400
 _EDIT          = 1500
 _NEWCHANNEL    = 1600
 _REMOVE        = 1700
+_CLONE         = 1800
 
 
 # --------------------- Addon Settings --------------------- #
@@ -130,6 +131,7 @@ def main():
         stream  = channel.streamUrl
         userDef = channel.userDef == 1
         desc    = channel.desc
+        isClone = channel.isClone == 1
 
         if hidden and not SHOWHIDDEN:
             continue
@@ -160,10 +162,12 @@ def main():
         if START_WEIGHT > -1:
             menu.append(('Clear selection', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _CANCELSELECT)))
 
+        if not userDef:
+            menu.append(('Clone channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _CLONE, urllib.quote_plus(id))))
+
         menu.append(('Create new channel', 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _NEWCHANNEL)))
 
-
-        if userDef:
+        if userDef or isClone:
             menu.append(('Remove channel', 'XBMC.RunPlugin(%s?mode=%d&id=%s)' % (sys.argv[0], _REMOVE, urllib.quote_plus(id))))
 
         #if len(stream):
@@ -396,11 +400,13 @@ def editChannel(id):
     SELECT       = 400
     REMOVE       = 500
     DESC         = 600
+    CLONE        = 700
 
     title   = channel.title
     weight  = channel.weight
-    hidden  = channel.visible == 0
-    userDef = channel.userDef == 1
+    hidden  = int(channel.visible) == 0
+    userDef = int(channel.userDef) == 1
+    isClone = int(channel.isClone) == 1
 
     hideLabel = 'Show channel' if hidden else 'Hide channel'
 
@@ -414,8 +420,11 @@ def editChannel(id):
     if not inSelection(weight):            
         menu.append(['Select channel', SELECT])
 
-    if userDef:
+    if userDef or isClone:
         menu.append(['Remove channel', REMOVE])
+
+    if not userDef:
+        menu.append(['Clone channel', CLONE])
     
     option = selectMenu(title, menu)
 
@@ -437,6 +446,9 @@ def editChannel(id):
     if option == DESC:
         return editDescription(id)
 
+    if option == CLONE:
+        return cloneChannel(id)
+
     return False
 
 
@@ -455,13 +467,33 @@ def editDescription(id):
     return updateChannel(channel, id)
 
 
+def cloneChannel(id):
+    channel = getChannelFromFile(id) 
+
+    if not channel:
+        return False
+
+    channel.isClone = True
+    channel.id      = channel.id.split('_clone_')[0]
+
+    clone = [[channel.weight, id.split('_clone_')[0], channel]]
+    
+    channels = getAllChannels() 
+
+    fullList = insertBelow(channel.weight, channels, clone)
+
+    writeChannelsToFile(fullList)
+
+    return True
+
+
 def removeChannel(id):
     channel = getChannelFromFile(id) 
 
     if not channel:
         return False
 
-    if channel.userDef != 1:
+    if channel.userDef != 1 and channel.isClone != 1:
         return False
 
     if not utils.DialogYesNo('Remove %s' % channel.title, noLabel='Cancel', yesLabel='Confirm'):
@@ -828,6 +860,10 @@ if mode == _NEWCHANNEL:
 
 if mode == _REMOVE:
     doRefresh = removeChannel(id)
+
+
+if mode == _CLONE:
+    doRefresh = cloneChannel(id)
 
 
 if doRefresh:

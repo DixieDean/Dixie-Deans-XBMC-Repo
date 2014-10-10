@@ -44,7 +44,7 @@ xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.3.3'
+VERSION     = '2.3.5'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 SKIN        = ADDON.getSetting('dixie.skin')
 GMTOFFSET   = dixie.GetGMTOffset()

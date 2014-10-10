@@ -820,10 +820,11 @@ class Database(object):
 
 
     def _locateChannel(self, id, channels):
+        theList = []
         for ch in channels:
-            if ch.id == id:
-                return ch
-        return None
+            if ch.id.split('_clone_')[0] == id:
+                theList.append(ch)
+        return theList
 
 
     def _getProgramList(self, channels, startTime): #TODO Notifications
@@ -833,7 +834,8 @@ class Database(object):
         channelMap = {}
         for ch in channels:
             if ch.id:
-                channelMap[ch.id] = ch
+                id = ch.id.split('_clone_')[0]
+                channelMap[id] = ch
 
         if not channels:
             return []
@@ -843,11 +845,10 @@ class Database(object):
 
         c.execute('SELECT channel, title, start_date, end_date, description, subTitle, image_large, image_small FROM programs WHERE channel IN ' + strCh + ' AND end_date > ? AND start_date < ? AND source = ?', (startTime, endTime, self.source.KEY))
 
-
         for row in c:           
             channel = self._locateChannel(row['channel'].encode('utf-8'), channels)
-            if channel:
-                program = Program(channel, row["title"], row["start_date"], row["end_date"], row["description"], row["subTitle"], row['image_large'], row['image_small'])
+            for ch in channel:
+                program = Program(ch, row["title"], row["start_date"], row["end_date"], row["description"], row["subTitle"], row['image_large'], row['image_small'])
                 #program.notificationScheduled = self._isNotificationRequiredForProgram(program)
                 programList.append(program)  
       
