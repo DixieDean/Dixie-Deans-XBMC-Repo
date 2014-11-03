@@ -23,7 +23,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.ontapp-player" name="OnTapp.TV Player" version="0.0.1" provider-name="DixieDean">
+<addon id="plugin.video.ontapp-player" name="OnTapp.TV Player" version="0.0.2" provider-name="DixieDean">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -68,7 +68,7 @@
 	</extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.3.5" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="OnTapp.TV" version="2.3.6" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -76,7 +76,7 @@
         <import addon="script.module.elementtree" version="1.2.7"/>
         <import addon="script.module.buggalo" version="1.1.2"/>
         <import addon="script.tvguidedixie.tools" version="1.0.2"/>
-        <import addon="plugin.video.ontapp-player" version="0.0.1"/>
+        <import addon="plugin.video.ontapp-player" version="0.0.2"/>
     </requires>
     <extension point="xbmc.python.script" library="addon.py"><provides>video</provides></extension>
     <extension point="xbmc.python.script" library="addon.py"/>

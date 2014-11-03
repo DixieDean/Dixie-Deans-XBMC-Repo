@@ -44,7 +44,7 @@ xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME        = ADDON.getAddonInfo('path')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.3.5'
+VERSION     = '2.3.6'
 MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
 SKIN        = ADDON.getSetting('dixie.skin')
 GMTOFFSET   = dixie.GetGMTOffset()
@@ -143,7 +143,7 @@ try:
     f   = open(os.path.join(PATH, 'epg.cfg'))
     cfg = f.readlines()
     f.close()
-  
+
     for l in cfg:
         l = l.strip()
         #sanity check on text
@@ -223,7 +223,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.database = None
         self.categoriesList = ADDON.getSetting('categories').split('|')
         if self.categoriesList[0] == '':
-           self.categoriesList = []
+            self.categoriesList = []
         self.mode = MODE_EPG
         self.currentChannel = None
 
@@ -233,7 +233,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.osdProgram = None
 
         self.touch    = False
-        self.prevCtrl = -1   
+        self.prevCtrl = -1
 
         if ADDON.getSetting('enable.touch') == 'true':
             self.touch = True
@@ -243,7 +243,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
 
 
-        
+
     def getControl(self, controlId):
         try:
             return super(TVGuide, self).getControl(controlId)
@@ -257,10 +257,10 @@ class TVGuide(xbmcgui.WindowXML):
 
     def close(self):
         try:
-    		self.timer.cancel()
-    		del self.timer
-    	except:
-    		pass
+            self.timer.cancel()
+            del self.timer
+        except:
+            pass
 
         if not self.isClosing:
             self.isClosing = True
@@ -282,7 +282,7 @@ class TVGuide(xbmcgui.WindowXML):
                 self.refresh = False
                 self.database.resetChannels()
                 self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-                   # onInit(..) is invoked again by XBMC after a video addon exits after being invoked by XBMC.RunPlugin(..)
+                # onInit(..) is invoked again by XBMC after a video addon exits after being invoked by XBMC.RunPlugin(..)
             return
 
         self.initialized = True
@@ -320,8 +320,8 @@ class TVGuide(xbmcgui.WindowXML):
             program = self._getProgramFromControl(controlInFocus)
             if program is None:
                 return
-            # if program is not None:
-            #     self._showContextMenu(program)
+                # if program is not None:
+                #     self._showContextMenu(program)
         except:
             pass
 
@@ -352,7 +352,7 @@ class TVGuide(xbmcgui.WindowXML):
 
     def onActionOSDMode(self, action):
         if action.getId() == ACTION_SHOW_INFO:
-            self._hideOsd()            
+            self._hideOsd()
 
         elif action.getId() in [ACTION_PARENT_DIR, KEY_NAV_BACK, KEY_CONTEXT_MENU, ACTION_PREVIOUS_MENU]:
             self._hideOsd()
@@ -394,11 +394,11 @@ class TVGuide(xbmcgui.WindowXML):
                 self.osdProgram = nextProgram
                 self._showOsd()
 
-    def onActionEPGMode(self, action):        
+    def onActionEPGMode(self, action):
         actionId = self.checkTouch(action)
         if actionId == None:
-            return  
-        
+            return
+
         if actionId in [ACTION_PARENT_DIR, KEY_NAV_BACK, ACTION_PREVIOUS_MENU]:
             self.close()
             return
@@ -409,8 +409,8 @@ class TVGuide(xbmcgui.WindowXML):
 
         elif actionId == KEY_CONTEXT_MENU:
             if self.player.isPlaying():
-                self._hideEpg()        
-       
+                self._hideEpg()
+
         controlInFocus = None
         currentFocus = self.focusPoint
         try:
@@ -427,7 +427,7 @@ class TVGuide(xbmcgui.WindowXML):
             if control is not None:
                 if not self.touch:
                     self.setFocus(control)
-                return                
+                return
 
         if actionId == ACTION_LEFT:
             self._left(currentFocus)
@@ -465,7 +465,7 @@ class TVGuide(xbmcgui.WindowXML):
                 pass
 
 
-    def checkTouch(self,  action):        
+    def checkTouch(self,  action):
         id = action.getId()
 
         if id not in [ACTION_GESTURE_ZOOM, ACTION_GESTURE_ROTATE, ACTION_GESTURE_PAN, ACTION_TOUCH_TAP, ACTION_TOUCH_LONGPRESS, ACTION_GESTURE_SWIPE_LEFT, ACTION_GESTURE_SWIPE_RIGHT, ACTION_GESTURE_SWIPE_UP, ACTION_GESTURE_SWIPE_DOWN]:
@@ -475,7 +475,7 @@ class TVGuide(xbmcgui.WindowXML):
             return id
 
         if id == ACTION_TOUCH_TAP:
-            return id        
+            return id
 
         try:    controlInFocus = self.getFocus()
         except: controlInFocus = None
@@ -562,8 +562,8 @@ class TVGuide(xbmcgui.WindowXML):
     def tryProgram(self, program):
         if self.playChannel(program.channel):
             return
-        result = self.streamingService.detectStream(program.channel)        
-        if not result:         
+        result = self.streamingService.detectStream(program.channel)
+        if not result:
             if self.touch:
                 return
             # could not detect stream, show context menu
@@ -615,7 +615,7 @@ class TVGuide(xbmcgui.WindowXML):
             d.doModal()
             del d
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-            
+
         elif buttonClicked == PopupMenu.C_POPUP_CATEGORIES:
             d = CategoriesMenu(self.database, self.categoriesList)
             d.doModal()
@@ -633,7 +633,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.close()
 
         elif buttonClicked == PopupMenu.C_POPUP_IPLAYER:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.iplayer)')
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.ontapp-player)')
 
         elif buttonClicked == PopupMenu.C_POPUP_ITVPLAYER:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.video.itv)')
@@ -804,7 +804,7 @@ class TVGuide(xbmcgui.WindowXML):
             time.sleep(0.1)
             if self.player.isPlaying():
                 break
-                
+
         self._showControl(self.C_MAIN_BLACKOUT)
         while self.player.isPlaying() and not xbmc.abortRequested and not self.isClosing:
             time.sleep(0.5)
@@ -856,7 +856,7 @@ class TVGuide(xbmcgui.WindowXML):
         self._showControl(self.C_MAIN_LOADING)
         self.setFocusId(self.C_MAIN_LOADING_CANCEL)
         self.hideTimebar()
-        
+
         # remove existing controls
         self._clearEpg()
 
@@ -979,7 +979,7 @@ class TVGuide(xbmcgui.WindowXML):
         self._hideControl(self.C_MAIN_LOADING)
         self.showTimebar()
         self.redrawingEPG = False
-                    
+
     def _clearEpg(self):
         controls = [elem.control for elem in self.controlAndProgramList]
         try:
@@ -1195,7 +1195,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
         except:
             pass
-            
+
 
     def updateTimebar(self, scheduleTimer = True):
         try:
@@ -1237,13 +1237,13 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     C_POPUP_SUPERFAVES = 4012
     C_POPUP_VPN = 4013
     C_POPUP_HOME = 4006
-    
+
 
     def __new__(cls, database, program, showRemind, touch):
         xml_file = os.path.join('script-tvguide-menu.xml')
         if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
-            
+
         return super(PopupMenu, cls).__new__(cls, XML, PATH)
 
 
@@ -1268,10 +1268,10 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         # self.getControl(self.C_POPUP_OTTOOLS).setVisible(False) RD -Temporary hide of the 4oD button until a new use is found for it.
 
         programTitleControl = self.getControl(self.C_POPUP_PROGRAM_TITLE)
-        programTitleControl.setLabel(self.program.title)       
+        programTitleControl.setLabel(self.program.title)
 
         playControl = self.getControl(self.C_POPUP_PLAY)
-        playControl.setLabel(strings(WATCH_CHANNEL, self.program.channel.title)) 
+        playControl.setLabel(strings(WATCH_CHANNEL, self.program.channel.title))
 
         #isPlayable = self.program.channel.isPlayable()
         isPlayable = self.database.isPlayable(self.program.channel)
@@ -1281,7 +1281,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
             self.setFocusId(self.C_POPUP_REMIND)
             # self.getControl(self.C_POPUP_REMIND).setVisible(False)
             # self.setFocusId(self.C_POPUP_CHOOSE_STREAM)
-        
+
         if self.touch or self.program.title == strings(NO_PROGRAM_AVAILABLE):
             playControl.setEnabled(True)
             self.setFocusId(self.C_POPUP_PLAY)
@@ -1295,8 +1295,8 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         else:
             channelLogoControl.setVisible(False)
             channelTitleControl.setLabel(self.program.channel.title)
-       
-        if self.database.getCustomStreamUrl(self.program.channel):    
+
+        if self.database.getCustomStreamUrl(self.program.channel):
             try:    self.getControl(self.C_POPUP_CHOOSE_STREAM).setLabel(REMOVE_STRM_FILE)
             except: pass
             xbmcgui.Window(10000).setProperty('TVG_CHOOSE', REMOVE_STRM_FILE)
@@ -1315,10 +1315,10 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
             xbmcgui.Window(10000).setProperty('TVG_REMIND', DONT_REMIND_PROGRAM)
 
         try:
-           ctrl = self.getControl(5000)
-           self.setFocusId(5000)
+            ctrl = self.getControl(5000)
+            self.setFocusId(5000)
         except:
-           pass
+            pass
 
         xbmcgui.Window(10000).clearProperty('TVG_popup_id')
 
@@ -1362,14 +1362,14 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
     C_CHANNELS_SELECTION = 6002
     C_CHANNELS_SAVE = 6003
     C_CHANNELS_CANCEL = 6004
-    
+
 
 
     def __new__(cls, database):
         xml_file = os.path.join('script-tvguide-channels.xml')
         if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
-        
+
         return super(ChannelsMenu, cls).__new__(cls, XML, PATH)
 
     def __init__(self, database):
@@ -1500,7 +1500,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_STRM_FILE_LABEL = 1005
     C_STREAM_STRM_PREVIEW = 1002
     C_STREAM_STRM_OK = 1003
-    C_STREAM_STRM_CANCEL = 1004    
+    C_STREAM_STRM_CANCEL = 1004
     C_STREAM_FAVOURITES = 2001
     C_STREAM_FAVOURITES_PREVIEW = 2002
     C_STREAM_FAVOURITES_OK = 2003
@@ -1520,13 +1520,13 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_MASHUP_PREVIEW = 4005
     C_STREAM_MASHUP_OK = 4006
     C_STREAM_MASHUP_CANCEL = 4007
-    
+
     C_STREAM_SUPERFAVE_BROWSE = 5001
     C_STREAM_SUPERFAVE_PREVIEW = 5002
     C_STREAM_SUPERFAVE_OK = 5003
     C_STREAM_SUPERFAVE_CANCEL = 5004
     C_STREAM_SUPERFAVE_LABEL = 5005
-    
+
 
     C_STREAM_VISIBILITY_MARKER = 100
 
@@ -1538,10 +1538,10 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 
     def __new__(cls, database, channel):
         xml_file = os.path.join('script-tvguide-streamsetup.xml')
-        
+
         if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
-            
+
         return super(StreamSetupDialog, cls).__new__(cls, XML, PATH)
 
     def __init__(self, database, channel):
@@ -1623,9 +1623,9 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         if controlId == self.C_STREAM_STRM_BROWSE:
             stream = xbmcgui.Dialog().browse(1, ADDON.getLocalizedString(30304), 'video', mask='.xsp|.strm')
             if stream:
-               self.database.setCustomStreamUrl(self.channel, stream)
-               self.getControl(self.C_STREAM_STRM_FILE_LABEL).setText(stream)
-               self.strmFile = stream
+                self.database.setCustomStreamUrl(self.channel, stream)
+                self.getControl(self.C_STREAM_STRM_FILE_LABEL).setText(stream)
+                self.strmFile = stream
 
         elif controlId == self.C_STREAM_ADDONS_OK:
             listControl = self.getControl(self.C_STREAM_ADDONS_STREAMS)
@@ -1653,12 +1653,12 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             if chooser.GetFave('OTT'):
                 path  = xbmc.getInfoLabel('Skin.String(OTT.Path)')
                 label = xbmc.getInfoLabel('Skin.String(OTT.Label)')
-                path = '__SF__' + path               
-               
+                path = '__SF__' + path
+
                 self.database.setCustomStreamUrl(self.channel, path)
                 self.getControl(self.C_STREAM_SUPERFAVE_LABEL).setText(label)
                 self.strmFile = path
-            
+
         elif controlId == self.C_STREAM_MASHUP_OK:
             listControl = self.getControl(self.C_STREAM_MASHUP_STREAMS)
             item = listControl.getSelectedItem()
@@ -1716,8 +1716,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d)' % (path, stream, 1))
                 retries = 10
                 while retries > 0 and not self.player.isPlaying():
-                   retries -= 1
-                   xbmc.sleep(1000)
+                    retries -= 1
+                    xbmc.sleep(1000)
                 if self.player.isPlaying():
                     self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
@@ -1743,7 +1743,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         item = listControl.getSelectedItem()
         if item is None:
             return
-        
+
         if item.getProperty('addon_id') == self.previousAddonId:
             return
 
@@ -1795,7 +1795,7 @@ class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
         xml_file = os.path.join('script-tvguide-streamaddon.xml')
         if os.path.join(SKIN, skinfolder, 'Default', '720p', xml_file):
             XML = xml_file
-            
+
         return super(ChooseStreamAddonDialog, cls).__new__(cls, XML, PATH)
 
     def __init__(self, addons):
@@ -1805,22 +1805,22 @@ class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
 
     @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onInit'})
     def onInit(self):
-       items = list()
-       for id, label, url in self.addons:
-           try:
-               addon = xbmcaddon.Addon(id)
-               item = xbmcgui.ListItem(label, addon.getAddonInfo('name'), addon.getAddonInfo('icon'))
-               item.setProperty('stream', url)
-               items.append(item)
-           except:
-               item = xbmcgui.ListItem(label, '', id)
-               item.setProperty('stream', url)
-               items.append(item)
+        items = list()
+        for id, label, url in self.addons:
+            try:
+                addon = xbmcaddon.Addon(id)
+                item = xbmcgui.ListItem(label, addon.getAddonInfo('name'), addon.getAddonInfo('icon'))
+                item.setProperty('stream', url)
+                items.append(item)
+            except:
+                item = xbmcgui.ListItem(label, '', id)
+                item.setProperty('stream', url)
+                items.append(item)
 
-       listControl = self.getControl(ChooseStreamAddonDialog.C_SELECTION_LIST)
-       listControl.addItems(items)
+        listControl = self.getControl(ChooseStreamAddonDialog.C_SELECTION_LIST)
+        listControl.addItems(items)
 
-       self.setFocus(listControl)
+        self.setFocus(listControl)
 
     @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onAction'})
     def onAction(self, action):
@@ -1849,7 +1849,7 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
         xml_file = os.path.join('script-tvguide-categories.xml')
         if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
             XML = xml_file
-            
+
         return super(CategoriesMenu, cls).__new__(cls, XML, PATH)
 
 
@@ -1883,36 +1883,36 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
         if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK, KEY_CONTEXT_MENU]:
             self.close()
             return
-     
+
     @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onClick'})
     def onClick(self, controlId):
-        if controlId == self.C_CATEGORIES_LIST:            
+        if controlId == self.C_CATEGORIES_LIST:
             listControl = self.getControl(self.C_CATEGORIES_LIST)
             item        = listControl.getSelectedItem()
-            category    = self.allCategories[int(item.getProperty('idx'))]           
+            category    = self.allCategories[int(item.getProperty('idx'))]
             if category in self.workingCategories:
                 self.workingCategories.remove(category)
             else:
                 self.workingCategories.append(category)
- 
+
             if category in self.workingCategories:
                 iconImage = 'tvguide-categories-visible.png'
             else:
                 iconImage = 'tvguide-categories-hidden.png'
             item.setIconImage(iconImage)
- 
+
         elif controlId == self.C_CATEGORIES_SAVE:
             self.currentCategories = self.workingCategories
             self.close()
- 
+
         elif controlId == self.C_CATEGORIES_CANCEL:
             self.close()
 
- 
+
     def onFocus(self, controlId):
         pass
 
- 
+
     def updateCategoriesList(self):
         listControl = self.getControl(self.C_CATEGORIES_LIST)
         listControl.reset()

@@ -23,7 +23,7 @@ import xbmcgui
 import urllib
 import urllib2
 from hashlib import md5
-import socket 
+import socket
 import os
 import re
 import shutil
@@ -35,12 +35,12 @@ import session
 import getIni
 
 
-socket.setdefaulttimeout(10) # 10 seconds 
+socket.setdefaulttimeout(10) # 10 seconds
 
 import settings
 settings.validate()
 
-VERSION     = '2.3.5'
+VERSION     = '2.3.6'
 
 ADDON       = xbmcaddon.Addon(dixie.ID)
 HOME        = ADDON.getAddonInfo('path')
@@ -79,7 +79,7 @@ print '****** ONTAPP.TV %s LAUNCHED ******' % str(versioninfo)
 
 try:
     os.makedirs(logofolder)
-    
+
     if not os.path.exists(skinfolder):
         DownloadSkins()
 except:
@@ -93,11 +93,11 @@ def CheckVersion():
     if prev == curr:
         return
 
-    if curr == '2.3.5':
+    if curr == '2.3.6':
         d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'New! Clone a channel and listings.', 'Just use On-Tapp.TV Tools.', 'For info and support - www.on-tapp.tv')
+        d.ok(TITLE + ' - ' + VERSION, 'Built-in iPlayer button fixed.', 'Access is via the EPG context menu.', 'For info and support - www.on-tapp.tv')
         showChangelog()
-    
+
     dixie.SetSetting('VERSION', curr)
 
 
@@ -105,7 +105,7 @@ def showChangelog(addonID=None):
     try:
         if addonID:
             ADDON = xbmcaddon.Addon(addonID)
-        else: 
+        else:
             ADDON = xbmcaddon.Addon()
 
         f     = open(ADDON.getAddonInfo('changelog'))
@@ -145,7 +145,7 @@ def CheckForChannels():
     try:    current, dirs, files = os.walk(folder).next()
     except: pass
     if len(files) == 0:
-        dixie.SetSetting('updated.channels', -1) #force refresh of channels
+        dixie.SetSetting('updated.channels', -1) # force refresh of channels
 
 
 def CheckSkin():
@@ -199,46 +199,46 @@ def DownloadSkins():
 
 
 def CopyKeymap():
-   src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
-   if os.path.exists(src):
-       os.remove(src)
+    src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
+    if os.path.exists(src):
+        os.remove(src)
 
-   src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'super_favourites_menu.xml')
+    src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'super_favourites_menu.xml')
 
-   if not os.path.exists(src):
-       return
+    if not os.path.exists(src):
+        return
 
-   dst = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
+    dst = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
 
-   import shutil
-   shutil.copyfile(src, dst)
+    import shutil
+    shutil.copyfile(src, dst)
 
-   os.remove(src)
+    os.remove(src)
 
-   xbmc.sleep(1000)
-   xbmc.executebuiltin('Action(reloadkeymaps)')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin('Action(reloadkeymaps)')
 
 
 def RemoveKeymap():
-   src = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
+    src = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
 
-   if not os.path.exists(src):
-       return
+    if not os.path.exists(src):
+        return
 
-   dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'super_favourites_menu.xml')
+    dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'super_favourites_menu.xml')
 
-   import shutil
-   shutil.copyfile(src, dst)
+    import shutil
+    shutil.copyfile(src, dst)
 
-   os.remove(src)
+    os.remove(src)
 
-   xbmc.sleep(1000)
-   xbmc.executebuiltin('Action(reloadkeymaps)')
+    xbmc.sleep(1000)
+    xbmc.executebuiltin('Action(reloadkeymaps)')
 
 
 try:
     path = os.path.join(datapath, 'tvgdinstall.txt')
-    
+
     if not os.path.exists(path):
         url = dixie.GetExtraUrl() + 'resources/tvgdinstall.txt'
         urllib.urlretrieve(url, path)
@@ -269,7 +269,7 @@ def main(doLogin=True):
 
     buggalo.GMAIL_RECIPIENT = 'write2dixie@gmail.com'
 
-        
+
     try:
         if doLogin:
             url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
@@ -278,20 +278,20 @@ def main(doLogin=True):
         else:
             code = 200
             response = ''
-            
+
         if code == 503:
             d = xbmcgui.Dialog()
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Something went wrong with your login', 'Please check your settings.')
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Daily IP Address limit reached.', 'Restricted for 2 hours.')
             print '****** OnTapp.TV Error 503. Too many login attempts/IPs exceeded *******'
             return
-        
+
         if response == 401:
             d = xbmcgui.Dialog()
             d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'Something went wrong with your login', 'Check your settings, or subscribe at www.on-tapp.tv.')
             print '****** OnTapp.TV Error 401. Access Denied. Not a paid member. *******'
             return
-        
+
         if response == 301:
             xbmc.executebuiltin('XBMC.RunScript($CWD/deleteDB.py)')
             d = xbmcgui.Dialog()
@@ -315,8 +315,8 @@ def main(doLogin=True):
         w = gui.TVGuide()
 
         if busy:
-           busy.close()
-           busy = None
+            busy.close()
+            busy = None
 
         CopyKeymap()
         w.doModal()
@@ -326,7 +326,7 @@ def main(doLogin=True):
         xbmcgui.Window(10000).clearProperty('OTT_RUNNING')
 
     except Exception:
-       buggalo.onExceptionRaised()
+        buggalo.onExceptionRaised()
 
 
 doLogin = True
