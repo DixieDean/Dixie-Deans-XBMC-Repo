@@ -26,6 +26,7 @@ import subprocess
 import xbmc
 import xbmcgui
 
+import ipcheck
 import kill
 
 PROFILE  = utils.PROFILE
@@ -157,6 +158,7 @@ def KillVPN(silent=False):
     kill.KillVPN()
     if not silent:
         utils.dialogOK('%s now disabled' % TITLE)
+        ipcheck.Network()
 
 
 def Run(cmdline, timeout=0):
@@ -311,12 +313,14 @@ def VPN(label, abrv, server):
             xbmcgui.Window(10000).setProperty('VPNICITY_LABEL',  label)
             xbmcgui.Window(10000).setProperty('VPNICITY_ABRV',   abrv)
             xbmcgui.Window(10000).setProperty('VPNICITY_SERVER', server)
+            ipcheck.Network()
 
         else:
             KillVPN(silent=True)
             if utils.platform() == "android":
                 xbmc.sleep(5000)
-            utils.dialogOK('%s %s failed to start' % (label, TITLE), 'Please check your settings', 'and try again')    
+            utils.dialogOK('%s %s failed to start' % (label, TITLE), 'Please check your settings', 'and try again')
+            ipcheck.Network() 
             success = False
 
     #DeleteFile(authPath)

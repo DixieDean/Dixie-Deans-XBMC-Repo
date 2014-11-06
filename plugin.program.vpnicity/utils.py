@@ -35,7 +35,7 @@ HOME      =  ADDON.getAddonInfo('path')
 PROFILE   =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 RESOURCES =  os.path.join(HOME, 'resources')
 TITLE     = 'VPNicity'
-VERSION   = '1.1.1'
+VERSION   = '1.1.2'
 KEYMAP    = 'vpnicity_menu.xml'
 
 
@@ -82,6 +82,8 @@ def checkVersion():
     if ADDON.getSetting('VIDEO').lower() != 'true':
         showVideo()
 
+    d = xbmcgui.Dialog()
+    d.ok(TITLE + ' - ' + VERSION, 'Added Location Checker')
     triggerChangelog()
     
 
