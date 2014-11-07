@@ -1,5 +1,5 @@
 #
-#      Copyright (C) 2014 mikey1234
+#      Copyright (C) 2014 Mikey1234
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -21,12 +21,15 @@ import urllib,urllib2,sys,re,xbmcplugin,xbmcgui,xbmcaddon,xbmc,os
 
 
 #ee3fa
-ADDON = xbmcaddon.Addon(id='plugin.video.ontapp-player')
+ADDON = xbmcaddon.Addon(id='plugin.video.bbciplayer')
 
 
 
 def CATEGORIES():
+    addDir('Most Popular','http://www.bbc.co.uk/iplayer/group/most-popular',10,'','')
     addDir('iPlayer A-Z','url',3,'','')
+    addDir('Categories','url',7,'','')
+    addDir('Search','url',9,'','')
     addDir('Live','url',2,'','')
 
 
@@ -52,7 +55,7 @@ def GetLive(url):
                             ('bbc_parliament','bbc_parliament', 'BBC Parliament'),
                         ]
     for id, img, name in channel_list :
-        iconimage = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.ontapp-player/img',img+'.png'))
+        iconimage = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.bbciplayer/img',img+'.png'))
         addDir(name,id,6,iconimage,'')       
 
 def GetContent(url):
@@ -63,14 +66,123 @@ def GetContent(url):
         urlurl.append(name.lower())
         
     link=OPEN_URL('http://www.bbc.co.uk/iplayer/a-z/%s'%urlurl[xbmcgui.Dialog().select('Please Select', nameurl)])
-    match=re.compile('<a href="/iplayer/brand/(.+?)".+?<span class="title">(.+?)</span>').findall (link)
-    for URL , name in match:
-        url='http://www.bbc.co.uk/iplayer/episodes/%s' %URL
+    match=re.compile('<a href="/iplayer/brand/(.+?)".+?<span class="title">(.+?)</span>',re.DOTALL).findall (link)
+    for url , name in match:
+        
         addDir(name,url,4,'','')
 
 
-def GetEpisodes(url):
+def NextPageGenre(url):
+    NEW_URL=url
+    html=OPEN_URL(NEW_URL)
+
+    match1=re.compile('data-ip-id="(.+?)">.+?href="(.+?)" title="(.+?)".+?img src="(.+?)".+?<p class="synopsis">(.+?)</p>',re.DOTALL).findall (html)
+    for IPID ,URL , name , iconimage, plot in match1:
+        try:
+            getseries=html.split(URL)[1]
+            number=re.compile('<em>(.+?)</em>').findall(getseries)[0]
+
+            if not IPID in URL:
+                name='%s - [COLOR orange](%s Available)[/COLOR]' % (name,number.strip())
+        except:
+            name=name    
+        _URL_='http://www.bbc.co.uk%s' %URL
+        if not IPID in _URL_:
+            IPID=IPID
+        else:
+            IPID=''
+        
+        addDir(name,_URL_,5,iconimage.replace('336x189','832x468') ,plot,IPID)
+    xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_VIDEO_TITLE)    
+    try:
+        nextpage=re.compile('<span class="next txt"><a href="(.+?)">Next <span').findall (html)[0].replace('amp;','')
+        if not nextpage in NEW_URL:
+            _URL_='http://www.bbc.co.uk'+nextpage
+            addDir('[COLOR blue]>> Next Page >>[/COLOR]',_URL_,8,'' ,'','')
+    except:pass
+
+
     
+
+
+def Genre(url):
+    nameurl=[]
+    urlurl=[]
+    link=OPEN_URL('http://www.bbc.co.uk/iplayer').split('Categories</h2>')[1]
+
+    match=re.compile('<a href="(.+?)" class="stat">(.+?)</a>').findall(link)
+    for url , name in match:
+        import HTMLParser
+        h = HTMLParser.HTMLParser()
+        nameurl.append(h.unescape(name))
+        urlurl.append(url)
+    
+    NEW_URL='http://www.bbc.co.uk%s/all?sort=dateavailable'%urlurl[xbmcgui.Dialog().select('Please Select Category', nameurl)]    
+    html=OPEN_URL(NEW_URL)
+    match1=re.compile('data-ip-id="(.+?)">.+?href="(.+?)" title="(.+?)".+?img src="(.+?)".+?<p class="synopsis">(.+?)</p>',re.DOTALL).findall (html)
+    for IPID ,URL , name , iconimage, plot in match1:
+        try:
+            getseries=html.split(URL)[1]
+            number=re.compile('<em>(.+?)</em>').findall(getseries)[0]
+
+            if not IPID in URL:
+                name='%s - [COLOR orange](%s Available)[/COLOR]' % (name,number.strip())
+        except:
+            name=name    
+        _URL_='http://www.bbc.co.uk%s' %URL
+        if not IPID in _URL_:
+            IPID=IPID
+        else:
+            IPID=''
+        
+        addDir(name,_URL_,5,iconimage.replace('336x189','832x468') ,plot,IPID)
+    xbmcplugin.addSortMethod(int(sys.argv[1]), xbmcplugin.SORT_METHOD_VIDEO_TITLE)    
+    try:
+        nextpage=re.compile('<span class="next txt"><a href="(.+?)">Next <span').findall (html)[0].replace('amp;','')
+        if not nextpage in NEW_URL:
+            _URL_='http://www.bbc.co.uk'+nextpage
+            addDir('[COLOR blue]>> Next Page >>[/COLOR]',_URL_,8,'' ,'','')
+    except:pass          
+         
+
+def POPULAR(url):
+    NEW_URL=url
+    html=OPEN_URL(NEW_URL)
+
+    match1=re.compile('data-ip-id="(.+?)">.+?href="(.+?)" title="(.+?)".+?img src="(.+?)".+?<p class="synopsis">(.+?)</p>',re.DOTALL).findall (html)
+    for IPID ,URL , name , iconimage, plot in match1:
+        try:
+            getseries=html.split(URL)[1]
+            number=re.compile('<em>(.+?)</em>').findall(getseries)[0]
+
+            if not IPID in URL:
+                name='%s - [COLOR orange](%s Available)[/COLOR]' % (name,number.strip())
+        except:
+            name=name    
+        _URL_='http://www.bbc.co.uk%s' %URL
+        if not IPID in _URL_:
+            IPID=IPID
+        else:
+            IPID=''
+        
+        addDir(name,_URL_,5,iconimage.replace('336x189','832x468') ,plot,IPID)
+
+
+def Search(url):
+        search_entered = ''
+        keyboard = xbmc.Keyboard(search_entered, 'Search iPlayer')
+        keyboard.doModal()
+        if keyboard.isConfirmed():
+            search_entered = keyboard.getText() .replace(' ','%20')  # sometimes you need to replace spaces with + or %20
+            if search_entered == None:
+                return False  
+        NEW_URL='http://www.bbc.co.uk/iplayer/search?q=%s'%search_entered
+        NextPageGenre(NEW_URL)
+
+
+def GetEpisodes(url):
+
+    url='http://www.bbc.co.uk/iplayer/episodes/%s' %url
     link=OPEN_URL(url)
 
     match=re.compile('data-ip-id=".+?">.+?<a href="(.+?)" title="(.+?)".+?data-ip-src="(.+?)">.+?class="synopsis">(.+?)</p>',re.DOTALL).findall (link)
@@ -83,8 +195,7 @@ def GetEpisodes(url):
     else:    
         for URL , name , iconimage, plot in match:
             _URL_='http://www.bbc.co.uk/%s' %URL
-            print name
-            print _URL_
+
             addDir(name,_URL_,5,iconimage.replace('336x189','832x468') ,plot)        
 
 
@@ -92,7 +203,7 @@ def GetEpisodes(url):
 def GetPlayable(name,url,iconimage):
 
     _NAME_=name
-    if 'plugin.video.ontapp-player' in iconimage:
+    if 'plugin.video.bbciplayer' in iconimage:
 
         vpid=url
 
@@ -105,7 +216,7 @@ def GetPlayable(name,url,iconimage):
 
     NEW_URL= "http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/pc/vpid/%s" % vpid
 
-    html = OPEN_URL(NEW_URL)
+    html = OPEN_URL(NEW_URL,True)
 
     match=re.compile('application="(.+?)".+?String="(.+?)".+?identifier="(.+?)".+?protocol="(.+?)".+?server="(.+?)".+?supplier="(.+?)"').findall(html.replace('amp;',''))
     for app,auth , playpath ,protocol ,server,supplier in match:
@@ -139,7 +250,7 @@ def GetLivePlayable(name,url,iconimage):
     _NAME_=name
 
     NEW_URL = 'http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/pc/vpid/%s' % url  
-    html = OPEN_URL(NEW_URL)
+    html = OPEN_URL(NEW_URL,True)
 
     match=re.compile('application="(.+?)".+?authString="(.+?)".+?identifier="(.+?)".+?protocol="(.+?)".+?server="(.+?)".+?supplier="(.+?)"').findall(html.replace('amp;',''))
 
@@ -170,8 +281,16 @@ def GetLivePlayable(name,url,iconimage):
 
         #self.AddLiveLink( list, id.replace('_',' ').upper(), url, language = language.title(),host= 'BBC iPLAYER '+supplier,quality=quality_dict.get(res, 'NA'))       
  
-def OPEN_URL(url):
-    req = urllib2.Request(url)
+def OPEN_URL(url,resolve=False):
+    if ADDON.getSetting('proxy')=='false':
+        req = urllib2.Request(url)
+    else:
+        if resolve==True:
+            import base64
+            print 'RESOLVING'
+            req = urllib2.Request('http://www.justproxy.co.uk/index.php?q='+base64.b64encode(url))
+        else:
+            req = urllib2.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
     response = urllib2.urlopen(req)
     link=response.read()
@@ -206,12 +325,15 @@ def get_params():
                                 
         return param
 
-def addDir(name,url,mode,iconimage,description):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&description="+urllib.quote_plus(description)
+def addDir(name,url,mode,iconimage,description,IPID=''):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&description="+urllib.quote_plus(description)+"&IPID="+urllib.quote_plus(IPID)
         ok=True
-        print name + '=' + u
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
         liz.setInfo( type="Video", infoLabels={ "Title": name, "Plot": description} )
+        menu=[]
+        if not IPID == '':
+            menu.append(('[COLOR orange]Grab All Episodes[/COLOR]','XBMC.Container.Update(%s?mode=4&url=%s)'% (sys.argv[0],IPID)))  
+            liz.addContextMenuItems(items=menu, replaceItems=False)
         if mode ==200:
             liz.setProperty("IsPlayable","true")
             ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
@@ -235,7 +357,7 @@ name=None
 mode=None
 iconimage=None
 description=None
-
+IPID=None
 
 try:
         url=urllib.unquote_plus(params["url"])
@@ -257,6 +379,10 @@ try:
         description=urllib.unquote_plus(params["description"])
 except:
         pass
+try:
+        IPID=urllib.unquote_plus(params["IPID"])
+except:
+        pass    
 
 print "Mode: "+str(mode)
 print "URL: "+str(url)
@@ -289,7 +415,21 @@ elif mode==5:
         GetPlayable(name,url,iconimage)
 
 elif mode==6:
-        GetLivePlayable(name,url,iconimage)         
+        GetLivePlayable(name,url,iconimage)
+
+elif mode==7:
+        Genre(url)
+
+
+elif mode==8:
+        NextPageGenre(url)  
+
+
+elif mode==9:
+        Search(url)
+
+elif mode==10:
+        POPULAR(url)         
         
 elif mode==200:
 

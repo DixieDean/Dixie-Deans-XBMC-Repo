@@ -1,5 +1,8 @@
 <settings>
 <category label="Settings">
+	<setting id="proxy" type="bool" label="Use Proxy" default="false"/>
+</category>
+<category label="Auto-View">
 	<setting id="sort" type="bool" label="Sort Alphabetically" default="false"/>
 	<setting id="auto-view" type="bool" label="Enable Automatic View" default="false"/>
 	<setting id="default" type="number" label="Default" default="50" enable="!eq(-1,false)"/>
