@@ -73,6 +73,7 @@ def showVideo():
 def checkVersion():
     prev = ADDON.getSetting('VERSION')
     curr = VERSION
+    print '******** VPNicity Launched ********', VERSION
 
     if prev == curr:
         return
@@ -83,7 +84,7 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Added Location Checker')
+    d.ok(TITLE + ' - ' + VERSION, 'Minor code change to help debug logs')
     triggerChangelog()
     
 

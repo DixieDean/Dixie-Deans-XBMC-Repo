@@ -21,7 +21,8 @@ import urllib,urllib2,sys,re,xbmcplugin,xbmcgui,xbmcaddon,xbmc,os
 
 
 #ee3fa
-ADDON = xbmcaddon.Addon(id='plugin.video.bbciplayer')
+ADDONID = 'plugin.video.ontapp-player'
+ADDON   =  xbmcaddon.Addon(ADDONID)
 
 
 
@@ -45,17 +46,18 @@ def char_range(c1, c2):
 def GetLive(url):
      
     channel_list = [
-                            ('bbc_one_london','bbc_one', 'BBC One'),
-                            ('bbc_two_england', 'bbc_two', 'BBC Two'),
-                            ('bbc_three','bbc_three', 'BBC Three'),
-                            ('bbc_four','bbc_four', 'BBC Four'),
-                            ('bbc_four','cbbc', 'CBBC'),
-                            ('bbc_three','cbeebies', 'CBeebies'),
-                            ('bbc_news24','bbc_news24', 'BBC News Channel'),
-                            ('bbc_parliament','bbc_parliament', 'BBC Parliament'),
+                            ('bbc1','bbc_one', 'BBC One'),
+                            ('bbc2', 'bbc_two', 'BBC Two'),
+                            ('bbc3','bbc_three', 'BBC Three'),
+                            ('bbc4','bbc_four', 'BBC Four'),
+                            ('cbbc','cbbc', 'CBBC'),
+                            ('cbeebies','cbeebies', 'CBeebies'),
+                            ('news_ch','bbc_news24', 'BBC News Channel'),
+                            ('parliament','bbc_parliament', 'BBC Parliament'),
+                            ('alba','bbc_alba', 'Alba'),
                         ]
     for id, img, name in channel_list :
-        iconimage = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.bbciplayer/img',img+'.png'))
+        iconimage = xbmc.translatePath(os.path.join('special://home/addons/plugin.video.ontapp-player/img',img+'.png'))
         addDir(name,id,6,iconimage,'')       
 
 def GetContent(url):
@@ -203,7 +205,7 @@ def GetEpisodes(url):
 def GetPlayable(name,url,iconimage):
 
     _NAME_=name
-    if 'plugin.video.bbciplayer' in iconimage:
+    if 'plugin.video.ontapp-player' in iconimage:
 
         vpid=url
 
@@ -249,33 +251,16 @@ def GetLivePlayable(name,url,iconimage):
 
     _NAME_=name
 
-    NEW_URL = 'http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/mediaset/pc/vpid/%s' % url  
+    NEW_URL = 'http://a.files.bbci.co.uk/media/live/manifests/hds/pc/llnw/%s.f4m' % url  
     html = OPEN_URL(NEW_URL,True)
 
-    match=re.compile('application="(.+?)".+?authString="(.+?)".+?identifier="(.+?)".+?protocol="(.+?)".+?server="(.+?)".+?supplier="(.+?)"').findall(html.replace('amp;',''))
-
-    for app,auth , playpath ,protocol ,server,supplier in match:
-
-        port = '1935'
-        if protocol == 'rtmpt': port = 80
-        if supplier == 'limelight':
-            url="%s://%s:%s/ app=%s?%s tcurl=%s://%s:%s/%s?%s playpath=%s live=1" % (protocol,server,port,app,auth,protocol,server,port,app,auth,playpath)
-
-            
-        else:
-           url="%s://%s:%s/%s?%s playpath=%s?%s live=1" % (protocol,server,port,app,auth,playpath,auth)
-           
-        
-        res=playpath.split('inlet_')[1]
-        if '@' in res:
-            res=res.split('@')[0]
-            
-        if int(res) > 1400 :
-            TITLE=_NAME_+'- [COLOR white]%s[/COLOR]- [COLOR green][%s kbps][/COLOR]'%(supplier.upper(),res)
-        else:
-            TITLE=_NAME_+'- [COLOR white]%s[/COLOR] - [COLOR red][%s kbps][/COLOR]'%(supplier.upper(),res)
-            
-        addDir(TITLE,url,200,iconimage,'') 
+    match=re.compile('href="(.+?)"').findall(html.replace('amp;',''))
+    item=len(match)-1
+    liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png', thumbnailImage=iconimage)
+    liz.setInfo(type='Video', infoLabels={'Title':name})
+    liz.setProperty("IsPlayable","true")
+    liz.setPath(match[item].replace('f4m','m3u8'))
+    xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
 
             
 
@@ -295,12 +280,13 @@ def OPEN_URL(url,resolve=False):
     response = urllib2.urlopen(req)
     link=response.read()
     response.close()
+    dp = xbmcgui.DialogProgress()
+    dp.create('On-Tapp.TV Player', 'Opening ' + name.upper())
     return link
     
     
     
 def PLAY_STREAM(name,url,iconimage):
-
     liz = xbmcgui.ListItem(name, iconImage='DefaultVideo.png', thumbnailImage=iconimage)
     liz.setInfo(type='Video', infoLabels={'Title':name})
     liz.setProperty("IsPlayable","true")
@@ -334,7 +320,7 @@ def addDir(name,url,mode,iconimage,description,IPID=''):
         if not IPID == '':
             menu.append(('[COLOR orange]Grab All Episodes[/COLOR]','XBMC.Container.Update(%s?mode=4&url=%s)'% (sys.argv[0],IPID)))  
             liz.addContextMenuItems(items=menu, replaceItems=False)
-        if mode ==200:
+        if mode ==200 or mode ==6:
             liz.setProperty("IsPlayable","true")
             ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         else:
