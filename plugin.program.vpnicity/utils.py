@@ -35,7 +35,7 @@ HOME      =  ADDON.getAddonInfo('path')
 PROFILE   =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 RESOURCES =  os.path.join(HOME, 'resources')
 TITLE     = 'VPNicity'
-VERSION   = '1.1.2'
+VERSION   = '1.1.4'
 KEYMAP    = 'vpnicity_menu.xml'
 
 
@@ -84,7 +84,7 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Minor code change to help debug logs')
+    d.ok(TITLE + ' - ' + VERSION, 'Now Kodi(Helix Beta) compatible.')
     triggerChangelog()
     
 
@@ -143,6 +143,9 @@ def verifyPluginsFile():
 
 def getSudo():
     if ADDON.getSetting('OS') == 'Windows':
+        return ''
+
+    if ADDON.getSetting('OS') == 'OpenELEC':
         return ''
 
     sudo = ADDON.getSetting('SUDO') == 'true'    

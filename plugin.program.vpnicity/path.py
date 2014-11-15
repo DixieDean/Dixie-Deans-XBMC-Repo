@@ -108,6 +108,18 @@ def getRaspBMC(silent):
 #-------------------------------------------------------------
 
 
+def getRaspian(silent):
+    path = '/usr/sbin/openvpn'
+    if check(path):
+        return path
+
+    return error(silent)
+
+
+#-------------------------------------------------------------
+
+
+
 def getPath(os, silent=False):
     if os == 'Windows':
         return getWindows(silent)
@@ -129,6 +141,9 @@ def getPath(os, silent=False):
 
     if os == 'RaspBMC':
         return getRaspBMC(silent)
+
+    if os == 'Raspian':
+        return getRaspian(silent)
 
     return error(silent)
 
