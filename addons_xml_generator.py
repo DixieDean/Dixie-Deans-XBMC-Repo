@@ -184,10 +184,10 @@ if ( __name__ == "__main__" ):
                     except Exception as e:
                         print('Cannot create zip file\nshutil %s\n' %e)
                 
-        changelog = os.path.join(zipsfolder + x + version, 'changelog.txt')
-        print changelog
-        for changelog in zipsfolder:
-            os.rename(changelog, 'changelog-' + version + '.txt')
+        # changelog = os.path.join(zipsfolder + x + version, 'changelog.txt')
+        # print changelog
+        # for changelog in zipsfolder:
+        #     os.rename(changelog, 'changelog-' + version + '.txt')
 
     except Exception as e:
         print('Cannot create or move the needed files\n%s' %e)
