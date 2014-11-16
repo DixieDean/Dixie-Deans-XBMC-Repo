@@ -31,7 +31,7 @@ DIXIEURL    =  ADDON.getSetting('dixie.url').upper()
 DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
 SKIN        =  ADDON.getSetting('dixie.skin')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.3.7'
+VERSION     = '2.3.8'
 SKINVERSION = '11'
 INIVERSION  = '1'
 

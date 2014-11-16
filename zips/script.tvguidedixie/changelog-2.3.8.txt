@@ -1,3 +1,6 @@
+v2.3.8 (11-16-14)
+- Fixed script error in addon.py.
+
 v2.3.7 (11-16-14)
 - Descriptions for MyChannels, 24/7, Radio and Android channels can now be customised.
 - Updated code to be Kodi (Helix Beta) compatible.

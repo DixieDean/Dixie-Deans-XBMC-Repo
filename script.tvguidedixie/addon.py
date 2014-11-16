@@ -40,33 +40,28 @@ socket.setdefaulttimeout(10) # 10 seconds
 import settings
 settings.validate()
 
-VERSION     = '2.3.6'
+ADDON       = dixie.ADDON
+HOME        = dixie.HOME
+TITLE       = dixie.TITLE
+VERSION     = dixie.VERSION
+DIXIEURL    = dixie.DIXIEURL
+DIXIELOGOS  = dixie.DIXIELOGOS
+SKIN        = dixie.SKIN
+SKINVERSION = dixie.SKINVERSION
+INIVERSION  = dixie.INIVERSION
 
-ADDON       = xbmcaddon.Addon(dixie.ID)
-HOME        = ADDON.getAddonInfo('path')
-TITLE       = 'OnTapp.TV'
-MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
-DIXIEURL    = dixie.GetSetting('dixie.url').upper()
-DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
-SKIN        = ADDON.getSetting('dixie.skin')
-SKINVERSION = '10'
-INIVERSION  = '1'
-
-addon       = xbmcaddon.Addon()
-addonid     = addon.getAddonInfo('id')
-versioninfo = addon.getAddonInfo('version')
-datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-extras      = os.path.join(datapath, 'extras')
-logos       = os.path.join(extras, 'logos')
-logofolder  = os.path.join(logos, 'None')
-skinfolder  = os.path.join(extras, 'skins')
-skin        = ADDON.getSetting('dixie.skin')
-dest        = os.path.join(skinfolder, 'skins-25-09-2014.zip')
-addonpath   = os.path.join(ADDON.getAddonInfo('path'), 'resources')
-default_ini = os.path.join(addonpath, 'addons.ini')
-local_ini   = os.path.join(addonpath, 'local.ini')
-current_ini = os.path.join(datapath, 'addons.ini')
-database    = os.path.join(datapath, 'program.db')
+skin        = dixie.SKIN
+addonpath   = dixie.RESOURCES
+datapath    = dixie.PROFILE
+extras      = os.path.join(datapath,   'extras')
+logos       = os.path.join(extras,     'logos')
+logofolder  = os.path.join(logos,      'None')
+skinfolder  = os.path.join(extras,     'skins')
+dest        = os.path.join(skinfolder, 'skins-16-11-2014.zip')
+default_ini = os.path.join(addonpath,  'addons.ini')
+local_ini   = os.path.join(addonpath,  'local.ini')
+current_ini = os.path.join(datapath,   'addons.ini')
+database    = os.path.join(datapath,   'program.db')
 
 
 dixie.SetSetting('gmtfrom', 'GMT')
@@ -75,7 +70,7 @@ dixie.SetSetting('DIXIEURL', 'All Channels')
 
 
 
-print '****** ONTAPP.TV %s LAUNCHED ******' % str(versioninfo)
+
 
 try:
     os.makedirs(logofolder)
@@ -89,16 +84,16 @@ except:
 def CheckVersion():
     prev = ADDON.getSetting('VERSION')
     curr = VERSION
+    print '****** ONTAPP.TV %s LAUNCHED ******' % str(VERSION)
 
     if prev == curr:
         return
 
-    if curr == '2.3.6':
-        d = xbmcgui.Dialog()
-        d.ok(TITLE + ' - ' + VERSION, 'Built-in iPlayer button fixed.', 'Access is via the EPG context menu.', 'For info and support - www.on-tapp.tv')
-        showChangelog()
-
     dixie.SetSetting('VERSION', curr)
+
+    d = xbmcgui.Dialog()
+    d.ok(TITLE + ' - ' + VERSION, 'Built-in channel descriptions now editable via On-Tapp Tools.', 'Updated code to be Kodi (Helix Beta) compatible.', 'For info and support - www.on-tapp.tv')
+    showChangelog()
 
 
 def showChangelog(addonID=None):
