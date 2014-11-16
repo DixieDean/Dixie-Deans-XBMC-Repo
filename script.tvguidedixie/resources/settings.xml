@@ -9,13 +9,13 @@
  		<setting id="gmtfrom" label="30124" type="labelenum"  default="GMT"
 					values="GMT-12|GMT-11|GMT-10|GMT-9|GMT-8|GMT-7|GMT-6|GMT-5|GMT-4|GMT-3|GMT-2|GMT-1|GMT|GMT+1|GMT+2|GMT+3|GMT+4|GMT+5|GMT+6|GMT+7|GMT+8|GMT+9|GMT+10|GMT+11|GMT+12"
 					visible="false" />
-		<setting label="Download Default Logo Pack" type="action" action="RunScript($CWD/logoDownloader.py)" visible="true" />
+		<setting id="dummy" label="Download Default Logo Pack" type="action" action="RunScript($CWD/logoDownloader.py)" visible="true" />
 		<setting id="dixie.logo.folder" label="Choose Logo Pack" type="select"  source="../../userdata/addon_data/script.tvguidedixie/extras/logos/" mask="/" default="None" visible="true" />
 		<setting id="PREVLOGO" label="Previous Logo" type="text" default="None" visible="false" />
 		
 		<setting label="" type="lsep" visible="true" />
-        <setting label="Update built-in Add-on links" type="action" action="RunScript($CWD/getIni.py)" />
-	    <setting                       label="Update EPG data now" type="action" option="close" action="RunScript($CWD/update.py,0)" visible="true" />
+        <setting id="dummy"            label="Update built-in Add-on links" type="action" action="RunScript($CWD/getIni.py)" />
+	    <setting id="dummy"            label="Update EPG data now (Gotham Only)" type="action" option="close" action="RunScript($CWD/update.py,0)" visible="true" />
  	    <setting id="epg.date"         label="Update EPG Date"      type="text"   default="01-01-01" visible="false" />
 	    <setting id="current.channels" label="Current Channels"     type="number" default="0"        visible="false" />
 	    <setting id="updated.channels" label="Updated Channels"     type="number" default="0"        visible="false" />
@@ -36,31 +36,30 @@
         <setting id="playlist.file" label="Choose IPTV Playlist File" type="file" default="" visible="false" />
 		<setting label="" type="lsep" visible="true" />
         <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
-        <setting id="mashmode" type="text" label="MASHMODE" default="false" visible="false"/>
         <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" visible="false"/>
         <setting id="alternative.playback" label="30120" type="bool" default="false" visible="false"/>
         <setting id="enable.touch" label="30123" type="bool" default="false" />
         <setting id="notifications.enabled" label="30106" type="bool" default="false" visible="false"/>
-        <setting label="30108" type="action" action="RunScript($CWD/notification.py)" visible="false"/>
+        <setting id="dummy" label="30108" type="action" action="RunScript($CWD/notification.py)" visible="false"/>
     </category>
 
     <category label="30122">
         <setting id="backup.location" label="30128" type="folder" default=""/>
 		<setting label="" type="lsep" visible="true" />
-        <setting label="30129" type="action" action="RunScript($CWD/backup.py)" visible="true"/>
-        <setting label="30130" type="action" action="RunScript($CWD/restore.py)" visible="true"/>
+        <setting id="dummy" label="30129" type="action" action="RunScript($CWD/backup.py)" visible="true"/>
+        <setting id="dummy" label="30130" type="action" action="RunScript($CWD/restore.py)" visible="true"/>
     </category>
 
     <category label="30125">
- 		<setting label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)"/>
+ 		<setting id="dummy" label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)"/>
  		<setting type="lsep" label="Set your email address to receive emails containing xbmclogs.com links"/>
  		<setting id="email" type="text" label="Email address"/>
 		<setting label="" type="lsep" visible="true" />
-        <setting label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
-        <setting label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
-        <setting label="30127" type="action" action="RunScript($CWD/resetChannels.py)" />
-        <setting label="30132" type="action" action="RunScript($CWD/resetAddon.py)" />
+        <setting id="dummy" label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
+        <setting id="dummy" label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
+        <setting id="dummy" label="30127" type="action" action="RunScript($CWD/resetChannels.py)" />
+        <setting id="dummy" label="30132" type="action" action="RunScript($CWD/resetAddon.py)" />
     </category>
 
 

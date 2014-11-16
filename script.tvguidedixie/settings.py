@@ -25,7 +25,7 @@ import os
 import dixie
 
 
-ADDON = xbmcaddon.Addon(dixie.ID)
+ADDON = dixie.ADDONID
 
 ORIGINAL = 'settings.xml'
 BACKUP   = 'settings.bak'
@@ -56,7 +56,7 @@ def checkSettings():
 
 
 def backupSettings():
-    path = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    path = dixie.PROFILE
     src  = os.path.join(path, ORIGINAL)
     dst  = os.path.join(path, BACKUP)
 
@@ -70,7 +70,7 @@ def backupSettings():
 
 
 def restoreSettings():
-    path = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    path = dixie.PROFILE
     dst  = os.path.join(path, ORIGINAL)
     src  = os.path.join(path, BACKUP)
 

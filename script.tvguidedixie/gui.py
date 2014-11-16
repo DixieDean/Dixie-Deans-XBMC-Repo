@@ -38,35 +38,25 @@ import urllib
 import dixie
 import deleteDB
 
-xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
+#xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
+
+OTT_CHANNEL = ['Your Channel. Your content.', 'Your Channel. Your Choice.','All day, Every day...', 'Online Radio', 'Android only channel.']
 
 
-ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
-HOME        = ADDON.getAddonInfo('path')
-TITLE       = 'OnTapp.TV'
-VERSION     = '2.3.6'
-MASHMODE    = (ADDON.getSetting('mashmode') == 'true')
-SKIN        = ADDON.getSetting('dixie.skin')
-GMTOFFSET   = dixie.GetGMTOffset()
-TRAILERS    = ADDON.getSetting('trailers.addon')
-USTV        = ADDON.getSetting('ustv.addon')
+ADDON      = dixie.ADDON
+HOME       = dixie.HOME
+SKIN       = dixie.SKIN
+GMTOFFSET  = dixie.GetGMTOffset()
+TRAILERS   = ADDON.getSetting('trailers.addon')
+USTV       = ADDON.getSetting('ustv.addon')
 
-datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-extras      = os.path.join(datapath, 'extras')
-skinfolder  = os.path.join(datapath, extras, 'skins')
-mashpath    = os.path.join(skinfolder, 'Mash Up')
-skinpath    = os.path.join(skinfolder, SKIN)
-mashfile    = os.path.join(xbmc.translatePath('special://profile/addon_data/plugin.video.movie25/Dixie/mashup.ini'))
+datapath   = dixie.PROFILE
+extras     = os.path.join(datapath, 'extras')
+skinfolder = os.path.join(datapath, extras, 'skins')
+skinpath   = os.path.join(skinfolder, SKIN)
+sparefile  = os.path.join(datapath, 'spare')
 
-
-if MASHMODE:
-    PATH  = mashpath
-else:
-    PATH  = skinpath
-
-
-dixie.SetSetting('mashmode', 'false')
-
+PATH       = skinpath
 
 if TRAILERS == 'HD-Trailers.net':
     trailers = 'XBMC.RunAddon(plugin.video.hdtrailers_net)'
@@ -692,12 +682,20 @@ class TVGuide(xbmcgui.WindowXML):
         if program is None:
             return
 
-        self.setControlLabel(self.C_MAIN_TITLE, '[B]%s[/B]' % program.title)
+        title = program.title
+        if title in OTT_CHANNEL:
+            desc = program.channel.desc
+            if desc:
+                title = desc
+
+        self.setControlLabel(self.C_MAIN_TITLE, '[B]%s[/B]' % title)
         self.setControlLabel(self.C_MAIN_TIME, '[B]%s - %s[/B]' % (self.formatTime(program.startDate+GMTOFFSET), self.formatTime(program.endDate+GMTOFFSET)))
+
         if program.description:
             description = program.description
         else:
             description = ''
+
         self.setControlText(self.C_MAIN_DESCRIPTION, description)
 
         if program.channel.logo is not None:
@@ -920,6 +918,11 @@ class TVGuide(xbmcgui.WindowXML):
                     title = '' # Text will overflow outside the button if it is too narrow
                 else:
                     title = program.title
+
+                if title in OTT_CHANNEL:
+                    desc = program.channel.desc
+                    if desc:
+                        title = desc
 
                 control = xbmcgui.ControlButton(
                     cellStart,
@@ -1495,7 +1498,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_FAVOURITES_TAB = 102
     C_STREAM_ADDONS_TAB = 103
     C_STREAM_SUPERFAVE_TAB = 104
-    C_STREAM_MASHUP_TAB = 105
+    C_STREAM_SPARE_TAB = 105
     C_STREAM_STRM_BROWSE = 1001
     C_STREAM_STRM_FILE_LABEL = 1005
     C_STREAM_STRM_PREVIEW = 1002
@@ -1513,13 +1516,13 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_ADDONS_OK = 3006
     C_STREAM_ADDONS_CANCEL = 3007
 
-    C_STREAM_MASHUP = 4001
-    C_STREAM_MASHUP_STREAMS = 4002
-    C_STREAM_MASHUP_NAME = 4003
-    C_STREAM_MASHUP_DESCRIPTION = 4004
-    C_STREAM_MASHUP_PREVIEW = 4005
-    C_STREAM_MASHUP_OK = 4006
-    C_STREAM_MASHUP_CANCEL = 4007
+    C_STREAM_SPARE = 4001
+    C_STREAM_SPARE_STREAMS = 4002
+    C_STREAM_SPARE_NAME = 4003
+    C_STREAM_SPARE_DESCRIPTION = 4004
+    C_STREAM_SPARE_PREVIEW = 4005
+    C_STREAM_SPARE_OK = 4006
+    C_STREAM_SPARE_CANCEL = 4007
 
     C_STREAM_SUPERFAVE_BROWSE = 5001
     C_STREAM_SUPERFAVE_PREVIEW = 5002
@@ -1533,7 +1536,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     VISIBLE_STRM = 'strm'
     VISIBLE_FAVOURITES = 'favourites'
     VISIBLE_ADDONS = 'addons'
-    VISIBLE_MASHUP = 'mashup'
+    VISIBLE_SPARE = 'spareup'
     VISIBLE_SUPERFAVE = 'superfave'
 
     def __new__(cls, database, channel):
@@ -1566,8 +1569,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onInit'})
     def onInit(self):
         self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
-        if not os.path.exists(mashfile):
-            self.getControl(self.C_STREAM_MASHUP_TAB).setVisible(False)
+        if not os.path.exists(sparefile):
+            self.getControl(self.C_STREAM_SPARE_TAB).setVisible(False)
 
         favourites = self.streamingService.loadFavourites()
         items = list()
@@ -1592,17 +1595,17 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.addItems(items)
         self.updateAddonInfo()
 
-        items  = list()
-        for provider in self.streamingService.getMashup():
-            try:
-                item = xbmcgui.ListItem(provider, iconImage=self.streamingService.getMashupIcon(provider))
-                item.setProperty('provider', provider)
-                items.append(item)
-            except:
-                pass
-        listControl = self.getControl(StreamSetupDialog.C_STREAM_MASHUP)
-        listControl.addItems(items)
-        self.updateMashupInfo()
+        # items  = list()
+        # for provider in self.streamingService.getSpare():
+        #     try:
+        #         item = xbmcgui.ListItem(provider, iconImage=self.streamingService.getSpareupIcon(provider))
+        #         item.setProperty('provider', provider)
+        #         items.append(item)
+        #     except:
+        #         pass
+        # listControl = self.getControl(StreamSetupDialog.C_STREAM_SPARE)
+        # listControl.addItems(items)
+        # self.updateSpareInfo()
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onAction'})
     def onAction(self, action):
@@ -1613,8 +1616,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         elif self.getFocusId() == self.C_STREAM_ADDONS:
             self.updateAddonInfo()
 
-        elif self.getFocusId() == self.C_STREAM_MASHUP:
-            self.updateMashupInfo()
+        elif self.getFocusId() == self.C_STREAM_SPARE:
+            self.updateSpareInfo()
 
 
 
@@ -1659,8 +1662,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 self.getControl(self.C_STREAM_SUPERFAVE_LABEL).setText(label)
                 self.strmFile = path
 
-        elif controlId == self.C_STREAM_MASHUP_OK:
-            listControl = self.getControl(self.C_STREAM_MASHUP_STREAMS)
+        elif controlId == self.C_STREAM_SPARE_OK:
+            listControl = self.getControl(self.C_STREAM_SPARE_STREAMS)
             item = listControl.getSelectedItem()
             if item:
                 stream = item.getProperty('stream')
@@ -1675,17 +1678,17 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.database.setCustomStreamUrl(self.channel, self.strmFile)
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_SUPERFAVE_CANCEL, self.C_STREAM_MASHUP_CANCEL]:
+        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_SUPERFAVE_CANCEL, self.C_STREAM_SPARE_CANCEL]:
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_SUPERFAVE_PREVIEW, self.C_STREAM_MASHUP_PREVIEW]:
+        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_SUPERFAVE_PREVIEW, self.C_STREAM_SPARE_PREVIEW]:
             if self.player.isPlaying():
                 self.player.stop()
                 self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_SUPERFAVE_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(PREVIEW_STREAM))
-                self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(PREVIEW_STREAM))
+                self.getControl(self.C_STREAM_SPARE_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 return
 
             stream = None
@@ -1703,8 +1706,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     stream = item.getProperty('stream')
             elif visible == self.VISIBLE_SUPERFAVE:
                 stream = self.strmFile
-            elif visible == self.VISIBLE_MASHUP:
-                listControl = self.getControl(self.C_STREAM_MASHUP_STREAMS)
+            elif visible == self.VISIBLE_SPARE:
+                listControl = self.getControl(self.C_STREAM_SPARE_STREAMS)
                 item = listControl.getSelectedItem()
                 if item:
                     stream = item.getProperty('stream')
@@ -1719,7 +1722,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     retries -= 1
                     xbmc.sleep(1000)
                 if self.player.isPlaying():
-                    self.getControl(self.C_STREAM_MASHUP_PREVIEW).setLabel(strings(STOP_PREVIEW))
+                    self.getControl(self.C_STREAM_SPARE_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_SUPERFAVE_PREVIEW).setLabel(strings(STOP_PREVIEW))
@@ -1735,8 +1738,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_ADDONS)
         elif controlId == self.C_STREAM_SUPERFAVE_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_SUPERFAVE)
-        elif controlId == self.C_STREAM_MASHUP_TAB:
-            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_MASHUP)
+        elif controlId == self.C_STREAM_SPARE_TAB:
+            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_SPARE)
 
     def updateAddonInfo(self):
         listControl = self.getControl(self.C_STREAM_ADDONS)
@@ -1762,9 +1765,9 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.reset()
         listControl.addItems(items)
 
-    def updateMashupInfo(self):
+    def updateSpareupInfo(self):
         pass
-        listControl = self.getControl(self.C_STREAM_MASHUP)
+        listControl = self.getControl(self.C_STREAM_SPARE)
         item = listControl.getSelectedItem()
         if item is None:
             return
@@ -1774,17 +1777,17 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             return
 
         self.previousProvider = provider
-        self.getControl(self.C_STREAM_MASHUP_NAME).setLabel('[B]%s[/B]' % provider)
-        self.getControl(self.C_STREAM_MASHUP_DESCRIPTION).setText('')
+        self.getControl(self.C_STREAM_SPARE_NAME).setLabel('[B]%s[/B]' % provider)
+        self.getControl(self.C_STREAM_SPARE_DESCRIPTION).setText('')
 
-        streams = self.streamingService.getMashupStreams(provider)
+        streams = self.streamingService.getSpareupStreams(provider)
         items = list()
         for (label, stream) in streams:
             if label.upper() != 'ICON':
                 item = xbmcgui.ListItem(label)
                 item.setProperty('stream', stream)
                 items.append(item)
-        listControl = self.getControl(StreamSetupDialog.C_STREAM_MASHUP_STREAMS)
+        listControl = self.getControl(StreamSetupDialog.C_STREAM_SPARE_STREAMS)
         listControl.reset()
         listControl.addItems(items)
 

@@ -43,5 +43,5 @@ def getIni():
 if __name__ == '__main__':
     getIni()
     d = xbmcgui.Dialog()
-    # d.ok('TV Guide Dixie', 'Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
+    d.ok('TV Guide Dixie', 'Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
 

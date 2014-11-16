@@ -1,3 +1,8 @@
+v2.3.7 (11-16-14)
+- Descriptions for MyChannels, 24/7, Radio and Android channels can now be customised.
+- Updated code to be Kodi (Helix Beta) compatible.
+- General tidying up of code.
+
 v2.3.6 (11-02-14)
 - Fixed built-in iPlayer button.
 

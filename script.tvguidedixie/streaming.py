@@ -52,24 +52,10 @@ class StreamsService(object):
                 pass
             
 
-        self.loadMashup()
+        self.loadSpare()
 
-    def loadMashup(self):
-        Dixie = os.path.join(xbmc.translatePath('special://profile/addon_data/plugin.video.movie25/Dixie'))
-        mashfile = os.path.join(Dixie,'mashup.ini')
-        if os.path.exists(mashfile):
-            os.remove(mashfile)
-        for path, subdirs, files in os.walk(Dixie):
-            for filename in files:
-                with open(Dixie+'/'+filename) as infile:
-                    for line in infile:
-                        open(mashfile,'a').write(line)
-        self.mashupParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
-        self.mashupParser.optionxform = lambda option: option
-        try:
-            self.mashupParser.read(mashfile)
-        except:
-            pass
+    def loadSpare(self):
+        return
 
     def loadFavourites(self):
         entries = list()
@@ -130,18 +116,14 @@ class StreamsService(object):
         return entries
 
 
-    def getMashup(self):
-        return self.mashupParser.sections()
+    def getSpare(self):
+        return self.addonsParser.sections()
 
-    def getMashupStreams(self, provider):
-        return self.mashupParser.items(provider)
+    def getSpareStreams(self, provider):
+        return self.addonsParser.items(id)
 
-    def getMashupIcon(self, provider):
-        streams = self.getMashupStreams(provider)
-        for (label, stream) in streams:
-            if label.upper() == 'ICON':
-                return stream
-        return ''
+    def getSpareIcon(self, provider):
+        return
         
     def getAddons(self):
         return self.addonsParser.sections()
@@ -168,15 +150,8 @@ class StreamsService(object):
             if label == channel.title:
                 return stream
 
-        # Third check all mashup and return all matches
+        # Third check all addons and return all matches
         matches = list()
-        for provider in self.getMashup():
-            streams = self.getMashupStreams(provider)
-            for (label, stream) in streams:
-                if label == channel.title:
-                    matches.append((self.getMashupIcon(provider), label, stream))
-
-        # Fourth check all addons and return all matches
         for id in self.getAddons():
             try:
                 xbmcaddon.Addon(id)
@@ -186,6 +161,15 @@ class StreamsService(object):
             for (label, stream) in self.getAddonStreams(id):
                 if label == channel.title:
                     matches.append((id, label, stream))
+
+        # # Fourth check all spare and return all matches
+        # 
+        # for provider in self.getSpare():
+        #     streams = self.getSpareStreams(provider)
+        #     for (label, stream) in streams:
+        #         if label == channel.title:
+        #             matches.append((self.getSpareIcon(provider), label, stream))
+
         
         if len(matches) == 1:
             return matches[0][2]

@@ -18,9 +18,22 @@
 #
 
 import xbmcaddon
+import xbmc
+import os
 import datetime
 
-ID = 'script.tvguidedixie'
+ADDONID     = 'script.tvguidedixie'
+ADDON       =  xbmcaddon.Addon(ADDONID)
+HOME        =  ADDON.getAddonInfo('path')
+PROFILE     =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
+RESOURCES   =  os.path.join(HOME, 'resources')
+DIXIEURL    =  ADDON.getSetting('dixie.url').upper()
+DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
+SKIN        =  ADDON.getSetting('dixie.skin')
+TITLE       = 'OnTapp.TV'
+VERSION     = '2.3.7'
+SKINVERSION = '11'
+INIVERSION  = '1'
 
 
 ooOOOoo = ''
@@ -72,7 +85,7 @@ def GetLoginUrl():
 
 
 def GetGMTOffset():
-    gmt = xbmcaddon.Addon(id = ID).getSetting('gmtfrom').replace('GMT', '')
+    gmt = ADDON.getSetting('gmtfrom').replace('GMT', '')
 
     if gmt == '':
         offset = 0
@@ -84,11 +97,11 @@ def GetGMTOffset():
 
 
 def SetSetting(param, value):
-    xbmcaddon.Addon(id = ID).setSetting(param, str(value))
+    ADDON.setSetting(param, str(value))
 
 
 def GetSetting(param):
-    return xbmcaddon.Addon(id = ID).getSetting(param)
+    return ADDON.getSetting(param)
 
 
 def GetCats():
@@ -96,10 +109,10 @@ def GetCats():
     import os
     import urllib
 
-    ADDON    = xbmcaddon.Addon(ID)
-    DATAPATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    # ADDON    = xbmcaddon.Addon(ID)
+    # DATAPATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 
-    path = os.path.join(DATAPATH, 'cats.xml')
+    path = os.path.join(PROFILE, 'cats.xml')
     url  = GetExtraUrl() + 'resources/cats.xml'
 
     try:
@@ -113,11 +126,11 @@ def GetChannels():
     import os
     import requests
 
-    ADDON    = xbmcaddon.Addon(ID)
-    DATAPATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-    DIXIEURL = GetSetting('dixie.url').upper()
+    # ADDON    = xbmcaddon.Addon(ID)
+    # DATAPATH = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    # DIXIEURL = GetSetting('dixie.url').upper()
 
-    path = os.path.join(DATAPATH , 'chan.xml')
+    path = os.path.join(PROFILE , 'chan.xml')
     url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
 
     username = ADDON.getSetting('username')

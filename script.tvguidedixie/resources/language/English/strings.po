@@ -389,7 +389,7 @@ msgid "Super Favourites"
 msgstr ""
 
 msgctxt "#30609"
-msgid "Mash Up"
+msgid "Spare"
 msgstr ""
 
 
@@ -408,7 +408,7 @@ msgid "Choose a favourite below."
 msgstr ""
 
 msgctxt "#30621"
-msgid "Choose a Mash Up channel below."
+msgid "Choose a channel below."
 msgstr ""
 
 

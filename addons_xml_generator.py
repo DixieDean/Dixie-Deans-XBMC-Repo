@@ -164,11 +164,11 @@ if ( __name__ == "__main__" ):
                         print('%s %s version: %s' %(x,elem.tag,elem.attrib['version']))
                         version = '-'+elem.attrib['version']                  
                 ##check if and move addon, changelog, fanart and icon to zipdir                       
-                for y in filesinfoldertozip: 
+                for y in filesinfoldertozip:
                     #print('processing file: ' + os.path.join(rootdir,x,y))
                     if re.search("addon.xml|changelog|icon|fanart", y):
                         shutil.copyfile(os.path.join(rootdir,x,y), os.path.join(zipsfolder,y))
-                        print('Copying %s to %s'  %(y, zipsfolder))                
+                        print('Copying %s to %s'  %(y, zipsfolder))           
                 ##check for and zip the folders
                 print('Zipping %s and moving to %s\n' %(x,zipsfolder))
                 try:
@@ -183,6 +183,12 @@ if ( __name__ == "__main__" ):
                         print('zipped with shutil\n')
                     except Exception as e:
                         print('Cannot create zip file\nshutil %s\n' %e)
+                
+        changelog = os.path.join(zipsfolder + x + version, 'changelog.txt')
+        print changelog
+        for changelog in zipsfolder:
+            os.rename(changelog, 'changelog-' + version + '.txt')
+
     except Exception as e:
         print('Cannot create or move the needed files\n%s' %e)
     print('Done')
