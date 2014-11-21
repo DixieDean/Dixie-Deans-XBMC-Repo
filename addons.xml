@@ -53,12 +53,12 @@
 <addon id="repository.Dixie-Deans-XBMC-Repo"
 	name="Dixie-Deans-XBMC-Repo"
 	version="1.1.0"
+		<info compressed="false">https://raw.github.com
 	provider-name="DixieDean">
 	<extension point="xbmc.addon.repository"
-		name="Dixie-Deans-XBMC-Repo-1.1.0">
-		<info compressed="false">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml</info>
-		<checksum>https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/zips</datadir>
+		name="Dixie-Deans-XBMC-Repo-1.1.0">/pipcan2/Dixie-Deans-XBMC-Repo/master/addons.xml</info>
+		<checksum>https://raw.github.com/pipcan2/Dixie-Deans-XBMC-Repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/pipcan2/Dixie-Deans-XBMC-Repo/master/zips</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Install My Addons</summary>
