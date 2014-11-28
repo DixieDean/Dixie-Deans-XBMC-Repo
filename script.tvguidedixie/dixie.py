@@ -21,6 +21,7 @@ import xbmcaddon
 import xbmc
 import os
 import datetime
+import xbmcgui
 
 ADDONID     = 'script.tvguidedixie'
 ADDON       =  xbmcaddon.Addon(ADDONID)
@@ -31,7 +32,7 @@ DIXIEURL    =  ADDON.getSetting('dixie.url').upper()
 DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
 SKIN        =  ADDON.getSetting('dixie.skin')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.3.8'
+VERSION     = '2.3.9'
 SKINVERSION = '11'
 INIVERSION  = '1'
 
@@ -64,17 +65,6 @@ def GetDixieUrl(DIXIEURL):
     if DIXIEURL == 'ALL CHANNELS':
         return baseurl + 'all/'
 
-    if DIXIEURL == 'DIXIE':
-        return baseurl + 'dixie/'
-
-    if DIXIEURL == 'BASIC CHANNELS':
-        return basicurl + 'basic/'
-
-    if DIXIEURL == 'INTERNATIONAL':
-        return baseurl + 'inter/'
-
-    if DIXIEURL == 'NORTH AMERICA':
-        return baseurl + 'na/'
 
 def GetExtraUrl():
     return resource
@@ -143,3 +133,16 @@ def GetChannels():
             f.write(chunk)
 
     return path
+
+
+def DialogOK(line1, line2='', line3=''):
+    d = xbmcgui.Dialog()
+    d.ok(TITLE + ' - ' + VERSION, line1, line2 , line3)
+
+
+def DialogYesNo(line1, line2='', line3='', noLabel=None, yesLabel=None):
+    d = xbmcgui.Dialog()
+    if noLabel == None or yesLabel == None:
+        return d.yesno(TITLE + ' - ' + VERSION, line1, line2 , line3) == True
+    else:
+        return d.yesno(TITLE + ' - ' + VERSION, line1, line2 , line3, noLabel, yesLabel) == True

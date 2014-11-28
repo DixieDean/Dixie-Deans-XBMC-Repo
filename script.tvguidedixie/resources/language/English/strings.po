@@ -325,7 +325,7 @@ msgid "VPN"
 msgstr ""
 
 msgctxt "#30319"
-msgid "USTV-VoD"
+msgid "My Recordings"
 msgstr ""
 
 msgctxt "#30320"

@@ -34,6 +34,9 @@ import dixie
 import session
 import getIni
 
+import filmon
+# filmon.initialise()
+
 
 socket.setdefaulttimeout(10) # 10 seconds
 
@@ -92,7 +95,8 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Built-in channel descriptions now editable via On-Tapp Tools.', 'Updated code to be Kodi (Helix Beta) compatible.', 'For info and support - www.on-tapp.tv')
+    d.ok(TITLE + ' - ' + VERSION, 'New Set Recordings feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', 'Help video to follow.')
+    d.ok(TITLE + ' - ' + VERSION, '1. Set F.T.V to stream a channel.', '2. Bring up the Context Menu in the EPG.', '3. Select "Set Recording" or "My Recordings" and never miss a show.')
     showChangelog()
 
 
@@ -324,10 +328,12 @@ def main(doLogin=True):
         buggalo.onExceptionRaised()
 
 
-doLogin = True
+kodi = True
 if xbmcgui.Window(10000).getProperty('OTT_LOGIN').lower() == 'false':
-    doLogin = False
+    kodi = False
 xbmcgui.Window(10000).clearProperty('OTT_LOGIN')
 
 
-main(doLogin)
+main(kodi)
+
+filmon.logout()

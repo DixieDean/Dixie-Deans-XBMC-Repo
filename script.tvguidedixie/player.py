@@ -77,9 +77,14 @@ def playSF(url):
 
             original = re.compile('"(.+?)"').search(url).group(1)
 
-            cmd = urllib.unquote_plus(original)
+            cmd = urllib.unquote_plus(original)            
 
-            noFanart = favourite.removeFanart(cmd)
+            try:    noFanart = favourite.removeFanart(cmd)
+            except: pass
+
+            try:    noFanart = favourite.removeSFOptions(cmd)
+            except: pass
+
             if noFanart.endswith(os.path.sep):
                 noFanart = noFanart[:-1]
 

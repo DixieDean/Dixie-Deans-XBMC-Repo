@@ -50,7 +50,7 @@ class StreamsService(object):
                 self.addonsParser.append(path)
             except:
                 pass
-            
+
 
         self.loadSpare()
 

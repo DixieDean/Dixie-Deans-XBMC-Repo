@@ -38,7 +38,7 @@ import urllib
 import dixie
 import deleteDB
 
-#xbmcgui.Window(10000).setProperty('TVG_TEST_TEXT', 'THIS IS A TEST')
+import filmon
 
 OTT_CHANNEL = ['Your Channel. Your content.', 'Your Channel. Your Choice.','All day, Every day...', 'Online Radio', 'Android only channel.']
 
@@ -576,16 +576,22 @@ class TVGuide(xbmcgui.WindowXML):
         self._hideControl(self.C_MAIN_MOUSE_CONTROLS)
         d = PopupMenu(self.database, program, not program.notificationScheduled, self.touch)
         d.doModal()
+
         buttonClicked = d.buttonClicked
+        streamURL     = d.streamURL
+        record        = d.record
+
         del d
 
         if buttonClicked == PopupMenu.C_POPUP_REMIND:
-            if program.notificationScheduled:
-                self.notification.removeNotification(program)
-            else:
-                self.notification.addNotification(program)
-
-            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+            if record:
+                filmon.record(program.title, program.startDate, streamURL)
+                return
+            #if program.notificationScheduled:
+            #    self.notification.removeNotification(program)
+            #else:
+            #    self.notification.addNotification(program)
+            #self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
         elif buttonClicked == PopupMenu.C_POPUP_CHOOSE_STREAM:
             d = StreamSetupDialog(self.database, program.channel)
@@ -633,7 +639,8 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin('XBMC.RunAddon(script.tvguidedixie.tools)')
 
         elif buttonClicked == PopupMenu.C_POPUP_USTV:
-            xbmc.executebuiltin(ustv)
+            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?ch_fanart&mode=%d&name=%s&url=%s",return)' % (10025,'plugin.video.F.T.V', 131, 'My Recordings', 'url'))
+            xbmc.executebuiltin('Container.Refresh')
 
         elif buttonClicked == PopupMenu.C_POPUP_SUPERFAVES:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
@@ -1308,14 +1315,27 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
             except: pass
             xbmcgui.Window(10000).setProperty('TVG_CHOOSE', CHOOSE_STRM_FILE)
 
-        if self.showRemind:
-            try:    self.getControl(self.C_POPUP_REMIND).setLabel(REMIND_PROGRAM)
-            except: pass
-            xbmcgui.Window(10000).setProperty('TVG_REMIND', REMIND_PROGRAM)
+        #if self.showRemind:
+        #    try:    self.getControl(self.C_POPUP_REMIND).setLabel(REMIND_PROGRAM)
+        #    except: pass
+        #    xbmcgui.Window(10000).setProperty('TVG_REMIND', REMIND_PROGRAM)
+        #else:
+        #    try:    self.getControl(self.C_POPUP_REMIND).setLabel(DONT_REMIND_PROGRAM)
+        #    except: pass
+        #    xbmcgui.Window(10000).setProperty('TVG_REMIND', DONT_REMIND_PROGRAM)
+
+        self.getControl(self.C_POPUP_REMIND).setLabel('Set Recording')
+        self.streamURL = self.program.channel.streamUrl.replace('__SF__PlayMedia("', '')
+        if self.streamURL and self.streamURL.startswith('plugin://plugin.video.F.T.V') and filmon.AVAILABLE:
+            self.record = True
+            self.getControl(self.C_POPUP_REMIND).setEnabled(True)
         else:
-            try:    self.getControl(self.C_POPUP_REMIND).setLabel(DONT_REMIND_PROGRAM)
-            except: pass
-            xbmcgui.Window(10000).setProperty('TVG_REMIND', DONT_REMIND_PROGRAM)
+            self.record = False
+            self.getControl(self.C_POPUP_REMIND).setEnabled(False)
+            if isPlayable:
+                self.setFocusId(self.C_POPUP_PLAY)
+            else:
+                self.setFocusId(self.C_POPUP_CHOOSE_STREAM)
 
         try:
             ctrl = self.getControl(5000)
