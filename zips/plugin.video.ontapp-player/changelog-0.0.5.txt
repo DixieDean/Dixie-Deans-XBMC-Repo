@@ -1,3 +1,6 @@
+v0.0.5
+Updated addon.xml
+
 v0.0.4
 Live HQ iPlayer streaming now works
 
