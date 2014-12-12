@@ -36,7 +36,7 @@
                 <texture border="5">button-nofocus.png</texture>
             </control>
             <control type="label">
-		        <posx>150</posx>
+		        <posx>0</posx>
 		        <posy>0</posy>
     		    <width>300</width>
 	    	    <height>38</height>
@@ -57,7 +57,7 @@
                 <texture border="5">button-nofocus.png</texture>
             </control>    
             <control type="label">
-		        <posx>150</posx>
+		        <posx>0</posx>
 	     	    <posy>0</posy>
 		        <width>300</width>
 		        <height>38</height>
@@ -77,7 +77,7 @@
  		    </control>
             <control type="label">
                 <visible>Control.HasFocus(3000)</visible>
-   		        <posx>150</posx>
+   		        <posx>0</posx>
 		        <posy>0</posy>
 		        <width>300</width>
 		        <height>38</height>
