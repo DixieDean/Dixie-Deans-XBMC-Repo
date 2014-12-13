@@ -33,10 +33,11 @@ from hashlib import md5
 from threading import Timer
 
 
-global TheTimer, LoggedIn, SessionID
+global TheTimer, LoggedIn, SessionID, GMTOFFSET
 TheTimer  = None
 LoggedIn  = False
 SessionID = 0
+GMTOFFSET = 0
 
 
 #http://www.filmon.tv/page/api
@@ -47,12 +48,13 @@ ICON  = os.path.join(HOME, 'icon.png')
 ICON  = xbmc.translatePath(ICON)
 TITLE = dixie.TITLE
 
-BASE        = 'http://www.filmon.com/'
-INIT_URL    =  BASE + 'api/init/'
-LOGIN_URL   =  BASE + 'api/login?session_key=%s&login=%s&password=%s'
-LOGOUT_URL  =  BASE + 'api/logout?session_key=%s'
-RECORD_URL  =  BASE + 'api/dvr-add?session_key=%s&channel_id=%s&programme_id=%s&start_time=%s'
-GUIDE_URL   =  BASE + 'tv/api/tvguide/%s?session_key=%s'
+BASE           = 'http://www.filmon.com/'
+INIT_URL       =  BASE + 'api/init/'
+LOGIN_URL      =  BASE + 'api/login?session_key=%s&login=%s&password=%s'
+LOGOUT_URL     =  BASE + 'api/logout?session_key=%s'
+RECORD_URL     =  BASE + 'api/dvr-add?session_key=%s&channel_id=%s&programme_id=%s&start_time=%s'
+RECORDINGS_URL =  BASE + 'api/dvr-list?session_key=%s'
+GUIDE_URL      =  BASE + 'tv/api/tvguide/%s?session_key=%s'
 
 INTERVAL = 275 #Filmon timeout is actually 300
 
@@ -61,6 +63,7 @@ try:
     USERNAME = ftv.getSetting('filmon_user')
     PASSWORD = ftv.getSetting('filmon_pass')
     PASSWORD = md5(PASSWORD).hexdigest()
+
     AVAILABLE = len(USERNAME) > 0 and len(PASSWORD) > 0
 except:
     AVAILABLE = False
@@ -76,10 +79,20 @@ def getUserAgent():
 
 
 def getHTML(url):
+    global GMTOFFSET
     try:
         req  = urllib2.Request(url)
         req.add_header('User-Agent', getUserAgent())
-        resp = urllib2.urlopen(req)
+        resp = urllib2.urlopen(req, timeout=10)
+  
+        headers = resp.headers
+        gmt     = headers['Date'].split(', ')[-1]
+        gmt     = datetime.datetime.strptime(gmt, '%d %b %Y %H:%M:%S GMT')
+
+        GMTOFFSET = gmt - datetime.datetime.today()
+        GMTOFFSET = ((GMTOFFSET.days * 86400) + (GMTOFFSET.seconds + 1800)) / 3600        
+        GMTOFFSET *= -3600
+
         html = resp.read()
         resp.close()
         return html
@@ -89,10 +102,8 @@ def getHTML(url):
 
 def initialise():
     if (not USERNAME) or (not PASSWORD):
-        print 'No Filmon login details'
         return
 
-    print "IN INITIALISE"
     killTimer()
         
     try:
@@ -100,9 +111,8 @@ def initialise():
         SessionID = 0
         response  = getHTML(INIT_URL)
         SessionID = re.compile('"session_key":"(.+?)"').search(response).group(1)
-
-    except Exception, e:
-        print str(e)
+    except:
+        pass
 
 
 def login():
@@ -114,8 +124,6 @@ def login():
         initialise()
 
     url   = LOGIN_URL % (SessionID, USERNAME, PASSWORD)
-    print "LOGIN"
-    print url
     login = getHTML(url)
 
     LoggedIn = len(login) > 0
@@ -125,7 +133,6 @@ def login():
     else:
         message = 'Failed to Log into Filmon'
 
-    print message
     #notify(message)
 
     if LoggedIn:
@@ -142,7 +149,6 @@ def killTimer():
 
 
 def logout():
-    print "NOW IN LOGOUT"
     killTimer()
 
     global LoggedIn, SessionID
@@ -162,34 +168,21 @@ def logout():
         if 'success' in jsn:
             LoggedIn = not jsn['success']
 
-        print "LOGGED OUT RESULT"
-        print logout
-        print jsn
-
         if LoggedIn:
             print 'Failed to Logout of Filmon'
         else:
             print 'Logged out of Filmon'
             
-    except Exception, e:
-        print "EEEEEEEE"
-        print str(e)
+    except:
         pass
 
 
-def regex_from_to(text, from_string, to_string, excluding=True):
-    if excluding:
-        r = re.search("(?i)" + from_string + "([\S\s]+?)" + to_string, text).group(1)
-    else:
-        r = re.search("(?i)(" + from_string + "[\S\s]+?" + to_string + ")", text).group(1)
-    return r
-
-
 def convertToUnixTS(when):
+    global GMTOFFSET
     start   = datetime.datetime(1970, 1, 1)
     delta   = when - start
     seconds = (delta.days * 86400) + delta.seconds
-    return seconds
+    return seconds - GMTOFFSET
 
 
 def getGuide(channel):
@@ -201,14 +194,22 @@ def getGuide(channel):
 
         return getHTML(GUIDE_URL % (channel, SessionID))
 
-    except Exception, e:
-        print str(e)
+    except:
         return None
 
 
 def getChannel(streamURL):
-    try:    return int(re.compile('url=(.+?)&').search(streamURL).group(1))
-    except: return None
+    try:    
+        return int(re.compile('url=(.+?)&').search(streamURL).group(1))
+    except:
+        pass
+
+    try:
+        chID = streamURL.rsplit('ch_fanart=', 1)[-1]
+        chID = int(chID.split('<>', 1)[0])
+        return chID
+    except:
+        return None
 
 
 def getProgram(channel, start):
@@ -225,51 +226,82 @@ def getProgram(channel, start):
 
         return guide
 
-    except Exception, e:
-        print "ERROR IN getProgram"
-        print str(e)
+    except:
+        pass
 
     return None
 
 
-    
-def record(name, start, streamURL):
-    global LoggedIn, SessionID
+def verifyLogin():
+    global LoggedIn
 
     if not LoggedIn:
-        print "NOT LOGGED IN IN RECORDING"
         login()
 
     if not LoggedIn:
         dixie.DialogOK('Not logged into Filmon.', 'Please check details and try again.')
-        return
+        return False
+
+    return True
+
+    
+def record(name, start, end, streamURL, showResult=True):
+    if not verifyLogin():
+        return False
+
+    global SessionID
 
     channel = getChannel(streamURL)
     if not channel:
         dixie.DialogOK('No valid channel found in stream.', 'Please edit stream and try again.')
-        return
+        return False
 
     program = getProgram(channel, start)
     if not program:
         dixie.DialogOK('Program not found in Filmon guide.')
-        return
+        return False
 
     url     = RECORD_URL % (SessionID, channel, program, convertToUnixTS(start))
-    print "RECORDING URL"
-    print url
     record  = getHTML(url)
-    print record
     success = False
 
     try:
         jsn = json.loads(record)
-        print jsn
+
         if 'success' in jsn:
            success = jsn['success']
     except:        
         pass
 
+    if not showResult:
+        return program
+
     if success:
-        dixie.DialogOK(name, 'has been scheduled to be recorded.')
+        if end < datetime.datetime.today():
+            dixie.DialogOK(name, 'Has been recorded.')
+        else:
+            dixie.DialogOK(name, 'Has been scheduled to be recorded.')
     else:
         dixie.DialogOK('Failed to schedule recording.')
+
+    return program
+
+
+def getRecording(programID):
+    if not verifyLogin():
+        return False
+
+    global SessionID
+
+    url        = RECORDINGS_URL % SessionID
+    recordings = getHTML(url)
+    recordings = json.loads(recordings)
+    recordings = recordings['recordings']
+    
+    for recording in recordings:
+        images = recording['images']
+        poster = images['poster']
+        if programID in poster:
+            return recording['download_url']
+
+    return None

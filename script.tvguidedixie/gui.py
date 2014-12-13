@@ -306,14 +306,6 @@ class TVGuide(xbmcgui.WindowXML):
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onAction'})
     def onAction(self, action):
         debug('Mode is: %s' % self.mode)
-        try:
-            program = self._getProgramFromControl(controlInFocus)
-            if program is None:
-                return
-                # if program is not None:
-                #     self._showContextMenu(program)
-        except:
-            pass
 
         if self.mode == MODE_TV:
             self.onActionTVMode(action)
@@ -585,7 +577,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         if buttonClicked == PopupMenu.C_POPUP_REMIND:
             if record:
-                filmon.record(program.title, program.startDate, streamURL)
+                filmon.record(program.title, program.startDate, program.endDate, streamURL)
                 return
             #if program.notificationScheduled:
             #    self.notification.removeNotification(program)
@@ -640,7 +632,8 @@ class TVGuide(xbmcgui.WindowXML):
 
         elif buttonClicked == PopupMenu.C_POPUP_USTV:
             xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?ch_fanart&mode=%d&name=%s&url=%s",return)' % (10025,'plugin.video.F.T.V', 131, 'My Recordings', 'url'))
-            xbmc.executebuiltin('Container.Refresh')
+            xbmc.executebuiltin("Container.Refresh")
+            #xbmc.executebuiltin(ustv)
 
         elif buttonClicked == PopupMenu.C_POPUP_SUPERFAVES:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
@@ -787,6 +780,9 @@ class TVGuide(xbmcgui.WindowXML):
         self.playChannel(channel)
 
     def playChannel(self, channel):
+        if self.catchup():
+            return True
+
         self.currentChannel = channel
         wasPlaying = self.player.isPlaying()
         url = self.database.getStreamUrl(channel)
@@ -803,6 +799,68 @@ class TVGuide(xbmcgui.WindowXML):
         self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
 
         return url is not None
+
+
+    def catchup(self):
+        try:
+            busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
+            busy.show()
+
+            try:    busy.getControl(10).setVisible(False)
+            except: pass
+
+            controlInFocus = self.getFocus()
+            program = self._getProgramFromControl(controlInFocus)
+            if program is None:
+                busy.close()
+                return False
+
+            stream = program.channel.streamUrl.replace('__SF__PlayMedia("', '')
+            if not (stream and stream.startswith('plugin://plugin.video.F.T.V') and filmon.AVAILABLE):
+                busy.close()
+                return False
+
+            end = program.endDate
+            now = datetime.datetime.today()
+
+            if end > now:
+                return False
+
+            name  = program.title
+            start = program.startDate
+
+            programID = filmon.record(name, start, end, stream, showResult=False)
+
+            if not programID:
+                busy.close()
+                dixie.DialogOK(name, 'Is NOT ready to be played.')            
+                return False
+
+            #now play the stream 
+            busy.close()
+            
+            url = filmon.getRecording(programID)
+            if not url:
+                return False
+
+            wasPlaying = self.player.isPlaying()
+            if not wasPlaying:
+                self._hideControl(self.C_MAIN_BLACKOUT)
+            path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
+            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d)' % (path, url, self.osdEnabled))
+
+            if not wasPlaying:
+                self._hideEpg()
+
+            threading.Timer(2, self.waitForPlayBackStopped).start()
+            #self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
+          
+            return True
+
+        except:
+            return False
+
+        return True
 
     def waitForPlayBackStopped(self):
         for retry in range(0, 100):

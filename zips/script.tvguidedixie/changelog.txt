@@ -1,3 +1,6 @@
+v2.4.0 (12-13-14)
+- FilmOn recording fix.
+
 v2.3.9 (11-28-14)
 - Recordings can now be set and watched via the EPG. F.T.V Add-on is required.
 - Fixed Super Favourites issue with activating channels in the EPG.

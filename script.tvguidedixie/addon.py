@@ -43,6 +43,7 @@ socket.setdefaulttimeout(10) # 10 seconds
 import settings
 settings.validate()
 
+
 ADDON       = dixie.ADDON
 HOME        = dixie.HOME
 TITLE       = dixie.TITLE
@@ -72,18 +73,6 @@ dixie.SetSetting('dixie.url', 'All Channels')
 dixie.SetSetting('DIXIEURL', 'All Channels')
 
 
-
-
-
-try:
-    os.makedirs(logofolder)
-
-    if not os.path.exists(skinfolder):
-        DownloadSkins()
-except:
-    pass
-
-
 def CheckVersion():
     prev = ADDON.getSetting('VERSION')
     curr = VERSION
@@ -95,8 +84,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'New Set Recordings feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', 'Help video to follow.')
-    d.ok(TITLE + ' - ' + VERSION, '1. Set F.T.V to stream a channel.', '2. Bring up the Context Menu in the EPG.', '3. Select "Set Recording" or "My Recordings" and never miss a show.')
+    # d.ok(TITLE + ' - ' + VERSION, 'New Set Recordings feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', 'Help video to follow.')
     showChangelog()
 
 

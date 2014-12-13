@@ -86,7 +86,10 @@ def playSF(url):
             except: pass
 
             if noFanart.endswith(os.path.sep):
-                noFanart = noFanart[:-1]
+               noFanart = noFanart[:-1]
+
+            noFanart = noFanart.replace('+', '%2B')
+            noFanart = noFanart.replace(' ', '+')
 
             url = url.replace(original, noFanart)
 

@@ -31,9 +31,10 @@ RESOURCES   =  os.path.join(HOME, 'resources')
 DIXIEURL    =  ADDON.getSetting('dixie.url').upper()
 DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
 SKIN        =  ADDON.getSetting('dixie.skin')
+FILMON      =  ADDON.getSetting('FILMON')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.3.9'
-SKINVERSION = '11'
+VERSION     = '2.4.0'
+SKINVERSION = '12'
 INIVERSION  = '1'
 
 

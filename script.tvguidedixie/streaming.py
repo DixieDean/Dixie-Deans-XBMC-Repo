@@ -47,7 +47,6 @@ class StreamsService(object):
             try:
                 self.addonsParser.read(path)
                 self.addonsParser.read(local)
-                self.addonsParser.append(path)
             except:
                 pass
 

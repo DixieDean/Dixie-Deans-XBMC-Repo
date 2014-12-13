@@ -32,7 +32,7 @@
         <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="FXB v3.0"/>
         <setting id="trailers.addon" label="Choose Trailers Add-on" type="labelenum" values="Apple iTunes Trailers|HD-Trailers.net" default="HD-Trailers.net" visible="false" />
         <setting id="ustv.addon" label="Choose USTV Catch Up Add-on" type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" />
-        <setting id="local.ini" label="Allow Enhanced Add-on Linking" type="bool" default="true" />
+		<setting id="local.ini" label="Allow Enhanced Add-on Linking" type="bool" default="true" />
         <setting id="playlist.file" label="Choose IPTV Playlist File" type="file" default="" visible="false" />
 		<setting label="" type="lsep" visible="true" />
         <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
