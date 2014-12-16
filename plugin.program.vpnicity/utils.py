@@ -35,8 +35,21 @@ HOME      =  ADDON.getAddonInfo('path')
 PROFILE   =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 RESOURCES =  os.path.join(HOME, 'resources')
 TITLE     = 'VPNicity'
-VERSION   = '1.1.6'
+VERSION   = ADDON.getAddonInfo('version')
 KEYMAP    = 'vpnicity_menu.xml'
+
+
+def GetXBMCVersion():
+    version = xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')
+    version = version.split('.')
+    return int(version[0]), int(version[1]) #major, minor eg, 13.9.902
+
+
+MAJOR, MINOR = GetXBMCVersion()
+FRODO        = (MAJOR == 12) and (MINOR < 9)
+GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
+HELIX        = (MAJOR == 14) or (MAJOR == 13 and MINOR == 9)
+
 
 
 def showBusy():
@@ -84,7 +97,7 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Context menu fix reverted back due to display issue in Gotham.')
+    d.ok(TITLE + ' - ' + VERSION, 'Final context menu fix for Helix and Gotham.')
     triggerChangelog()
     
 

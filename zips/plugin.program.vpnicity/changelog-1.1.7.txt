@@ -1,3 +1,6 @@
+v1.1.7:
+   - Final context menu fix for Helix and Gotham
+
 v1.1.6:
    - Context menu fix reverted back due to display issue in Gotham
 

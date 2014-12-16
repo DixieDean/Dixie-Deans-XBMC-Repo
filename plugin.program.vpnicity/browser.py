@@ -35,12 +35,15 @@ ACTION_DOWN  = 4
 
 class Browser(xbmcgui.WindowXMLDialog):
 
-    def __new__(cls, addonID, countries):
-        return super(Browser, cls).__new__(cls, 'browser.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
+    def __new__(cls, addonID, countries, helix):
+        if helix:
+            return super(Browser, cls).__new__(cls, 'browser-helix.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
+        else:
+            return super(Browser, cls).__new__(cls, 'browser.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
 
         
 
-    def __init__(self, addonID, countries):
+    def __init__(self, addonID, countries, helix):
         super(Browser, self).__init__()
         self.countries = countries
         self.root      = os.path.join(xbmcaddon.Addon(addonID).getAddonInfo('path'), 'resources', 'images')
@@ -92,7 +95,8 @@ class Browser(xbmcgui.WindowXMLDialog):
 
 
 def getCountry(addonID, countries):
-    dialog = Browser(addonID, countries)
+    import utils
+    dialog = Browser(addonID, countries, utils.HELIX)
     dialog.doModal()
     country = dialog.country
     del dialog
