@@ -33,8 +33,8 @@ DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
 SKIN        =  ADDON.getSetting('dixie.skin')
 FILMON      =  ADDON.getSetting('FILMON')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.4.2'
-SKINVERSION = '13'
+VERSION     = '2.4.3'
+SKINVERSION = '14'
 INIVERSION  = '1'
 
 

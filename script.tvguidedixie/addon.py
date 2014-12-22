@@ -84,7 +84,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    # d.ok(TITLE + ' - ' + VERSION, 'New Auto-TVCatchup feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', '')
+    d.ok(TITLE + ' - ' + VERSION, 'New Auto-TVCatchup feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', '')
     showChangelog()
 
 
@@ -168,7 +168,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-25-09-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-22-12-2014.zip'
 
     try:
         os.makedirs(skinfolder)
