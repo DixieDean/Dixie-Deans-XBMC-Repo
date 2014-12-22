@@ -54,19 +54,34 @@ LOGIN_URL      =  BASE + 'api/login?session_key=%s&login=%s&password=%s'
 LOGOUT_URL     =  BASE + 'api/logout?session_key=%s'
 RECORD_URL     =  BASE + 'api/dvr-add?session_key=%s&channel_id=%s&programme_id=%s&start_time=%s'
 RECORDINGS_URL =  BASE + 'api/dvr-list?session_key=%s'
+REMOVE_URL     =  BASE + 'api/dvr-remove?session_key=%s&recording_id=%s'
 GUIDE_URL      =  BASE + 'tv/api/tvguide/%s?session_key=%s'
 
 INTERVAL = 275 #Filmon timeout is actually 300
 
-try:
-    ftv      = xbmcaddon.Addon('plugin.video.F.T.V')
-    USERNAME = ftv.getSetting('filmon_user')
-    PASSWORD = ftv.getSetting('filmon_pass')
-    PASSWORD = md5(PASSWORD).hexdigest()
 
-    AVAILABLE = len(USERNAME) > 0 and len(PASSWORD) > 0
-except:
-    AVAILABLE = False
+AVAILABLE = False
+if not AVAILABLE:
+    try:
+        addon    = xbmcaddon.Addon('plugin.video.F.T.V')
+        USERNAME = addon.getSetting('filmon_user')
+        PASSWORD = addon.getSetting('filmon_pass')
+        PASSWORD = md5(PASSWORD).hexdigest()
+
+        AVAILABLE = len(USERNAME) > 0 and len(PASSWORD) > 0
+    except:
+        AVAILABLE = False
+
+if not AVAILABLE:
+    try:
+        addon    = xbmcaddon.Addon('plugin.video.csexpattv')
+        USERNAME = addon.getSetting('user')
+        PASSWORD = addon.getSetting('pass')
+        PASSWORD = md5(PASSWORD).hexdigest()
+
+        AVAILABLE = len(USERNAME) > 0 and len(PASSWORD) > 0
+    except:
+        AVAILABLE = False
 
 
 def notify(message, length=5000):
@@ -78,8 +93,25 @@ def getUserAgent():
     return ' Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 
 
+def isValid(stream):
+    if not stream:
+        return False
+
+    if not AVAILABLE:
+        return False
+
+    if stream.startswith('plugin://plugin.video.F.T.V'):
+        return True
+
+    if stream.startswith('plugin://plugin.video.csexpattv'):
+        return True
+
+    return False
+
+
 def getHTML(url):
     global GMTOFFSET
+
     try:
         req  = urllib2.Request(url)
         req.add_header('User-Agent', getUserAgent())
@@ -96,8 +128,11 @@ def getHTML(url):
         html = resp.read()
         resp.close()
         return html
-    except:
-        return ''
+    except Exception, e:
+        print "Error in GetHTML"
+        print url
+        print str(e)
+        return str(e)
 
 
 def initialise():
@@ -126,14 +161,14 @@ def login():
     url   = LOGIN_URL % (SessionID, USERNAME, PASSWORD)
     login = getHTML(url)
 
-    LoggedIn = len(login) > 0
+    LoggedIn = 'ERROR' not in login.upper()
 
     if LoggedIn:
         message = 'Logged into Filmon'
     else:
         message = 'Failed to Log into Filmon'
 
-    #notify(message)
+    notify(message)
 
     if LoggedIn:
         TheTimer = Timer(INTERVAL, logout)
@@ -192,7 +227,8 @@ def getGuide(channel):
         if SessionID == 0:
             return None
 
-        return getHTML(GUIDE_URL % (channel, SessionID))
+        guide = getHTML(GUIDE_URL % (channel, SessionID))
+        return guide
 
     except:
         return None
@@ -220,13 +256,15 @@ def getProgram(channel, start):
         if not guide:
             return None
 
-        text  = '","startdatetime":"%s"' % startTS
-        guide = guide.split(text)[0]
-        guide = guide.rsplit('{"programme":"', 1)[-1]
+        guide = json.loads(guide)
 
-        return guide
-
-    except:
+        for program in guide:
+            if 'startdatetime' in program and 'programme' in program:
+                if program['startdatetime'] == startTS:
+                    return program['programme']
+            
+    except Exception, e:
+        print str(e)
         pass
 
     return None
@@ -243,6 +281,21 @@ def verifyLogin():
         return False
 
     return True
+
+
+def isRecorded(name, start):
+    if not verifyLogin():
+        return False, None
+
+    recording = getRecording(name, start)
+
+    if recording == None:
+        print '%s is NOT RECORDED' % name
+        return False, None
+
+    print '%s is RECORDED' % name
+    return True, recording
+
 
     
 def record(name, start, end, streamURL, showResult=True):
@@ -270,12 +323,20 @@ def record(name, start, end, streamURL, showResult=True):
 
         if 'success' in jsn:
            success = jsn['success']
-    except:        
-        pass
+    except Exception, e:
+        if not showResult:
+            return False
+
+        error = record.split(':')[-1].strip()
+
+        dixie.DialogOK(name, 'Failed to schedule recording.', error)
+
+        return False
 
     if not showResult:
         return program
 
+    #move to GUI - remove end param
     if success:
         if end < datetime.datetime.today():
             dixie.DialogOK(name, 'Has been recorded.')
@@ -287,7 +348,7 @@ def record(name, start, end, streamURL, showResult=True):
     return program
 
 
-def getRecording(programID):
+def getRecording(name, start):
     if not verifyLogin():
         return False
 
@@ -297,11 +358,37 @@ def getRecording(programID):
     recordings = getHTML(url)
     recordings = json.loads(recordings)
     recordings = recordings['recordings']
-    
+
+    startTS = convertToUnixTS(start)
+    name    = name.lower()
+
     for recording in recordings:
-        images = recording['images']
-        poster = images['poster']
-        if programID in poster:
-            return recording['download_url']
+        try:
+            title = recording['title'].lower()
+            start = int(recording['time_start'])
+
+            if (start == startTS): # and (title == name): #do we really need to check title??
+                print recording['download_url']
+                return recording['download_url']
+
+        except:
+            print str(e)
+            pass
 
     return None
+
+
+def removeRecording(url):
+    if not verifyLogin():
+        return False
+
+    try:
+        programID = url.rsplit('/', 1)[-1].split('.', 1)[0]
+
+        global SessionID
+ 
+        url        = REMOVE_URL % (SessionID, programID)
+        response   = getHTML(url)
+        response   = json.loads(response)
+    except:
+        pass

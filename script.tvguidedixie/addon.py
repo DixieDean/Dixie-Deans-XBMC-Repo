@@ -84,7 +84,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    # d.ok(TITLE + ' - ' + VERSION, 'New Set Recordings feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', 'Help video to follow.')
+    d.ok(TITLE + ' - ' + VERSION, 'New Auto-TVCatchup feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', '')
     showChangelog()
 
 
@@ -240,16 +240,8 @@ except:
 
 
 def main(doLogin=True):
-    busy = None
-    try:
-        busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
-        busy.show()
-
-        try:    busy.getControl(10).setVisible(False)
-        except: pass
-
-    except:
-        busy = None
+    CheckSkin()
+    busy = dixie.ShowBusy()
 
     import buggalo
     import gui
@@ -288,7 +280,6 @@ def main(doLogin=True):
 
         if doLogin:
             CheckVersion()
-            CheckSkin()
             CheckSkinVersion()
             CheckIniVersion()
             CheckForUpdate()

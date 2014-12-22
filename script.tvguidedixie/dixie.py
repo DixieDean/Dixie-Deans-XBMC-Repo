@@ -33,7 +33,7 @@ DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
 SKIN        =  ADDON.getSetting('dixie.skin')
 FILMON      =  ADDON.getSetting('FILMON')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.4.0'
+VERSION     = '2.4.1'
 SKINVERSION = '12'
 INIVERSION  = '1'
 
@@ -134,6 +134,23 @@ def GetChannels():
             f.write(chunk)
 
     return path
+
+
+def ShowBusy(hideProgress=True):
+    try:
+        busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
+        busy.show()
+
+        if hideProgress:
+            try:    busy.getControl(10).setVisible(False)
+            except: pass
+
+        return busy
+    except:
+        pass
+
+    return None
+
 
 
 def DialogOK(line1, line2='', line3=''):

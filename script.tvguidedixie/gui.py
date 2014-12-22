@@ -577,7 +577,10 @@ class TVGuide(xbmcgui.WindowXML):
 
         if buttonClicked == PopupMenu.C_POPUP_REMIND:
             if record:
+                busy = dixie.ShowBusy()
                 filmon.record(program.title, program.startDate, program.endDate, streamURL)
+                if busy:
+                    busy.close()
                 return
             #if program.notificationScheduled:
             #    self.notification.removeNotification(program)
@@ -803,43 +806,51 @@ class TVGuide(xbmcgui.WindowXML):
 
     def catchup(self):
         try:
-            busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
-            busy.show()
-
-            try:    busy.getControl(10).setVisible(False)
-            except: pass
+            busy = dixie.ShowBusy()
 
             controlInFocus = self.getFocus()
             program = self._getProgramFromControl(controlInFocus)
             if program is None:
-                busy.close()
+                if busy:
+                    busy.close()
                 return False
 
             stream = program.channel.streamUrl.replace('__SF__PlayMedia("', '')
-            if not (stream and stream.startswith('plugin://plugin.video.F.T.V') and filmon.AVAILABLE):
-                busy.close()
+
+            if not filmon.isValid(stream):
+                if busy:
+                    busy.close()
                 return False
 
             end = program.endDate
             now = datetime.datetime.today()
 
             if end > now:
+                if busy:
+                    busy.close()
                 return False
 
             name  = program.title
             start = program.startDate
 
-            programID = filmon.record(name, start, end, stream, showResult=False)
+            isRecorded, url = filmon.isRecorded(name, start)
+            programID = None
 
-            if not programID:
+            if not isRecorded:
+                programID = filmon.record(name, start, end, stream, showResult=False)
+
+            if busy:
                 busy.close()
-                dixie.DialogOK(name, 'Is NOT ready to be played.')            
-                return False
 
-            #now play the stream 
-            busy.close()
-            
-            url = filmon.getRecording(programID)
+            if (not isRecorded) and (not programID):                
+                dixie.DialogOK('Unable to play %s' % name, 'Catchup requires temporary DVR space on Filmon.', 'Please delete some recordings and try again.')            
+                return True
+
+
+            #now play the stream             
+            if not isRecorded:
+                url = filmon.getRecording(name, start)
+
             if not url:
                 return False
 
@@ -847,12 +858,15 @@ class TVGuide(xbmcgui.WindowXML):
             if not wasPlaying:
                 self._hideControl(self.C_MAIN_BLACKOUT)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
-            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d)' % (path, url, self.osdEnabled))
+            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, self.osdEnabled, name))
+
+            if not isRecorded:
+                filmon.removeRecording(url)
 
             if not wasPlaying:
                 self._hideEpg()
 
-            threading.Timer(2, self.waitForPlayBackStopped).start()
+            threading.Timer(5, self.waitForPlayBackStopped).start()
             #self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
           
             return True
@@ -1384,7 +1398,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
 
         self.getControl(self.C_POPUP_REMIND).setLabel('Set Recording')
         self.streamURL = self.program.channel.streamUrl.replace('__SF__PlayMedia("', '')
-        if self.streamURL and self.streamURL.startswith('plugin://plugin.video.F.T.V') and filmon.AVAILABLE:
+        if filmon.isValid(self.streamURL):
             self.record = True
             self.getControl(self.C_POPUP_REMIND).setEnabled(True)
         else:

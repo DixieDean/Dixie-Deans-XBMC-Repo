@@ -1,3 +1,6 @@
+v2.4.1 (12-21-14)
+- TVCatchup via the EPG added using FilmOn.
+
 v2.4.0 (12-13-14)
 - FilmOn recording fix.
 
