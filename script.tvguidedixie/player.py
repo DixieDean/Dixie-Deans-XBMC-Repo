@@ -4,9 +4,6 @@ import xbmcaddon
 import xbmcgui
 
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
-HOME  = ADDON.getAddonInfo('path')
-ICON  = os.path.join(HOME, 'icon.png')
-ICON  = xbmc.translatePath(ICON)
 
 
 def CheckIdle(maxIdle):
@@ -147,7 +144,7 @@ def playSF(url):
 
 
 
-def play(url, windowed, name=None):
+def play(url, windowed):
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, sfURL = playSF(url)
         if handled:
@@ -163,16 +160,7 @@ def play(url, windowed, name=None):
     maxIdle = getIdle * 60 * 60
 
     if not checkForAlternateStreaming(url):
-        item = url
-        if name:
-            item     = xbmcgui.ListItem(name, thumbnailImage=ICON)
-            playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
-            playlist.clear()
-            playlist.add(url, item)
-            item = playlist
-
-            xbmc.Player().play(item, windowed=windowed)
-
+        xbmc.Player().play(item = url, windowed = windowed)
         xbmc.sleep(100)
         if not xbmc.Player().isPlaying():
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
@@ -253,11 +241,7 @@ def alternateStream(url):
 
 
 if __name__ == '__main__': 
-    name = None
-    if len(sys.argv) > 3:
-        name = sys.argv[3]
-
-    play(sys.argv[1], sys.argv[2] == 1, name)
+    play(sys.argv[1], sys.argv[2] == 1)
 
 
 # expattv
