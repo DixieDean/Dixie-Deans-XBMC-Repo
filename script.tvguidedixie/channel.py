@@ -29,6 +29,8 @@ class Channel(object):
 
 
     def set(self, id, title, logo, streamUrl, visible, weight, categories, userDef, desc, isClone):
+        if logo:
+            logo = logo.replace('\\', '/')
         self.id         = id
         self.title      = title
         self.categories = categories
