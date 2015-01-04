@@ -83,8 +83,8 @@ def CheckVersion():
 
     dixie.SetSetting('VERSION', curr)
 
-    # d = xbmcgui.Dialog()
-    # d.ok(TITLE + ' - ' + VERSION, 'New Auto-TVCatchup feature!', 'A free FilmOn account is needed and the F.T.V Add-on installed.', '')
+    d = xbmcgui.Dialog()
+    d.ok(TITLE + ' - ' + VERSION, 'New F.T.V Setting', 'You can choose between UKTV links or Non-Geolocked UKTV links.', 'Find it in the OnTapp Add-on Settings.')
     showChangelog()
 
 
@@ -155,6 +155,10 @@ def CheckSkinVersion():
 
 def CheckIniVersion():
     getIni.getIni()
+
+
+def CheckFilmOn():
+    getIni.ftvIni()
 
 
 def CheckForUpdate():
@@ -282,6 +286,7 @@ def main(doLogin=True):
             CheckVersion()
             CheckSkinVersion()
             CheckIniVersion()
+            CheckFilmOn()
             CheckForUpdate()
             CheckForChannels()
 

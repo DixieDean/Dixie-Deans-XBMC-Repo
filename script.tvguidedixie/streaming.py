@@ -27,24 +27,33 @@ import os
 import re
 import xbmcaddon
 
-ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
-LOCAL       = (ADDON.getSetting('local.ini') == 'true')
-datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
+LOCAL    = (ADDON.getSetting('local.ini') == 'true')
+FTVINI   = ADDON.getSetting('ftv.ini')
+datapath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 
 class StreamsService(object):
     def __init__(self):
         path  = os.path.join(datapath, 'addons.ini')
         local = os.path.join(datapath, 'local.ini')
+        
+        if FTVINI == 'UK Links':
+            ftv = os.path.join(datapath, 'uk.ini')
+        else:
+            ftv = os.path.join(datapath, 'nongeo.ini')
+
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option
         
         if not LOCAL:
             try:
+                self.addonsParser.read(ftv)
                 self.addonsParser.read(path)
             except:
                 pass
         else:
             try:
+                self.addonsParser.read(ftv)
                 self.addonsParser.read(path)
                 self.addonsParser.read(local)
             except:

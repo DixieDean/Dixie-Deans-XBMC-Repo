@@ -26,10 +26,9 @@ import urllib
 import dixie
 
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
+FTVINI      = ADDON.getSetting('ftv.ini')
 datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 current_ini = os.path.join(datapath, 'addons.ini')
-
-
 
 def getIni():
     path = current_ini
@@ -39,9 +38,38 @@ def getIni():
     except:
         pass
 
+def ftvIni():
+    if FTVINI == 'UK Links':
+        ftv = 'uk.ini'
+    else:
+        ftv = 'nongeo.ini'
+
+    path = os.path.join(datapath, ftv)
+
+    try:
+        url = dixie.GetExtraUrl() + 'resources/' + ftv
+        urllib.urlretrieve(url, path)
+    except:
+        pass
+    
+    AVAILABLE = False
+    if not AVAILABLE:
+        try:
+            addon = xbmcaddon.Addon('plugin.video.F.T.V')
+            if FTVINI == 'Non-Geolocked UK Links':
+                BASE      = addon.setSetting('root_channel', '3092')
+                AVAILABLE = BASE
+            else:
+                BASE      = addon.setSetting('root_channel', '689')
+                AVAILABLE = BASE
+        except:
+            AVAILABLE = False
+
+    
 
 if __name__ == '__main__':
     getIni()
     d = xbmcgui.Dialog()
     d.ok('TV Guide Dixie', 'Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
+    ftvIni()
 
