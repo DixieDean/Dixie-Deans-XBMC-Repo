@@ -83,6 +83,14 @@ if not AVAILABLE:
     except:
         AVAILABLE = False
 
+dixie.log('OTT DEBUG #2')
+dixie.log('Filmon Username : %s' % USERNAME)
+dixie.log('Filmon Password : %s' % PASSWORD)
+if AVAILABLE:
+    dixie.log('Filmon is AVAILABLE')
+else:
+    dixie.log('Filmon is NOT AVAILABLE')
+
 
 def notify(message, length=5000):
     cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
@@ -129,9 +137,8 @@ def getHTML(url):
         resp.close()
         return html
     except Exception, e:
-        print "Error in GetHTML"
-        print url
-        print str(e)
+        dixie.log('Error in GetHTML, url = %s' % url)
+        dixie.log(str(e))
         return str(e)
 
 
@@ -151,6 +158,7 @@ def initialise():
 
 
 def login():
+    dixie.log('Entering login')
     global TheTimer, LoggedIn, SessionID
 
     LoggedIn = False
@@ -168,6 +176,7 @@ def login():
     else:
         message = 'Failed to Log into Filmon'
 
+    dixie.log(message)
     notify(message)
 
     if LoggedIn:
@@ -204,9 +213,9 @@ def logout():
             LoggedIn = not jsn['success']
 
         if LoggedIn:
-            print 'Failed to Logout of Filmon'
+            dixie.log('Failed to Logout of Filmon')
         else:
-            print 'Logged out of Filmon'
+            dixie.log('Logged out of Filmon')
             
     except:
         pass
@@ -230,7 +239,8 @@ def getGuide(channel):
         guide = getHTML(GUIDE_URL % (channel, SessionID))
         return guide
 
-    except:
+    except Exception, e:
+        dixie.log('Exception in getGuide %s' % str(e))
         return None
 
 
@@ -249,8 +259,13 @@ def getChannel(streamURL):
 
 
 def getProgram(channel, start):
+    dixie.log('Entering getProgram')
+    dixie.log('Channel = %s' % str(channel))
+    dixie.log('Start   = %s' % str(start))
     try:
         startTS = convertToUnixTS(start)
+        dixie.log('StartTS = %s' % str(startTS))
+        dixie.log('type(StartTS) = %s' % type(startTS))
 
         guide = getGuide(channel)
         if not guide:
@@ -258,29 +273,48 @@ def getProgram(channel, start):
 
         guide = json.loads(guide)
 
+        #dixie.log('GUIDE JSON = ')
+        #dixie.log(str(guide))
+
         for program in guide:
-            if 'startdatetime' in program and 'programme' in program:
-                if program['startdatetime'] == startTS:
-                    return program['programme']
+            dixie.log('______________________________')
+            dixie.log('Type = %s' % type(program))
+            dixie.log('Type of program[startdatetime] = %s' % type(program['startdatetime']))
+            dixie.log(program)
+            dixie.log('______________________________')
+            dixie.log('1   ')
+            dixie.log('2   ')
+            dixie.log('3   ')
+            if 'startdatetime' in program and 'programme' in program:                
+                if int(program['startdatetime']) == startTS:
+                    return program['programme']                
             
     except Exception, e:
-        print str(e)
-        pass
+        dixie.log('Exception in getProgram %s' % str(e))
 
+    dixie.log('Returning None from getProgram')
     return None
 
 
 def verifyLogin():
-    global LoggedIn
+    dixie.log('Entering VerifyLogin')
+    try:
+        global LoggedIn
 
-    if not LoggedIn:
-        login()
+        if not LoggedIn:
+            dixie.log('Attempting to Login')
+            login()
 
-    if not LoggedIn:
-        dixie.DialogOK('Not logged into Filmon.', 'Please check details and try again.')
-        return False
+        if not LoggedIn:
+            dixie.log('Failed to Login')
+            dixie.DialogOK('Not logged into Filmon.', 'Please check details and try again.')
+            return False
 
-    return True
+        return True
+    except Exception, e:
+        dixie.log('Exception in VerifyLogin %s' % str(e))
+
+    return False
 
 
 def isRecorded(name, start):
@@ -290,27 +324,32 @@ def isRecorded(name, start):
     recording = getRecording(name, start)
 
     if recording == None:
-        print '%s is NOT RECORDED' % name
+        dixie.log('%s is NOT RECORDED' % name)
         return False, None
 
-    print '%s is RECORDED' % name
+    dixie.log('%s is RECORDED' % name)
     return True, recording
 
 
     
 def record(name, start, end, streamURL, showResult=True):
+    output = 'Attempting to set recording for %s start:%s end:%s stream:%s' % (name, start, end, streamURL)
+    dixie.log(output)
     if not verifyLogin():
+        dixie.log('Failed to verify login')
         return False
 
     global SessionID
 
     channel = getChannel(streamURL)
     if not channel:
+        dixie.log('not channel')
         dixie.DialogOK('No valid channel found in stream.', 'Please edit stream and try again.')
         return False
 
     program = getProgram(channel, start)
     if not program:
+        dixie.log('not program')
         dixie.DialogOK('Program not found in Filmon guide.')
         return False
 
@@ -318,16 +357,23 @@ def record(name, start, end, streamURL, showResult=True):
     record  = getHTML(url)
     success = False
 
+    dixie.log('record task url : %s' % url)
+    dixie.log('response %s' % record)
+
     try:
         jsn = json.loads(record)
+
+        dixie.log('As JSON')
+        dixie.log(jsn)
 
         if 'success' in jsn:
            success = jsn['success']
     except Exception, e:
+        error = record.split(':')[-1].strip()
+        dixie.log('Exception in record %s' % str(e))
+        dixie.log(error)
         if not showResult:
             return False
-
-        error = record.split(':')[-1].strip()
 
         dixie.DialogOK(name, 'Failed to schedule recording.', error)
 
@@ -368,12 +414,11 @@ def getRecording(name, start):
             start = int(recording['time_start'])
 
             if (start == startTS): # and (title == name): #do we really need to check title??
-                print recording['download_url']
+                dixie.log('Download URL = %s' % recording['download_url'])
                 return recording['download_url']
 
-        except:
-            print str(e)
-            pass
+        except Exception, e:
+            dixie.log('Exception thrown in getRecording %s' % str(e))
 
     return None
 

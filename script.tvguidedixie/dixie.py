@@ -32,10 +32,22 @@ DIXIEURL    =  ADDON.getSetting('dixie.url').upper()
 DIXIELOGOS  =  ADDON.getSetting('dixie.logo.folder')
 SKIN        =  ADDON.getSetting('dixie.skin')
 FILMON      =  ADDON.getSetting('FILMON')
+VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'OnTapp.TV'
-VERSION     = '2.4.5'
 SKINVERSION = '14'
 INIVERSION  = '1'
+DEBUG       = ADDON.getSetting('DEBUG') == 'true'
+
+
+def log(text):
+    try:
+        output = '%s V%s : %s' % (TITLE, VERSION, str(text))
+        if DEBUG:
+            xbmc.log(output)
+        else:
+            xbmc.log(output, xbmc.LOGDEBUG)
+    except:
+        pass
 
 
 ooOOOoo = ''

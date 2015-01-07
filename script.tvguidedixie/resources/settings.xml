@@ -53,6 +53,7 @@
     </category>
 
     <category label="30125">
+ 		<setting id="DEBUG" label="[B]Enable OTT Debug Mode[/B]" type="bool" default="false"/>
  		<setting id="dummy" label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)"/>
  		<setting type="lsep" label="Set your email address to receive emails containing xbmclogs.com links"/>
  		<setting id="email" type="text" label="Email address"/>
