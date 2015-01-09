@@ -84,7 +84,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE', 'Fix for Film-On USA recordings', 'The correct shows are now recorded')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE', 'Fix for Film-On script error.', '')
     # showChangelog()
 
 

@@ -59,7 +59,8 @@ GUIDE_URL      =  BASE + 'tv/api/tvguide/%s?session_key=%s'
 
 INTERVAL = 275 #Filmon timeout is actually 300
 
-
+USERNAME  = ''
+PASSWORD  = ''
 AVAILABLE = False
 if not AVAILABLE:
     try:
