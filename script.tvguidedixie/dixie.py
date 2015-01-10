@@ -176,3 +176,31 @@ def DialogYesNo(line1, line2='', line3='', noLabel=None, yesLabel=None):
         return d.yesno(TITLE + ' - ' + VERSION, line1, line2 , line3) == True
     else:
         return d.yesno(TITLE + ' - ' + VERSION, line1, line2 , line3, noLabel, yesLabel) == True
+
+
+def Progress(line1 = '', line2 = '', line3 = '', hide = False):
+    dp = xbmcgui.DialogProgress()
+    dp.create(TITLE, line1, line2, line3)
+    dp.update(0)
+
+    if hide:
+        try:
+            xbmc.sleep(250)
+            WINDOW_PROGRESS = xbmcgui.Window(10101)
+            CANCEL_BUTTON   = WINDOW_PROGRESS.getControl(10)
+            CANCEL_BUTTON.setVisible(False)
+        except:
+            pass
+
+    return dp
+
+
+def DeleteFile(path):
+    tries = 5
+    while os.path.exists(path) and tries > 0:
+        tries -= 1 
+        try: 
+            os.remove(path) 
+            break 
+        except: 
+            xbmc.sleep(500)

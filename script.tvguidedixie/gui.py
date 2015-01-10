@@ -577,10 +577,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         if buttonClicked == PopupMenu.C_POPUP_REMIND:
             if record:
-                busy = dixie.ShowBusy()
-                filmon.record(program.title, program.startDate, program.endDate, streamURL)
-                if busy:
-                    busy.close()
+                self.record(program)
                 return
             #if program.notificationScheduled:
             #    self.notification.removeNotification(program)
@@ -783,7 +780,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.playChannel(channel)
 
     def playChannel(self, channel):
-        if self.catchup():
+        if self.prePlayOptions(channel):
             return True
 
         self.currentChannel = channel
@@ -802,6 +799,44 @@ class TVGuide(xbmcgui.WindowXML):
         self.osdProgram = self.database.getCurrentProgram(self.currentChannel)
 
         return url is not None
+
+
+    def record(self, program):
+        busy = dixie.ShowBusy()                
+        record = filmon.record(program.title, program.startDate, program.endDate, program.channel.streamUrl)
+        if busy:
+            busy.close()
+        return record <> False
+
+
+    def prePlayOptions(self, channel):
+        program = None
+        try:    program = self._getProgramFromControl(self.getFocus())
+        except: pass
+
+        if not program:
+            return False
+
+        if not filmon.isValid(program.channel.streamUrl):
+            return False
+
+        now = datetime.datetime.today()
+
+        inPast   = program.endDate   < now
+        inFuture = program.startDate > now
+
+        if (not inPast) and (not inFuture):
+            return False
+
+        if inPast:
+            if dixie.DialogYesNo('Do you want to watch %s' % program.channel.title, 'Or catchup on %s' % program.title, noLabel='Live', yesLabel='Catchup'):
+                return self.catchup()
+
+        if inFuture:
+            if dixie.DialogYesNo('Do you want to watch %s' % program.channel.title, 'Or set a recording for %s' % program.title, noLabel='Live', yesLabel='Record'):
+                return self.record(program)
+
+        return False
 
 
     def catchup(self):

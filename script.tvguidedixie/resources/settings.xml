@@ -46,10 +46,8 @@
     </category>
 
     <category label="30122">
-        <setting id="backup.location" label="30128" type="folder" default=""/>
-		<setting label="" type="lsep" visible="true" />
-        <setting id="dummy" label="30129" type="action" action="RunScript($CWD/backup.py)" visible="true"/>
-        <setting id="dummy" label="30130" type="action" action="RunScript($CWD/restore.py)" visible="true"/>
+        <setting id="dummy" label="30129" type="action" option="close" action="RunScript($CWD/backup.py)"  visible="true"/>
+        <setting id="dummy" label="30130" type="action" option="close" action="RunScript($CWD/restore.py)" visible="true"/>
     </category>
 
     <category label="30125">

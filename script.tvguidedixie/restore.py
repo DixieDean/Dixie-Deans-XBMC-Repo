@@ -1,5 +1,5 @@
 #
-#      Copyright (C) 2014 Richard Dean (write2dixie@gmail.com)
+#      Copyright (C) 2014-15 Sean Poyser and Richard Dean (write2dixie@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -17,71 +17,81 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-
-import xbmc
 import xbmcgui
 import xbmcaddon
-
 import os
-import shutil
+
+import dixie
+
+import zipfile
+
+ROOT  = dixie.PROFILE 
+LINE1 = 'Now restoring from backup'
+LINE2 = 'Please wait, this may take a while.'
 
 
-ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
-TITLE       = 'TV Guide Dixie'
-source      = xbmc.translatePath('special://profile/addon_data/')
-folder      = source + 'script.tvguidedixie'
-location    = ADDON.getSetting('backup.location')
-datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-
-
-def ok(title, line1, line2 = '', line3 = ''):
-    dlg = xbmcgui.Dialog()
-    dlg.ok(title, line1, line2, line3)
-
-
-def GetLocation():
+def doRestore():
     try:
-        if os.path.exists(source):
-            return source
-            
-        if os.path.exists(location):
-            return location
-        
+        filename = getFile('Please select backup file', 'zip')
+
+        if not filename:
+            return False
+
+        dp = dixie.Progress(LINE1, LINE2, hide=True)
+
+        success = extractAll(filename, dp)
+
+        dp.close()
+
+        if success: 
+            dixie.DialogOK('Backup successfully restored')
+
+        return True
+
     except Exception, e:
-        print str(e)
+        dixie.log(e)
+
+    return False
 
 
-def RestoreFiles():
-    datapath  = source
-    outpath   = os.path.join(location, 'script.tvguidedixie-backup')
-    folder    = source + 'script.tvguidedixie'
-    
-    if os.path.exists(folder):
-        shutil.rmtree(folder)
+def extractAll(filename, dp):
+    zin = zipfile.ZipFile(filename, 'r')
 
-    dst = datapath
-    src = outpath
-    
-    busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
-    busy.show()
-    
-    shutil.move(src, dst)
-    
-    old = source + 'script.tvguidedixie-backup'
-    new = source + 'script.tvguidedixie'
-    os.rename(old, new)
-    
-    busy.close()
-    ok(TITLE, '', 'Your backup has been successfully restored.', '')
+    folder = ROOT.rsplit('script.tvguidedixie', 1)[0]
 
+    try:
+        nItem = float(len(zin.infolist()))
+        index = 0
+        for item in zin.infolist():
+            index += 1
+
+            percent  = int(index / nItem *100)
+            dp.update(percent, LINE1, LINE2)
+
+            if item.filename.startswith('script.tvguidedixie'):
+                zin.extract(item, folder)
+            else:
+                zin.extract(item, ROOT)
+
+    except Exception, e:
+        dixie.log('Error whilst unzipping %s' % zin.filename)
+        dixie.log(e)
+        return False
+
+    return True
+
+
+def getFile(title, ext):
+    filename = xbmcgui.Dialog().browse(1, title, 'files', '.'+ext, False, False, '')
+
+    if filename == 'NO FILE':
+        return None
+
+    return filename
 
 
 if __name__ == '__main__':
-    try:
-        if location == '':
-            ok(TITLE, 'Please click OK below to save your', 'Back Up Location before performing a backup.', '')
-        else:
-            GetLocation()
-            RestoreFiles()
-    except:
-        pass
+    try:    doRestore()
+    except: pass
+
+    xbmcaddon.Addon(dixie.ADDONID).openSettings()

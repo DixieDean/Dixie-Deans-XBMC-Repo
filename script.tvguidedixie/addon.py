@@ -84,8 +84,8 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE', 'Fix for Film-On script error.', '')
-    # showChangelog()
+    d.ok(TITLE + ' - ' + VERSION, 'Record, Catch-up and Watch Live options in the EPG', 'Improved back-up and restore feature.', '')
+    showChangelog()
 
 
 def showChangelog(addonID=None):
