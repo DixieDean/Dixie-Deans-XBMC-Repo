@@ -5,44 +5,47 @@
 		<setting id="username"         label="Username"      type="text"   default="" visible="true" />
 		<setting id="password"         label="Password"      type="text"   default="" visible="true" option="hidden" />
         <setting id="dixie.url" label="30117" type="labelenum" values="All Channels" default="All Channels" visible="false" />
-		<setting label="" type="lsep" visible="true" />
+		<!-- <setting label="" type="lsep" visible="true" />		 -->
  		<setting id="gmtfrom" label="30124" type="labelenum"  default="GMT"
 					values="GMT-12|GMT-11|GMT-10|GMT-9|GMT-8|GMT-7|GMT-6|GMT-5|GMT-4|GMT-3|GMT-2|GMT-1|GMT|GMT+1|GMT+2|GMT+3|GMT+4|GMT+5|GMT+6|GMT+7|GMT+8|GMT+9|GMT+10|GMT+11|GMT+12"
 					visible="false" />
 		<setting id="dummy" label="Download Default Logo Pack" type="action" action="RunScript($CWD/logoDownloader.py)" visible="true" />
 		<setting id="dixie.logo.folder" label="Choose Logo Pack" type="select"  source="../../userdata/addon_data/script.tvguidedixie/extras/logos/" mask="/" default="None" visible="true" />
 		<setting id="PREVLOGO" label="Previous Logo" type="text" default="None" visible="false" />
+        <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
+        <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
 		
-		<setting label="" type="lsep" visible="true" />
+		
+		<!-- <setting label="" type="lsep" visible="true" /> -->
         <setting id="dummy"            label="Update built-in Add-on links" type="action" action="RunScript($CWD/getIni.py)" />
 	    <setting id="dummy"            label="Update EPG data now (Gotham Only)" type="action" option="close" action="RunScript($CWD/update.py,0)" visible="true" />
  	    <setting id="epg.date"         label="Update EPG Date"      type="text"   default="01-01-01" visible="false" />
 	    <setting id="current.channels" label="Current Channels"     type="number" default="0"        visible="false" />
 	    <setting id="updated.channels" label="Updated Channels"     type="number" default="0"        visible="false" />
         
-	<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
-	<setting id="categories" label="categories" type="text" default="" visible="false"/>
-    <setting id="VERSION" type="text" label="Current Version" default="0.0.0" visible="false"/>
-	<setting id="SKINVERSION" type="text" label="Skin Version" default="7" visible="false"/>
-	<setting id="INIVERSION" type="text" label="ini Version" default="0" visible="false"/>
-	<setting id="DIXIEURL"  type="labelenum" values="All Channels" default="All Channels" visible="false"/>
-</category>
+		<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
+		<setting id="categories" label="categories" type="text" default="" visible="false"/>
+	    <setting id="VERSION" type="text" label="Current Version" default="0.0.0" visible="false"/>
+		<setting id="SKINVERSION" type="text" label="Skin Version" default="7" visible="false"/>
+		<setting id="INIVERSION" type="text" label="ini Version" default="0" visible="false"/>
+		<setting id="DIXIEURL"  type="labelenum" values="All Channels" default="All Channels" visible="false"/>
+	</category>
 
     <category label="30114">
         <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="FXB v3.0"/>
-        <setting id="trailers.addon" label="Choose Trailers Add-on" type="labelenum" values="Apple iTunes Trailers|HD-Trailers.net" default="HD-Trailers.net" visible="false" />
-        <setting id="ustv.addon" label="Choose USTV Catch Up Add-on" type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" />
+		<setting id="playlist.type" label="IPTV Playlist" type="enum" default="URL" values="URL|File" visible="true"/>
+		<setting id="playlist.file" label="File" type="file" visible="eq(-1,1)" />
+		<setting id="playlist.url" label="URL" type="text" visible="eq(-2,0)"/>
         <setting id="ftv.ini" label="Choose Film-On UK TV Links" type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="true" />
 		<setting id="local.ini" label="Allow Enhanced Add-on Linking" type="bool" default="true" />
-        <setting id="playlist.file" label="Choose IPTV Playlist File" type="file" default="" visible="false" />
 		<setting label="" type="lsep" visible="true" />
-        <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
-        <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" visible="false"/>
         <setting id="alternative.playback" label="30120" type="bool" default="false" visible="false"/>
         <setting id="enable.touch" label="30123" type="bool" default="false" />
         <setting id="notifications.enabled" label="30106" type="bool" default="false" visible="false"/>
         <setting id="dummy" label="30108" type="action" action="RunScript($CWD/notification.py)" visible="false"/>
+        <setting id="trailers.addon" label="Choose Trailers Add-on" type="labelenum" values="Apple iTunes Trailers|HD-Trailers.net" default="HD-Trailers.net" visible="false" />
+        <setting id="ustv.addon" label="Choose USTV Catch Up Add-on" type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" />
     </category>
 
     <category label="30122">

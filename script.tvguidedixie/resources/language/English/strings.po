@@ -389,7 +389,7 @@ msgid "Super Favourites"
 msgstr ""
 
 msgctxt "#30609"
-msgid "Spare"
+msgid "IPTV PlayList"
 msgstr ""
 
 

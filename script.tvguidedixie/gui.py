@@ -54,7 +54,6 @@ datapath   = dixie.PROFILE
 extras     = os.path.join(datapath, 'extras')
 skinfolder = os.path.join(datapath, extras, 'skins')
 skinpath   = os.path.join(skinfolder, SKIN)
-sparefile  = os.path.join(datapath, 'spare')
 
 PATH       = skinpath
 
@@ -245,9 +244,37 @@ class TVGuide(xbmcgui.WindowXML):
                 self.close()
             return None
 
+
+    def resetTimer(self):
+        try:
+            self.stopTimer()
+            self.timer = threading.Timer(1*60, self.onTimer)        
+            self.timer.start()
+        except Exception, e:
+            pass
+        
+    def stopTimer(self):                   
+        try:
+            self.timer.cancel()        
+        except Exception, e:
+            pass
+
+
+    def onTimer(self):
+        refresh = 30 * 60 #30 minutes
+        if (datetime.datetime.today() - self.viewStartDate).seconds > refresh:
+            self.viewStartDate  = datetime.datetime.today()
+            self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
+            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+        else:
+            self.updateTimebar()
+
+        self.resetTimer()
+
+
     def close(self):
         try:
-            self.timer.cancel()
+            self.stopTimer()
             del self.timer
         except:
             pass
@@ -301,7 +328,10 @@ class TVGuide(xbmcgui.WindowXML):
             self.close()
             return
         self.database.initializeS(self.onSourceInitializedS, self.isSourceInitializationCancelled)
-        self.updateTimebar()
+
+        self.resetTimer()
+
+        #self.updateTimebar()
 
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onAction'})
     def onAction(self, action):
@@ -961,7 +991,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.redrawingEPG = True
         self.mode = MODE_EPG
         self._showControl(self.C_MAIN_EPG)
-        self.updateTimebar(scheduleTimer = False)
+        self.updateTimebar()#scheduleTimer = False)
 
         # show Loading screen
         self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
@@ -1314,7 +1344,7 @@ class TVGuide(xbmcgui.WindowXML):
             pass
 
 
-    def updateTimebar(self, scheduleTimer = True):
+    def updateTimebar(self): #, scheduleTimer = True):
         try:
             # move timebar to current time
             timeDelta = datetime.datetime.today() - self.viewStartDate
@@ -1329,8 +1359,8 @@ class TVGuide(xbmcgui.WindowXML):
                     pass
                 control.setPosition(self._secondsToXposition(timeDelta.seconds), y)
 
-            if scheduleTimer and not xbmc.abortRequested and not self.isClosing:
-                threading.Timer(1, self.updateTimebar).start()
+            #if scheduleTimer and not xbmc.abortRequested and not self.isClosing:
+            #    threading.Timer(1, self.updateTimebar).start()
         except Exception:
             buggalo.onExceptionRaised()
 
@@ -1625,7 +1655,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_FAVOURITES_TAB = 102
     C_STREAM_ADDONS_TAB = 103
     C_STREAM_SUPERFAVE_TAB = 104
-    C_STREAM_SPARE_TAB = 105
+    C_STREAM_PLAYLIST_TAB = 105
     C_STREAM_STRM_BROWSE = 1001
     C_STREAM_STRM_FILE_LABEL = 1005
     C_STREAM_STRM_PREVIEW = 1002
@@ -1643,13 +1673,10 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     C_STREAM_ADDONS_OK = 3006
     C_STREAM_ADDONS_CANCEL = 3007
 
-    C_STREAM_SPARE = 4001
-    C_STREAM_SPARE_STREAMS = 4002
-    C_STREAM_SPARE_NAME = 4003
-    C_STREAM_SPARE_DESCRIPTION = 4004
-    C_STREAM_SPARE_PREVIEW = 4005
-    C_STREAM_SPARE_OK = 4006
-    C_STREAM_SPARE_CANCEL = 4007
+    C_STREAM_PLAYLIST = 4001
+    C_STREAM_PLAYLIST_PREVIEW = 4002
+    C_STREAM_PLAYLIST_OK = 4003
+    C_STREAM_PLAYLIST_CANCEL = 4004
 
     C_STREAM_SUPERFAVE_BROWSE = 5001
     C_STREAM_SUPERFAVE_PREVIEW = 5002
@@ -1663,7 +1690,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     VISIBLE_STRM = 'strm'
     VISIBLE_FAVOURITES = 'favourites'
     VISIBLE_ADDONS = 'addons'
-    VISIBLE_SPARE = 'spareup'
+    VISIBLE_PLAYLIST = 'playlist'
     VISIBLE_SUPERFAVE = 'superfave'
 
     def __new__(cls, database, channel):
@@ -1696,8 +1723,6 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onInit'})
     def onInit(self):
         self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
-        if not os.path.exists(sparefile):
-            self.getControl(self.C_STREAM_SPARE_TAB).setVisible(False)
 
         favourites = self.streamingService.loadFavourites()
         items = list()
@@ -1722,17 +1747,15 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.addItems(items)
         self.updateAddonInfo()
 
-        # items  = list()
-        # for provider in self.streamingService.getSpare():
-        #     try:
-        #         item = xbmcgui.ListItem(provider, iconImage=self.streamingService.getSpareupIcon(provider))
-        #         item.setProperty('provider', provider)
-        #         items.append(item)
-        #     except:
-        #         pass
-        # listControl = self.getControl(StreamSetupDialog.C_STREAM_SPARE)
-        # listControl.addItems(items)
-        # self.updateSpareInfo()
+        playlist = self.streamingService.loadPlaylist()
+        items = list()
+        for label, value in playlist:
+            item = xbmcgui.ListItem(label)
+            item.setProperty('stream', value)
+            items.append(item)
+
+        listControl = self.getControl(StreamSetupDialog.C_STREAM_PLAYLIST)
+        listControl.addItems(items)
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onAction'})
     def onAction(self, action):
@@ -1742,10 +1765,6 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
 
         elif self.getFocusId() == self.C_STREAM_ADDONS:
             self.updateAddonInfo()
-
-        elif self.getFocusId() == self.C_STREAM_SPARE:
-            self.updateSpareInfo()
-
 
 
     @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onClick'})
@@ -1789,8 +1808,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                 self.getControl(self.C_STREAM_SUPERFAVE_LABEL).setText(label)
                 self.strmFile = path
 
-        elif controlId == self.C_STREAM_SPARE_OK:
-            listControl = self.getControl(self.C_STREAM_SPARE_STREAMS)
+        elif controlId == self.C_STREAM_PLAYLIST_OK:
+            listControl = self.getControl(self.C_STREAM_PLAYLIST)
             item = listControl.getSelectedItem()
             if item:
                 stream = item.getProperty('stream')
@@ -1805,17 +1824,17 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.database.setCustomStreamUrl(self.channel, self.strmFile)
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_SUPERFAVE_CANCEL, self.C_STREAM_SPARE_CANCEL]:
+        elif controlId in [self.C_STREAM_ADDONS_CANCEL, self.C_STREAM_FAVOURITES_CANCEL, self.C_STREAM_STRM_CANCEL, self.C_STREAM_SUPERFAVE_CANCEL, self.C_STREAM_PLAYLIST_CANCEL]:
             self.close()
 
-        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_SUPERFAVE_PREVIEW, self.C_STREAM_SPARE_PREVIEW]:
+        elif controlId in [self.C_STREAM_ADDONS_PREVIEW, self.C_STREAM_FAVOURITES_PREVIEW, self.C_STREAM_STRM_PREVIEW, self.C_STREAM_SUPERFAVE_PREVIEW, self.C_STREAM_PLAYLIST_PREVIEW]:
             if self.player.isPlaying():
                 self.player.stop()
                 self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_SUPERFAVE_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(PREVIEW_STREAM))
-                self.getControl(self.C_STREAM_SPARE_PREVIEW).setLabel(strings(PREVIEW_STREAM))
+                self.getControl(self.C_STREAM_PLAYLIST_PREVIEW).setLabel(strings(PREVIEW_STREAM))
                 return
 
             stream = None
@@ -1833,8 +1852,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     stream = item.getProperty('stream')
             elif visible == self.VISIBLE_SUPERFAVE:
                 stream = self.strmFile
-            elif visible == self.VISIBLE_SPARE:
-                listControl = self.getControl(self.C_STREAM_SPARE_STREAMS)
+            elif visible == self.VISIBLE_PLAYLIST:
+                listControl = self.getControl(self.C_STREAM_PLAYLIST)
                 item = listControl.getSelectedItem()
                 if item:
                     stream = item.getProperty('stream')
@@ -1849,7 +1868,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     retries -= 1
                     xbmc.sleep(1000)
                 if self.player.isPlaying():
-                    self.getControl(self.C_STREAM_SPARE_PREVIEW).setLabel(strings(STOP_PREVIEW))
+                    self.getControl(self.C_STREAM_PLAYLIST_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_ADDONS_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_FAVOURITES_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_SUPERFAVE_PREVIEW).setLabel(strings(STOP_PREVIEW))
@@ -1865,8 +1884,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_ADDONS)
         elif controlId == self.C_STREAM_SUPERFAVE_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_SUPERFAVE)
-        elif controlId == self.C_STREAM_SPARE_TAB:
-            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_SPARE)
+        elif controlId == self.C_STREAM_PLAYLIST_TAB:
+            self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_PLAYLIST)
 
     def updateAddonInfo(self):
         listControl = self.getControl(self.C_STREAM_ADDONS)
@@ -1892,31 +1911,6 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl.reset()
         listControl.addItems(items)
 
-    def updateSpareupInfo(self):
-        pass
-        listControl = self.getControl(self.C_STREAM_SPARE)
-        item = listControl.getSelectedItem()
-        if item is None:
-            return
-
-        provider = item.getProperty('provider')
-        if provider == self.previousProvider:
-            return
-
-        self.previousProvider = provider
-        self.getControl(self.C_STREAM_SPARE_NAME).setLabel('[B]%s[/B]' % provider)
-        self.getControl(self.C_STREAM_SPARE_DESCRIPTION).setText('')
-
-        streams = self.streamingService.getSpareupStreams(provider)
-        items = list()
-        for (label, stream) in streams:
-            if label.upper() != 'ICON':
-                item = xbmcgui.ListItem(label)
-                item.setProperty('stream', stream)
-                items.append(item)
-        listControl = self.getControl(StreamSetupDialog.C_STREAM_SPARE_STREAMS)
-        listControl.reset()
-        listControl.addItems(items)
 
 class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
     C_SELECTION_LIST = 1000

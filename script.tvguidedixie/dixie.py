@@ -34,7 +34,7 @@ SKIN        =  ADDON.getSetting('dixie.skin')
 FILMON      =  ADDON.getSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'OnTapp.TV'
-SKINVERSION = '14'
+SKINVERSION = '15'
 INIVERSION  = '1'
 DEBUG       = ADDON.getSetting('DEBUG') == 'true'
 

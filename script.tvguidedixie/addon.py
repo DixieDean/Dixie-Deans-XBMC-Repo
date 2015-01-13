@@ -61,7 +61,7 @@ extras      = os.path.join(datapath,   'extras')
 logos       = os.path.join(extras,     'logos')
 logofolder  = os.path.join(logos,      'None')
 skinfolder  = os.path.join(extras,     'skins')
-dest        = os.path.join(skinfolder, 'skins-16-11-2014.zip')
+dest        = os.path.join(skinfolder, 'skins.zip')
 default_ini = os.path.join(addonpath,  'addons.ini')
 local_ini   = os.path.join(addonpath,  'local.ini')
 current_ini = os.path.join(datapath,   'addons.ini')
@@ -84,7 +84,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Record, Catch-up and Watch Live options in the EPG', 'Improved back-up and restore feature.', '')
+    d.ok(TITLE + ' - ' + VERSION, 'Back by popular demand - IPTV Playlists.', 'Add Playlist via Add-on Settings', 'Add to a channel via Choose Stream.')
     showChangelog()
 
 
@@ -172,7 +172,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-22-12-2014.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-12-01-2015.zip'
 
     try:
         os.makedirs(skinfolder)

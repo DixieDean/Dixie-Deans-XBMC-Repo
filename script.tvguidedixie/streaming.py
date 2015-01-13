@@ -26,11 +26,14 @@ import ConfigParser
 import os
 import re
 import xbmcaddon
+import urllib
 
-ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
-LOCAL    = (ADDON.getSetting('local.ini') == 'true')
-FTVINI   = ADDON.getSetting('ftv.ini')
-datapath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+import dixie
+
+ADDON    = dixie.ADDON
+LOCAL    = (dixie.GetSetting('local.ini') == 'true')
+FTVINI   = dixie.GetSetting('ftv.ini')
+datapath = dixie.PROFILE
 
 class StreamsService(object):
     def __init__(self):
@@ -59,11 +62,6 @@ class StreamsService(object):
             except:
                 pass
 
-
-        self.loadSpare()
-
-    def loadSpare(self):
-        return
 
     def loadFavourites(self):
         entries = list()
@@ -100,39 +98,42 @@ class StreamsService(object):
 
 
     def loadPlaylist(self):
-        entries = list()
-        path    = os.path.join(ADDON.getSetting('playlist.file'))
-        label   = ''
-        value   = ''
-        if os.path.exists(path):
-            f = open(path)
-            playlist = f.readlines()
-            f.close()
+        iptv_type = dixie.GetSetting('playlist.type')
+        IPTV_URL  = '0'
+        IPTV_FILE = '1'
 
-            try:
+        entries   = list()
+        label     = ''
+        value     = ''
+        
+        if iptv_type == IPTV_FILE:
+            path = os.path.join(dixie.GetSetting('playlist.file'))
+
+        else:
+            url  = dixie.GetSetting('playlist.url')
+            path = os.path.join(datapath, 'playlist.m3u')
+            urllib.urlretrieve(url, path)
+
+        try:
+            if os.path.exists(path):
+                f = open(path)
+                playlist = f.readlines()
+                f.close()
+                
                 for line in playlist:
                     if line.startswith('#EXTINF:'):
                         label = line.split(',')[-1].strip()
-                    
+            
                     elif line.startswith('rtmp') or line.startswith('rtmpe') or line.startswith('rtsp') or line.startswith('http'):
-                        value = line.replace('rtmp://$OPT:rtmp-raw=', '')
-                    
+                        value = line.replace('rtmp://$OPT:rtmp-raw=', '').replace('\n', '')
+            
                         entries.append((label, value))
-            except:
-                pass
+        except:
+            pass
 
         return entries
 
 
-    def getSpare(self):
-        return self.addonsParser.sections()
-
-    def getSpareStreams(self, provider):
-        return self.addonsParser.items(id)
-
-    def getSpareIcon(self, provider):
-        return
-        
     def getAddons(self):
         return self.addonsParser.sections()
 
@@ -153,7 +154,7 @@ class StreamsService(object):
             if label == channel.title:
                 return stream
 
-        # Second check palylist, if we get exact match we use it
+        # Second check playlist, if we get exact match we use it
         for label, stream in playlist:
             if label == channel.title:
                 return stream
@@ -169,14 +170,6 @@ class StreamsService(object):
             for (label, stream) in self.getAddonStreams(id):
                 if label == channel.title:
                     matches.append((id, label, stream))
-
-        # # Fourth check all spare and return all matches
-        # 
-        # for provider in self.getSpare():
-        #     streams = self.getSpareStreams(provider)
-        #     for (label, stream) in streams:
-        #         if label == channel.title:
-        #             matches.append((self.getSpareIcon(provider), label, stream))
 
         
         if len(matches) == 1:
