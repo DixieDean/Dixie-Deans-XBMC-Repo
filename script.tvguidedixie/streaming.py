@@ -112,24 +112,23 @@ class StreamsService(object):
         else:
             url  = dixie.GetSetting('playlist.url')
             path = os.path.join(datapath, 'playlist.m3u')
-            urllib.urlretrieve(url, path)
+            try:
+                urllib.urlretrieve(url, path)
+            except: pass
 
-        try:
-            if os.path.exists(path):
-                f = open(path)
-                playlist = f.readlines()
-                f.close()
-                
-                for line in playlist:
-                    if line.startswith('#EXTINF:'):
-                        label = line.split(',')[-1].strip()
+        if os.path.exists(path):
+            f = open(path)
+            playlist = f.readlines()
+            f.close()
             
-                    elif line.startswith('rtmp') or line.startswith('rtmpe') or line.startswith('rtsp') or line.startswith('http'):
-                        value = line.replace('rtmp://$OPT:rtmp-raw=', '').replace('\n', '')
-            
-                        entries.append((label, value))
-        except:
-            pass
+            for line in playlist:
+                if line.startswith('#EXTINF:'):
+                    label = line.split(',')[-1].strip()
+        
+                elif line.startswith('rtmp') or line.startswith('rtmpe') or line.startswith('rtsp') or line.startswith('http'):
+                    value = line.replace('rtmp://$OPT:rtmp-raw=', '').replace('\n', '')
+        
+                    entries.append((label, value))
 
         return entries
 

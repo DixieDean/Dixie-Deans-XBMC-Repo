@@ -84,7 +84,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Back by popular demand - IPTV Playlists.', 'Add Playlist via Add-on Settings', 'Add to a channel via Choose Stream.')
+    d.ok(TITLE + ' - ' + VERSION, 'Bugfix for error in Choose Stream.', '', '')
     showChangelog()
 
 
