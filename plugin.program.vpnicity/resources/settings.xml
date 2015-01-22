@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="Configuration">
+	    <setting id="ABRV"   type="text" label="abrv"   default="" visible="false"/>
+	    <setting id="LABEL"  type="text" label="label"  default="" visible="false"/>
+	    <setting id="SERVER" type="text" label="server" default="" visible="false"/>
+		
 		<setting id="CONTEXT"   type="bool"      label="Enable VPNicity context menu"  default="false"  visible="true"/>		
 			
 	    <setting id="USER"      type="text"      label="VPN Username"         default=""/>

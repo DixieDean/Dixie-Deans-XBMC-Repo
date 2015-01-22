@@ -33,10 +33,15 @@ ADDONID   = 'plugin.program.vpnicity'
 ADDON     =  xbmcaddon.Addon(ADDONID)
 HOME      =  ADDON.getAddonInfo('path')
 PROFILE   =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
+ICON      =  os.path.join(HOME, 'icon.png')
+ICON      =  xbmc.translatePath(ICON)
 RESOURCES =  os.path.join(HOME, 'resources')
-TITLE     = 'VPNicity'
-VERSION   = ADDON.getAddonInfo('version')
+TITLE     =  ADDON.getAddonInfo('name')
+VERSION   =  ADDON.getAddonInfo('version')
 KEYMAP    = 'vpnicity_menu.xml'
+GETTEXT   =  ADDON.getLocalizedString
+LOGINURL  = 'https://www.vpnicity.com/wp-login.php'
+DEBUG     =  False
 
 
 def GetXBMCVersion():
@@ -49,6 +54,48 @@ MAJOR, MINOR = GetXBMCVersion()
 FRODO        = (MAJOR == 12) and (MINOR < 9)
 GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
 HELIX        = (MAJOR == 14) or (MAJOR == 13 and MINOR == 9)
+
+
+
+def log(text):
+    try:
+        output = '%s V%s : %s' % (TITLE, VERSION, str(text))
+        
+        if DEBUG:
+            xbmc.log(output)
+        else:
+            xbmc.log(output, xbmc.LOGDEBUG)
+    except:
+        pass
+
+
+
+def notify(message, length=5000):
+    cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
+    xbmc.executebuiltin(cmd)
+
+
+def checkAutoStart():
+    try:
+        import vpn
+
+        abrv   = ADDON.getSetting('ABRV')
+        label  = ADDON.getSetting('LABEL')
+        server = ADDON.getSetting('SERVER')
+
+        if len(abrv) == 0:
+            return
+
+        if len(label) == 0:
+            best   = vpn.GetBest(abrv)
+            label  = vpn.COUNTRIES[abrv.upper()] #best[0]
+            server = best[3]
+
+        notify('Starting %s VPNicity' % label, 15000)
+        return vpn.VPN(label, abrv, server)
+
+    except Exception, e:
+        log('Error in autoStart %s' % str(e))
 
 
 
@@ -75,7 +122,7 @@ def triggerChangelog():
 
 
 def showVideo():
-    ADDON.setSetting('VIDEO', 'true')
+    
     import yt    
     yt.PlayVideo('-DpU4yOJO_I', forcePlayer=True)
     xbmc.sleep(500)
@@ -84,20 +131,20 @@ def showVideo():
 
 
 def checkVersion():
-    prev = ADDON.getSetting('VERSION')
+    prev = GetSetting('VERSION')
     curr = VERSION
-    print '******** VPNicity Launched ********', VERSION
+    log('******** VPNicity Launched ********')
 
     if prev == curr:
         return
 
-    ADDON.setSetting('VERSION', curr)
+    SetSetting('VERSION', curr)
 
-    if ADDON.getSetting('VIDEO').lower() != 'true':
+    if GetSetting('VIDEO').lower() != 'true':
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Final context menu fix for Helix and Gotham.')
+    d.ok(TITLE + ' - ' + VERSION, 'Option to automatically start VPNicity on Kodi startup.')
     triggerChangelog()
     
 
@@ -155,18 +202,18 @@ def verifyPluginsFile():
 
 
 def getSudo():
-    if ADDON.getSetting('OS') == 'Windows':
+    if GetSetting('OS') == 'Windows':
         return ''
 
-    if ADDON.getSetting('OS') == 'OpenELEC':
+    if GetSetting('OS') == 'OpenELEC':
         return ''
 
-    sudo = ADDON.getSetting('SUDO') == 'true'    
+    sudo = GetSetting('SUDO') == 'true'    
 
     if not sudo:
         return ''
 
-    sudopwd = ADDON.getSetting('SUDOPASS')
+    sudopwd = GetSetting('SUDOPASS')
 
     if sudopwd:
         return 'echo \'%s\' | sudo -S ' % sudopwd
@@ -209,6 +256,14 @@ def showChangelog(addonID=None):
 
     except:
         pass
+
+
+def GetSetting(param):
+    return ADDON.getSetting(param)
+
+
+def SetSetting(param, value):
+    ADDON.setSetting(param, value)
 
 
 def platform():

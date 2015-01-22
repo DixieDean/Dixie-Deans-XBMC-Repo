@@ -93,7 +93,7 @@ def checkInstalled():
 
 # -------------------------------------------------------------------
 
-#checkInstalled()
+utils.checkAutoStart()
        
 monitor = MyMonitor()
 

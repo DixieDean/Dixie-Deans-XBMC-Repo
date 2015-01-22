@@ -25,19 +25,23 @@ import xbmcplugin
 import xbmcgui
 import os
 import urllib
-
 import utils
-
 import vpn
 
 ADDON    = utils.ADDON
 HOME     = utils.HOME
 VERSION  = utils.VERSION
 TITLE    = utils.TITLE
+GETTEXT  = utils.GETTEXT
 
 IMAGES   =  os.path.join(HOME, 'resources', 'images')
 ICON     =  os.path.join(HOME, 'icon.png')
 FANART   =  os.path.join(HOME, 'fanart.jpg')
+
+HASABRV  = len(ADDON.getSetting('ABRV')) > 0
+
+ENABLEAUTO  = 'Autostart %s VPNicity'
+DISABLEAUTO = 'Clear autostart'
 
 
 _SETTINGS  = 100
@@ -45,14 +49,16 @@ _KILL      = 200
 _SEPARATOR = 300
 _COUNTRY   = 400
 _VPN       = 500
+_AUTO      = 600
+_CLEARAUTO = 700
 
 
-
-
-
-def Main():   
+def Main():
     utils.checkVersion()
     vpn.CheckUsername()
+    
+    if not vpn.validToRun():
+       return
 
     addDir('-- Configure %s' % TITLE,   _SETTINGS,  isFolder=False)
 
@@ -71,9 +77,23 @@ def Main():
         isFolder = False
 
     countries = vpn.GetCountries()
+
     for country in countries:
+        label = country[0]
+        menu  = []
+        menu.append((ENABLEAUTO % label, 'XBMC.RunPlugin(%s?mode=%d&abrv=%s)' % (sys.argv[0], _AUTO, urllib.quote_plus(country[2]))))
         thumbnail = os.path.join(IMAGES, country[2].lower()+'.png')
-        addDir(country[0], mode, abrv=country[1], thumbnail=thumbnail, isFolder=isFolder)
+        addDir(label, mode, abrv=country[1], thumbnail=thumbnail, isFolder=isFolder, menu=menu)
+
+
+def clearAuto():
+    setAuto(abrv='', label='', server='')
+
+
+def setAuto(abrv, label='', server=''):
+    ADDON.setSetting('ABRV',   abrv)
+    ADDON.setSetting('LABEL',  label)
+    ADDON.setSetting('SERVER', server)
 
 
 def connect(label, abrv, server):
@@ -85,10 +105,14 @@ def Country(name, abrv):
 
     for city in cities:
         label = '%s (%d)' % (city[0], city[2])
-        addDir(label, _VPN, abrv=city[1], thumbnail=city[1], server=city[3], isFolder=False)
+        abrv   = city[1]
+        server = city[3]
+        menu   = []
+        menu.append((ENABLEAUTO % label, 'XBMC.RunPlugin(%s?mode=%d&abrv=%s&label=%s&server=%s)' % (sys.argv[0], _AUTO, urllib.quote_plus(abrv), urllib.quote_plus(label), urllib.quote_plus(server))))
+        addDir(label, _VPN, abrv=abrv, thumbnail=city[1], server=server, isFolder=False, menu=menu)
 
     
-def addDir(label, mode, abrv='', thumbnail='', server='', isFolder=True):
+def addDir(label, mode, abrv='', thumbnail='', server='', isFolder=True, menu=None):
     #if thumbnail=''
     #    thumbnail = ICON
 
@@ -99,6 +123,15 @@ def addDir(label, mode, abrv='', thumbnail='', server='', isFolder=True):
     u += '&server='   + urllib.quote_plus(server)
 
     liz = xbmcgui.ListItem(label, iconImage=thumbnail, thumbnailImage=thumbnail)
+
+    if not menu:
+        menu = []
+
+    if HASABRV:
+        menu.append((DISABLEAUTO, 'XBMC.RunPlugin(%s?mode=%d)' % (sys.argv[0], _CLEARAUTO)))
+
+    if len(menu) > 0:
+        liz.addContextMenuItems(menu, replaceItems=False)
 
     #liz.setProperty('Fanart_Image', FANART)
 
@@ -164,6 +197,25 @@ elif mode == _SETTINGS:
 
 elif mode == _KILL:
     vpn.KillVPN()    
+    doRefresh = True
+
+
+elif mode == _AUTO:
+    try:    abrv = urllib.unquote_plus(params['abrv'])
+    except: abrv = ''
+
+    try:    label = urllib.unquote_plus(params['label'])
+    except: label = ''
+
+    try:    server = urllib.unquote_plus(params['server'])
+    except: server = ''
+
+    setAuto(abrv, label, server)
+    doRefresh = True
+
+
+elif mode == _CLEARAUTO:
+    clearAuto()
     doRefresh = True
 
 

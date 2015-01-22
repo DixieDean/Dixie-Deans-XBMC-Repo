@@ -22,9 +22,11 @@ import utils
 import os
 import re
 import time
+import datetime
 import subprocess
 import xbmc
 import xbmcgui
+import requests
 
 import ipcheck
 import kill
@@ -44,6 +46,13 @@ TITLE    = utils.TITLE
 RESPONSE = os.path.join(PROFILE, 'openvpn.log')
 
 import quicknet
+
+
+LOGINURL = utils.LOGINURL
+USERNAME = utils.GetSetting('USER')
+PASSWORD = utils.GetSetting('PASS')
+PAYLOAD  = { 'log' : USERNAME, 'pwd' : PASSWORD, 'wp-submit' : 'Log In' }
+
 
 class MyVPN():
     def __init__(self, items):
@@ -139,6 +148,7 @@ def GetBest(abrv):
 
     
 def GetCities(abrv):
+    abrv  = abrv.upper()
     html  = quicknet.getURL(URL, maxSec=60*15)
     items = re.compile(REGEX).findall(html)
 
@@ -146,7 +156,6 @@ def GetCities(abrv):
     for item in items:
         vpn = MyVPN(item)        
         if vpn.abrv == abrv:
-             vpn = MyVPN(item)
              if vpn.isOkay:
                  cities.append([vpn.city, vpn.icon, vpn.capacity, vpn.ip])
 
@@ -165,7 +174,7 @@ def Run(cmdline, timeout=0):
     if utils.platform() == "android":
         return RunAndroid(cmdline, timeout)
 
-    #print "COMMAND - %s" % cmdline
+    utils.log('COMMAND - %s' % cmdline)
 
     ret = 'Error: Process failed to start'
 
@@ -205,7 +214,7 @@ def Run(cmdline, timeout=0):
         ps.stdout.close()
 
     #try:
-    #    print "RESULT - %s" % str(ret)
+    #    utils.log('RESULT - %s' % str(ret))
     #except:
     #    pass
 
@@ -344,8 +353,8 @@ def DeleteFile(path):
 def WriteAuthentication(path):
     CheckUsername()
 
-    user = ADDON.getSetting('USER') + '@vpnicity'
-    pwd  = ADDON.getSetting('PASS')
+    user = USERNAME + '@vpnicity'
+    pwd  = PASSWORD
 
     if user == '' and pwd == '':
         return
@@ -385,8 +394,8 @@ def WriteConfiguration(server, dest, authPath):
 
     if utils.platform() == 'android':
         authentication = '<auth-user-pass>\r\n'               \
-                       + ADDON.getSetting('USER') + '@vpnicity' + '\r\n'    \
-                       + ADDON.getSetting('PASS') + '\r\n'    \
+                       + USERNAME + '@vpnicity' + '\r\n'    \
+                       + PASSWORD + '\r\n'    \
                        + '</auth-user-pass>'
                        
     else:
@@ -400,8 +409,8 @@ def WriteConfiguration(server, dest, authPath):
 
 
 def CheckUsername():
-    user = ADDON.getSetting('USER') + '@vpnicity'
-    pwd  = ADDON.getSetting('PASS')
+    user = USERNAME + '@vpnicity'
+    pwd  = PASSWORD
 
     if user != '' and pwd != '':
         return True
@@ -413,3 +422,70 @@ def CheckUsername():
 
 def ShowSettings():
     ADDON.openSettings()
+
+
+def getPreviousTime():
+    time_object = xbmcgui.Window(10000).getProperty('VPN_LOGIN_TIME')
+    
+    if time_object == '':
+        time_object = '2001-01-01 00:00:00'
+        
+    previousTime = parseTime(time_object)
+    
+    return previousTime
+
+
+def parseTime(when):
+    if type(when) in [str, unicode]:
+        dt = when.split(' ')
+        d  = dt[0]
+        t  = dt[1]
+        ds = d.split('-')
+        ts = t.split(':')
+        when = datetime.datetime(int(ds[0]), int(ds[1]) ,int(ds[2]), int(ts[0]), int(ts[1]), int(ts[2].split('.')[0]))
+        
+    return when
+
+
+def validToRun():
+    previousTime = getPreviousTime()
+    now          = datetime.datetime.today()
+    delta        = now - previousTime
+    nSeconds     = (delta.days * 86400) + delta.seconds
+    
+    if nSeconds > 35 * 60:
+        if not Login():
+            return False
+
+        xbmcgui.Window(10000).setProperty('VPN_LOGIN_TIME', str(now))
+        
+    return True
+
+def Login():
+    utils.log('************ VPNicity Login ************')
+    with requests.Session() as s:
+        s.get(LOGINURL)
+
+        login = s.post(LOGINURL, data=PAYLOAD)
+        code  = login.content
+
+        if 'login_error' not in code:
+            return True
+            
+        try:
+            error = re.compile('<div id="login_error">(.+?)<br />').search(code).groups(1)[0]
+            error = error.replace('<strong>',  '')
+            error = error.replace('</strong>', '')
+            error = error.replace('<a href="https://www.vpnicity.com/wp-login.php?action=lostpassword">Lost your password</a>?', '')
+            error = error.strip()
+        except:
+            error = ''
+            
+        utils.dialogOK('There was a problem logging into VPNicity.', '', error)
+        utils.log('************ VPNicity Error ************')
+        utils.log(error)
+        utils.log('****************************************')
+    
+        KillVPN(silent=True)
+        
+    return False
