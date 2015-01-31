@@ -29,8 +29,6 @@ import requests
 import json
 
 import dixie
-import session
-
 
 ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
 TITLE    = ADDON.getAddonInfo('name')
@@ -39,6 +37,12 @@ username = ADDON.getSetting('username')
 password = ADDON.getSetting('password')
 response = ''
 
+datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+cookiepath = os.path.join(datapath, 'cookies')
+cookiefile = os.path.join(cookiepath, 'cookie')
+
+if not os.path.exists(cookiepath):
+    os.makedirs(cookiepath)
 
 try:
     #workaround Python bug in strptime which causes it to intermittently throws an AttributeError
@@ -69,15 +73,15 @@ def generateMD5(path):
 
 
 
-def ok(title, line1, line2 = '', line3 = ''):
-    dlg = xbmcgui.Dialog()
-    dlg.ok(title, line1, line2, line3)
+#def ok(title, line1, line2 = '', line3 = ''):
+#    dlg = xbmcgui.Dialog()
+#    dlg.ok(title, line1, line2, line3)
 
 
 
-def yesno(title, line1, line2 = '', line3 = '', no = 'No', yes = 'Yes'):
-    dlg = xbmcgui.Dialog()
-    return dlg.yesno(title, line1, line2, line3, no, yes) == 1
+#def yesno(title, line1, line2 = '', line3 = '', no = 'No', yes = 'Yes'):
+#    dlg = xbmcgui.Dialog()
+#    return dlg.yesno(title, line1, line2, line3, no, yes) == 1
 
 
 
@@ -113,33 +117,47 @@ def deleteFile(filename, attempts = 5):
 
 # -----------------------------------------------------------------------
 
+def onBoot():
+    dixie.log('onBoot')
+    retry  = 12
+    update = checkForUpdate(silent=True)
+
+    while (not xbmc.abortRequested) and (not update) and (retry > 0):
+        xbmc.sleep(5000)
+        dixie.log('Failed to checkForUpdate (%d) - Trying again in 5 seconds' % retry)
+        retry -= 1
+        update = checkForUpdate(silent=True)
+
+    dixie.log('onBoot returning %s' % str(update))
+    return update
+
 
 def checkForUpdate(silent = 1):
-    #silent = 0
+    # silent = 0
     xbmcgui.Window(10000).setProperty('OTT_UPDATING', 'True')
 
     silent = int(silent) == 1
 
-    response = getResponse()
+    response = getResponse(silent)
     
     if 'Error' in response:
         if not silent:
-            ok(TITLE, response['Error'],'Please subscribe at','www.ontapp.tv')
-            dixie.SetSetting('dixie.url', 'All Channels')
-            dixie.SetSetting('DIXIEURL', 'All Channels')
+            ok(TITLE, 'There was a problem: ', response['Error'], '')
         
-            return allDone(silent)
+        allDone(silent)
+        return False
         
     isValid  = len(response) > 0
 
     if not isValid:
         if not silent:
             ok(TITLE, '', 'No EPG update available.', 'Please try again later.')
-        return allDone(silent)
+        allDone(silent)
+        return False
    
     try:
         if updateAvailable(response['Date']):
-            print '%s EPG Update Available - %s' % (TITLE, response['Date'])
+            dixie.log ('%s EPG Update Available - %s' % (TITLE, response['Date']))
             getUpdate(response, silent)
 
         else:
@@ -152,10 +170,12 @@ def checkForUpdate(silent = 1):
         pass
 
     allDone(silent)
+    return True
 
 
 def allDone(silent, mins = 1 * 60 * 24): #24 hours
-    setAlarm(mins)
+    try:    setAlarm(mins)
+    except: pass
 
     xbmcgui.Window(10000).clearProperty('OTT_UPDATING')
 
@@ -177,21 +197,38 @@ def setAlarm(mins):
     xbmc.executebuiltin(cmd)
 
 
-def getResponse():
-    try:
-        url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-        request  = requests.get(url, allow_redirects=False, auth=(username, password))
-        code     = request.status_code
-        response = request.content
+def getResponse(silent=False):
+    if not dixie.validToRun(silent):
+        return {'Error' : 'Failed to obtain a valid response from On-Tapp.TV'}
 
-        if not code == 200:
-            response = re.sub('<(.+?)>', '', response)
-            return {'Error' : response}
+    url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+    request  = requests.get(url, allow_redirects=False, cookies=dixie.loadCookies(cookiefile))
+    code     = request.status_code
+    response = request.content
 
-    except:
-        pass
+    if not code == 200:
+        response = re.sub('<(.+?)>', '', response)
+        response = response.replace('<strong>',  '')
+        response = response.replace('</strong>', '')
+        dixie.log ('OTT status_code %s ' % code)
+        dixie.log ('OTT response %s ' % response)
+        
+        return {'Error' : response}
 
     return json.loads(u"" + (response))
+
+
+# def getResponse():
+#     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+#     request  = requests.get(url, cookies=dixie.loadCookies(cookiefile))
+#     code     = request.status_code
+#     response = request.content
+#
+#     if not code == 200:
+#         response = re.sub('<(.+?)>', '', response)
+#         return {'Error' : response}
+#
+#     return json.loads(u"" + (response))
 
 
 def updateAvailable(latest):
@@ -333,7 +370,7 @@ def getDownloadPath(date):
 
 
 def download(url, dest, dp = None, start = 0, range = 100):    
-    r = requests.get(url, auth=(username, password))
+    r = requests.get(url, cookies=dixie.loadCookies(cookiefile))
 
     with open(dest, 'wb') as f:
         for chunk in r.iter_content(512):
@@ -347,7 +384,7 @@ def _pbhook(numblocks, blocksize, filesize, dp, start, range, url=None):
         percent = min(start+((numblocks*blocksize*range)/filesize), start+range)
         dp.update(int(percent))
     except Exception, e:
-        utils.log('%s Error Downloading Update' % str(e))
+        dixie.log('%s Error Downloading Update' % str(e))
         percent = 100
         dp.update(int(percent))
     if dp.iscanceled(): 

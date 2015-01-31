@@ -70,7 +70,7 @@ def log(text):
 
 
 
-def notify(message, length=5000):
+def notify(message, length=10000):
     cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
     xbmc.executebuiltin(cmd)
 
@@ -144,7 +144,7 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Option to automatically start VPNicity on Kodi startup.')
+    d.ok(TITLE + ' - ' + VERSION, 'Changed Dialog boxes to Notifications.')
     triggerChangelog()
     
 

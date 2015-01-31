@@ -281,7 +281,7 @@ msgid "Channels"
 msgstr ""
 
 msgctxt "#30308"
-msgid "Quit"
+msgid "Close Menu"
 msgstr ""
 
 msgctxt "#30309"

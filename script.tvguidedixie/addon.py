@@ -31,7 +31,6 @@ import download
 import extract
 import update
 import dixie
-import session
 import getIni
 
 import filmon
@@ -68,15 +67,10 @@ current_ini = os.path.join(datapath,   'addons.ini')
 database    = os.path.join(datapath,   'program.db')
 
 
-dixie.SetSetting('gmtfrom', 'GMT')
-dixie.SetSetting('dixie.url', 'All Channels')
-dixie.SetSetting('DIXIEURL', 'All Channels')
-
-
 def CheckVersion():
     prev = ADDON.getSetting('VERSION')
     curr = VERSION
-    print '****** ONTAPP.TV %s LAUNCHED ******' % str(VERSION)
+    dixie.log('****** ONTAPP.TV %s LAUNCHED ******' % str(VERSION))
 
     if prev == curr:
         return
@@ -84,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Bugfix for error in Choose Stream.', '', '')
+    d.ok(TITLE + ' - ' + VERSION, 'New setting to warn before you quit On-Tapp.TV.', 'Turn it on via the Add-on Settings.', 'Various other changes. See changelog.')
     showChangelog()
 
 
@@ -238,7 +232,7 @@ try:
         try: os.makedirs(datapath)
         except: pass
         shutil.copy(default_ini, datapath)
-        shutil.copy(local_ini, datapath)
+        shutil.copy(local_ini, datapath)        
 except:
     pass
 
@@ -254,43 +248,18 @@ def main(doLogin=True):
 
 
     try:
-        if doLogin:
-            url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-            code     = session.doLogin()
-            response = session.checkFiles(url)
-        else:
-            code = 200
-            response = ''
-
-        if code == 503:
-            d = xbmcgui.Dialog()
-            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Something went wrong with your login', 'Please check your settings.')
-            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % code, 'Daily IP Address limit reached.', 'Restricted for 2 hours.')
-            print '****** OnTapp.TV Error 503. Too many login attempts/IPs exceeded *******'
+        if not dixie.validToRun():
+            dixie.notify('Failed to obtain a response from On-Tapp.TV')
             return
 
-        if response == 401:
-            d = xbmcgui.Dialog()
-            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'Something went wrong with your login', 'Check your settings, or subscribe at www.on-tapp.tv.')
-            print '****** OnTapp.TV Error 401. Access Denied. Not a paid member. *******'
-            return
+        CheckVersion()
+        CheckSkinVersion()
+        CheckIniVersion()
+        CheckFilmOn()
+        CheckForUpdate()
+        CheckForChannels()
 
-        if response == 301:
-            xbmc.executebuiltin('XBMC.RunScript($CWD/deleteDB.py)')
-            d = xbmcgui.Dialog()
-            d.ok(TITLE + ' Error', 'OnTapp.TV failed with error code - %s.' % response, 'It looks like you do not have a paid subcription.', 'Check your settings, or subscribe at www.on-tapp.tv.')
-            print '****** OnTapp.TV Error 301. Free member. No paid subscription. *******'
-            return
-
-        if doLogin:
-            CheckVersion()
-            CheckSkinVersion()
-            CheckIniVersion()
-            CheckFilmOn()
-            CheckForUpdate()
-            CheckForChannels()
-
-        print '****** OnTapp.TV - All OK *******'
+        dixie.log('****** OnTapp.TV - All OK *******')
 
         xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
         xbmc.executebuiltin('XBMC.ActivateWindow(home)')
@@ -313,9 +282,9 @@ def main(doLogin=True):
 
 
 kodi = True
-if xbmcgui.Window(10000).getProperty('OTT_LOGIN').lower() == 'false':
+if xbmcgui.Window(10000).getProperty('OTT_KODI').lower() == 'false':
     kodi = False
-xbmcgui.Window(10000).clearProperty('OTT_LOGIN')
+xbmcgui.Window(10000).clearProperty('OTT_KODI')
 
 
 main(kodi)

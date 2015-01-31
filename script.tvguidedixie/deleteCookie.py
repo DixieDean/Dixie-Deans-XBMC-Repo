@@ -24,24 +24,16 @@ import xbmcaddon
 
 def deleteCookie():
     try:
-        xbmc.log("[script.tvguidedixie] Deleting database...", xbmc.LOGDEBUG)
         addonPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
         cookiePath = os.path.join(addonPath, 'cookies')
-        cookieFile = os.path.join(cookiePath, 'on-tapp.lwp')
+        cookieFile = os.path.join(cookiePath, 'cookie')
 
         delete_file(cookieFile)
         
         passed = not os.path.exists(cookieFile)
-
-        if passed: 
-            xbmc.log("[script.tvguidedixie] Deleting database...PASSED", xbmc.LOGDEBUG)
-        else:
-            xbmc.log("[script.tvguidedixie] Deleting database...FAILED", xbmc.LOGDEBUG)
-
         return passed
 
-    except Exception, e:
-        xbmc.log('[script.tvguidedixie] Deleting database...EXCEPTION', xbmc.LOGDEBUG)
+    except:
         return False
 
 def delete_file(filename):

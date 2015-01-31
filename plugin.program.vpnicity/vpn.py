@@ -166,7 +166,8 @@ def GetCities(abrv):
 def KillVPN(silent=False): 
     kill.KillVPN()
     if not silent:
-        utils.dialogOK('%s now disabled' % TITLE)
+        message = '%s now disabled' % TITLE
+        utils.notify(message)
         ipcheck.Network()
 
 
@@ -318,7 +319,8 @@ def VPN(label, abrv, server):
         if IsEnabled(response):
             # if utils.platform() == "android":
             #     xbmc.sleep(10000)
-            utils.dialogOK('%s %s now enabled' % (label, TITLE))            
+            message = '%s %s now enabled' % (label, TITLE)
+            utils.notify(message)         
             xbmcgui.Window(10000).setProperty('VPNICITY_LABEL',  label)
             xbmcgui.Window(10000).setProperty('VPNICITY_ABRV',   abrv)
             xbmcgui.Window(10000).setProperty('VPNICITY_SERVER', server)
@@ -328,7 +330,8 @@ def VPN(label, abrv, server):
             KillVPN(silent=True)
             if utils.platform() == "android":
                 xbmc.sleep(5000)
-            utils.dialogOK('%s %s failed to start' % (label, TITLE), 'Please check your settings', 'and try again')
+            message = '%s %s failed to start. Please check your settings.' % (label, TITLE)
+            utils.notify(message)
             ipcheck.Network() 
             success = False
 
@@ -453,7 +456,7 @@ def validToRun():
     delta        = now - previousTime
     nSeconds     = (delta.days * 86400) + delta.seconds
     
-    if nSeconds > 35 * 60:
+    if nSeconds > 60 * 60:
         if not Login():
             return False
 

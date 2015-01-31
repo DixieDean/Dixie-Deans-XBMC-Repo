@@ -167,7 +167,7 @@ class Database(object):
 
 
     def eventLoop(self):
-        print 'Database.eventLoop() >>>>>>>>>> starting...'
+        dixie.log('Database.eventLoop() >>>>>>>>>> starting...')
         while True:
             self.event.wait()
             self.event.clear()
@@ -177,7 +177,7 @@ class Database(object):
             command = event[0]
             callback = event[1]
 
-            print 'Database.eventLoop() >>>>>>>>>> processing command: ' + command.__name__
+            dixie.log('Database.eventLoop() >>>>>>>>>> processing command: %s' % command.__name__)
 
             try:
                 result = command(*event[2:])
@@ -195,11 +195,11 @@ class Database(object):
                     del self.eventQueue[:]
                     break
 
-            except Exception:
-                print 'Database.eventLoop() >>>>>>>>>> exception!'
+            except Exception, e:
+                dixie.log('Database.eventLoop() >>>>>>>>>> exception! %s' % str(e))
                 buggalo.onExceptionRaised()
 
-        print 'Database.eventLoop() >>>>>>>>>> exiting...'
+        dixie.log('Database.eventLoop() >>>>>>>>>> exiting...')
 
 
     def _invokeAndBlockForResult(self, method, *args):
@@ -376,7 +376,7 @@ class Database(object):
                 value = addon.getSetting(param).decode('utf-8', 'ignore')
                 settings.set(param, value, settingsFile)
 
-        print 'Settings changed: ' + str(settingsChanged)
+        dixie.log('Settings changed: ' + str(settingsChanged))
         return settingsChanged
 
 
@@ -459,8 +459,7 @@ class Database(object):
             try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)
             except: pass
 
-            # for id in toDelete:
-            #     self.removeCleanChannel(id)
+            self.deleteOldChannels(toDelete)
 
             if imported_channels == 0:
                 self.updateFailed = True
@@ -487,15 +486,56 @@ class Database(object):
                 pass
 
             self.updateFailed = True
-        finally:            
-            update = dixie.GetSetting('updated.channels')
-            if int(update) < 0:
-                dixie.SetSetting('updated.channels', 0)
-                dixie.SetSetting('current.channels', 0)
-            else:
-                dixie.SetSetting('current.channels', update)
-                self.channelDict = {}
-                self.updateInProgress = False
+
+        update = dixie.GetSetting('updated.channels')
+        if int(update) < 0:
+            dixie.SetSetting('updated.channels', 0)
+            dixie.SetSetting('current.channels', 0)
+        else:
+            dixie.SetSetting('current.channels', update)
+            self.channelDict = {}
+            self.updateInProgress = False
+
+        self.updateInProgress = False
+
+
+    def deleteOldChannels(self, toDelete):
+        dixie.log('START deleteOldChannels')
+
+        dixie.log('Pass 1')
+        dixie.log(toDelete)
+        for i in xrange(len(toDelete), 0, -1):
+            id = toDelete[i-1]
+            try:
+                channel = self.getChannelFromFile(id)
+                dixie.log(channel)
+
+                if channel.isClone == 1:
+                    original = id.split('_clone_')[0]
+                    dixie.log('Clone of %s' % original)
+                    if original not in toDelete:
+                        dixie.log('NOT removing clone %s' % id)
+                        toDelete.remove(id)
+
+                if channel.userDef == 1:
+                    dixie.log('NOT removing userdef %s' % id)
+                    toDelete.remove(id)
+
+            except Exception, e:
+                dixie.log('ERROR in deleteOldChannels %s' % str(e))
+
+        dixie.log('Pass 2')
+        dixie.log(toDelete)
+        for id in toDelete:
+            try:                
+                dixie.log('Channel %s no longer available' % id)
+                self.removeCleanChannel(id)
+            except:
+                pass
+
+        dixie.log('END deleteOldChannels')
+
+
 
 
     def getAllChannels(self):
@@ -504,7 +544,7 @@ class Database(object):
         try:
             current, dirs, files = os.walk(channelPath).next()
         except Exception, e:
-            print str(e)
+            dixie.log('Error in getAllChannels' % str(e))
             return channels
 
         for file in files:
@@ -1091,8 +1131,8 @@ class DIXIESource(Source):
         current = int(dixie.GetSetting('current.channels'))
         update  = int(dixie.GetSetting('updated.channels'))
 
-        #print "current = %d" % current
-        #print "update  = %d" % update
+        #dixie.log('current = %d' % current)
+        #dixie.log('update  = %d' % update)
 
         if update == -1:
             dixie.SetSetting('updated.channels', current)
@@ -1217,10 +1257,9 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                     try:
                         category = categories[title]
                         result.categories = category
-                        #print 'The category for %s is %s' % (title, category)
+                        dixie.log('The category for %s is %s' % (title, category))
                     except:
-                        pass
-                        print 'Couldnt find %s in the categories' % (title)
+                        dixie.log('Couldnt find %s in the categories' % (title))
 
             if result:
                 elements_parsed += 1

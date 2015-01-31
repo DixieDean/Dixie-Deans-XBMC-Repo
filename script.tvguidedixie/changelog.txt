@@ -1,3 +1,12 @@
+v2.5.1 (01-28-15)
+- Option to warn before qutting Add-on.
+- Added 'Close Menu' button to EPG Context Menu.
+- Updated logos.
+- Debug mode for error tracking.
+- Internet connection check at Kodi/XBMC startup.
+- Updated Login routines.
+- Minor bug fixes.
+
 v2.5.0 (01-14-15)
 - Bugfix for error in Choose Stream.
 

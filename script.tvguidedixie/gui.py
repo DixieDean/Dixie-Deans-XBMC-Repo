@@ -50,12 +50,13 @@ GMTOFFSET  = dixie.GetGMTOffset()
 TRAILERS   = ADDON.getSetting('trailers.addon')
 USTV       = ADDON.getSetting('ustv.addon')
 
-datapath   = dixie.PROFILE
-extras     = os.path.join(datapath, 'extras')
-skinfolder = os.path.join(datapath, extras, 'skins')
-skinpath   = os.path.join(skinfolder, SKIN)
+confirmExit = ADDON.getSetting('confirm.exit').lower() == 'true'
+datapath    = dixie.PROFILE
+extras      = os.path.join(datapath, 'extras')
+skinfolder  = os.path.join(datapath, extras, 'skins')
+skinpath    = os.path.join(skinfolder, SKIN)
 
-PATH       = skinpath
+PATH        = skinpath
 
 if TRAILERS == 'HD-Trailers.net':
     trailers = 'XBMC.RunAddon(plugin.video.hdtrailers_net)'
@@ -412,8 +413,9 @@ class TVGuide(xbmcgui.WindowXML):
             return
 
         if actionId in [ACTION_PARENT_DIR, KEY_NAV_BACK, ACTION_PREVIOUS_MENU]:
-            self.close()
-            return
+            if not confirmExit or dixie.DialogYesNo('Are you sure you wish to quit On-Tapp.TV?'):
+                self.close()
+                return
 
         elif actionId == ACTION_MOUSE_MOVE:
             self._showControl(self.C_MAIN_MOUSE_CONTROLS)
@@ -680,8 +682,8 @@ class TVGuide(xbmcgui.WindowXML):
         elif buttonClicked == PopupMenu.C_POPUP_SUPER_SEARCH:
             xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s",return)' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
 
-        elif buttonClicked == PopupMenu.C_POPUP_QUIT:
-            self.close()
+        # elif buttonClicked == PopupMenu.C_POPUP_QUIT:
+        #     self.close()
 
 
     def setFocusId(self, controlId):

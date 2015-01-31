@@ -27,6 +27,13 @@ import source
 ID    = 'script.tvguidedixie'
 ADDON = xbmcaddon.Addon(id = ID)
 
+datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+cookiepath = os.path.join(datapath, 'cookies')
+cookiefile = os.path.join(cookiepath, 'cookie')
+
+if not os.path.exists(cookiepath):
+    os.makedirs(cookiepath)
+
 
 dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
 

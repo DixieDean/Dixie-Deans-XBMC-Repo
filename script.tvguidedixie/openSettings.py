@@ -29,9 +29,7 @@ id = 'script.tvguidedixie'
 ADDON = xbmcaddon.Addon(id = id)
 ADDON.openSettings()
 
-#xbmc.executebuiltin('RunScript(%s)' % id)
-
-xbmcgui.Window(10000).setProperty('OTT_LOGIN', 'false')
+xbmcgui.Window(10000).setProperty('OTT_KODI', 'false')
 
 name   =  'OTT'
 script =  os.path.join(ADDON.getAddonInfo('path'), 'launch.py')

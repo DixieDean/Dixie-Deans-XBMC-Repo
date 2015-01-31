@@ -97,7 +97,6 @@ def notify(message, length=5000):
     cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
     xbmc.executebuiltin(cmd)
 
-
 def getUserAgent():
     return ' Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3'
 

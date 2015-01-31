@@ -13,11 +13,8 @@
 		<setting id="dixie.logo.folder" label="Choose Logo Pack" type="select"  source="../../userdata/addon_data/script.tvguidedixie/extras/logos/" mask="/" default="None" visible="true" />
 		<setting id="PREVLOGO" label="Previous Logo" type="text" default="None" visible="false" />
         <setting id="idle" label="Quit Stream If Idle For" type="enum" values="Never|1 Hour|2 Hours|3 Hours|4 Hours" default="4" />
-        <setting id="autoStart" label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
-		
-		
-		<!-- <setting label="" type="lsep" visible="true" /> -->
-        <setting id="dummy"            label="Update built-in Add-on links" type="action" action="RunScript($CWD/getIni.py)" />
+ 		<setting id="confirm.exit"     label="Confirm Exit From On-Tapp.TV"          type="bool" default="false"  visible="true" />
+        <setting id="autoStart"        label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
 	    <setting id="dummy"            label="Update EPG data now (Gotham Only)" type="action" option="close" action="RunScript($CWD/update.py,0)" visible="true" />
  	    <setting id="epg.date"         label="Update EPG Date"      type="text"   default="01-01-01" visible="false" />
 	    <setting id="current.channels" label="Current Channels"     type="number" default="0"        visible="false" />
