@@ -78,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'New setting to warn before you quit On-Tapp.TV.', 'Turn it on via the Add-on Settings.', 'Various other changes. See changelog.')
+    d.ok(TITLE + ' - ' + VERSION, 'IMPORTANT. We have moved our payment gateway to www.stripe.com', 'When your subscription expires...', 'Please renew using your credit/debit card.')
     showChangelog()
 
 
