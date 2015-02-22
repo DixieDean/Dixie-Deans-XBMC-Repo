@@ -32,12 +32,7 @@ import extract
 import update
 import dixie
 import getIni
-
 import filmon
-# filmon.initialise()
-
-
-socket.setdefaulttimeout(10) # 10 seconds
 
 import settings
 settings.validate()
@@ -49,6 +44,8 @@ TITLE       = dixie.TITLE
 VERSION     = dixie.VERSION
 DIXIEURL    = dixie.DIXIEURL
 DIXIELOGOS  = dixie.DIXIELOGOS
+LOGOPACK    = dixie.LOGOPACK
+LOGOVERSION = dixie.LOGOVERSION
 SKIN        = dixie.SKIN
 SKINVERSION = dixie.SKINVERSION
 INIVERSION  = dixie.INIVERSION
@@ -59,6 +56,7 @@ datapath    = dixie.PROFILE
 extras      = os.path.join(datapath,   'extras')
 logos       = os.path.join(extras,     'logos')
 logofolder  = os.path.join(logos,      'None')
+logodest    = os.path.join(logos,      'logos.zip')
 skinfolder  = os.path.join(extras,     'skins')
 dest        = os.path.join(skinfolder, 'skins.zip')
 default_ini = os.path.join(addonpath,  'addons.ini')
@@ -78,8 +76,8 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'IMPORTANT. We have moved our payment gateway to www.stripe.com', 'When your subscription expires...', 'Please renew using your credit/debit card.')
-    showChangelog()
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Some new enhancements to On-Tapp.TV', 'New Skin. Better Logo Support. Live Messaging System.', 'Please check the forum for details.')
+    # showChangelog()
 
 
 def showChangelog(addonID=None):
@@ -138,6 +136,15 @@ def CheckSkin():
         dixie.SetSetting('SKINVERSION', curr)
 
 
+def CheckLogos():
+    path = os.path.join(extras, logos)
+    curr = LOGOVERSION
+
+    if not os.path.exists(path):
+        DownloadLogos()
+        dixie.SetSetting('LOGOVERSION', curr)
+
+
 def CheckSkinVersion():
     prev = ADDON.getSetting('SKINVERSION')
     curr = SKINVERSION
@@ -145,6 +152,22 @@ def CheckSkinVersion():
     if not prev == curr:
         DownloadSkins()
         dixie.SetSetting('SKINVERSION', curr)
+
+
+def CheckLogoVersion():
+    prev = ADDON.getSetting('LOGOVERSION')
+    curr = LOGOVERSION
+
+    if not prev == curr:
+        line1 = 'UPDATE: New Colour Logo Pack Available.'
+        line2 = 'Please back-up your custom logos first.'
+        line3 = 'Are you sure you want to download this update?'
+
+        if dixie.DialogYesNo(line1, line2, line3):
+            DownloadLogos()
+            dixie.SetSetting('LOGOVERSION', curr)
+        else:
+            dixie.SetSetting('LOGOVERSION', curr)
 
 
 def CheckIniVersion():
@@ -166,7 +189,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-12-01-2015.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-22-02-2015.zip'
 
     try:
         os.makedirs(skinfolder)
@@ -179,6 +202,25 @@ def DownloadSkins():
 
     try:
         os.remove(dest)
+    except:
+        pass
+
+
+def DownloadLogos():
+    url  = dixie.GetExtraUrl() + 'resources/logos.zip'
+
+    try:
+        os.makedirs(logofolder)
+    except:
+        pass
+
+    download.download(url, logodest)
+    extract.all(logodest, extras)
+    dixie.SetSetting('LOGOVERSION', LOGOVERSION)
+    dixie.SetSetting('dixie.logo.folder', LOGOPACK)
+
+    try:
+        os.remove(logodest)
     except:
         pass
 
@@ -222,12 +264,6 @@ def RemoveKeymap():
 
 
 try:
-    path = os.path.join(datapath, 'tvgdinstall.txt')
-
-    if not os.path.exists(path):
-        url = dixie.GetExtraUrl() + 'resources/tvgdinstall.txt'
-        urllib.urlretrieve(url, path)
-
     if not os.path.exists(current_ini):
         try: os.makedirs(datapath)
         except: pass
@@ -238,7 +274,11 @@ except:
 
 
 def main(doLogin=True):
+    import message
+    message.check()
+    dixie.CheckUsername()
     CheckSkin()
+    CheckLogos()
     busy = dixie.ShowBusy()
 
     import buggalo
@@ -251,11 +291,13 @@ def main(doLogin=True):
         if not dixie.validToRun():
             dixie.notify('Failed to obtain a response from On-Tapp.TV')
             return
-
+            
         CheckVersion()
         CheckSkinVersion()
+        CheckLogoVersion()
         CheckIniVersion()
         CheckFilmOn()
+        
         CheckForUpdate()
         CheckForChannels()
 

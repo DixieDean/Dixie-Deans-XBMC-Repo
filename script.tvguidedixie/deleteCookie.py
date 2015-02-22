@@ -22,15 +22,17 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 
+addonPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
+cookiePath = os.path.join(addonPath, 'cookies')
+cookieFile = os.path.join(cookiePath, 'cookie')
+
+
 def deleteCookie():
     try:
-        addonPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
-        cookiePath = os.path.join(addonPath, 'cookies')
-        cookieFile = os.path.join(cookiePath, 'cookie')
-
         delete_file(cookieFile)
         
         passed = not os.path.exists(cookieFile)
+
         return passed
 
     except:
@@ -43,10 +45,11 @@ def delete_file(filename):
             os.remove(filename) 
             break 
         except: 
-            tries -= 1 
+            tries -= 1
 
 if __name__ == '__main__':
     if deleteCookie():
+        os.rmdir(cookiePath)
         d = xbmcgui.Dialog()
         d.ok('OnTapp.TV', 'Cookie file successfully deleted.', 'It will be re-created next time', 'you start the guide')    
     else:

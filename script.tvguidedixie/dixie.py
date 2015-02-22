@@ -50,17 +50,18 @@ DIXIELOGOS  =  GetSetting('dixie.logo.folder')
 SKIN        =  GetSetting('dixie.skin')
 FILMON      =  GetSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
-TITLE       = 'OnTapp.TV'
-SKINVERSION = '15'
+TITLE       = 'On-Tapp.TV'
+LOGOPACK    = 'Colour Logo Pack'
+SKINVERSION = '17'
+LOGOVERSION = '1'
 INIVERSION  = '1'
-DEBUG       = GetSetting('DEBUG') == 'true'
+DEBUG       =  GetSetting('DEBUG') == 'true'
+USERNAME    =  GetSetting('username')
+PASSWORD    =  GetSetting('password')
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 cookiepath = os.path.join(datapath, 'cookies')
 cookiefile = os.path.join(cookiepath, 'cookie')
-
-if not os.path.exists(cookiepath):
-    os.makedirs(cookiepath)
 
 
 def log(text):
@@ -127,17 +128,27 @@ def GetGMTOffset():
 
 
 def saveCookies(requests_cookiejar, filename):
+    if not os.path.isfile(cookiefile):
+        try: os.makedirs(cookiepath)
+        except: pass
+
     with open(cookiefile, 'wb') as f:
         pickle.dump(requests_cookiejar, f)
 
 
 def loadCookies(filename):
     if not os.path.isfile(cookiefile):
-        os.makedirs(cookiepath)
-        open(cookiefile, 'a').close
+        try: os.makedirs(cookiepath)
+        except: pass
         
-    with open(cookiefile, 'rb') as f:
-        return pickle.load(f)
+        open(cookiefile, 'a').close()
+        
+    try:
+        with open(cookiefile, 'rb') as f:
+            return pickle.load(f)
+    except: pass
+        
+    return ''
 
 
 def resetCookies():
@@ -146,6 +157,18 @@ def resetCookies():
             os.remove(cookiefile)
     except: pass
 
+
+def CheckUsername():
+    if USERNAME != '' and PASSWORD != '':
+        return True
+
+    DialogOK('Not a member?', 'Please subscribe at www.on-tapp.tv', 'Then enter your username and password.')
+    # ShowSettings()
+    return False
+
+
+def ShowSettings():
+    ADDON.openSettings()
 
 
 def getPreviousTime():
@@ -177,7 +200,7 @@ def validToRun(silent=False):
     delta        = now - previousTime
     nSeconds     = (delta.days * 86400) + delta.seconds
     
-    if nSeconds > 35 * 60:        
+    if nSeconds > 45 * 60:        
         if not doLogin(silent):
             return False
 
@@ -189,43 +212,54 @@ def validToRun(silent=False):
 def doLogin(silent=False):
     log ('************ On-Tapp.TV Login ************')
     with requests.Session() as s:
-        try:    s.get(GetLoginUrl())
-        except: return False
-
-        USERNAME    =  GetSetting('username')
-        PASSWORD    =  GetSetting('password')
-        PAYLOAD     =  { 'log' : USERNAME, 'pwd' : PASSWORD, 'wp-submit' : 'Log In' }
-
-        code = 'login_error'
-
-        if USERNAME and PASSWORD:        
-            login = s.post(GetLoginUrl(), data=PAYLOAD)
-            code  = login.content
-            saveCookies(s.cookies, cookiefile)
+        try:
+            s.get(GetLoginUrl())
+        except: 
+            #Rich, you might want to log something here???
+            return False
+            
+        PAYLOAD  = { 'log' : USERNAME, 'pwd' : PASSWORD, 'wp-submit' : 'Log In' }
+        response = 'login_error'
+        code     =  0
         
-        if ('Are you lost' not in code) and ('login_error' not in code):
+        if USERNAME and PASSWORD:
+            login    = s.post(GetLoginUrl(), data=PAYLOAD)
+            response = login.content
+            code     = login.status_code
+            saveCookies(s.cookies, cookiefile)
+            
+        if 'no-access-redirect' in response:
+            error   = '301 - No Access.'
+            message = 'It appears that your subscription has expired.'
+            log(message + ' : ' + error)
+            if not silent:
+                DialogOK(message, error, 'Please check your account at www.on-tapp.tv')
+            return False
+            
+        areLost    = 'Are you lost' in response
+        loginError = 'login_error' in response
+        okay       =  (not areLost) and (not loginError)
+        
+        if okay:
             message = 'Logged into On-Tapp.TV'
             log(message)
             if not silent:
                 notify(message)
-            
             return True
             
         try:
-            error = re.compile('<div id="login_error">(.+?)<br />').search(code).groups(1)[0]
+            error = re.compile('<div id="login_error">(.+?)<br />').search(response).groups(1)[0]
             error = error.replace('<strong>',  '')
             error = error.replace('</strong>', '')
-            error = error.replace('<a href="http://www.on-tapp.tv/wp-login.php?action=lostpassword">Lost your password</a>?', '')
+            error = error.replace('<a href="https://www.on-tapp.tv/wp-login.php?action=lostpassword">Lost your password</a>?', '')
             error = error.strip()
         except:
             error = ''
-
+        
         message = 'There was a problem logging into On-Tapp.TV.'
-        #notify(message)
         log(message + ' : ' + error)
         if not silent:
-            DialogOK(message, '', error)
-        
+            DialogOK(message, error, 'Please check your account at www.on-tapp.tv')
         return False
 
 
@@ -235,20 +269,23 @@ def GetCats():
     path = os.path.join(PROFILE, 'cats.xml')
     url  = GetExtraUrl() + 'resources/cats.xml'
 
-    try:
-        urllib.urlretrieve(url, path)
-    except:
-        pass
+    try: urllib.urlretrieve(url, path)
+    except: pass
 
 
 def GetChannels():
     path = os.path.join(PROFILE , 'chan.xml')
     url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
 
-    r = requests.get(url, cookies=loadCookies(cookiefile))
+    chan = requests.get(url, cookies=loadCookies(cookiefile))    
+    code = chan.status_code
+    log('GeChannels code' + ' : ' + str(code))
+    
+    if code != 200:
+        return ''
     
     with open(path, 'wb') as f:
-        for chunk in r.iter_content(512):
+        for chunk in chan.iter_content(512):
             f.write(chunk)
 
     return path

@@ -41,9 +41,6 @@ datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 cookiepath = os.path.join(datapath, 'cookies')
 cookiefile = os.path.join(cookiepath, 'cookie')
 
-if not os.path.exists(cookiepath):
-    os.makedirs(cookiepath)
-
 try:
     #workaround Python bug in strptime which causes it to intermittently throws an AttributeError
     import datetime, time
@@ -73,15 +70,15 @@ def generateMD5(path):
 
 
 
-#def ok(title, line1, line2 = '', line3 = ''):
-#    dlg = xbmcgui.Dialog()
-#    dlg.ok(title, line1, line2, line3)
+def ok(title, line1, line2 = '', line3 = ''):
+   dlg = xbmcgui.Dialog()
+   dlg.ok(title, line1, line2, line3)
 
 
 
-#def yesno(title, line1, line2 = '', line3 = '', no = 'No', yes = 'Yes'):
-#    dlg = xbmcgui.Dialog()
-#    return dlg.yesno(title, line1, line2, line3, no, yes) == 1
+def yesno(title, line1, line2 = '', line3 = '', no = 'No', yes = 'Yes'):
+   dlg = xbmcgui.Dialog()
+   return dlg.yesno(title, line1, line2, line3, no, yes) == 1
 
 
 
@@ -142,8 +139,8 @@ def checkForUpdate(silent = 1):
     
     if 'Error' in response:
         if not silent:
-            ok(TITLE, 'There was a problem: ', response['Error'], '')
-        
+            ok(TITLE, 'Oops! An error has occured: ', response['Error'], 'Please check your account at www.on-tapp.tv')
+
         allDone(silent)
         return False
         
@@ -202,33 +199,30 @@ def getResponse(silent=False):
         return {'Error' : 'Failed to obtain a valid response from On-Tapp.TV'}
 
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-    request  = requests.get(url, allow_redirects=False, cookies=dixie.loadCookies(cookiefile))
+    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile))
     code     = request.status_code
     response = request.content
 
-    if not code == 200:
-        response = re.sub('<(.+?)>', '', response)
-        response = response.replace('<strong>',  '')
-        response = response.replace('</strong>', '')
-        dixie.log ('OTT status_code %s ' % code)
-        dixie.log ('OTT response %s ' % response)
-        
+    if (code == 200) and ('no-access-redirect' not in response):
+        dixie.log ('OTT response status_code %s ' % code)
+        return json.loads(u"" + (response))
+    
+    if (code == 401) or (code == 404) or (code == 503):
+        try:
+            response = re.compile('<div id="login_error">(.+?)<br />').search(code).groups(1)[0]
+            response = response.replace('<strong>',  '')
+            response = response.replace('</strong>', '')
+            response = response.replace('<a href="https://www.on-tapp.tv/wp-login.php?action=lostpassword">Lost your password</a>?', '')
+            response = response.strip()
+            dixie.log ('OTT response error code %s ' % code)
+        except:
+            response = ''
+            return {'Error' : response}
+                
+    if 'no-access-redirect' in response:
+        response = 'It appears that your subscription has expired.'
+        dixie.log ('OTT error code 301 %s ' % code)
         return {'Error' : response}
-
-    return json.loads(u"" + (response))
-
-
-# def getResponse():
-#     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-#     request  = requests.get(url, cookies=dixie.loadCookies(cookiefile))
-#     code     = request.status_code
-#     response = request.content
-#
-#     if not code == 200:
-#         response = re.sub('<(.+?)>', '', response)
-#         return {'Error' : response}
-#
-#     return json.loads(u"" + (response))
 
 
 def updateAvailable(latest):
