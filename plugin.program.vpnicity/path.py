@@ -67,6 +67,10 @@ def getAndroid(silent):
     path = '/data/app/de.blinkt.openvpn-1.apk'
     if check(path):
         return path
+    
+    path = '/data/app/de.blinkt.openvpn-2.apk'
+    if check(path):
+        return path
 
     return error(silent)
 

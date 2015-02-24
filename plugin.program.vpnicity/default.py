@@ -54,11 +54,14 @@ _CLEARAUTO = 700
 
 
 def Main():
+    import message
+    message.check()
     utils.checkVersion()
     vpn.CheckUsername()
     
     if not vpn.validToRun():
-       return
+        utils.log('Login Error')
+        return
 
     addDir('-- Configure %s' % TITLE,   _SETTINGS,  isFolder=False)
 

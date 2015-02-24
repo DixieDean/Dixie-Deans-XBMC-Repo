@@ -23,8 +23,11 @@
 			
 		<setting id="VERSION"   type="text"      label="Current Version"               default="0.0.0"  visible="false"/>
 		<setting id="VIDEO"     type="bool"      label="Video shown"                   default="false"  visible="false"/>
+		<setting id="messageID" type="text"      label="messageID"                     default="0"      visible="false" />
 	</category>
     <category label="Maintenance">
+		<setting id="DEBUG" label="[B]Enable VPNicity Debug Mode[/B]" type="bool" default="false"/>
+		<setting label="" type="lsep" visible="true" />
  		<setting type="lsep" label="Uploads your Log to xbmclogs.com"/>
  		<setting id="dummy"	label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/plugin.program.vpnicity/uploadLog.py)"/>
  		<setting id="email" type="text" label="Email address"/>

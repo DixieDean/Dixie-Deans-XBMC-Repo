@@ -297,6 +297,10 @@ def BestVPN(abrv):
 
 
 def VPN(label, abrv, server):
+    if not validToRun():
+        utils.log('Login Error via Context Menu')
+        return False
+
     authPath = os.path.join(PROFILE, 'temp')
     cfgPath  = os.path.join(PROFILE, 'cfg.ovpn')
 
@@ -418,7 +422,7 @@ def CheckUsername():
     if user != '' and pwd != '':
         return True
 
-    utils.dialogOK('Please enter your username and password')
+    utils.dialogOK('Not a member?', 'Please subscribe at www.vpnicity.com', 'Then enter your username and password.')
     ShowSettings()    
     return False
 
@@ -456,7 +460,7 @@ def validToRun():
     delta        = now - previousTime
     nSeconds     = (delta.days * 86400) + delta.seconds
     
-    if nSeconds > 60 * 60:
+    if nSeconds > 35 * 60:
         if not Login():
             return False
 
@@ -472,6 +476,16 @@ def Login():
         login = s.post(LOGINURL, data=PAYLOAD)
         code  = login.content
 
+        if 'no-access-redirect' in code:
+            error   = '301 - No Access.'
+            message = 'It appears that your subscription has expired.'
+            utils.log(message + ' : ' + error)
+            utils.dialogOK(message, error, 'Please check your account at www.vpnicity.com')
+
+            KillVPN(silent=True)
+            
+            return False
+            
         if 'login_error' not in code:
             return True
             

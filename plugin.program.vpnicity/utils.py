@@ -29,6 +29,7 @@ import shutil
 import download
 import extract
 
+
 ADDONID   = 'plugin.program.vpnicity'
 ADDON     =  xbmcaddon.Addon(ADDONID)
 HOME      =  ADDON.getAddonInfo('path')
@@ -36,12 +37,20 @@ PROFILE   =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 ICON      =  os.path.join(HOME, 'icon.png')
 ICON      =  xbmc.translatePath(ICON)
 RESOURCES =  os.path.join(HOME, 'resources')
+
+def GetSetting(param):
+    return ADDON.getSetting(param)
+
+
+def SetSetting(param, value):
+    ADDON.setSetting(param, value)
+
 TITLE     =  ADDON.getAddonInfo('name')
 VERSION   =  ADDON.getAddonInfo('version')
 KEYMAP    = 'vpnicity_menu.xml'
 GETTEXT   =  ADDON.getLocalizedString
 LOGINURL  = 'https://www.vpnicity.com/wp-login.php'
-DEBUG     =  False
+DEBUG     =  GetSetting('DEBUG') == 'true'
 
 
 def GetXBMCVersion():
@@ -144,8 +153,8 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Changed Dialog boxes to Notifications.')
-    triggerChangelog()
+    d.ok(TITLE + ' - ' + VERSION, '1. Fixed issue when installing', 'OpenVPN For Android from the PlayStore.', '2. Added new live messaging system.')
+    # triggerChangelog()
     
 
 
@@ -256,14 +265,6 @@ def showChangelog(addonID=None):
 
     except:
         pass
-
-
-def GetSetting(param):
-    return ADDON.getSetting(param)
-
-
-def SetSetting(param, value):
-    ADDON.setSetting(param, value)
 
 
 def platform():
