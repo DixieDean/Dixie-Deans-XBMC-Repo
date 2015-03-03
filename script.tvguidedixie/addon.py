@@ -76,7 +76,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Some new enhancements to On-Tapp.TV', 'New Skin. Better Logo Support. Live Messaging System.', 'Please check the forum for details.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Some new enhancements to On-Tapp.TV', 'Fix for Backup/Restore feature.', 'Please check the forum for details.')
     # showChangelog()
 
 
@@ -189,7 +189,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-22-02-2015.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-03-03-2015.zip'
 
     try:
         os.makedirs(skinfolder)

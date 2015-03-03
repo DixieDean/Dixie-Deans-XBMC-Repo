@@ -82,7 +82,7 @@ def extractAll(filename, dp):
 
 
 def getFile(title, ext):
-    filename = xbmcgui.Dialog().browse(1, title, 'files', '.'+ext, False, False, '')
+    filename = xbmcgui.Dialog().browse(1, title, 'files', '.'+ext, False, False, os.sep)
 
     if filename == 'NO FILE':
         return None
