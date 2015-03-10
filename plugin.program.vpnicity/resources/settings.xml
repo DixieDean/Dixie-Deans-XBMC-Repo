@@ -27,11 +27,10 @@
 	</category>
     <category label="Maintenance">
 		<setting id="DEBUG" label="[B]Enable VPNicity Debug Mode[/B]" type="bool" default="false"/>
-		<setting label="" type="lsep" visible="true" />
- 		<setting type="lsep" label="Uploads your Log to xbmclogs.com"/>
- 		<setting id="dummy"	label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/plugin.program.vpnicity/uploadLog.py)"/>
+ 		<setting id="dummy"	label="[B]Click to - Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/plugin.program.vpnicity/uploadLog.py)"/>
+ 		<setting type="lsep" label="If you want to receive a confirmation email"/>
+ 		<setting type="lsep" label="Please set-up your email address"/>
  		<setting id="email" type="text" label="Email address"/>
- 		<setting type="lsep" label="If you want to receive an email containing direct links"/>
- 		<setting type="lsep" label="to your uploaded logs you have to set your email address"/>
+	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true"/>
     </category>
 </settings>

@@ -4,7 +4,7 @@
 	    <setting id="validator"        label="validator"     type="text"   default="0" visible="false" />
 		<setting id="username"         label="Username"      type="text"   default="" visible="true" />
 		<setting id="password"         label="Password"      type="text"   default="" visible="true" option="hidden" />
-        <setting id="dixie.url" label="30117" type="labelenum" values="All Channels" default="All Channels" visible="false" />
+        <setting id="dixie.url" label="30117" type="labelenum" values="All Channels|Dixie" default="All Channels" visible="true" />
 		<!-- <setting label="" type="lsep" visible="true" />		 -->
  		<setting id="gmtfrom" label="30124" type="labelenum"  default="GMT"
 					values="GMT-12|GMT-11|GMT-10|GMT-9|GMT-8|GMT-7|GMT-6|GMT-5|GMT-4|GMT-3|GMT-2|GMT-1|GMT|GMT+1|GMT+2|GMT+3|GMT+4|GMT+5|GMT+6|GMT+7|GMT+8|GMT+9|GMT+10|GMT+11|GMT+12"
@@ -54,10 +54,11 @@
 
     <category label="30125">
  		<setting id="DEBUG" label="[B]Enable OTT Debug Mode[/B]" type="bool" default="false"/>
- 		<setting id="dummy" label="[B]Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)"/>
- 		<setting type="lsep" label="Set your email address to receive emails containing xbmclogs.com links"/>
+ 		<setting id="dummy" label="[B]Click To - Upload Log[/B]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)"/>
+ 		<setting type="lsep" label="If you want to receive a confirmation email"/>
+ 		<setting type="lsep" label="Please set-up your email address"/>
  		<setting id="email" type="text" label="Email address"/>
-		<setting label="" type="lsep" visible="true" />
+	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true"/>
         <setting id="dummy" label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
         <setting id="dummy" label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
         <setting id="dummy" label="30127" type="action" action="RunScript($CWD/resetChannels.py)" />

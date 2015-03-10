@@ -153,7 +153,7 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, '1. Fixed issue when installing', 'OpenVPN For Android from the PlayStore.', '2. Added new live messaging system.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Some new enhancements to VPNicity', 'Fix for Upload Log feature.', 'Please check the forum for details.')
     # triggerChangelog()
     
 

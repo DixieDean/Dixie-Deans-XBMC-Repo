@@ -1,3 +1,6 @@
+v1.2.1:
+   - Fix for Upload Log feature.
+
 v1.2.0:
    - Fixed issue when installing OpenVPN For Android from the PlayStore.
    - Added new live messaging system.
