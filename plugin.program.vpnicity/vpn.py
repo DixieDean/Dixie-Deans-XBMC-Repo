@@ -422,9 +422,39 @@ def CheckUsername():
     if user != '' and pwd != '':
         return True
 
-    utils.dialogOK('Not a member?', 'Please subscribe at www.vpnicity.com', 'Then enter your username and password.')
-    ShowSettings()    
+    dlg = utils.yesno('VPNicity requires a subscription.', '', 'Would you like to enter your Account details now?')
+
+    if dlg == 1:
+        user = utils.dialogKB('', 'Enter Your VPNicity Username')
+        pwd  = utils.dialogKB('', 'Enter Your VPNicity Password')
+        
+        utils.SetSetting('USER', user)
+        utils.SetSetting('PASS', pwd)
+        
+        SetupAccount()
+        
     return False
+        
+
+def SetupAccount():
+    utils.checkOS()
+    xbmc.sleep(1000)
+    
+    if utils.GetSetting('OS') != 'MacOS':
+        return
+    
+    # if utils.GetSetting('SUDOPASS') != '':
+    #     return
+
+    utils.dialogOK('It appears you are running on Mac OS.', '', 'You may need administrator access to run VPNicity.')
+
+    sudo = utils.dialogKB('', "Enter the 'User Account' password for your computer.")
+    
+    utils.SetSetting('SUDO', 'true')
+    utils.SetSetting('SUDOPASS', sudo)
+    
+    utils.dialogOK('We will now finish your installation.', 'Please double check your settings after we are done.', 'Thank you!')
+    xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/install.py)')
 
 
 def ShowSettings():
@@ -432,7 +462,7 @@ def ShowSettings():
 
 
 def getPreviousTime():
-    time_object = xbmcgui.Window(10000).getProperty('VPN_LOGIN_TIME')
+    time_object = utils.GetSetting('LOGIN_TIME')
     
     if time_object == '':
         time_object = '2001-01-01 00:00:00'
@@ -464,7 +494,7 @@ def validToRun():
         if not Login():
             return False
 
-        xbmcgui.Window(10000).setProperty('VPN_LOGIN_TIME', str(now))
+        utils.SetSetting('LOGIN_TIME', str(now))
         
     return True
 

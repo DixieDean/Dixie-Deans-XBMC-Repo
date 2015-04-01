@@ -83,6 +83,10 @@ def getOpenElec(silent):
     if check(path):
         return path
 
+    path = '/storage/.kodi/addons/network.openvpn/bin/openvpn'
+    if check(path):
+        return path
+
     return error(silent)
 
 

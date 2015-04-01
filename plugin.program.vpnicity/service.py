@@ -21,6 +21,7 @@
 
 import xbmc
 import xbmcaddon
+import xbmcgui
 import os
 
 import utils
@@ -48,7 +49,7 @@ def DeleteKeymap():
 def UpdateKeymap():
     DeleteKeymap()
 
-    if ADDON.getSetting('CONTEXT')  == 'true':
+    if utils.GetSetting('CONTEXT')  == 'true':
         src = os.path.join(HOME, 'resources', 'keymaps', KEYMAP)
         dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), KEYMAP)
 
@@ -62,29 +63,121 @@ def UpdateKeymap():
     xbmc.executebuiltin('Action(reloadkeymaps)')  
 
 
+def getCountry(index):
+    country  = ''
+    abrv     = ''
+    try:
+        country = utils.GetSetting('VPN_%d' % index)
+
+        if country.lower() == '-remove-' or country == '': 
+            utils.SetSetting('ADDON_%d' % index, '')
+            utils.SetSetting('VPN_%d'   % index, '')
+            return '', ''
+
+        filename = os.path.join(PROFILE, 'countries', country)
+    
+        file = open(filename, 'r')
+        abrv = file.read()
+        file.close()
+    except:
+        pass
+
+    return country.strip(), abrv.strip().lower()
+
 
 class MyMonitor(xbmc.Monitor):
     def __init__(self):
         xbmc.Monitor.__init__(self)
-        self.context = ADDON.getSetting('CONTEXT')  == 'true'
+        self.addon   = ''
+        self.context = utils.GetSetting('CONTEXT')  == 'true'
         self.context = not self.context
         self.onSettingsChanged()
 
 
-    def onSettingsChanged(self):
-        context = ADDON.getSetting('CONTEXT')  == 'true'
+    def populateAddons(self):
+        self.addons = []
+        for i in range(10):
+            addon = utils.GetSetting('ADDON_%d' % i)
+            if len(addon) > 0:
+                country, abrv = getCountry(i)               
+                self.addons.append([addon, country, abrv])
+        
+        index = 0
 
-        if self.context == context:
+        for addon in self.addons:
+            if len(addon[0]) > 0 and len(addon[1]) > 0:
+                utils.SetSetting('ADDON_%d' % index, addon[0])
+                utils.SetSetting('VPN_%d'   % index, addon[1])
+                index += 1
+
+        for i in range(index, 10):
+            utils.SetSetting('ADDON_%d' % i, '')
+            utils.SetSetting('VPN_%d'   % i, '')
+
+
+    def onSettingsChanged(self):
+        self.populateAddons()
+
+        context = utils.GetSetting('CONTEXT')  == 'true'
+
+        if self.context != context:
+            self.context = context    
+            UpdateKeymap()
+
+
+    def checkForAddon(self):
+        #print "____________________________________________"
+        #print xbmc.getInfoLabel('Container.FolderPath')
+        #print xbmc.getInfoLabel('ListItem.FolderPath')
+        #print xbmc.getInfoLabel('ListItem.Label')
+        #print xbmc.getInfoLabel('ListItem.FilenameAndPath')
+        #print xbmc.getInfoLabel('ListItem.Label')
+        #print xbmc.getInfoLabel('ListItem.Thumb')    
+        #print xbmc.getInfoLabel('ListItem.Property(IsPlayable)').lower() == 'true'
+        #print xbmc.getInfoLabel('ListItem.Property(Fanart_Image)')
+        ##print xbmc.getCondVisibility('ListItem.IsFolder') == 1
+        #print "ADDON"
+        #print xbmcaddon.Addon().getAddonInfo('path')
+        #print "____________________________________________"
+
+        folder = ''
+
+        try:    folder = xbmc.getInfoLabel('Container.FolderPath').replace('plugin://', '')
+        except: pass
+
+        if len(folder) == 0:
             return
 
-        self.context = context
-        
-        UpdateKeymap()
+        if (len(self.addon) > 0) and folder.startswith(self.addon):
+            return
+
+        currentVPN = xbmcgui.Window(10000).getProperty('VPNICITY_ABRV').lower()
+
+        if len(self.addon) > 0 and len(currentVPN) > 0:
+            if not xbmc.Player().isPlayingVideo():
+                import kill
+                import ipcheck
+                kill.KillVPN()
+                ipcheck.Network()
+                
+
+        self.addon = ''
+
+        for addon in self.addons:
+            plugin = addon[0]
+            if folder.startswith(plugin):
+                VPN        = addon[2]
+                self.addon = plugin
+                if VPN != currentVPN:
+                    import vpn
+                    utils.checkOS()
+                    vpn.AutoSelect(self.addon, [VPN])
+                return
 
 
 def checkInstalled():
     import path
-    exists = path.getPath(utils.ADDON.getSetting('OS'), silent=True)
+    exists = path.getPath(utils.GetSetting('OS'), silent=True)
     if not exists:
         if utils.yesno('Do you want to install the VPN application now'):
             import install
@@ -94,16 +187,19 @@ def checkInstalled():
 # -------------------------------------------------------------------
 
 utils.checkAutoStart()
+utils.checkOS()
        
 monitor = MyMonitor()
 
 
 while (not xbmc.abortRequested):
     xbmc.sleep(1000)
-    if xbmc.getCondVisibility('System.HasAddon(%s)' % utils.ADDONID) == 0:
+    if xbmc.getCondVisibility('System.HasAddon(%s)' % utils.ADDONID) == 0: #i.e. not enabled/installed
         DeleteKeymap()
         xbmc.sleep(1000)
         xbmc.executebuiltin('Action(reloadkeymaps)')  
+    else:
+        monitor.checkForAddon()
 
 
 if xbmc.getCondVisibility('System.HasAddon(%s)' % utils.ADDONID) == 0:
@@ -115,6 +211,7 @@ del monitor
 
 try:
     import kill
+
     kill.KillVPN()
 except:
     pass

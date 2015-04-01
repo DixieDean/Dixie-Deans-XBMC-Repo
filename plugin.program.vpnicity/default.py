@@ -28,11 +28,13 @@ import urllib
 import utils
 import vpn
 
+
 ADDON    = utils.ADDON
 HOME     = utils.HOME
 VERSION  = utils.VERSION
 TITLE    = utils.TITLE
 GETTEXT  = utils.GETTEXT
+PROFILE  = utils.PROFILE
 
 IMAGES   =  os.path.join(HOME, 'resources', 'images')
 ICON     =  os.path.join(HOME, 'icon.png')
@@ -63,6 +65,8 @@ def Main():
         utils.log('Login Error')
         return
 
+    utils.checkOS()
+
     addDir('-- Configure %s' % TITLE,   _SETTINGS,  isFolder=False)
 
     current = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
@@ -81,12 +85,32 @@ def Main():
 
     countries = vpn.GetCountries()
 
+    CreateFile('-Remove-')
+
     for country in countries:
         label = country[0]
         menu  = []
         menu.append((ENABLEAUTO % label, 'XBMC.RunPlugin(%s?mode=%d&abrv=%s)' % (sys.argv[0], _AUTO, urllib.quote_plus(country[2]))))
         thumbnail = os.path.join(IMAGES, country[2].lower()+'.png')
         addDir(label, mode, abrv=country[1], thumbnail=thumbnail, isFolder=isFolder, menu=menu)
+
+        try:    CreateFile(country[0], country[1])
+        except: pass
+
+
+def CreateFile(label,abrv=''):
+    folder   = os.path.join(PROFILE, 'countries')
+    filename = os.path.join(folder,  label)
+
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+
+    if os.path.exists(filename):
+        return
+
+    file = open(filename, 'w')
+    file.write(abrv)
+    file.close()
 
 
 def clearAuto():

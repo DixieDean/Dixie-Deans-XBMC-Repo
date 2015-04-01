@@ -38,11 +38,13 @@ ICON      =  os.path.join(HOME, 'icon.png')
 ICON      =  xbmc.translatePath(ICON)
 RESOURCES =  os.path.join(HOME, 'resources')
 
+
 def GetSetting(param):
     return ADDON.getSetting(param)
 
-
 def SetSetting(param, value):
+    if ADDON.getSetting(param) == value:
+        return
     ADDON.setSetting(param, value)
 
 TITLE     =  ADDON.getAddonInfo('name')
@@ -65,7 +67,6 @@ GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
 HELIX        = (MAJOR == 14) or (MAJOR == 13 and MINOR == 9)
 
 
-
 def log(text):
     try:
         output = '%s V%s : %s' % (TITLE, VERSION, str(text))
@@ -78,10 +79,42 @@ def log(text):
         pass
 
 
-
 def notify(message, length=10000):
     cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
     xbmc.executebuiltin(cmd)
+
+
+def checkOS():
+    log('Checking OS setting')
+    os = ADDON.getSetting('OS')
+
+    if len(os) > 1:
+        log('Operating system setting is %s' % os)
+        return
+
+    log('Operating system setting is currently not set')
+
+    plat  = platform()
+    error = 'Unable to determine correct OS setting'
+
+    log('Platform detected is %s' % plat)
+
+    if plat == 'android':
+        os = 'Android'
+    elif plat == 'linux':
+        log(error)
+    elif plat == 'windows':
+        os = 'Windows'
+    elif plat == 'osx':
+        os = 'MacOS'
+    elif plat == 'atv2':
+        log(error)
+    elif plat == 'ios':
+        log(error)
+
+    if len(os) > 1:
+        log('Setting system to %s' % os)
+        ADDON.setSetting('OS', os)
 
 
 def checkAutoStart():
@@ -107,7 +140,6 @@ def checkAutoStart():
         log('Error in autoStart %s' % str(e))
 
 
-
 def showBusy():
     busy = None
     try:
@@ -131,7 +163,6 @@ def triggerChangelog():
 
 
 def showVideo():
-    
     import yt    
     yt.PlayVideo('-DpU4yOJO_I', forcePlayer=True)
     xbmc.sleep(500)
@@ -153,14 +184,23 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Some new enhancements to VPNicity', 'Fix for Upload Log feature.', 'Please check the forum for details.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. New functionality added to VPNicity', 'Automatically start a country specific VPN when', 'configured addons are started, see Add-on Settings.')
+    d.ok(TITLE + ' - ' + VERSION, 'In order for this new feature to work...', '', 'Please restart Kodi/XBMC.')
     # triggerChangelog()
     
-
 
 def dialogOK(line1, line2='', line3=''):
     d = xbmcgui.Dialog()
     d.ok(TITLE, line1, line2 , line3)
+
+
+def dialogKB(value = '', heading = ''):
+    kb = xbmc.Keyboard('', '')
+    kb.setHeading(heading)
+    kb.doModal()
+    if (kb.isConfirmed()):
+        value = kb.getText()
+    return value
 
 
 def yesno(line1, line2 = '', line3 = '', no = 'No', yes = 'Yes'):
@@ -270,13 +310,43 @@ def showChangelog(addonID=None):
 def platform():
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'
-    elif xbmc.getCondVisibility('system.platform.linux'):
+    if xbmc.getCondVisibility('system.platform.linux'):
         return 'linux'
-    elif xbmc.getCondVisibility('system.platform.windows'):
+    if xbmc.getCondVisibility('system.platform.windows'):
         return 'windows'
-    elif xbmc.getCondVisibility('system.platform.osx'):
+    if xbmc.getCondVisibility('system.platform.osx'):
         return 'osx'
-    elif xbmc.getCondVisibility('system.platform.atv2'):
+    if xbmc.getCondVisibility('system.platform.atv2'):
         return 'atv2'
-    elif xbmc.getCondVisibility('system.platform.ios'):
+    if xbmc.getCondVisibility('system.platform.ios'):
         return 'ios'
+    return ''
+
+
+def getSystem():
+    system            = dict()
+    processor         = 'Unknown'
+    system['machine'] = 'unknown'
+    
+    try:
+        if hasattr(os, 'uname'):
+            #unix
+            (sysname, nodename, release, version, machine) = os.uname()
+        else:
+            #Others
+            import platform
+            (sysname, nodename, release, version, machine, processor) = platform.uname()
+        
+        system['nodename']  = nodename
+        system['sysname']   = sysname
+        system['release']   = release
+        system['version']   = version
+        system['machine']   = machine
+        system['processor'] = processor
+
+    except Exception as ex:
+        import sys
+        system['sysname']   = sys.platform
+        system['exception'] = str(ex)
+    
+    return system
