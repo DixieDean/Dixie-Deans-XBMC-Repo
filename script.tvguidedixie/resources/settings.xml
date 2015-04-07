@@ -20,6 +20,7 @@
 	    <setting id="current.channels" label="Current Channels"     type="number" default="0"        visible="false" />
 	    <setting id="updated.channels" label="Updated Channels"     type="number" default="0"        visible="false" />
 		<setting id="messageID"        label="messageID"            type="text"   default="0"        visible="false" />
+	    <setting id="LOGIN_TIME"       label="login"                type="text"   default=""         visible="false"/>
 
 		<setting id="gmtprev" type="text" label="Previous GMT" default="0" visible="false"/>
 		<setting id="categories" label="categories" type="text" default="" visible="false"/>

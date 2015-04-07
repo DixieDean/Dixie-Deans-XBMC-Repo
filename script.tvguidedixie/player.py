@@ -2,6 +2,7 @@
 import xbmc
 import xbmcaddon
 import xbmcgui
+import os
 
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME  = ADDON.getAddonInfo('path')

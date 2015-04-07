@@ -1158,7 +1158,7 @@ class DIXIESource(Source):
 
     def getDataFromExternal(self, date, progress_callback = None): 
         categories = self.getCategories()
-        channels   = dixie.GetChannels()
+        channels   = os.path.join(datapath, 'chan.xml')
         try:
             if os.path.exists(channels):
                 f = open(channels)

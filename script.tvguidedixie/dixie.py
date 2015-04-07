@@ -172,7 +172,7 @@ def ShowSettings():
 
 
 def getPreviousTime():
-    time_object = xbmcgui.Window(10000).getProperty('OTT_LOGIN_TIME')
+    time_object = dixie.GetSetting('LOGIN_TIME')
     
     if time_object == '':
         time_object = '2001-01-01 00:00:00'
@@ -204,7 +204,7 @@ def validToRun(silent=False):
         if not doLogin(silent):
             return False
 
-        xbmcgui.Window(10000).setProperty('OTT_LOGIN_TIME', str(now))
+        dixie.SetSetting('LOGIN_TIME', str(now))
         
     return True
 
@@ -275,18 +275,18 @@ def GetCats():
 
 def GetChannels():
     path = os.path.join(PROFILE , 'chan.xml')
-    url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
-
-    chan = requests.get(url, cookies=loadCookies(cookiefile))    
-    code = chan.status_code
-    log('GeChannels code' + ' : ' + str(code))
+    # url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
+    #
+    # chan = requests.get(url, cookies=loadCookies(cookiefile))
+    # code = chan.status_code
+    # log('GeChannels code' + ' : ' + str(code))
+    #
+    # if code != 200:
+    #     return ''
     
-    if code != 200:
-        return ''
-    
-    with open(path, 'wb') as f:
-        for chunk in chan.iter_content(512):
-            f.write(chunk)
+    # with open(path, 'wb') as f:
+    #     for chunk in chan.iter_content(512):
+    #         f.write(chunk)
 
     return path
 

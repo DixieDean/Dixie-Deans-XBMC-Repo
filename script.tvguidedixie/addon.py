@@ -63,6 +63,7 @@ default_ini = os.path.join(addonpath,  'addons.ini')
 local_ini   = os.path.join(addonpath,  'local.ini')
 current_ini = os.path.join(datapath,   'addons.ini')
 database    = os.path.join(datapath,   'program.db')
+channel_xml = os.path.join(addonpath,  'chan.xml')
 
 
 def CheckVersion():
@@ -76,7 +77,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Some new enhancements to On-Tapp.TV', 'Fix for Upload Log feature.', 'Please check the forum for details.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Maintenance fixes for On-Tapp.TV', '', 'Please check the forum for details.')
     # showChangelog()
 
 
@@ -116,6 +117,13 @@ def showText(heading, text):
         except:
             pass
 
+
+def CheckChanXML():
+    chanpath = os.path.join(datapath,  'chan.xml')
+    if not os.path.exists(chanpath):
+        shutil.copy(channel_xml, datapath)
+    
+    
 
 def CheckForChannels():
     dir    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
@@ -268,7 +276,7 @@ try:
         try: os.makedirs(datapath)
         except: pass
         shutil.copy(default_ini, datapath)
-        shutil.copy(local_ini, datapath)        
+        shutil.copy(local_ini, datapath)
 except:
     pass
 
@@ -277,6 +285,7 @@ def main(doLogin=True):
     import message
     message.check()
     dixie.CheckUsername()
+    CheckChanXML()
     CheckSkin()
     CheckLogos()
     busy = dixie.ShowBusy()
