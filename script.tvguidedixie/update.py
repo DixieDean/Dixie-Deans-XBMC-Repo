@@ -32,9 +32,9 @@ import dixie
 
 ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
 TITLE    = ADDON.getAddonInfo('name')
-DIXIEURL = ADDON.getSetting('dixie.url').upper()
-username = ADDON.getSetting('username')
-password = ADDON.getSetting('password')
+DIXIEURL = dixie.GetSetting('dixie.url').upper()
+username = dixie.GetSetting('username')
+password = dixie.GetSetting('password')
 response = ''
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
@@ -241,7 +241,7 @@ def updateAvailable(latest):
     if not os.path.exists(db):
         return True
 
-    current = ADDON.getSetting('epg.date')
+    current = dixie.GetSetting('epg.date')
     current = parseDate(current)
     latest  = parseDate(latest)
     update  = latest > current

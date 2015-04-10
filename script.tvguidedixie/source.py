@@ -55,10 +55,8 @@ datapath    = xbmc.translatePath('special://profile/addon_data/script.tvguidedix
 channelPath = os.path.join(datapath, 'channels')
 extras      = os.path.join(datapath, 'extras')
 logopath    = os.path.join(extras, 'logos')
-username    = ADDON.getSetting('username')
-password    = ADDON.getSetting('password')
 
-LOGOCHANGED = DIXIELOGOS != ADDON.getSetting('PREVLOGO')
+LOGOCHANGED = DIXIELOGOS != dixie.GetSetting('PREVLOGO')
 
 if LOGOCHANGED:
     dixie.SetSetting('PREVLOGO', DIXIELOGOS)
@@ -1164,7 +1162,8 @@ class DIXIESource(Source):
                 f = open(channels)
                 xml = f.read()
                 f.close()
-        except: pass
+        except:
+            dixie.log('Error reading chan.xml')
         
         if not self.xml:
             self.xml = xml

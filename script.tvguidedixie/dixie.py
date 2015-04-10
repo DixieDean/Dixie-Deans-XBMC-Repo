@@ -56,8 +56,6 @@ SKINVERSION = '18'
 LOGOVERSION = '1'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
-USERNAME    =  GetSetting('username')
-PASSWORD    =  GetSetting('password')
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 cookiepath = os.path.join(datapath, 'cookies')
@@ -107,6 +105,8 @@ def GetDixieUrl(DIXIEURL):
     if DIXIEURL == 'ALL CHANNELS':
         return baseurl + 'all/'
 
+    if DIXIEURL == 'TEST CHANNELS':
+        return baseurl + 'output/'
 
 def GetExtraUrl():
     return resource
@@ -159,18 +159,25 @@ def resetCookies():
 
 
 def CheckUsername():
-    if USERNAME != '' and PASSWORD != '':
+    if GetSetting('username') != '' and GetSetting('password') != '':
         return True
 
-    DialogOK('Not a member?', 'Please subscribe at www.on-tapp.tv', 'Then enter your username and password.')
-    # ShowSettings()
+    dlg = DialogYesNo('On-Tapp.TV requires a subscription.', '', 'Would you like to enter your account details now?')
+
+    if dlg == 1:
+        username = DialogKB('', 'Enter Your On-Tapp.TV Username')
+        SetSetting('username', username)
+
+        password = DialogKB('', 'Enter Your On-Tapp.TV Password')
+        SetSetting('password', password)
+        
     return False
 
 
-def ShowSettings():
-    ADDON.openSettings()
-
-
+# def ShowSettings():
+#     ADDON.openSettings()
+#
+#
 def getPreviousTime():
     time_object = dixie.GetSetting('LOGIN_TIME')
     
@@ -210,7 +217,7 @@ def validToRun(silent=False):
 
 
 def doLogin(silent=False):
-    log ('************ On-Tapp.TV Login ************')
+    print '************ On-Tapp.TV Login ************'
     with requests.Session() as s:
         try:
             s.get(GetLoginUrl())
@@ -218,11 +225,11 @@ def doLogin(silent=False):
             #Rich, you might want to log something here???
             return False
             
-        PAYLOAD  = { 'log' : USERNAME, 'pwd' : PASSWORD, 'wp-submit' : 'Log In' }
+        PAYLOAD  = { 'log' : GetSetting('username'), 'pwd' : GetSetting('password'), 'wp-submit' : 'Log In' }
         response = 'login_error'
         code     =  0
         
-        if USERNAME and PASSWORD:
+        if GetSetting('username') and GetSetting('password'):
             login    = s.post(GetLoginUrl(), data=PAYLOAD)
             response = login.content
             code     = login.status_code
@@ -273,24 +280,6 @@ def GetCats():
     except: pass
 
 
-def GetChannels():
-    path = os.path.join(PROFILE , 'chan.xml')
-    # url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
-    #
-    # chan = requests.get(url, cookies=loadCookies(cookiefile))
-    # code = chan.status_code
-    # log('GeChannels code' + ' : ' + str(code))
-    #
-    # if code != 200:
-    #     return ''
-    
-    # with open(path, 'wb') as f:
-    #     for chunk in chan.iter_content(512):
-    #         f.write(chunk)
-
-    return path
-
-
 def ShowBusy(hideProgress=True):
     try:
         busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
@@ -307,10 +296,18 @@ def ShowBusy(hideProgress=True):
     return None
 
 
-
 def DialogOK(line1, line2='', line3=''):
     d = xbmcgui.Dialog()
     d.ok(TITLE + ' - ' + VERSION, line1, line2 , line3)
+
+
+def DialogKB(value = '', heading = ''):
+    kb = xbmc.Keyboard('', '')
+    kb.setHeading(heading)
+    kb.doModal()
+    if (kb.isConfirmed()):
+        value = kb.getText()
+    return value
 
 
 def DialogYesNo(line1, line2='', line3='', noLabel=None, yesLabel=None):

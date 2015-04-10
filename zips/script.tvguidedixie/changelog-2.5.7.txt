@@ -1,3 +1,7 @@
+v2.5.7 (04-10-15)
+- Improved initial setup method. Keyboard entry for username and password.
+- Minor code fixes.
+
 v2.5.6 (04-07-15)
 - Improved listings download routine.
 - Minor changes to login method.

@@ -67,7 +67,7 @@ channel_xml = os.path.join(addonpath,  'chan.xml')
 
 
 def CheckVersion():
-    prev = ADDON.getSetting('VERSION')
+    prev = dixie.GetSetting('VERSION')
     curr = VERSION
     dixie.log('****** ONTAPP.TV %s LAUNCHED ******' % str(VERSION))
 
@@ -77,7 +77,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Maintenance fixes for On-Tapp.TV', '', 'Please check the forum for details.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Easier initial setup for On-Tapp.TV', 'Keyboard entry for username and password.', 'Please check the forum for details.')
     # showChangelog()
 
 
@@ -119,11 +119,12 @@ def showText(heading, text):
 
 
 def CheckChanXML():
-    chanpath = os.path.join(datapath,  'chan.xml')
+    chanpath = os.path.join(datapath, 'chan.xml')
     if not os.path.exists(chanpath):
-        shutil.copy(channel_xml, datapath)
-    
-    
+        try:
+            shutil.copy(channel_xml, datapath)
+        except:
+            dixie.log('Error in CheckChanXML()')    
 
 def CheckForChannels():
     dir    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
@@ -154,7 +155,7 @@ def CheckLogos():
 
 
 def CheckSkinVersion():
-    prev = ADDON.getSetting('SKINVERSION')
+    prev = dixie.GetSetting('SKINVERSION')
     curr = SKINVERSION
 
     if not prev == curr:
@@ -163,7 +164,7 @@ def CheckSkinVersion():
 
 
 def CheckLogoVersion():
-    prev = ADDON.getSetting('LOGOVERSION')
+    prev = dixie.GetSetting('LOGOVERSION')
     curr = LOGOVERSION
 
     if not prev == curr:
@@ -282,9 +283,9 @@ except:
 
 
 def main(doLogin=True):
+    dixie.CheckUsername()
     import message
     message.check()
-    dixie.CheckUsername()
     CheckChanXML()
     CheckSkin()
     CheckLogos()
