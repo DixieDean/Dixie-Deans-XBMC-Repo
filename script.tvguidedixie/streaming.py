@@ -37,31 +37,42 @@ datapath = dixie.PROFILE
 
 class StreamsService(object):
     def __init__(self):
-        path  = os.path.join(datapath, 'addons.ini')
-        local = os.path.join(datapath, 'local.ini')
-        
-        if FTVINI == 'UK Links':
-            ftv = os.path.join(datapath, 'uk.ini')
-        else:
-            ftv = os.path.join(datapath, 'nongeo.ini')
 
         self.addonsParser = ConfigParser.ConfigParser(dict_type=OrderedDict)
         self.addonsParser.optionxform = lambda option: option
-        
-        if not LOCAL:
-            try:
-                self.addonsParser.read(ftv)
-                self.addonsParser.read(path)
-            except:
-                pass
-        else:
-            try:
-                self.addonsParser.read(ftv)
-                self.addonsParser.read(path)
-                self.addonsParser.read(local)
-            except:
-                pass
 
+        iniFiles = self.getIniFiles()
+
+        for file in iniFiles:
+            try:    self.addonsParser.read(file)
+            except: pass
+        
+
+    def getIniFiles(self):
+        files = []
+
+        import glob
+        ini   = os.path.join(datapath, 'ini', '*.*')
+        files = glob.glob(ini)
+
+        files.append(os.path.join(datapath, 'addons.ini'))
+
+        if FTVINI == 'UK Links':
+            files.append(os.path.join(datapath, 'uk.ini'))
+        else:
+            files.append(os.path.join(datapath, 'nongeo.ini'))
+
+        if LOCAL:
+            files.append(os.path.join(datapath, 'local.ini'))
+
+        for i in range(10):
+            file = dixie.GetSetting('INI_%d' % i)
+            if len(file) > 0:
+                if file not in files:
+                    files.append(file)
+
+        return files
+        
 
     def loadFavourites(self):
         entries = list()

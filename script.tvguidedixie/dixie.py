@@ -39,6 +39,8 @@ PROFILE     =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 RESOURCES   =  os.path.join(HOME, 'resources')
 
 def SetSetting(param, value):
+    if GetSetting(param) == value:
+        return
     xbmcaddon.Addon(ADDONID).setSetting(param, str(value))
 
 
@@ -53,9 +55,11 @@ VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.TV'
 LOGOPACK    = 'Colour Logo Pack'
 SKINVERSION = '18'
-LOGOVERSION = '1'
+LOGOVERSION = '2'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
+#USERNAME    =  GetSetting('username')
+#PASSWORD    =  GetSetting('password')
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 cookiepath = os.path.join(datapath, 'cookies')
@@ -171,13 +175,16 @@ def CheckUsername():
         password = DialogKB('', 'Enter Your On-Tapp.TV Password')
         SetSetting('password', password)
         
+        # ShowSettings()
+        # xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/openSettings.py)')
+
     return False
 
 
-# def ShowSettings():
-#     ADDON.openSettings()
-#
-#
+def ShowSettings():
+    ADDON.openSettings()
+
+
 def getPreviousTime():
     time_object = dixie.GetSetting('LOGIN_TIME')
     
@@ -217,7 +224,7 @@ def validToRun(silent=False):
 
 
 def doLogin(silent=False):
-    print '************ On-Tapp.TV Login ************'
+    log ('************ On-Tapp.TV Login ************')
     with requests.Session() as s:
         try:
             s.get(GetLoginUrl())
@@ -280,6 +287,24 @@ def GetCats():
     except: pass
 
 
+def GetChannels():
+    path = os.path.join(PROFILE , 'chan.xml')
+    # url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
+    #
+    # chan = requests.get(url, cookies=loadCookies(cookiefile))
+    # code = chan.status_code
+    # log('GeChannels code' + ' : ' + str(code))
+    #
+    # if code != 200:
+    #     return ''
+    
+    # with open(path, 'wb') as f:
+    #     for chunk in chan.iter_content(512):
+    #         f.write(chunk)
+
+    return path
+
+
 def ShowBusy(hideProgress=True):
     try:
         busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
@@ -294,6 +319,7 @@ def ShowBusy(hideProgress=True):
         pass
 
     return None
+
 
 
 def DialogOK(line1, line2='', line3=''):

@@ -81,6 +81,8 @@ def playSF(url):
 
             original = re.compile('"(.+?)"').search(url).group(1)
 
+            original = original.replace('%26', 'SF_AMP_SF') #protect '&' within parameters
+
             cmd = urllib.unquote_plus(original)            
 
             try:    noFanart = favourite.removeFanart(cmd)
@@ -96,6 +98,7 @@ def playSF(url):
             noFanart = noFanart.replace(' ', '+')
 
             url = url.replace(original, noFanart)
+            url = url.replace('SF_AMP_SF', '%26') #put '&' back
 
             xbmc.executebuiltin(url)
             return True, ''
@@ -114,7 +117,7 @@ def playSF(url):
         except: path = None
 
         dirs = []
-        if path:
+        if path:          
             try:    current, dirs, files = os.walk(path).next()
             except: pass
             

@@ -23,6 +23,7 @@ import notification
 import xbmc
 import os
 import source
+import dixie
 
 ID    = 'script.tvguidedixie'
 ADDON = xbmcaddon.Addon(id = ID)
@@ -99,3 +100,41 @@ if ADDON.getSetting('autoStart') == "true":
     except:
         pass
     xbmc.executebuiltin('RunScript(%s)' % ID)
+
+
+class MyMonitor(xbmc.Monitor):
+    def __init__(self):
+        xbmc.Monitor.__init__(self)
+
+
+    def onSettingsChanged(self):
+        self.tidySettings()
+
+
+    def tidySettings(self):
+        files = []
+        for i in range(10):
+            enabled = dixie.GetSetting('INI_%d_E' % i) == 'true'
+            if enabled:
+                file = dixie.GetSetting('INI_%d' % i)
+                files.append(file)
+
+        print files
+        
+        index = 0
+
+        for file in files:
+            if len(file) > 0:
+                dixie.SetSetting('INI_%d'   % index, file)
+                dixie.SetSetting('INI_%d_E' % index, 'true')
+                index += 1
+
+        for i in range(index, 10):
+            dixie.SetSetting('INI_%d'   % i, '')
+            dixie.SetSetting('INI_%d_E' % index, 'false')
+
+
+monitor = MyMonitor()
+monitor.tidySettings()
+while (not xbmc.abortRequested):
+    xbmc.sleep(1000)

@@ -66,6 +66,36 @@
         <setting id="dummy" label="30132" type="action" action="RunScript($CWD/resetAddon.py)" />
     </category>
 
-
+    <category label="ini Files">
+        <setting id="INI_0_E" label="Enable"   type="bool" default="true" visible="true"/>
+	    <setting id="INI_0"   label="ini file" type="file" default=""     visible="eq(-1,true)"/>
+		
+		<setting id="INI_1_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_1"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_2_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_2"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_3_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_3"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_4_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_4"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_5_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_5"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_6_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_6"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_7_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_7"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_8_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_8"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+		
+		<setting id="INI_9_E" label="Enable"   type="bool" default="false" visible="!eq(-1,)"/>
+	    <setting id="INI_9"   label="ini file" type="file" default=""      visible="eq(-1,true) "/>
+	</category>
 </settings>
 

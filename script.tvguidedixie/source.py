@@ -46,10 +46,11 @@ import re
 import io
 
 
-SOURCE     = dixie.GetSetting('source')
-DIXIEURL   = dixie.GetSetting('dixie.url').upper()
-DIXIELOGOS = dixie.GetSetting('dixie.logo.folder')
-GMTOFFSET  = dixie.GetGMTOffset()
+SOURCE      = dixie.GetSetting('source')
+DIXIEURL    = dixie.GetSetting('dixie.url').upper()
+DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
+LOGOVERSION = dixie.LOGOVERSION
+GMTOFFSET   = dixie.GetGMTOffset()
 
 datapath    = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
 channelPath = os.path.join(datapath, 'channels')
@@ -228,17 +229,21 @@ class Database(object):
         if not LOGOCHANGED:
             return True
 
-        channels = self._getChannelList(onlyVisible=False, categories=None)
+        prev = dixie.GetSetting('LOGOVERSION')
+        curr = LOGOVERSION
 
-        folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+        if not prev == curr:
+            channels = self._getChannelList(onlyVisible=False, categories=None)
+
+            folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
         
-        for ch in channels:            
-            logoFile = os.path.join(folder, DIXIELOGOS, ch.title + '.png')
-            if logoFile != ch.logo:
-                ch.logo = logoFile
-                self.replaceChannel(ch)
+            for ch in channels:            
+                logoFile = os.path.join(folder, DIXIELOGOS, ch.title + '.png')
+                if logoFile != ch.logo:
+                    ch.logo = logoFile
+                    self.replaceChannel(ch)
                     
-        return True
+            return True
 
 
     def _initializeP(self, cancel_requested_callback):
@@ -451,7 +456,7 @@ class Database(object):
 
                     weight += 1
                     channel.weight = weight
-                    self.addChannel(channel)                                   
+                    self.replaceChannel(channel)                                   
                         
             #channels updated
             try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)

@@ -30,17 +30,26 @@ class Channel(object):
 
     def set(self, id, title, logo, streamUrl, visible, weight, categories, userDef, desc, isClone):
         if logo:
-            logo = logo.replace('\\', '/')
-        self.id         = id
-        self.title      = title
-        self.categories = categories
+            logo = logo.replace('\\', '/').replace('\n', '').replace('\r', '')
+        self.id         = id.replace('\n', '').replace('\r', '')
+        self.title      = title.replace('\n', '').replace('\r', '')
+        self.categories = categories.replace('\n', '').replace('\r', '')
         self.logo       = logo
-        self.streamUrl  = streamUrl
-        self.visible    = int(visible)
-        self.weight     = int(weight)
-        self.userDef    = int(userDef)
-        self.desc       = desc
-        self.isClone    = int(isClone)
+        self.streamUrl  = streamUrl.replace('\n', '').replace('\r', '')
+
+        try:    self.visible = int(visible.replace('\n', '').replace('\r', ''))
+        except: self.visible = int(visible)
+
+        try:    self.weight = int(weight.replace('\n', '').replace('\r', ''))
+        except: self.weight = int(weight)
+
+        try:    self.userDef = int(userDef.replace('\n', '').replace('\r', ''))
+        except: self.userDef = int(userDef)
+
+        try:    self.isClone = int(isClone.replace('\n', '').replace('\r', ''))
+        except: self.isClone = int(isClone)
+
+        self.desc = desc.replace('\n', '').replace('\r', '')
 
 
     def setFromList(self, list):
@@ -49,15 +58,15 @@ class Channel(object):
         desc    = ''
 
         if len(list) > 7:
-            userDef = list[7].replace('\n', '')
+            userDef = list[7]
 
         if len(list) > 8:
-            desc = list[8].replace('\n', '')
+            desc = list[8]
 
         if len(list) > 9:
-            isClone = list[9].replace('\n', '')
+            isClone = list[9]
         
-        self.set(list[0].replace('\n', ''), list[1].replace('\n', ''), list[2].replace('\n', ''), list[3].replace('\n', ''), list[4].replace('\n', ''), list[5].replace('\n', ''), list[6].replace('\n', ''), userDef, desc, isClone)
+        self.set(list[0], list[1], list[2], list[3], list[4], list[5], list[6], userDef, desc, isClone)
 
 
     def writeToFile(self, filename):
@@ -144,8 +153,10 @@ class Channel(object):
         if self.title != channel.title:
             return False
 
-
         if self.logo != channel.logo:
+            return False
+
+        if self.categories != channel.categories:
             return False
 
         return True

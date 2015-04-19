@@ -150,6 +150,9 @@
   <channel id="ITV4 + 1">
     <display-name lang="en">ITV4 +1</display-name>
   </channel>
+  <channel id="ITVBe">
+    <display-name lang="en">ITV Be</display-name>
+  </channel>
   <channel id="Discovery">
     <display-name lang="en">Discovery Channel</display-name>
   </channel>
@@ -311,7 +314,6 @@
   </channel>
   <channel id="VH1 Classic">
     <display-name lang="cs">VH1 Classic</display-name>
-    <icon src="http://portal2.sms.cz/kategorie/televize/bmp/loga/velka/VH1Classic.png" />
   </channel>
   <channel id="Viva">
     <display-name lang="en">VIVA</display-name>

@@ -77,7 +77,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Easier initial setup for On-Tapp.TV', 'Keyboard entry for username and password.', 'Please check the forum for details.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Improved ini file integration.', 'Load multiple ini files from any location.', 'All done via the Add-on Settings tab.')
     # showChangelog()
 
 
