@@ -278,13 +278,11 @@ def doLogin(silent=False):
 
 
 def GetCats():
-    import urllib
-
     path = os.path.join(PROFILE, 'cats.xml')
-    url  = GetExtraUrl() + 'resources/cats.xml'
-
-    try: urllib.urlretrieve(url, path)
-    except: pass
+    # url  = GetExtraUrl() + 'resources/cats.xml'
+    #
+    # try: urllib.urlretrieve(url, path)
+    # except: pass
 
 
 def GetChannels():

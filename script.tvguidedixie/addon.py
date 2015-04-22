@@ -77,7 +77,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Improved ini file integration.', 'Load multiple ini files from any location.', 'All done via the Add-on Settings tab.')
+    d.ok(TITLE + ' - ' + VERSION, 'If you have had issues with your customised EPG/channels, we apologies.', 'A bug was introduced into the last update.', 'This update puts in a fix for that.')
     # showChangelog()
 
 

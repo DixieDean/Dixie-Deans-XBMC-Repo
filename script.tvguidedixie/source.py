@@ -426,6 +426,13 @@ class Database(object):
         self.updateFailed = False
         dateStr = date.strftime('%Y-%m-%d')
 
+        if len(self.channelDict) == 0:
+            channels = self.getAllChannels()
+            for channel in channels:
+                theChannel = self.getChannelFromFile(channel)
+                if theChannel:
+                    self.channelDict[channel] = theChannel
+
         try:
             xbmc.log('[script.tvguidedixie] Updating caches...', xbmc.LOGDEBUG)
             if progress_callback:
@@ -603,7 +610,7 @@ class Database(object):
 
         return Channel(cfg)
         
-        ch = Channel(cfg[0].replace('\n', ''), cfg[1].replace('\n', ''), cfg[2].replace('\n', ''), cfg[3].replace('\n', ''), cfg[4].replace('\n', ''), cfg[5].replace('\n', ''), cfg[6].replace('\n', ''))
+        ch = Channel(cfg[0], cfg[1], cfg[2], cfg[3], cfg[4], cfg[5], cfg[6])
 
         return ch
         

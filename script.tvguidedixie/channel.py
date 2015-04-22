@@ -143,7 +143,7 @@ class Channel(object):
         return c
 
 
-    def compare(self, channel):      
+    def compare(self, channel):  
         if self.visible != channel.visible:
             return False
 
@@ -156,8 +156,8 @@ class Channel(object):
         if self.logo != channel.logo:
             return False
 
-        if self.categories != channel.categories:
-            return False
+        #if self.categories != channel.categories:
+        #    return False
 
         return True
 
