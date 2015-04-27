@@ -60,7 +60,7 @@
  		<setting type="lsep" label="Please set-up your email address"/>
  		<setting id="email" type="text" label="Email address"/>
 	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true"/>
-        <setting id="dummy" label="30131" type="action" action="RunScript($CWD/deleteCookie.py)" />
+        <setting id="dummy" label="30131" type="action" action="RunScript($CWD/restoreChannels.py)" />
         <setting id="dummy" label="30126" type="action" action="RunScript($CWD/deleteDB.py)" />
         <setting id="dummy" label="30127" type="action" action="RunScript($CWD/resetChannels.py)" />
         <setting id="dummy" label="30132" type="action" action="RunScript($CWD/resetAddon.py)" />

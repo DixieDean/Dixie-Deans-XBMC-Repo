@@ -183,7 +183,7 @@ msgid "Restore"
 msgstr ""
 
 msgctxt "#30131"
-msgid "Click to - Delete Cookies"
+msgid "Click to - Restore Channels."
 msgstr ""
 
 msgctxt "#30132"

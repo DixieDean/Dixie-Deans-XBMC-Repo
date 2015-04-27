@@ -141,25 +141,31 @@ class Channel(object):
     def clone(self):
         c = Channel(self.id, self.title, self.logo, self.streamUrl, self.visible, self.weight, self.categories, self.userDef, self.desc, self.isClone)
         return c
-
-
-    def compare(self, channel):  
-        if self.visible != channel.visible:
+    
+    
+    def compare(self, channel):
+        if self.id != channel.id:
             return False
+        return True
 
-        if self.weight != channel.weight:
-            return False
 
-        if self.title != channel.title:
-            return False
-
-        if self.logo != channel.logo:
-            return False
-
+    # def compare(self, channel):
+    #     if self.visible != channel.visible:
+    #         return False
+    #
+    #     if self.weight != channel.weight:
+    #         return False
+    #
+    #     if self.title != channel.title:
+    #         return False
+    #
+    #     if self.logo != channel.logo:
+    #         return False
+    #
         #if self.categories != channel.categories:
         #    return False
 
-        return True
+        # return True
 
 
     def __eq__(self, other):

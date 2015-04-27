@@ -22,38 +22,32 @@ import xbmc
 import xbmcgui
 import xbmcaddon
 
-addonPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
-cookiePath = os.path.join(addonPath, 'cookies')
-cookieFile = os.path.join(cookiePath, 'cookie')
+import dixie
+
+datapath = dixie.datapath
 
 
-def deleteCookie():
-    try:
-        delete_file(cookieFile)
+def restoreChannels():
+    src = os.path.join(datapath, 'channels-backup')
+    dst = os.path.join(datapath, 'channels')
+
+    import shutil
+    if os.path.isdir(src):
+        shutil.rmtree(dst)
+        xbmc.sleep(1000)   
         
-        passed = not os.path.exists(cookieFile)
-
-        return passed
-
-    except:
-        return False
-
-def delete_file(filename):
-    tries = 10
-    while os.path.exists(filename) and tries > 0: 
-        try:             
-            os.remove(filename) 
-            break 
-        except: 
-            tries -= 1
+        shutil.copytree(src, dst)
+        shutil.rmtree(src)
+        return True
+    
+    return False
 
 if __name__ == '__main__':
-    if deleteCookie():
-        os.rmdir(cookiePath)
+    if restoreChannels() == True:
         d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Cookie file successfully deleted.', 'It will be re-created next time', 'you start the guide')    
+        d.ok('OnTapp.TV', 'Your channels have been successfully restored.', 'This should bring back any customisations', 'that you may have lost.')    
     else:
         d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Failed to delete cookie file.', 'The file may be locked,', 'please restart XBMC and try again')    
+        d.ok('OnTapp.TV', 'Sorry, we failed to restore your channels.', '', 'Please restart On-Tapp.TV and try again.')    
 
 

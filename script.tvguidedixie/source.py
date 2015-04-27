@@ -421,6 +421,8 @@ class Database(object):
 
         if not self._isCacheExpired(date):
             return
+        
+        dixie.BackupChannels()
 
         self.updateInProgress = True
         self.updateFailed = False

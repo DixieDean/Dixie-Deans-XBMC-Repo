@@ -109,8 +109,8 @@ def GetDixieUrl(DIXIEURL):
     if DIXIEURL == 'ALL CHANNELS':
         return baseurl + 'all/'
 
-    if DIXIEURL == 'TEST CHANNELS':
-        return baseurl + 'output/'
+    if DIXIEURL == 'GVAX':
+        return baseurl + 'gvax/'
 
 def GetExtraUrl():
     return resource
@@ -159,6 +159,18 @@ def resetCookies():
     try:
         if os.path.isfile(cookiefile):
             os.remove(cookiefile)
+    except: pass
+
+
+def BackupChannels():
+    try:
+        src = os.path.join(datapath, 'channels')
+        dst = os.path.join(datapath, 'channels-backup')
+        
+        if not os.path.isdir(dst):
+            import shutil
+            shutil.copytree(src, dst)
+            
     except: pass
 
 
