@@ -310,7 +310,6 @@ def main(doLogin=True):
         
         CheckForUpdate()
         CheckForChannels()
-        dixie.BackupChannels()
 
         dixie.log('****** OnTapp.TV - All OK *******')
 

@@ -163,14 +163,14 @@ def resetCookies():
 
 
 def BackupChannels():
-    try:
-        src = os.path.join(datapath, 'channels')
-        dst = os.path.join(datapath, 'channels-backup')
-        
-        if not os.path.isdir(dst):
-            import shutil
-            shutil.copytree(src, dst)
-            
+    import shutil
+    src = os.path.join(datapath, 'channels')
+    dst = os.path.join(datapath, 'channels-backup')
+    
+    try:    shutil.rmtree(dst)
+    except: pass
+    
+    try:    shutil.copytree(src, dst)
     except: pass
 
 
@@ -291,26 +291,10 @@ def doLogin(silent=False):
 
 def GetCats():
     path = os.path.join(PROFILE, 'cats.xml')
-    # url  = GetExtraUrl() + 'resources/cats.xml'
-    #
-    # try: urllib.urlretrieve(url, path)
-    # except: pass
 
 
 def GetChannels():
     path = os.path.join(PROFILE , 'chan.xml')
-    # url  = GetDixieUrl(DIXIEURL) + 'chan.xml'
-    #
-    # chan = requests.get(url, cookies=loadCookies(cookiefile))
-    # code = chan.status_code
-    # log('GeChannels code' + ' : ' + str(code))
-    #
-    # if code != 200:
-    #     return ''
-    
-    # with open(path, 'wb') as f:
-    #     for chunk in chan.iter_content(512):
-    #         f.write(chunk)
 
     return path
 

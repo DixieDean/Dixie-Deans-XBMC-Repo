@@ -18,9 +18,7 @@
 #
 
 import os
-import xbmc
-import xbmcgui
-import xbmcaddon
+import shutil
 
 import dixie
 
@@ -31,23 +29,25 @@ def restoreChannels():
     src = os.path.join(datapath, 'channels-backup')
     dst = os.path.join(datapath, 'channels')
 
-    import shutil
-    if os.path.isdir(src):
-        shutil.rmtree(dst)
-        xbmc.sleep(1000)   
-        
-        shutil.copytree(src, dst)
-        shutil.rmtree(src)
-        return True
+    if not os.path.exists(src):
+        return False
     
-    return False
+    try:
+        current, dirs, files = os.walk(src).next()
+        for file in files:
+            full = os.path.join(current, file)
+            shutil.copy(full,  dst)
+    except Exception, e:
+        print str(e)
+        return False
+    
+    return True
+
 
 if __name__ == '__main__':
-    if restoreChannels() == True:
-        d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Your channels have been successfully restored.', 'This should bring back any customisations', 'that you may have lost.')    
+    if restoreChannels():
+        dixie.DialogOK('Your channels have been successfully restored.', 'This should bring back any customisations', 'that you may have lost.')
     else:
-        d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Sorry, we failed to restore your channels.', '', 'Please restart On-Tapp.TV and try again.')    
+        dixie.DialogOK('Sorry, we failed to restore your channels.', '', 'Please restart On-Tapp.TV and try again.')    
 
 

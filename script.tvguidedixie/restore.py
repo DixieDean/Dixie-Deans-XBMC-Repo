@@ -26,6 +26,7 @@ import dixie
 import zipfile
 
 ROOT  = dixie.PROFILE 
+# ROOT  = '/'
 LINE1 = 'Now restoring from backup'
 LINE2 = 'Please wait, this may take a while.'
 
