@@ -465,7 +465,7 @@ class Database(object):
 
                     weight += 1
                     channel.weight = weight
-                    #self.replaceChannel(channel)                                   
+                    self.createChannel(channel)                                   
                         
             #channels updated
             try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)
@@ -598,6 +598,15 @@ class Database(object):
 
         self.removeCleanChannel(clean)
         self.addCleanChannel(channel, clean)
+
+
+    def createChannel(self, channel):
+        path = os.path.join(channelPath, channel.id)
+
+        if os.path.exists(path):
+            return
+
+        self.addChannel(channel)
 
 
     def updateChannelLogo(self, channel):
