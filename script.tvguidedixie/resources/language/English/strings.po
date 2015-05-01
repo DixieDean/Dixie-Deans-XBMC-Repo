@@ -193,15 +193,15 @@ msgstr ""
 #empty strings from id 30133 to 30149
 
 msgctxt "#30150"
-msgid "ERROR - Paid Members Only"
+msgid "ERROR -  Possible unicode text error."
 msgstr ""
 
 msgctxt "#30151"
-msgid "Your subscription may have expired."
+msgid "There was a problem loading the listings."
 msgstr ""
 
 msgctxt "#30152"
-msgid "Or you do not have a paid membership."
+msgid "Please contact support."
 msgstr ""
 
 msgctxt "#30153"

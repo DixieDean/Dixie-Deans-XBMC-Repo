@@ -77,7 +77,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'If you have had issues with your customised EPG/channels, we apologies.', 'A bug was introduced into the last update.', 'This update puts in a fix for that.')
+    d.ok(TITLE + ' - ' + VERSION, 'We have fixed a spurious error message.', '', 'This was a message that was showing incorrectly.')
     # showChangelog()
 
 
