@@ -245,6 +245,9 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.iplayer' in url:        
         return alternateStream(url)
 
+    if 'plugin.video.stalker' in url:
+        return alternateStream(url)
+
     return False
 
 def alternateStream(url):

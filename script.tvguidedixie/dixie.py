@@ -54,12 +54,10 @@ FILMON      =  GetSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.TV'
 LOGOPACK    = 'Colour Logo Pack'
-SKINVERSION = '18'
-LOGOVERSION = '2'
+SKINVERSION = '20'
+LOGOVERSION = '3'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
-#USERNAME    =  GetSetting('username')
-#PASSWORD    =  GetSetting('password')
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 cookiepath = os.path.join(datapath, 'cookies')

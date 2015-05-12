@@ -168,7 +168,7 @@ class StreamsService(object):
         for label, stream in playlist:
             if label == channel.title:
                 return stream
-
+        
         # Third check all addons and return all matches
         matches = list()
         for id in self.getAddons():
@@ -178,10 +178,12 @@ class StreamsService(object):
                 continue # ignore addons that are not installed
 
             for (label, stream) in self.getAddonStreams(id):
-                if label == channel.title:
+                label = label.upper()
+                channel.title = channel.title.upper()
+                
+                if channel.title in label:
                     matches.append((id, label, stream))
-
-        
+            
         if len(matches) == 1:
             return matches[0][2]
         else:

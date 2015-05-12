@@ -27,6 +27,7 @@ import socket
 import os
 import re
 import shutil
+import datetime
 import download
 import extract
 import update
@@ -77,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'We have fixed a spurious error message.', '', 'This was a message that was showing incorrectly.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Logo-Pack back-ups integrated.', 'Improved external add-on integration', 'Please read on the forum for more info.')
     # showChangelog()
 
 
@@ -169,7 +170,7 @@ def CheckLogoVersion():
 
     if not prev == curr:
         line1 = 'UPDATE: New Colour Logo Pack Available.'
-        line2 = 'Please back-up your custom logos first.'
+        line2 = 'A back-up of your logos will created first.'
         line3 = 'Are you sure you want to download this update?'
 
         if dixie.DialogYesNo(line1, line2, line3):
@@ -198,7 +199,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-03-03-2015.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-11-05-2015.zip'
 
     try:
         os.makedirs(skinfolder)
@@ -224,9 +225,18 @@ def DownloadLogos():
         pass
 
     download.download(url, logodest)
-    extract.all(logodest, extras)
-    dixie.SetSetting('LOGOVERSION', LOGOVERSION)
-    dixie.SetSetting('dixie.logo.folder', LOGOPACK)
+    if os.path.exists(logos):
+        now  = datetime.datetime.now()
+        date = now.strftime('%Y-%m-%d')
+        src  = logos
+        dst  = os.path.join(logos, 'Logo Pack-%s' % date)
+    
+        try:    shutil.copytree(src, dst)
+        except: pass
+        
+        extract.all(logodest, extras)
+        dixie.SetSetting('LOGOVERSION', LOGOVERSION)
+        dixie.SetSetting('dixie.logo.folder', LOGOPACK)
 
     try:
         os.remove(logodest)

@@ -22,6 +22,7 @@ import xbmc
 import xbmcaddon
 import download
 import extract
+import datetime
 
 import dixie
 
@@ -31,17 +32,31 @@ extras   = os.path.join(datapath, 'extras')
 logos    = os.path.join(extras, 'logos')
 nologos  = os.path.join(logos, 'None')
 dest     = os.path.join(extras, 'logos.zip')
+logopack = dixie.GetSetting('dixie.logo.folder')
 url      = dixie.GetExtraUrl() + 'resources/logos.zip'
 
 
 try:
-    os.makedirs(logos)
-    os.makedirs(nologos)
+    if not os.path.exists(logos):
+        os.makedirs(logos)
+        os.makedirs(nologos)
 except:
     pass
  
 download.download(url, dest)
-extract.all(dest, extras)
+
+if os.path.exists(logos):
+    now  = datetime.datetime.now()
+    date = now.strftime('%Y-%m-%d')
+    
+    import shutil
+    src = logos
+    dst = os.path.join(logos, 'Logo Pack-%s' % date)
+    
+    try:    shutil.copytree(src, dst)
+    except: pass
+    
+    extract.all(dest, extras)
 
 try:
     os.remove(dest)
