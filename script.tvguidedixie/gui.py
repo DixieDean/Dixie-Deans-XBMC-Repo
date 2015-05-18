@@ -667,6 +667,9 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin("Container.Refresh")
             #xbmc.executebuiltin(ustv)
 
+        elif buttonClicked == PopupMenu.C_POPUP_UKTVPLAY:
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.uktvplay)')
+
         elif buttonClicked == PopupMenu.C_POPUP_SUPERFAVES:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
             # import sys
@@ -1381,6 +1384,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
     C_POPUP_IPLAYER = 4008
     C_POPUP_ITVPLAYER = 4010
     C_POPUP_OTTOOLS = 4014
+    C_POPUP_UKTVPLAY = 4015
     C_POPUP_USTV = 4011
     C_POPUP_SUPER_SEARCH = 4009
     C_POPUP_SUPERFAVES = 4012

@@ -47,14 +47,18 @@ download.download(url, dest)
 
 if os.path.exists(logos):
     now  = datetime.datetime.now()
-    date = now.strftime('%Y-%m-%d')
+    date = now.strftime('%B-%d-%Y %H-%M')
     
     import shutil
-    src = logos
-    dst = os.path.join(logos, 'Logo Pack-%s' % date)
+    cur = dixie.GetSetting('dixie.logo.folder')
+    src = os.path.join(logos, cur)
+    dst = os.path.join(logos, cur+'-%s' % date)
     
-    try:    shutil.copytree(src, dst)
-    except: pass
+    try:
+        shutil.copytree(src, dst)
+        shutil.rmtree(src)
+    except:
+        pass
     
     extract.all(dest, extras)
 

@@ -78,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Logo-Pack back-ups integrated.', 'Improved external add-on integration', 'Please read on the forum for more info.')
+    d.ok(TITLE + ' - ' + VERSION, 'NEW! UKTV Play - One-click catch up.', 'On-demand shows from Dave, Yesterday, Really & Drama.', 'UK only. Search Total Installer for UKTV Play.')
     # showChangelog()
 
 
@@ -199,7 +199,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-11-05-2015.zip'
+    url  = dixie.GetExtraUrl() + 'resources/skins-05-18-2015.zip'
 
     try:
         os.makedirs(skinfolder)
@@ -227,12 +227,18 @@ def DownloadLogos():
     download.download(url, logodest)
     if os.path.exists(logos):
         now  = datetime.datetime.now()
-        date = now.strftime('%Y-%m-%d')
-        src  = logos
-        dst  = os.path.join(logos, 'Logo Pack-%s' % date)
+        date = now.strftime('%B-%d-%Y %H-%M')
     
-        try:    shutil.copytree(src, dst)
-        except: pass
+        import shutil
+        cur = dixie.GetSetting('dixie.logo.folder')
+        src = os.path.join(logos, cur)
+        dst = os.path.join(logos, cur+'-%s' % date)
+    
+        try:
+            shutil.copytree(src, dst)
+            shutil.rmtree(src)
+        except:
+            pass
         
         extract.all(logodest, extras)
         dixie.SetSetting('LOGOVERSION', LOGOVERSION)

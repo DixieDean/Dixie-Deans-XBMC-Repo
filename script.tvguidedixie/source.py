@@ -49,18 +49,17 @@ import io
 SOURCE      = dixie.GetSetting('source')
 DIXIEURL    = dixie.GetSetting('dixie.url').upper()
 DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
+PREVLOGO    = dixie.GetSetting('PREVLOGO')
 LOGOVERSION = dixie.LOGOVERSION
 GMTOFFSET   = dixie.GetGMTOffset()
+
+LOGOCHANGED = DIXIELOGOS != PREVLOGO
 
 datapath    = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
 channelPath = os.path.join(datapath, 'channels')
 extras      = os.path.join(datapath, 'extras')
 logopath    = os.path.join(extras, 'logos')
 
-LOGOCHANGED = DIXIELOGOS != dixie.GetSetting('PREVLOGO')
-
-if LOGOCHANGED:
-    dixie.SetSetting('PREVLOGO', DIXIELOGOS)
 
 try:    os.makedirs(channelPath)
 except: pass
@@ -229,21 +228,27 @@ class Database(object):
         if not LOGOCHANGED:
             return True
 
-        prev = dixie.GetSetting('LOGOVERSION')
-        curr = LOGOVERSION
+        folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
 
-        if not prev == curr:
-            channels = self._getChannelList(onlyVisible=False, categories=None)
+        noLogo = DIXIELOGOS.lower() == 'none'
 
-            folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+        channels = self.getAllChannels()        
         
-            for ch in channels:            
-                logoFile = os.path.join(folder, DIXIELOGOS, ch.title + '.png')
-                if logoFile != ch.logo:
-                    ch.logo = logoFile
-                    self.replaceChannel(ch)
-                    
-            return True
+        for ch in channels:  
+            channel = self.getChannelFromFile(ch)
+            if channel == None:
+                continue
+
+            if noLogo:
+                channel.logo = ''
+            else:
+                logoFile = os.path.join(folder, DIXIELOGOS, channel.title + '.png')
+                channel.logo  = logoFile
+
+            self.replaceChannel(channel)  
+
+        dixie.SetSetting('PREVLOGO', DIXIELOGOS)
+        return True
 
 
     def _initializeP(self, cancel_requested_callback):

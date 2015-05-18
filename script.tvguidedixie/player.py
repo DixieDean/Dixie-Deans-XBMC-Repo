@@ -248,6 +248,9 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.stalker' in url:
         return alternateStream(url)
 
+    if 'plugin.video.sparky' in url:
+        return alternateStream(url)
+
     return False
 
 def alternateStream(url):

@@ -54,8 +54,8 @@ FILMON      =  GetSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.TV'
 LOGOPACK    = 'Colour Logo Pack'
-SKINVERSION = '20'
-LOGOVERSION = '3'
+SKINVERSION = '21'
+LOGOVERSION = '4'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
 
