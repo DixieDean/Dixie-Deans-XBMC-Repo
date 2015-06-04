@@ -18,6 +18,7 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
+import os
 import utils
 import path
 import subprocess

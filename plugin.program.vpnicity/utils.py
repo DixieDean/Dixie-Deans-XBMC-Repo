@@ -184,8 +184,7 @@ def checkVersion():
         showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. New functionality added to VPNicity', 'Automatically start a country specific VPN when', 'configured addons are started, see Add-on Settings.')
-    d.ok(TITLE + ' - ' + VERSION, 'In order for this new feature to work...', '', 'Please restart Kodi/XBMC.')
+    d.ok(TITLE + ' - ' + VERSION, 'Fix for Kodi 15 Beta (Isengard).', '"Add-on Settings => Install OpenVPN"', 'should now work without errors.')
     # triggerChangelog()
     
 

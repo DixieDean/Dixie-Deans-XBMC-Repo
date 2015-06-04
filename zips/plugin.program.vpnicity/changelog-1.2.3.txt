@@ -1,3 +1,6 @@
+v1.2.3:
+   - Fix for Kodi 15 Beta (Isengard). 'Add-on Settings => Install OpenVPN' should now work without errors.
+
 v1.2.2:
    - Option to automatically start a country specific VPN when configured addons are started - see 'Autostart Addons' tab on the settings page.
    - Better install process.
