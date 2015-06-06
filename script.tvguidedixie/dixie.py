@@ -75,7 +75,32 @@ def log(text):
         pass
 
 
+def CloseBusy():
+    xbmc.executebuiltin('Dialog.Close(busydialog)')
+
+
+def ShowBusy(hideProgress=True):
+    xbmc.executebuiltin('ActivateWindow(busydialog)')
+
+    #try:
+    #    busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
+    #    busy.show()
+
+    #    if hideProgress:
+    #        try:    busy.getControl(10).setVisible(False)
+    #        except: pass
+
+    #    return busy
+    #except:
+    #    pass
+
+    return None
+
+
+
+
 def notify(message, length=5000):
+    CloseBusy()
     cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
     xbmc.executebuiltin(cmd)
 
@@ -295,23 +320,6 @@ def GetChannels():
     path = os.path.join(PROFILE , 'chan.xml')
 
     return path
-
-
-def ShowBusy(hideProgress=True):
-    try:
-        busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
-        busy.show()
-
-        if hideProgress:
-            try:    busy.getControl(10).setVisible(False)
-            except: pass
-
-        return busy
-    except:
-        pass
-
-    return None
-
 
 
 def DialogOK(line1, line2='', line3=''):

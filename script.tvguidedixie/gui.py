@@ -502,21 +502,21 @@ class TVGuide(xbmcgui.WindowXML):
         #    return KEY_HOME
 
         if id == ACTION_GESTURE_SWIPE_LEFT:
-            self.onClick(self.C_MAIN_MOUSE_LEFT)
+            self.onClick(self.C_MAIN_MOUSE_RIGHT)
             return None
 
         if id == ACTION_GESTURE_SWIPE_RIGHT:
-            self.onClick(self.C_MAIN_MOUSE_RIGHT)
+            self.onClick(self.C_MAIN_MOUSE_LEFT)
             return None
 
         if id == ACTION_GESTURE_SWIPE_UP:
             #return ACTION_MOUSE_WHEEL_UP
-            self.onClick(self.C_MAIN_MOUSE_UP)
+            self.onClick(self.C_MAIN_MOUSE_DOWN)
             return None
 
         if id == ACTION_GESTURE_SWIPE_DOWN:
             #return ACTION_MOUSE_WHEEL_DOWN
-            self.onClick(self.C_MAIN_MOUSE_DOWN)
+            self.onClick(self.C_MAIN_MOUSE_UP)
             return None
 
         return id
@@ -837,10 +837,9 @@ class TVGuide(xbmcgui.WindowXML):
 
 
     def record(self, program):
-        busy = dixie.ShowBusy()                
+        dixie.ShowBusy()                
         record = filmon.record(program.title, program.startDate, program.endDate, program.channel.streamUrl)
-        if busy:
-            busy.close()
+        dixie.CloseBusy()                
         return record <> False
 
 
@@ -876,28 +875,25 @@ class TVGuide(xbmcgui.WindowXML):
 
     def catchup(self):
         try:
-            busy = dixie.ShowBusy()
+            dixie.ShowBusy()
 
             controlInFocus = self.getFocus()
             program = self._getProgramFromControl(controlInFocus)
             if program is None:
-                if busy:
-                    busy.close()
+                dixie.CloseBusy()
                 return False
 
             stream = program.channel.streamUrl.replace('__SF__PlayMedia("', '')
 
             if not filmon.isValid(stream):
-                if busy:
-                    busy.close()
+                dixie.CloseBusy()
                 return False
 
             end = program.endDate
             now = datetime.datetime.today()
 
             if end > now:
-                if busy:
-                    busy.close()
+                dixie.CloseBusy()
                 return False
 
             name  = program.title
@@ -909,8 +905,7 @@ class TVGuide(xbmcgui.WindowXML):
             if not isRecorded:
                 programID = filmon.record(name, start, end, stream, showResult=False)
 
-            if busy:
-                busy.close()
+            dixie.CloseBusy()
 
             if (not isRecorded) and (not programID):                
                 dixie.DialogOK('Unable to play %s' % name, 'Catchup requires temporary DVR space on Filmon.', 'Please delete some recordings and try again.')            
@@ -1552,6 +1547,7 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
     def onInit(self):
         self.updateChannelList()
         self.setFocusId(self.C_CHANNELS_LIST)
+        self.move = False
 
     @buggalo.buggalo_try_except({'method' : 'ChannelsMenu.onAction'})
     def onAction(self, action):
@@ -1559,31 +1555,52 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
             self.close()
             return
 
-        if self.getFocusId() == self.C_CHANNELS_LIST and action.getId() == ACTION_LEFT:
+        if (self.getFocusId() == self.C_CHANNELS_LIST and action.getId() in [ACTION_LEFT]) or (action.getId() in [ACTION_GESTURE_SWIPE_LEFT]):
             listControl = self.getControl(self.C_CHANNELS_LIST)
             idx = listControl.getSelectedPosition()
             buttonControl = self.getControl(self.C_CHANNELS_SELECTION)
             buttonControl.setLabel('[B]%s[/B]' % self.channelList[idx].title)
+            self.move = True
 
             self.getControl(self.C_CHANNELS_SELECTION_VISIBLE).setVisible(False)
             self.setFocusId(self.C_CHANNELS_SELECTION)
 
-        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() in [ACTION_RIGHT, ACTION_SELECT_ITEM]:
+        elif (self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() in [ACTION_RIGHT, ACTION_SELECT_ITEM]) or (action.getId() in [ACTION_GESTURE_SWIPE_RIGHT]):
             self.getControl(self.C_CHANNELS_SELECTION_VISIBLE).setVisible(True)
             xbmc.sleep(350)
             self.setFocusId(self.C_CHANNELS_LIST)
+            self.move = False
 
-        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() == ACTION_UP:
+        elif (self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() in [ACTION_UP]) or (self.move and action.getId() in [ACTION_GESTURE_SWIPE_UP]):
             listControl = self.getControl(self.C_CHANNELS_LIST)
             idx = listControl.getSelectedPosition()
             if idx > 0:
                 self.swapChannels(idx, idx - 1)
 
-        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() == ACTION_DOWN:
+        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() == ACTION_PAGE_UP:
+            listControl = self.getControl(self.C_CHANNELS_LIST)
+            idx = listControl.getSelectedPosition()
+            for i in range(0, 8):
+                if idx == 0:
+                    return
+                self.swapChannels(idx, idx - 1)
+                idx -= 1
+
+        elif (self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() in [ACTION_DOWN, ACTION_GESTURE_SWIPE_DOWN]) or (self.move and action.getId() in [ACTION_GESTURE_SWIPE_DOWN]):
             listControl = self.getControl(self.C_CHANNELS_LIST)
             idx = listControl.getSelectedPosition()
             if idx < listControl.size() - 1:
                 self.swapChannels(idx, idx + 1)
+
+        elif self.getFocusId() == self.C_CHANNELS_SELECTION and action.getId() == ACTION_PAGE_DOWN:
+            listControl = self.getControl(self.C_CHANNELS_LIST)
+            idx = listControl.getSelectedPosition()
+            for i in range(0,8):
+                if idx == listControl.size()-1:
+                    return
+                self.swapChannels(idx, idx + 1)
+                idx += 1
+
 
     @buggalo.buggalo_try_except({'method' : 'ChannelsMenu.onClick'})
     def onClick(self, controlId):
@@ -1651,7 +1668,7 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
         self.updateListItem(toIdx, listControl.getListItem(toIdx))
 
         listControl.selectItem(toIdx)
-        xbmc.sleep(50)
+        #xbmc.sleep(50)
         self.swapInProgress = False
 
 

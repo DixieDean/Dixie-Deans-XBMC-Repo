@@ -78,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'NEW! UKTV Play - One-click catch up.', 'On-demand shows from Dave, Yesterday, Really & Drama.', 'UK only. Search Total Installer for UKTV Play.')
+    d.ok(TITLE + ' - ' + VERSION, "NEW UPDATE.", "Improved Touch Screen support.", "Page Up/Down now works properly in 'Channels' (EPG Context Menu).")
     # showChangelog()
 
 
@@ -305,7 +305,7 @@ def main(doLogin=True):
     CheckChanXML()
     CheckSkin()
     CheckLogos()
-    busy = dixie.ShowBusy()
+    dixie.ShowBusy()
 
     import buggalo
     import gui
@@ -329,14 +329,12 @@ def main(doLogin=True):
 
         dixie.log('****** OnTapp.TV - All OK *******')
 
+        dixie.CloseBusy()
+
         xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
         xbmc.executebuiltin('XBMC.ActivateWindow(home)')
 
         w = gui.TVGuide()
-
-        if busy:
-            busy.close()
-            busy = None
 
         CopyKeymap()
         w.doModal()

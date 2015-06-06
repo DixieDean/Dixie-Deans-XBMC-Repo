@@ -67,7 +67,7 @@
 	</extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="On-Tapp.TV" version="2.6.5" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="On-Tapp.TV" version="2.6.6" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>

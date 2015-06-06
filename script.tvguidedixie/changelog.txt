@@ -1,3 +1,7 @@
+v2.6.6 (06-06-15)
+- Improved Touch Screen support.
+- Page Up/Down now works properly in 'Channels' (EPG Context Menu).
+
 v2.6.5 (05-17-15)
 - Added built-in intergration with the UKTV Play addon.
 - Minor fixes to Logo Pack handling (Back-up on updates).
