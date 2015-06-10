@@ -22,6 +22,7 @@
 import xbmcaddon
 import xbmc
 import xbmcgui
+import os
 
 id = 'script.tvguidedixie'
 
