@@ -78,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'Minor bug fix for Kodi 15 Beta (Isengard)', '', ''
+    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'Minor bug fix for Kodi 15 Beta (Isengard)', '')
     # showChangelog()
 
 
