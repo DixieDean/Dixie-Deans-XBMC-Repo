@@ -79,6 +79,10 @@ def getAndroid(silent):
 
 
 def getOpenElec(silent):
+    path = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/bin/openvpn')
+    if check(path):
+        return path
+    
     path = '/usr/sbin/openvpn'
     if check(path):
         return path

@@ -1,3 +1,6 @@
+v1.2.4:
+   - Added built-in install method for OpenELEC. Now fully automated.
+
 v1.2.3:
    - Fix for Kodi 15 Beta (Isengard). 'Add-on Settings => Install OpenVPN' should now work without errors.
 

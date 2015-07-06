@@ -34,9 +34,9 @@ def install(silent=False):
         installMacOS()
         return
 
-    # if utils.ADDON.getSetting('OS') == 'OpenELEC':
-    #     installOpenELEC()
-    #     return
+    if utils.ADDON.getSetting('OS') == 'OpenELEC':
+        installOpenELEC()
+        return
 
     cmdLine  = utils.getSudo()
     cmdLine +='apt-get update;'
@@ -71,7 +71,7 @@ def installMacOS():
     import extract
     import stat
     
-    url    = 'https://www.on-tapp.tv/wp-content/vpn/openvpn-macos-2.3.4.zip'
+    url    = utils.getResourceUrl() + 'openvpn-macos-2.3.4.zip'
     bindir = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/macos/sbin/')
     dest   = os.path.join(bindir, 'openvpn-macos.zip')
     macbin = os.path.join(bindir, 'openvpn')
@@ -100,38 +100,42 @@ def installMacOS():
         utils.dialogOK('MacOS VPN application installation failed', 'Please try again later')
 
 
-# def installOpenELEC():
-#     import download
-#     import extract
-#     import stat
-#
-#     url    = 'https://www.on-tapp.tv/wp-content/vpn/openvpn-arm.zip'
-#     bindir = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/arm/sbin/')
-#     dest   = os.path.join(bindir, 'openvpn-arm.zip')
-#     armbin = os.path.join(bindir, 'openvpn')
-#
-#     try:
-#         os.makedirs(bindir)
-#     except:
-#         pass
-#
-#     download.download(url, dest)
-#     extract.all(dest, bindir)
-#
-#     st = os.stat(armbin)
-#     os.chmod(armbin, st.st_mode | stat.S_IEXEC)
-#
-#     try:
-#         os.remove(dest)
-#     except:
-#         pass
-#
-#     success = path.getPath(utils.ADDON.getSetting('OS'), silent=True)
-#
-#     if success:
-#         utils.dialogOK('VPN application successfully installed')
-#     else:
-#         utils.dialogOK('VPN application installation failed', 'Please try again later')
+def installOpenELEC():
+    import download
+    import extract
+    import stat
+
+    url = utils.getOEUrl()
+    if not url:
+        utils.dialogOK('You do not appear to be running OpenELEC', 'Please check your settings')
+        return
+
+    bindir = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/bin/')
+    dest   = os.path.join(bindir, 'openvpn-oe.zip')
+    oebin  = os.path.join(bindir, 'openvpn')
+
+    try:
+        os.makedirs(bindir)
+    except:
+        pass
+
+    download.download(url, dest)
+    extract.all(dest, bindir)
+
+    st = os.stat(oebin)
+    os.chmod(oebin, st.st_mode | stat.S_IEXEC)
+
+    try:
+        os.remove(dest)
+    except:
+        pass
+
+    success = path.getPath(utils.ADDON.getSetting('OS'), silent=True)
+
+    if success:
+        utils.dialogOK('VPN application successfully installed')
+    else:
+        utils.dialogOK('VPN application installation failed', 'Please try again later')
 
 
 if __name__ == '__main__':

@@ -65,7 +65,7 @@ def Main():
         utils.log('Login Error')
         return
 
-    utils.checkOS()
+    # utils.checkOS()
 
     addDir('-- Configure %s' % TITLE,   _SETTINGS,  isFolder=False)
 

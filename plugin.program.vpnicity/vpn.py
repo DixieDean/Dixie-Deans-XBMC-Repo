@@ -38,7 +38,7 @@ REGEX = 'server name="(.+?)" capacity="(.+?)" city="(.+?)" country="(.+?)" icon=
 
 COUNTRIES = {'AU':'Australia', 'AT':'Austria', 'BE':'Belguim', 'BR':'Brazil', 'DK':'Denmark', 'DE':'Germany', 'ES':'Spain', 'FR':'France', 'HU':'Hungary',  'JP':'Japan', 'KR':'South Korea', 'NL':'Netherlands', 'PL':'Poland', 'SG':'Singapore', 'CH':'Switzerland', 'SE':'Sweden', 'UK':'United Kingdom', 'US':'United States'}
 
-URL      = 'http://www.wlvpn.com/serverList.xml'
+URL      = utils.getBaseUrl()
 ADDON    = utils.ADDON
 HOME     = utils.HOME
 PROFILE  = utils.PROFILE
@@ -51,7 +51,6 @@ import quicknet
 LOGINURL = utils.LOGINURL
 USERNAME = utils.GetSetting('USER')
 PASSWORD = utils.GetSetting('PASS')
-PAYLOAD  = { 'log' : USERNAME, 'pwd' : PASSWORD, 'wp-submit' : 'Log In' }
 
 
 class MyVPN():
@@ -358,7 +357,7 @@ def DeleteFile(path):
 
 
 def WriteAuthentication(path):
-    CheckUsername()
+    # CheckUsername()
 
     user = USERNAME + '@vpnicity'
     pwd  = PASSWORD
@@ -416,52 +415,56 @@ def WriteConfiguration(server, dest, authPath):
 
 
 def CheckUsername():
-    user = USERNAME + '@vpnicity'
+    utils.log('================== in CheckUsername ==================')
+    user = USERNAME
     pwd  = PASSWORD
 
     if user != '' and pwd != '':
         return True
 
-    dlg = utils.yesno('VPNicity requires a subscription.', '', 'Would you like to enter your Account details now?')
+    dlg = utils.yesno('VPNicity requires a subscription.', '', 'Would you like to enter your account details now?')
 
     if dlg == 1:
         user = utils.dialogKB('', 'Enter Your VPNicity Username')
         pwd  = utils.dialogKB('', 'Enter Your VPNicity Password')
         
-        utils.SetSetting('USER', user)
-        utils.SetSetting('PASS', pwd)
+        ADDON.setSetting('USER', user)
+        ADDON.setSetting('PASS', pwd)
         
         SetupAccount()
         
-    return False
+    return True
         
 
 def SetupAccount():
     utils.checkOS()
-    xbmc.sleep(1000)
-    
-    if utils.GetSetting('OS') != 'MacOS':
+    os = utils.GetSetting('OS')
+
+    if os == 'MacOS':
+        utils.dialogOK('It appears you are running on Mac OS.', '', 'You may need administrator access to run VPNicity.')
+
+        sudo = utils.dialogKB('', "Enter the 'User Account' password for your computer.")
+
+        ADDON.setSetting('SUDO', 'true')
+        ADDON.setSetting('SUDOPASS', sudo)
+
+        utils.dialogOK('We will now finish your installation.', 'Please double check your settings after we are done.', 'Thank you!')
+        xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/install.py)')
+
+    if os == 'OpenELEC':
+        utils.dialogOK('It appears you are running on OpenELEC.', 'We will now finish your installation.', 'Please double check your settings after we are done.')    
+        xbmc.executebuiltin('XBMC.RunScript(/storage/.kodi/addons/plugin.program.vpnicity/install.py)')
+        
+    else:
         return
-    
-    # if utils.GetSetting('SUDOPASS') != '':
-    #     return
-
-    utils.dialogOK('It appears you are running on Mac OS.', '', 'You may need administrator access to run VPNicity.')
-
-    sudo = utils.dialogKB('', "Enter the 'User Account' password for your computer.")
-    
-    utils.SetSetting('SUDO', 'true')
-    utils.SetSetting('SUDOPASS', sudo)
-    
-    utils.dialogOK('We will now finish your installation.', 'Please double check your settings after we are done.', 'Thank you!')
-    xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/install.py)')
-
+        
 
 def ShowSettings():
     ADDON.openSettings()
 
 
 def getPreviousTime():
+    utils.log('================== in getPreviousTime ==================')
     time_object = utils.GetSetting('LOGIN_TIME')
     
     if time_object == '':
@@ -485,6 +488,7 @@ def parseTime(when):
 
 
 def validToRun():
+    utils.log('================== in validToRun ==================')
     previousTime = getPreviousTime()
     now          = datetime.datetime.today()
     delta        = now - previousTime
@@ -494,19 +498,31 @@ def validToRun():
         if not Login():
             return False
 
-        utils.SetSetting('LOGIN_TIME', str(now))
+        ADDON.setSetting('LOGIN_TIME', str(now))
         
     return True
 
 def Login():
-    utils.log('************ VPNicity Login ************')
+    utils.log('================ VPNicity Login ================')
     with requests.Session() as s:
-        s.get(LOGINURL)
+        try:
+            s.get(LOGINURL)
+        except: 
+            return False
+        
+        USER     = ADDON.getSetting('USER')
+        PASS     = ADDON.getSetting('PASS')
+        PAYLOAD  = { 'log' : USER, 'pwd' : PASS, 'wp-submit' : 'Log In' }
+        response = 'login_error'
+        code     =  0
 
-        login = s.post(LOGINURL, data=PAYLOAD)
-        code  = login.content
-
-        if 'no-access-redirect' in code:
+        if USER and PASS:
+            login    = s.post(LOGINURL, data=PAYLOAD)
+            response = login.content
+            # code     = login.status_code
+            # saveCookies(s.cookies, cookiefile)
+        
+        if 'no-access-redirect' in response:
             error   = '301 - No Access.'
             message = 'It appears that your subscription has expired.'
             utils.log(message + ' : ' + error)
@@ -516,23 +532,33 @@ def Login():
             
             return False
             
-        if 'login_error' not in code:
+        areLost    = 'Are you lost' in response
+        loginError = 'login_error' in response
+        okay       =  (not areLost) and (not loginError)
+        
+        if okay:
+            message = 'Logged into VPNicity'
+            utils.log(message)
+            utils.notify(message)
             return True
             
         try:
-            error = re.compile('<div id="login_error">(.+?)<br />').search(code).groups(1)[0]
+            error = re.compile('<div id="login_error">(.+?)<br />').search(response).groups(1)[0]
             error = error.replace('<strong>',  '')
             error = error.replace('</strong>', '')
-            error = error.replace('<a href="https://www.vpnicity.com/wp-login.php?action=lostpassword">Lost your password</a>?', '')
+            error = error.replace('<a href="https://www.vpnicity.com/wp-login.php?action=lostpassword">Lost your password?</a>', '')
             error = error.strip()
+            print error
         except:
             error = ''
             
-        utils.dialogOK('There was a problem logging into VPNicity.', '', error)
+        message = 'There was a problem logging into VPNicity'
+        
         utils.log('************ VPNicity Error ************')
-        utils.log(error)
+        utils.log(message + ' : ' + error)
         utils.log('****************************************')
-    
+        utils.dialogOK(message, error, 'Please check your account at www.vpnicity.com')
+        
         KillVPN(silent=True)
         
     return False

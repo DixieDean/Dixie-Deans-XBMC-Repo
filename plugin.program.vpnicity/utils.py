@@ -23,6 +23,7 @@ import xbmcaddon
 import xbmc
 import xbmcgui
 import os
+import platform
 import stat
 import shutil
 
@@ -40,12 +41,12 @@ RESOURCES =  os.path.join(HOME, 'resources')
 
 
 def GetSetting(param):
-    return ADDON.getSetting(param)
+    return xbmcaddon.Addon(ADDONID).getSetting(param)
 
 def SetSetting(param, value):
-    if ADDON.getSetting(param) == value:
+    if xbmcaddon.Addon(ADDONID).getSetting(param) == value:
         return
-    ADDON.setSetting(param, value)
+    xbmcaddon.Addon(ADDONID).setSetting(param, value)
 
 TITLE     =  ADDON.getAddonInfo('name')
 VERSION   =  ADDON.getAddonInfo('version')
@@ -53,6 +54,26 @@ KEYMAP    = 'vpnicity_menu.xml'
 GETTEXT   =  ADDON.getLocalizedString
 LOGINURL  = 'https://www.vpnicity.com/wp-login.php'
 DEBUG     =  GetSetting('DEBUG') == 'true'
+
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+ t = ooOOOoo
+ for c in t1:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0  
+ for c in t2:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0
+ return t
+
+baseurl  = ttTTtt(870,[129,104,93,116,41,116,188,112,79,58,12,47,7,47],[128,119,211,119,222,119,250,46,234,119,33,108,243,118,125,112,52,110,59,46,126,99,65,111,222,109,211,47,47,115,56,101,108,114,54,118,180,101,86,114,38,76,163,105,135,115,212,116,120,46,39,120,185,109,169,108])
+resource = ttTTtt(0,[104],[235,116,107,116,114,112,250,115,192,58,222,47,240,47,113,119,51,119,6,119,94,46,176,111,90,110,171,45,205,116,227,97,196,112,22,112,171,46,171,116,81,118,111,47,143,119,21,112,193,45,10,99,131,111,100,110,121,116,72,101,134,110,18,116,111,47,189,118,228,112,171,110,15,47])
 
 
 def GetXBMCVersion():
@@ -111,6 +132,8 @@ def checkOS():
         log(error)
     elif plat == 'ios':
         log(error)
+    elif plat == ('oe-pi') or ('oe-arm') or ('oe-x86'):
+        os = 'OpenELEC'
 
     if len(os) > 1:
         log('Setting system to %s' % os)
@@ -178,13 +201,13 @@ def checkVersion():
     if prev == curr:
         return
 
-    SetSetting('VERSION', curr)
+    ADDON.setSetting('VERSION', curr)
 
-    if GetSetting('VIDEO').lower() != 'true':
-        showVideo()
+    # if GetSetting('VIDEO').lower() != 'true':
+    #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'Fix for Kodi 15 Beta (Isengard).', '"Add-on Settings => Install OpenVPN"', 'should now work without errors.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. VPNicity for OpenELEC.', 'This is a major improvement to the add-on', 'A fully automated install process!')
     # triggerChangelog()
     
 
@@ -306,7 +329,37 @@ def showChangelog(addonID=None):
         pass
 
 
+def getOEUrl():
+    oe = platform()
+    
+    if oe == 'oe-pi':
+        url = resource + 'openvpn-pi.zip'
+        return url
+
+    if oe == 'oe-arm':
+        url = resource + 'openvpn-arm.zip'
+        return url
+
+    if oe == 'oe-x86':
+        url = resource + 'openvpn-x86.zip'
+        return url
+
+    return
+
+
 def platform():
+    logfile = getLogfile()
+    f = open(logfile)
+    oe = f.read()
+    f.close()
+    
+    if '(version for Raspberry Pi)' in oe:
+        return 'oe-pi'
+    if 'Platform: Linux ARM 32-bit' in oe:
+        return 'oe-arm'
+    if 'Platform: Linux x86 64-bit' in oe:
+        return 'oe-x86'
+
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'
     if xbmc.getCondVisibility('system.platform.linux'):
@@ -322,30 +375,25 @@ def platform():
     return ''
 
 
-def getSystem():
-    system            = dict()
-    processor         = 'Unknown'
-    system['machine'] = 'unknown'
-    
-    try:
-        if hasattr(os, 'uname'):
-            #unix
-            (sysname, nodename, release, version, machine) = os.uname()
-        else:
-            #Others
-            import platform
-            (sysname, nodename, release, version, machine, processor) = platform.uname()
-        
-        system['nodename']  = nodename
-        system['sysname']   = sysname
-        system['release']   = release
-        system['version']   = version
-        system['machine']   = machine
-        system['processor'] = processor
+def getLogfile():
+    logpath = xbmc.translatePath('special://logpath')
+    build   = xbmc.getInfoLabel("System.BuildVersion")
+    version = float(build[:4])
+    print build
+    print version
 
-    except Exception as ex:
-        import sys
-        system['sysname']   = sys.platform
-        system['exception'] = str(ex)
+    if version < 14:
+        logfile = os.path.join(logpath, 'xbmc.log')
+    else:
+        logfile = os.path.join(logpath, 'kodi.log')
     
-    return system
+    log('======= VPNicity log path is =======')
+    log(logfile)
+    return logfile
+
+
+def getBaseUrl():
+    return baseurl
+
+def getResourceUrl():
+    return resource
