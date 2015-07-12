@@ -30,13 +30,21 @@ settingsFile = os.path.join(xbmc.translatePath(addon.getAddonInfo('profile')), '
 
 def deleteDB():
     try:
+        import glob
         xbmc.log("[script.tvguidedixie] Deleting database...", xbmc.LOGDEBUG)
-        dbPath = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
-        dbPath = os.path.join(dbPath, 'program.db')
-
-        delete_file(dbPath)
-        
-        passed = not os.path.exists(dbPath)
+        dbPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
+        dbFile  = os.path.join(dbPath, 'program.db')
+        zipPath = os.path.join(dbPath, '*.zip')
+        zipFile = glob.glob(zipPath)
+        print '=================== zipFile =================', zipFile
+    
+        delete_file(dbFile)
+    
+        for zipName in zipFile:
+            base, ext = os.path.splitext(zipName)
+            delete_file(zipName)
+    
+        passed = (not os.path.exists(dbFile)) and (not os.path.exists(zipName))
 
         if passed: 
             xbmc.log("[script.tvguidedixie] Deleting database...PASSED", xbmc.LOGDEBUG)
@@ -60,11 +68,14 @@ def delete_file(filename):
             tries -= 1 
 
 if __name__ == '__main__':
+    xbmc.executebuiltin('Dialog.Show(busydialog)')
+    
     if deleteDB():
+        xbmc.executebuiltin('Dialog.Close(busydialog)')
         d = xbmcgui.Dialog()
         d.ok('OnTapp.TV', 'EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
+    
     else:
+        xbmc.executebuiltin('Dialog.Close(busydialog)')
         d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Failed to reset EPG.', 'Database may be locked,', 'please restart XBMC and try again')    
-
-
+        d.ok('OnTapp.TV', 'Failed to reset EPG.', 'Database may be locked,', 'please restart XBMC and try again')

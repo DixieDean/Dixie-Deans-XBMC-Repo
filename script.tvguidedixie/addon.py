@@ -20,6 +20,7 @@
 import xbmc
 import xbmcaddon
 import xbmcgui
+import xbmcvfs
 import urllib
 import urllib2
 from hashlib import md5
@@ -65,6 +66,7 @@ local_ini   = os.path.join(addonpath,  'local.ini')
 current_ini = os.path.join(datapath,   'addons.ini')
 database    = os.path.join(datapath,   'program.db')
 channel_xml = os.path.join(addonpath,  'chan.xml')
+image       = xbmcgui.ControlImage
 
 
 def CheckVersion():
@@ -78,7 +80,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'Minor bug fix for Kodi 15 Beta (Isengard)', '')
+    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'New channels - see message.', 'New default Colour Logo Pack.')
     # showChangelog()
 
 

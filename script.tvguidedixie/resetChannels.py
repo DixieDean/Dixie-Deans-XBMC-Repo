@@ -29,7 +29,11 @@ def resetChannels():
     chan = os.path.join(path, 'channels')
 
     if os.path.exists(chan):
+        xbmc.executebuiltin('Dialog.Show(busydialog)')
+        
         shutil.rmtree(chan)
+        
+        xbmc.executebuiltin('Dialog.Close(busydialog)')
 
         d = xbmcgui.Dialog()
         d.ok('On-Tapp.TV', 'On-Tapp.TV Channels successfully reset.', 'They will be re-created next time', 'you start the guide')

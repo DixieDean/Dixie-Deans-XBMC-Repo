@@ -21,6 +21,9 @@ import xbmcgui
 
 import dixie
 
+import os
+import urllib
+
 import urllib2
 import json
 import datetime
@@ -56,7 +59,6 @@ def _check():
         currentID = dixie.GetSetting('messageID')
         currentID = float(currentID)
     except Exception, e:
-        print str(e)
         currentID = 0
 
     newID = float(response['ID'])
@@ -87,14 +89,27 @@ def _check():
     except: line2 = ''
 
     try:    line3 = response['Line3']
-    except: line3 = ''    
+    except: line3 = ''
 
-    dixie.log('Displaying announcement %s' % str(newID))
-    dixie.log(title)
-    dixie.log(line1)
-    dixie.log(line2)
-    dixie.log(line3)
+    try:    image = response['Image']
+    except: image = None
 
-    dlg = xbmcgui.Dialog()
-    dlg.ok(title, line1, line2, line3)
+    if image:
+        dixie.log('Displaying image announcement %s' % str(newID))
+
+        dixie.log(image)
+
+        import viewer
+        url = dixie.GetExtraUrl() + 'resources/' + image
+        viewer.show(url)
+
+    else:
+        dixie.log('Displaying text announcement %s' % str(newID))
+
+        dixie.log(title)
+        dixie.log(line1)
+        dixie.log(line2)
+        dixie.log(line3)    
+        xbmcgui.Dialog().ok(title, line1, line2, line3)
+
     return True

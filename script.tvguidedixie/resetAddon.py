@@ -32,4 +32,6 @@ def resetAddon():
 
 
 if __name__ == '__main__':
+    xbmc.executebuiltin('Dialog.Show(busydialog)')
     resetAddon()
+    xbmc.executebuiltin('Dialog.Close(busydialog)')

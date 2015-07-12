@@ -199,7 +199,7 @@ def getResponse(silent=False):
         return {'Error' : 'Failed to obtain a valid response from On-Tapp.TV'}
 
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile))
+    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile), verify=True)
     code     = request.status_code
     response = request.content
 

@@ -195,4 +195,7 @@ def _(string_id):
 
 
 if __name__ == '__main__':
+    xbmc.executebuiltin('Dialog.Show(busydialog)')
     Uploader = LogUploader()
+    xbmc.executebuiltin('Dialog.Close(busydialog)')
+    addon.openSettings()

@@ -1,4 +1,11 @@
-v2.6.7 (06-11-15)
+v2.6.9 (07-12-15)
+- Updated default logopack.
+- Improved clean install process.
+- Improved messaging system.
+- Added user/pass verification to the main settings window.
+- Tidied up settings windows.
+
+v2.6.8 (06-11-15)
 - Script Error fix.
 
 v2.6.7 (06-10-15)

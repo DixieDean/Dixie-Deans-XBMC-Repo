@@ -167,7 +167,7 @@ msgid "Click to - Reset Programme Listings."
 msgstr ""
 
 msgctxt "#30127"
-msgid "Click to - Reset your channels. Some of your custom settings may be lost."
+msgid "Click to - Reset your channels. Some custom settings may be lost."
 msgstr ""
 
 msgctxt "#30128"
