@@ -1,6 +1,6 @@
 '''
     ustvnow XBMC Plugin
-    Copyright (C) 2011 t0mm0
+    Copyright (C) 2015 t0mm0, Lunatixz
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,10 +23,11 @@ import urllib, urllib2
 
 class Ustvnow:
     __BASE_URL = 'http://lv2.ustvnow.com'
-    def __init__(self, user, password):
+    def __init__(self, user, password, premium):
         self.user = user
         self.password = password
-                    
+        self.premium = premium
+        
     def get_channels(self, quality=1, stream_type='rtmp'):
         self._login()
         html = self._get_html('iphone_ajax', {'tab': 'iphone_playingnow', 
@@ -38,11 +39,25 @@ class Ustvnow:
                                    '<\/a>(.+?)<\/td>.+?href="(.+?)"',
                                    html, re.DOTALL):
             name, icon, title, plot, url = channel.groups()
-            if not url.startswith('http'):
-                now = {'title': title, 'plot': plot.strip()}
-                url = '%s%s%d' % (stream_type, url[4:-1], quality + 1)
-                channels.append({'name': name, 'url': url, 
-                               'icon': icon, 'now': now})
+
+            #tmp work around till ustvnow stablizes changes
+            name = name.replace('\n','').replace('\t','').replace('\r','').replace('<fieldset> ','').replace('<div class=','').replace('>','').replace('"','').replace(' ','')
+            if not name:
+                name = ((icon.rsplit('/',1)[1]).replace('.png','')).upper()
+                name = name.replace('WLYH','CW').replace('WHTM','ABC').replace('WPMT','FOX').replace('WPSU','PBS').replace('WHP','CBS').replace('WGAL','NBS').replace('WHVLLD','MY9')
+
+            try:
+                if not url.startswith('http'):
+                    now = {'title': title, 'plot': plot.strip()}
+                    url = '%s%s%d' % (stream_type, url[4:-1], quality + 1)
+                    
+                    if self.premium == False:
+                        if name not in ['CW','ABC','FOX','PBS','CBS','NBS','MY9']:
+                            raise
+                    channels.append({'name': name, 'url': url, 
+                                   'icon': icon, 'now': now})
+            except:
+                pass
         return channels        
 
     def get_recordings(self, quality=1, stream_type='rtmp'):
@@ -73,7 +88,7 @@ class Ustvnow:
     
     def delete_recording(self, del_url):
         html = self._get_html(del_url)
-        print html
+        # print html
     
     def _build_url(self, path, queries={}):
         if queries:
@@ -121,6 +136,6 @@ class Ustvnow:
         #response = opener.open(url)
         
         for cookie in self.cj:
-            print '%s: %s' % (cookie.name, cookie.value)
+            # print '%s: %s' % (cookie.name, cookie.value)
             if cookie.name == 'token':
                 self.token = cookie.value

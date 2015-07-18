@@ -1,6 +1,6 @@
 '''
     ustvnow XBMC Plugin
-    Copyright (C) 2011 t0mm0
+    Copyright (C) 2015 t0mm0, Lunatixz
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -27,7 +27,25 @@ Addon.plugin_queries = Addon.parse_query(sys.argv[2][1:])
 
 email = Addon.get_setting('email')
 password = Addon.get_setting('password')
-ustv = ustvnow.Ustvnow(email, password)
+premium = Addon.get_setting('subscription') == "true"
+dlg = xbmcgui.Dialog()
+
+if not email:
+    retval = dlg.input('Enter USTVnow Account Email', type=xbmcgui.INPUT_ALPHANUM)
+    if retval and len(retval) > 0:
+        Addon.set_setting('email', str(retval))
+        email = Addon.get_setting('email')
+        
+if not password:
+    retval = dlg.input('Enter USTVnow Account Password', type=xbmcgui.INPUT_ALPHANUM)
+    if retval and len(retval) > 0:
+        Addon.set_setting('password', str(retval))
+        password = Addon.get_setting('password')
+        
+if premium == False:
+    Addon.set_setting('quality', '0')
+
+ustv = ustvnow.Ustvnow(email, password, premium)
 
 Addon.log('plugin url: ' + Addon.plugin_url)
 Addon.log('plugin queries: ' + str(Addon.plugin_queries))
@@ -38,7 +56,8 @@ mode = Addon.plugin_queries['mode']
 if mode == 'main':
     Addon.log(mode)
     Addon.add_directory({'mode': 'live'}, Addon.get_string(30001))
-    Addon.add_directory({'mode': 'recordings'}, Addon.get_string(30002))
+    if premium == True:
+        Addon.add_directory({'mode': 'recordings'}, Addon.get_string(30002))
 
 elif mode == 'live':
     Addon.log(mode)
@@ -88,6 +107,7 @@ elif mode=='play':
            xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
     except:
       pass
+
 Addon.end_of_directory()
         
 

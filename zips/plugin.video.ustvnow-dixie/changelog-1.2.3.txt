@@ -1,3 +1,6 @@
+[B]Version 1.2.3[/B]
+- Fix for USTVNow website change. 
+
 [B]Version 1.2.1[/B]
 - New Icon/Fanart. 
 
