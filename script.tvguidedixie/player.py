@@ -3,6 +3,7 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 import os
+import dixie
 
 ADDON = xbmcaddon.Addon(id = 'script.tvguidedixie')
 HOME  = ADDON.getAddonInfo('path')
@@ -165,6 +166,8 @@ def play(url, windowed, name=None):
            
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
+
+    dixie.SetSetting('streamURL', url)
 
     if not checkForAlternateStreaming(url):
         item = url

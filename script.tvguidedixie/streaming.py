@@ -181,7 +181,7 @@ class StreamsService(object):
                 label = label.upper()
                 channel.title = channel.title.upper()
                 
-                if channel.title in label:
+                if (channel.title in label) or (label in channel.title):
                     matches.append((id, label, stream))
             
         if len(matches) == 1:

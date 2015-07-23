@@ -56,7 +56,7 @@ VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.TV'
 LOGOPACK    = 'Colour Logo Pack'
 SKINVERSION = '21'
-LOGOVERSION = '5'
+LOGOVERSION = '6'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
 

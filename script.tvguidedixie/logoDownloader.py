@@ -23,6 +23,7 @@ import xbmcaddon
 import download
 import extract
 import datetime
+import os
 
 import dixie
 

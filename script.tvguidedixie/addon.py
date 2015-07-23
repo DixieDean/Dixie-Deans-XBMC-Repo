@@ -79,8 +79,8 @@ def CheckVersion():
 
     dixie.SetSetting('VERSION', curr)
 
-    d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'New channels - see message.', 'New default Colour Logo Pack.')
+    # d = xbmcgui.Dialog()
+    # d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'New channels - see message.', 'New default Colour Logo Pack.')
     # showChangelog()
 
 

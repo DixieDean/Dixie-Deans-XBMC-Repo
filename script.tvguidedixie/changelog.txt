@@ -1,3 +1,7 @@
+v2.7.0 (07-23-15)
+- Updated default logopack.
+- Minor code changes.
+
 v2.6.9 (07-12-15)
 - Updated default logopack.
 - Improved clean install process.
