@@ -37,7 +37,12 @@ username = dixie.GetSetting('username')
 password = dixie.GetSetting('password')
 response = ''
 
-datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+datapath   = dixie.PROFILE
+extras     = os.path.join(datapath, 'extras')
+logos      = os.path.join(extras,   'logos')
+logofolder = os.path.join(logos,    'None')
+logodest   = os.path.join(logos,    'logos.zip')
+
 cookiepath = os.path.join(datapath, 'cookies')
 cookiefile = os.path.join(cookiepath, 'cookie')
 
@@ -162,7 +167,23 @@ def checkForUpdate(silent = 1):
             restoreFromZip()
             if not silent:
                 ok(TITLE, 'EPG is up-to-date.')
+            
+    
+        logo = response['LogoPack']
+        curr = logo
+        prev = dixie.GetSetting('LOGOVERSION')
+    
+        if not prev == curr:
+            dixie.log ('%s Logo Pack Update Available - %s' % (TITLE, response['LogoPack']))
+            line1 = 'UPDATE: New Logo Pack Available.'
+            line2 = 'A back-up of your logos will created first.'
+            line3 = 'Are you sure you want to download this update?'
 
+            if dixie.DialogYesNo(line1, line2, line3):
+                dixie.DownloadLogos()
+                dixie.SetSetting('LOGOVERSION', curr)
+            else:
+                dixie.SetSetting('LOGOVERSION', curr)
     except:
         pass
 
@@ -248,13 +269,13 @@ def updateAvailable(latest):
     return update
 
 
-
 def getUpdate(response, silent):
     try:
-        link    = response['Link']
-        md5     = response['MD5']
-        date    = response['Date']
-        channel = response['Channel']
+        link     = response['Link']
+        md5      = response['MD5']
+        date     = response['Date']
+        channel  = response['Channel']
+        logopack = response['LogoPack']
     except Exception, e:
         return
 

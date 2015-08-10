@@ -49,6 +49,7 @@ SKIN       = dixie.SKIN
 GMTOFFSET  = dixie.GetGMTOffset()
 TRAILERS   = ADDON.getSetting('trailers.addon')
 USTV       = ADDON.getSetting('ustv.addon')
+IGNORESTRM = ADDON.getSetting('ignore.stream') == 'true'
 
 confirmExit = ADDON.getSetting('confirm.exit').lower() == 'true'
 datapath    = dixie.PROFILE
@@ -282,8 +283,8 @@ class TVGuide(xbmcgui.WindowXML):
 
         if not self.isClosing:
             self.isClosing = True
-            if self.player.isPlaying():
-                self.player.stop()
+            # if self.player.isPlaying():
+            #     self.player.stop()
             if self.database:
                 self.database.close(self.final)
             else:
@@ -587,14 +588,23 @@ class TVGuide(xbmcgui.WindowXML):
             self.database.setCustomStreamUrl(program.channel, result)
             self.playChannel(program.channel)
 
+        # else:
+        #     # multiple matches, let user decide
+        #     d = ChooseStreamAddonDialog(result)
+        #     d.doModal()
+        #     if d.stream is not None:
+        #         self.database.setCustomStreamUrl(program.channel, d.stream)
+        #         self.playChannel(program.channel)
+
         else:
             # multiple matches, let user decide
-
             d = ChooseStreamAddonDialog(result)
             d.doModal()
             if d.stream is not None:
                 self.database.setCustomStreamUrl(program.channel, d.stream)
                 self.playChannel(program.channel)
+                if IGNORESTRM:
+                    self.database.deleteCustomStreamUrl(program.channel)
 
     def _showContextMenu(self, program):
         self._hideControl(self.C_MAIN_MOUSE_CONTROLS)
@@ -2069,7 +2079,7 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
             else:
                 iconImage = 'tvguide-categories-hidden.png'
 
-            item = xbmcgui.ListItem('%3d. %s' % (idx+1, category), iconImage = iconImage)
+            item = xbmcgui.ListItem('%s' % (category), iconImage = iconImage)
             item.setProperty('idx', str(idx))
             listControl.addItem(item)
 

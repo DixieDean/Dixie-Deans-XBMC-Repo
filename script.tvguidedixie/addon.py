@@ -47,18 +47,15 @@ VERSION     = dixie.VERSION
 DIXIEURL    = dixie.DIXIEURL
 DIXIELOGOS  = dixie.DIXIELOGOS
 LOGOPACK    = dixie.LOGOPACK
-LOGOVERSION = dixie.LOGOVERSION
 SKIN        = dixie.SKIN
 SKINVERSION = dixie.SKINVERSION
+SKINZIP     = dixie.SKINZIP
 INIVERSION  = dixie.INIVERSION
 
 skin        = dixie.SKIN
 addonpath   = dixie.RESOURCES
 datapath    = dixie.PROFILE
 extras      = os.path.join(datapath,   'extras')
-logos       = os.path.join(extras,     'logos')
-logofolder  = os.path.join(logos,      'None')
-logodest    = os.path.join(logos,      'logos.zip')
 skinfolder  = os.path.join(extras,     'skins')
 dest        = os.path.join(skinfolder, 'skins.zip')
 default_ini = os.path.join(addonpath,  'addons.ini')
@@ -79,8 +76,8 @@ def CheckVersion():
 
     dixie.SetSetting('VERSION', curr)
 
-    # d = xbmcgui.Dialog()
-    # d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'New channels - see message.', 'New default Colour Logo Pack.')
+    d = xbmcgui.Dialog()
+    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'Welcome to On-Tapp.TV.', 'For help, go to the forum support threads.')
     # showChangelog()
 
 
@@ -148,15 +145,6 @@ def CheckSkin():
         dixie.SetSetting('SKINVERSION', curr)
 
 
-def CheckLogos():
-    path = os.path.join(extras, logos)
-    curr = LOGOVERSION
-
-    if not os.path.exists(path):
-        DownloadLogos()
-        dixie.SetSetting('LOGOVERSION', curr)
-
-
 def CheckSkinVersion():
     prev = dixie.GetSetting('SKINVERSION')
     curr = SKINVERSION
@@ -164,22 +152,6 @@ def CheckSkinVersion():
     if not prev == curr:
         DownloadSkins()
         dixie.SetSetting('SKINVERSION', curr)
-
-
-def CheckLogoVersion():
-    prev = dixie.GetSetting('LOGOVERSION')
-    curr = LOGOVERSION
-
-    if not prev == curr:
-        line1 = 'UPDATE: New Colour Logo Pack Available.'
-        line2 = 'A back-up of your logos will created first.'
-        line3 = 'Are you sure you want to download this update?'
-
-        if dixie.DialogYesNo(line1, line2, line3):
-            DownloadLogos()
-            dixie.SetSetting('LOGOVERSION', curr)
-        else:
-            dixie.SetSetting('LOGOVERSION', curr)
 
 
 def CheckIniVersion():
@@ -201,7 +173,7 @@ def CheckForUpdate():
 
 
 def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/skins-05-18-2015.zip'
+    url  = dixie.GetExtraUrl() + 'resources/' + SKINZIP
 
     try:
         os.makedirs(skinfolder)
@@ -214,40 +186,6 @@ def DownloadSkins():
 
     try:
         os.remove(dest)
-    except:
-        pass
-
-
-def DownloadLogos():
-    url  = dixie.GetExtraUrl() + 'resources/logos.zip'
-
-    try:
-        os.makedirs(logofolder)
-    except:
-        pass
-
-    download.download(url, logodest)
-    if os.path.exists(logos):
-        now  = datetime.datetime.now()
-        date = now.strftime('%B-%d-%Y %H-%M')
-    
-        import shutil
-        cur = dixie.GetSetting('dixie.logo.folder')
-        src = os.path.join(logos, cur)
-        dst = os.path.join(logos, cur+'-%s' % date)
-    
-        try:
-            shutil.copytree(src, dst)
-            shutil.rmtree(src)
-        except:
-            pass
-        
-        extract.all(logodest, extras)
-        dixie.SetSetting('LOGOVERSION', LOGOVERSION)
-        dixie.SetSetting('dixie.logo.folder', LOGOPACK)
-
-    try:
-        os.remove(logodest)
     except:
         pass
 
@@ -306,7 +244,7 @@ def main(doLogin=True):
     message.check()
     CheckChanXML()
     CheckSkin()
-    CheckLogos()
+    dixie.CheckLogos()
     dixie.ShowBusy()
 
     import buggalo
@@ -322,10 +260,8 @@ def main(doLogin=True):
             
         CheckVersion()
         CheckSkinVersion()
-        CheckLogoVersion()
         CheckIniVersion()
         CheckFilmOn()
-        
         CheckForUpdate()
         CheckForChannels()
 
@@ -334,7 +270,7 @@ def main(doLogin=True):
         dixie.CloseBusy()
 
         xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
-        xbmc.executebuiltin('XBMC.ActivateWindow(home)')
+        # xbmc.executebuiltin('XBMC.ActivateWindow(home)')
 
         w = gui.TVGuide()
 

@@ -1,4 +1,59 @@
-v2.5.8 (04-19-15)
+v2.7.1 (08-10-15)
+- Updated default logopack.
+- Added White logopack.
+- Minor code changes.
+
+v2.7.0 (07-23-15)
+- Updated default logopack.
+- Minor code changes.
+
+v2.6.9 (07-12-15)
+- Updated default logopack.
+- Improved clean install process.
+- Improved messaging system.
+- Added user/pass verification to the main settings window.
+- Tidied up settings windows.
+
+v2.6.8 (06-11-15)
+- Script Error fix.
+
+v2.6.7 (06-10-15)
+- Bugfix for Kodi 15 Beta (Isengard).
+
+v2.6.6 (06-06-15)
+- Improved Touch Screen support.
+- Page Up/Down now works properly in 'Channels' (EPG Context Menu).
+
+v2.6.5 (05-17-15)
+- Added built-in intergration with the UKTV Play addon.
+- Minor fixes to Logo Pack handling (Back-up on updates).
+
+v2.6.4 (05-12-15)
+- Improved external .ini file integration.
+- Automatic channel selection now includes partial 'channel name' matches.
+- Logo Packs are now backed-up automatically.
+- Updated skins (Thanks to FXB78).
+- Minor code changes.
+
+v2.6.3 (05-01-15)
+- Fixed incorrect error message that occurs when the channels fail to load. The incorrect message has been changed to a more meaningful one.
+
+v2.6.2 (04-28-15)
+- Minor code changes.
+
+v2.6.1 (04-28-15)
+- Bug fix for channels menu in the EPG context menu.
+- Improved code for Restore Channels feature.
+
+v2.6.0 (04-27-15)
+- Bug fix for custom channel settings being reset.
+- Added Restore Channels feature.
+
+v2.5.9 (04-22-15)
+- Temporary bug fix for custom channel settings being reset.
+- Minor code fixes.
+
+2.5.8 (04-19-15)
 - Improved ini file integration. Load multiple ini files from any location.
 - Fix for Backup/Restore using Windows.
 - Minor code fixes.

@@ -2,7 +2,7 @@
 <settings>
 	<category label="30101">
 	    <setting id="validator"        label="validator"     type="text"   default="0" visible="false" />
-        <setting id="streamURL"        label="streamURL"     type="text"   default="" visible="false" />		
+        <setting id="streamURL"        label="streamURL"     type="text"   default="" visible="false" />
 		<setting id="username"         label="Username"      type="text"   default="" visible="true" />
 		<setting id="password"         label="Password"      type="text"   default="" visible="true" />
         <setting id="dummy"            label="[COLOR orange][B]Click to[/B] - Verify your login details[/COLOR]"    type="action"    option="close"    action="XBMC.RunScript(special://home/addons/script.tvguidedixie/verify.py)"/>
@@ -34,17 +34,17 @@
 
     <category label="30114">
         <setting id="dixie.skin" label="Choose Skin Style" type="select" source="../../userdata/addon_data/script.tvguidedixie/extras/skins/" mask="/" default="FXB v3.0"/>
+        <setting id="ignore.stream" label="Always Offer To Choose Stream" type="bool" default="false" visible="true"/>
 		<setting id="playlist.type" label="IPTV Playlist" type="enum" default="URL" values="URL|File" visible="true"/>
 		<setting id="playlist.file" label="File" type="file" visible="eq(-1,1)" />
 		<setting id="playlist.url" label="URL" type="text" visible="eq(-2,0)"/>
         <setting id="ftv.ini" label="Choose Film-On UK TV Links" type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="true" />
 		<setting id="local.ini" label="Allow Enhanced Add-on Linking" type="bool" default="true" />
-		<setting label="" type="lsep" visible="false" />
         <setting id="enable.osd" label="30118" type="bool" default="true" enable="eq(2,false)" visible="false"/>
         <setting id="alternative.playback" label="30120" type="bool" default="false" visible="false"/>
         <setting id="enable.touch" label="30123" type="bool" default="false" />
         <setting id="autoStart"        label="Start Automatically (requires reboot)" type="bool" default="false" visible="true"/>
-        <setting id="notifications.enabled" label="30106" type="bool" default="false" visible="false"/>
+        <setting id="notifications.enabled" label="30106" type="bool" default="true" visible="true"/>
         <setting id="dummy" label="30108" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/notification.py)" visible="false"/>
         <setting id="trailers.addon" label="Choose Trailers Add-on" type="labelenum" values="Apple iTunes Trailers|HD-Trailers.net" default="HD-Trailers.net" visible="false" />
         <setting id="ustv.addon" label="Choose USTV Catch Up Add-on" type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" />

@@ -105,6 +105,7 @@ class StreamsService(object):
             except ExpatError:
                 pass
 
+        print entries
         return entries
 
 
@@ -181,7 +182,7 @@ class StreamsService(object):
                 label = label.upper()
                 channel.title = channel.title.upper()
                 
-                if (channel.title in label) or (label in channel.title):
+                if channel.title in label:
                     matches.append((id, label, stream))
             
         if len(matches) == 1:

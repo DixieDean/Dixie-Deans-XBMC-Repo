@@ -55,12 +55,14 @@ FILMON      =  GetSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.TV'
 LOGOPACK    = 'Colour Logo Pack'
-SKINVERSION = '21'
-LOGOVERSION = '6'
+SKINVERSION = '26'
+SKINZIP     = 'skins-05-18-2015.zip'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+extras     = os.path.join(datapath, 'extras')
+logos      = os.path.join(extras,   'logos')
 cookiepath = os.path.join(datapath, 'cookies')
 cookiefile = os.path.join(cookiepath, 'cookie')
 
@@ -82,18 +84,6 @@ def CloseBusy():
 
 def ShowBusy(hideProgress=True):
     xbmc.executebuiltin('ActivateWindow(busydialog)')
-
-    #try:
-    #    busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
-    #    busy.show()
-
-    #    if hideProgress:
-    #        try:    busy.getControl(10).setVisible(False)
-    #        except: pass
-
-    #    return busy
-    #except:
-    #    pass
 
     return None
 
@@ -217,9 +207,6 @@ def CheckUsername():
         SetSetting('password', password)
         
         verify.CheckCredentials()
-        
-        # ShowSettings()
-        # xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/openSettings.py)')
 
     return False
 
@@ -328,6 +315,53 @@ def GetChannels():
     path = os.path.join(PROFILE , 'chan.xml')
 
     return path
+
+
+def CheckLogos():
+    logofolder = os.path.join(logos, 'None')
+
+    if not os.path.exists(logofolder):
+        os.makedirs(logofolder)
+
+
+def DownloadLogos():
+    import download
+    import extract
+    
+    logofolder  = os.path.join(logos, 'None')
+    logodest    = os.path.join(logos, 'logos.zip')
+    
+    url  = dixie.GetExtraUrl() + 'resources/logos.zip'
+
+    try:
+        os.makedirs(logofolder)
+    except:
+        pass
+
+    download.download(url, logodest)
+    
+    if os.path.exists(logos):
+        now  = datetime.datetime.now()
+        date = now.strftime('%B-%d-%Y %H-%M')
+    
+        import shutil
+        cur = dixie.GetSetting('dixie.logo.folder')
+        src = os.path.join(logos, cur)
+        dst = os.path.join(logos, cur+'-%s' % date)
+    
+        try:
+            shutil.copytree(src, dst)
+            shutil.rmtree(src)
+        except:
+            pass
+        
+        extract.all(logodest, extras)
+        dixie.SetSetting('dixie.logo.folder', LOGOPACK)
+
+    try:
+        os.remove(logodest)
+    except:
+        pass
 
 
 def DialogOK(line1, line2='', line3=''):

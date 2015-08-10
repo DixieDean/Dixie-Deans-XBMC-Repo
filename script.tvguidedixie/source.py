@@ -50,9 +50,7 @@ SOURCE      = dixie.GetSetting('source')
 DIXIEURL    = dixie.GetSetting('dixie.url').upper()
 DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
 PREVLOGO    = dixie.GetSetting('PREVLOGO')
-LOGOVERSION = dixie.LOGOVERSION
 GMTOFFSET   = dixie.GetGMTOffset()
-
 LOGOCHANGED = DIXIELOGOS != PREVLOGO
 
 datapath    = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
