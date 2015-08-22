@@ -28,15 +28,31 @@ import dixie
 ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
 FTVINI      = ADDON.getSetting('ftv.ini')
 datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+inipath     = os.path.join(datapath, 'ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 
 def getIni():
+    import extract
+    import download
+    
     path = current_ini
     try:
         url = dixie.GetExtraUrl() + 'resources/addons.ini'
         urllib.urlretrieve(url, path)
+    
+        if not os.path.exists(inipath):
+            os.makedirs(inipath)
+        
+        iniurl = dixie.GetExtraUrl() + 'resources/ini.zip'
+        inizip = os.path.join(inipath, 'ini.zip')
+    
+        urllib.urlretrieve(iniurl, inizip)
+        extract.all(inizip, inipath)
+    
+        os.remove(inizip)
     except:
         pass
+
 
 def ftvIni():
     if FTVINI == 'UK Links':

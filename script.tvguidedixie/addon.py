@@ -47,6 +47,7 @@ VERSION     = dixie.VERSION
 DIXIEURL    = dixie.DIXIEURL
 DIXIELOGOS  = dixie.DIXIELOGOS
 LOGOPACK    = dixie.LOGOPACK
+# LOGOVERSION = dixie.LOGOVERSION
 SKIN        = dixie.SKIN
 SKINVERSION = dixie.SKINVERSION
 SKINZIP     = dixie.SKINZIP
@@ -77,7 +78,7 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'NEW UPDATE.', 'Welcome to On-Tapp.TV.', 'For help, go to the forum support threads.')
+    d.ok(TITLE + ' - ' + VERSION, 'This is a minor update to prepare On-Tapp.TV', 'for the forthcoming upgrade to version 3.0', 'For help, go to the release thread on the forum.')
     # showChangelog()
 
 
@@ -259,7 +260,7 @@ def main(doLogin=True):
             return
             
         CheckVersion()
-        CheckSkinVersion()
+        # CheckSkinVersion()
         CheckIniVersion()
         CheckFilmOn()
         CheckForUpdate()

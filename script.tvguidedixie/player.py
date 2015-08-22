@@ -151,24 +151,39 @@ def playSF(url):
     return True, ''
 
 
-
 def play(url, windowed, name=None):
+    windowID  = xbmcgui.getCurrentWindowId()
+    initSleep = 1
+ 
+    isZeus = 'plugin.video.zeus' in url
+    if isZeus:
+        xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.zeus)')
+        initSleep = 20000 
+ 
+    getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
+    maxIdle = getIdle * 60 * 60
+ 
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, sfURL = playSF(url)
         if handled:
+            if isZeus:
+                while not xbmc.Player().isPlaying() and initSleep > 0:
+                    initSleep -= 1
+                    xbmc.sleep(1000)
+                while xbmc.Player().isPlaying():
+                    xbmc.sleep(1000)
+                    CheckIdle(maxIdle)
+                xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
             return
         else:
-            url = sfURL    
-
+            url = sfURL
+ 
     if url.lower().startswith('plugin://plugin.video.skygo'):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         return
-           
-    getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
-    maxIdle = getIdle * 60 * 60
-
+ 
     dixie.SetSetting('streamURL', url)
-
+ 
     if not checkForAlternateStreaming(url):
         item = url
         if name:
@@ -177,23 +192,24 @@ def play(url, windowed, name=None):
             playlist.clear()
             playlist.add(url, item)
             item = playlist
-
+ 
         xbmc.Player().play(item, windowed=windowed)
-
-        xbmc.sleep(100)
+ 
+        xbmc.sleep(1000)
         if not xbmc.Player().isPlaying():
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-
-    xbmc.sleep(1000)
+ 
+    while not xbmc.Player().isPlaying() and initSleep > 0:
+        initSleep -= 1
+        xbmc.sleep(1000)
+ 
     while xbmc.Player().isPlaying():
-        xbmc.sleep(5000)
+        xbmc.sleep(1000)
         CheckIdle(maxIdle)
-
+ 
+    xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
 
 def checkForAlternateStreaming(url):
-    # if "plugin.video.ntv" in url:
-    #     return alternateStream(url)
-
     if 'plugin.video.expattv' in url:
         return alternateStream(url)
 
@@ -220,9 +236,6 @@ def checkForAlternateStreaming(url):
         
     if 'plugin.video.movie25' in url:
         return alternateStream(url)
-        
-    # if 'plugin.video.moviedb' and 'www.tgun.tv' in url:
-    #     return alternateStream(url)
         
     if 'plugin.video.irishtv' in url:
         return alternateStream(url)
@@ -277,17 +290,3 @@ if __name__ == '__main__':
         name = sys.argv[3]
 
     play(sys.argv[1], sys.argv[2] == 1, name)
-
-
-# expattv
-# static.filmon.com
-# notfilmon
-# plugin.video.iplayer
-# plugin.video.itv
-# plugin.video.youtube
-# plugin.video.musicvideojukebox
-# plugin.video.muzu.tv
-# plugin.audio.ramfm
-# plugin.video.tgun
-# plugin.video.movie25
-# plugin.program.skygo.launcher
