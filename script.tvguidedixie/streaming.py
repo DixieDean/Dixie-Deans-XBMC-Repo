@@ -31,7 +31,7 @@ import urllib
 import dixie
 
 ADDON    = dixie.ADDON
-LOCAL    = (dixie.GetSetting('local.ini') == 'true')
+LOCAL    = dixie.GetSetting('local.ini') == 'true'
 FTVINI   = dixie.GetSetting('ftv.ini')
 datapath = dixie.PROFILE
 
@@ -54,22 +54,22 @@ class StreamsService(object):
         import glob
         ini   = os.path.join(datapath, 'ini', '*.*')
         files = glob.glob(ini)
-
-        files.append(os.path.join(datapath, 'addons.ini'))
-
-        if FTVINI == 'UK Links':
-            files.append(os.path.join(datapath, 'uk.ini'))
-        else:
-            files.append(os.path.join(datapath, 'nongeo.ini'))
-
-        if LOCAL:
-            files.append(os.path.join(datapath, 'local.ini'))
-
+        
         for i in range(10):
             file = dixie.GetSetting('INI_%d' % i)
             if len(file) > 0:
                 if file not in files:
                     files.append(file)
+
+        files.append(os.path.join(datapath, 'addons.ini'))
+        
+        if LOCAL:
+            files.append(os.path.join(datapath, 'local.ini'))
+
+        if FTVINI == 'UK Links':
+            files.append(os.path.join(datapath, 'uk.ini'))
+        else:
+            files.append(os.path.join(datapath, 'nongeo.ini'))
 
         return files
         
@@ -105,7 +105,6 @@ class StreamsService(object):
             except ExpatError:
                 pass
 
-        print entries
         return entries
 
 
@@ -182,8 +181,19 @@ class StreamsService(object):
                 label = label.upper()
                 channel.title = channel.title.upper()
                 
-                if channel.title in label:
+                if (channel.title in label) or (label in channel.title):
                     matches.append((id, label, stream))
+                    
+        # for id in self.loadFavourites():
+        #     id = 'plugin.video.ontapp-player'
+        #
+        #     for (label, stream) in self.loadFavourites():
+        #         label = label.upper()
+        #         channel.title = channel.title.upper()
+        #
+        #         if (channel.title in label) or (label in channel.title):
+        #             matches.append((id, label, stream))
+                
             
         if len(matches) == 1:
             return matches[0][2]

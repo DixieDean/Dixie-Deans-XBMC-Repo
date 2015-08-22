@@ -167,23 +167,6 @@ def checkForUpdate(silent = 1):
             restoreFromZip()
             if not silent:
                 ok(TITLE, 'EPG is up-to-date.')
-            
-    
-        logo = response['LogoPack']
-        curr = logo
-        prev = dixie.GetSetting('LOGOVERSION')
-    
-        if not prev == curr:
-            dixie.log ('%s Logo Pack Update Available - %s' % (TITLE, response['LogoPack']))
-            line1 = 'UPDATE: New Logo Pack Available.'
-            line2 = 'A back-up of your logos will created first.'
-            line3 = 'Are you sure you want to download this update?'
-
-            if dixie.DialogYesNo(line1, line2, line3):
-                dixie.DownloadLogos()
-                dixie.SetSetting('LOGOVERSION', curr)
-            else:
-                dixie.SetSetting('LOGOVERSION', curr)
     except:
         pass
 

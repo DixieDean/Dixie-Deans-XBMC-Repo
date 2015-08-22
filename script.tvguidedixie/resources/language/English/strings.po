@@ -265,7 +265,7 @@ msgid "Cancel"
 msgstr ""
 
 msgctxt "#30304"
-msgid "Choose stream"
+msgid "Choose Stream"
 msgstr ""
 
 msgctxt "#30305"
@@ -273,7 +273,7 @@ msgid ""
 msgstr ""
 
 msgctxt "#30306"
-msgid "Remove stream file"
+msgid "Remove Stream"
 msgstr ""
 
 msgctxt "#30307"

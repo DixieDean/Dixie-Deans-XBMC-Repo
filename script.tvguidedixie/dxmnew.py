@@ -18,19 +18,22 @@
 #
 
 import zipfile
-import shutil,os
-
+import shutil
+import os
+import xbmc
 
 def unzipAndMove(_in, _out, src):
-    try:
-        zin = zipfile.ZipFile(unicode(_in), 'r')
-        zin.extractall(unicode(_out))
-        if src:
-            moveFiles(src, _out)
-            shutil.rmtree(src)
-    except Exception, e:
-        print str(e)
-        return False
+    # try:
+        # xbmc.executebuiltin( "ActivateWindow(busydialog)" )
+    zin = zipfile.ZipFile(unicode(_in), 'r')
+    zin.extractall(unicode(_out))
+    if src:
+        moveFiles(src, _out)
+        shutil.rmtree(src)
+            # xbmc.executebuiltin( "Dialog.Close(busydialog)" )
+    # except Exception, e:
+    #     print str(e)
+    #     return False
 
     return True
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="30000">On-Tapp.TV</string>
+	<string id="30001">Configure On-Tapp.TV settings</string>
+	<string id="30002">On-Tapp.TV - Start a revolution[CR]Find out more by visiting www.on-tapp.tv</string>
+
+	<string id="30311">Save</string>
+	<string id="30312">Cancel</string>
+	
+	<string id="31000">General</string>
+	<string id="31001">Initial playback mode</string>
+	<string id="31002">Fullscreen</string>
+	<string id="31003">Window</string>
+	<string id="31004">Theme</string>	
+	<string id="31005">Turn Home Page off</string>	
+</strings>

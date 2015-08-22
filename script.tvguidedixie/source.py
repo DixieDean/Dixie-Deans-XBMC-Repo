@@ -223,14 +223,12 @@ class Database(object):
 
 
     def _initializeS(self, cancel_requested_callback):
-        if not LOGOCHANGED:
-            return True
+        # if not LOGOCHANGED:
+        #     return True
 
-        folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
-
-        noLogo = DIXIELOGOS.lower() == 'none'
-
-        channels = self.getAllChannels()        
+        folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+        noLogo   =  DIXIELOGOS.lower() == 'none'
+        channels =  self.getAllChannels()
         
         for ch in channels:  
             channel = self.getChannelFromFile(ch)
@@ -240,8 +238,8 @@ class Database(object):
             if noLogo:
                 channel.logo = ''
             else:
-                logoFile = os.path.join(folder, DIXIELOGOS, channel.title + '.png')
-                channel.logo  = logoFile
+                logoFile     = os.path.join(folder, DIXIELOGOS, channel.title + '.png')
+                channel.logo = logoFile
 
             self.replaceChannel(channel)  
 
@@ -850,6 +848,7 @@ class Database(object):
 
 
     def _getNextProgram(self, program):
+        channel = ''
         channelMap = {}
         channelMap[program.channel.id] = channel
 
@@ -871,6 +870,7 @@ class Database(object):
 
 
     def _getPreviousProgram(self, program):
+        channel = ''
         channelMap = {}
         channelMap[program.channel.id] = channel
 

@@ -55,8 +55,8 @@ FILMON      =  GetSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.TV'
 LOGOPACK    = 'Colour Logo Pack'
-SKINVERSION = '26'
-SKINZIP     = 'skins-05-18-2015.zip'
+SKINVERSION = '25'
+SKINZIP     = 'skins-03-08-2015.zip'
 INIVERSION  = '1'
 DEBUG       =  GetSetting('DEBUG') == 'true'
 
@@ -84,6 +84,18 @@ def CloseBusy():
 
 def ShowBusy(hideProgress=True):
     xbmc.executebuiltin('ActivateWindow(busydialog)')
+
+    #try:
+    #    busy = xbmcgui.WindowXMLDialog('DialogBusy.xml', '')
+    #    busy.show()
+
+    #    if hideProgress:
+    #        try:    busy.getControl(10).setVisible(False)
+    #        except: pass
+
+    #    return busy
+    #except:
+    #    pass
 
     return None
 
@@ -207,6 +219,9 @@ def CheckUsername():
         SetSetting('password', password)
         
         verify.CheckCredentials()
+        
+        # ShowSettings()
+        # xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/openSettings.py)')
 
     return False
 

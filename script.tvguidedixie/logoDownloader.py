@@ -32,9 +32,9 @@ datapath = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 extras   = os.path.join(datapath, 'extras')
 logos    = os.path.join(extras, 'logos')
 nologos  = os.path.join(logos, 'None')
-dest     = os.path.join(extras, 'default-logos.zip')
+dest     = os.path.join(extras, 'logos.zip')
 logopack = dixie.GetSetting('dixie.logo.folder')
-url      = dixie.GetExtraUrl() + 'resources/default-logos.zip'
+url      = dixie.GetExtraUrl() + 'resources/logos.zip'
 
 
 try:

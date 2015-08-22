@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="31000">
+        <setting id="VERSION"    type="text"      label="Version"           default="0.0.0" visible="false"/>
+        <setting id="OTTSKIN"    type="text"      label="OTTSKINVersion"    default="1.0"   visible="false"/>
+        <setting id="EPGSKIN"    type="text"      label="EPGSKINVersion"    default="1.0"   visible="false"/>
+        <setting id="LOGOCOLOUR" type="text"      label="LogoColourVersion" default="1.0"     visible="false"/>
+        <setting id="LOGOWHITE"  type="text"      label="LogoWhiteVersion"  default="1.0"     visible="false"/>
+        <setting id="OTTUPDATE"  type="text"      label="OTTPythonVersion"  default="1.0"     visible="false"/>
+        <setting id="EPGUPDATE"  type="text"      label="EPGPythonVersion"  default="1.0"     visible="false"/>
+        <setting id="ADDONS"     type="text"      label="Addons"            default=""      visible="false"/>
+        <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN"          default="false" visible="false" />
+        
+        <setting id="ott.url"    type="labelenum" label="OTT URL" values="kodi|other" default="kodi" visible="false" />
+        
+        <setting id="dummy"      type="action" label="Click to - Open Main Settings" action="XBMC.RunScript(special://home/addons/script.on-tapp.tv/openSettings.py)" />
+        <setting id="SKIN"       type="select" label="31004" source="../../userdata/addon_data/script.on-tapp.tv/skins/" mask="/" default="FXB78"/>	
+        <setting id="autoStart"  type="bool"   label="Start Automatically (requires reboot)"     default="false" visible="true"/>
+        <setting id="KodiLib"    type="bool"   label="Override Kodi Movie/TV Libraries"          default="false" visible="true"/>
+        <setting id="AUTOSTREAM" type="bool"   label="Automatically Stream Last Channel Watched" default="false" visible="true"/>
+        <!-- <setting                 type="lsep"   label=""      visible="true" /> -->
+        <setting id="KIOSKMODE"  type="bool"   label="Kiosk Mode" default="false" visible="true"/>
+        <setting id="NOHOME"     type="bool"   label="31005" default="false" visible="true"/>
+        <setting id="PLAYBACK"   type="enum"   label="31001" lvalues="31002|31003" default="1"/>
+    </category> 	
+</settings>
