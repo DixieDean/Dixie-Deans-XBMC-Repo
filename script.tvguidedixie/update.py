@@ -26,6 +26,9 @@ import datetime
 import urllib2
 import urllib
 import requests
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
+
 import json
 
 import dixie
@@ -203,7 +206,7 @@ def getResponse(silent=False):
         return {'Error' : 'Failed to obtain a valid response from On-Tapp.TV'}
 
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile), verify=True)
+    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile))
     code     = request.status_code
     response = request.content
 
@@ -216,7 +219,7 @@ def getResponse(silent=False):
             response = re.compile('<div id="login_error">(.+?)<br />').search(code).groups(1)[0]
             response = response.replace('<strong>',  '')
             response = response.replace('</strong>', '')
-            response = response.replace('<a href="https://www.on-tapp.tv/wp-login.php?action=lostpassword">Lost your password</a>?', '')
+            response = response.replace('<a href="https://www.on-tapp.tv/wp-login.php?action=lostpassword">Lost your password?</a>', '')
             response = response.strip()
             dixie.log ('OTT response error code %s ' % code)
         except:

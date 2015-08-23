@@ -25,6 +25,9 @@ import re
 import dixie
 import verify
 import requests
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
+
 import cookielib
 import pickle
 import time
@@ -53,7 +56,7 @@ DIXIELOGOS  =  GetSetting('dixie.logo.folder')
 SKIN        =  GetSetting('dixie.skin')
 FILMON      =  GetSetting('FILMON')
 VERSION     =  ADDON.getAddonInfo('version')
-TITLE       = 'On-Tapp.TV'
+TITLE       = 'On-Tapp.EPG'
 LOGOPACK    = 'Colour Logo Pack'
 SKINVERSION = '25'
 SKINZIP     = 'skins-03-08-2015.zip'
@@ -82,7 +85,7 @@ def CloseBusy():
     xbmc.executebuiltin('Dialog.Close(busydialog)')
 
 
-def ShowBusy(hideProgress=True):
+def ShowBusy(hideProgress=False):
     xbmc.executebuiltin('ActivateWindow(busydialog)')
 
     #try:
@@ -269,10 +272,10 @@ def validToRun(silent=False):
 
 
 def doLogin(silent=False):
-    log ('************ On-Tapp.TV Login ************')
+    log ('************ On-Tapp.EPG Login ************')
     with requests.Session() as s:
         try:
-            s.get(GetLoginUrl(), verify=True)
+            s.get(GetLoginUrl())
         except: 
             #Rich, you might want to log something here???
             return False

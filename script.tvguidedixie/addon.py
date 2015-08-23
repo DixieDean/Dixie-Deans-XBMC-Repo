@@ -70,7 +70,7 @@ image       = xbmcgui.ControlImage
 def CheckVersion():
     prev = dixie.GetSetting('VERSION')
     curr = VERSION
-    dixie.log('****** ONTAPP.TV %s LAUNCHED ******' % str(VERSION))
+    dixie.log('****** On-Tapp.EPG %s LAUNCHED ******' % str(VERSION))
 
     if prev == curr:
         return
@@ -240,13 +240,12 @@ except:
 
 
 def main(doLogin=True):
-    dixie.CheckUsername()
     import message
-    message.check()
-    CheckChanXML()
-    CheckSkin()
-    dixie.CheckLogos()
+    dixie.CheckUsername()
     dixie.ShowBusy()
+    CheckChanXML()
+    # CheckSkin()
+    # dixie.CheckLogos()
 
     import buggalo
     import gui
@@ -266,9 +265,10 @@ def main(doLogin=True):
         CheckForUpdate()
         CheckForChannels()
 
-        dixie.log('****** OnTapp.TV - All OK *******')
-
+        dixie.log('****** On-Tapp.EPG - All OK *******')
+        
         dixie.CloseBusy()
+        message.check()
 
         xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
         # xbmc.executebuiltin('XBMC.ActivateWindow(home)')

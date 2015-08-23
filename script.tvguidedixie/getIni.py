@@ -36,22 +36,24 @@ def getIni():
     import download
     
     path = current_ini
+
+    url = dixie.GetExtraUrl() + 'resources/addons.ini'
+
     try:
-        url = dixie.GetExtraUrl() + 'resources/addons.ini'
         urllib.urlretrieve(url, path)
+    except: pass
+
+    if not os.path.exists(inipath):
+        os.makedirs(inipath)
     
-        if not os.path.exists(inipath):
-            os.makedirs(inipath)
-        
-        iniurl = dixie.GetExtraUrl() + 'resources/ini.zip'
-        inizip = os.path.join(inipath, 'ini.zip')
-    
+    iniurl = dixie.GetExtraUrl() + 'resources/ini.zip'
+    inizip = os.path.join(inipath, 'ini.zip')
+
+    try:
         urllib.urlretrieve(iniurl, inizip)
         extract.all(inizip, inipath)
-    
         os.remove(inizip)
-    except:
-        pass
+    except: pass
 
 
 def ftvIni():

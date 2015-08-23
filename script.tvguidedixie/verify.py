@@ -21,6 +21,9 @@
 import xbmc
 import xbmcaddon
 import requests
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
+
 import dixie
 
 ADDONID = 'script.tvguidedixie'

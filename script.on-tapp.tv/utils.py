@@ -93,7 +93,6 @@ baseurl = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,17
 
 def getBaseURL(OTTURL):
     if OTTURL == 'KODI':
-        print baseurl
         return baseurl + 'resources/kodi/'
 
     if OTTURL == 'OTHER':

@@ -25,7 +25,7 @@ import datetime
 import time
 import urllib2
 import urllib
-import requests
+
 from xml.etree import ElementTree
 
 import buggalo

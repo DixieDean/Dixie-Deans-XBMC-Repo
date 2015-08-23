@@ -1,3 +1,6 @@
+v3.0.2 (08-23-15)
+- Fixed Add-on ID bug to allow uninstall.
+
 v3.0 (08-22-15)
 - Upgrade to On-Tapp.TV 3.0
 
