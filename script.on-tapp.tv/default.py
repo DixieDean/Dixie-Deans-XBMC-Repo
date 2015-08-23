@@ -37,7 +37,6 @@ if __name__ == '__main__':
             param = sys.argv[1]
 
         xbmc.executebuiltin('Dialog.Close(busydialog)')
-
-        utils.Launch(param)
         update.checkUpdate()
+        utils.Launch(param)
         

@@ -324,6 +324,7 @@ def downloadDefaults(url):
     extract.all(zip3, path2)
     os.remove(zip3)
 
+    Addon.setSetting('dixie.skin', 'FXB v4.0')
     setSetting('FIRSTRUN', 'true')
 
 
@@ -353,7 +354,7 @@ def doUpdate(url, path, zipfile):
     import download
     import extract
     
-    DialogOK('A new On-Tapp.TV update is available.', 'It will be downloaded and installed on your system.', 'Thank you.')
+    DialogOK('A new On-Tapp.TV update is available.', 'It will be downloaded and installed on your system.', 'Please restart On-Tapp.TV afterwards.')
     
     download.download(url, zipfile)
     extract.all(zipfile, path, dp='Installing python update')
