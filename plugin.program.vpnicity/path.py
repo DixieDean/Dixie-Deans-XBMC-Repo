@@ -98,8 +98,18 @@ def getOpenElec(silent):
 
 
 def getIOS(silent):
-    # path = '/private/var/stash/_.tN42y0/Applications/GuizmOVPN.app/openvpn'
-    path = '/usr/sbin/openvpn'
+    path = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/ios/sbin/openvpn')
+    if check(path):
+        return path
+
+    return error(silent)
+
+
+#-------------------------------------------------------------
+
+
+def getATV2(silent):
+    path = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/ios/sbin/openvpn')
     if check(path):
         return path
 
@@ -150,6 +160,9 @@ def getPath(os, silent=False):
 
     if os == 'iOS':
         return getIOS(silent)
+
+    if os == 'ATV2':
+        return getATV2(silent)
 
     if os == 'RaspBMC':
         return getRaspBMC(silent)

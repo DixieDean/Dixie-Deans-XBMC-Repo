@@ -354,9 +354,10 @@ def doUpdate(url, path, zipfile):
     import download
     import extract
     
-    DialogOK('A new On-Tapp.TV update is available.', 'It will be downloaded and installed on your system.', 'Please restart On-Tapp.TV afterwards.')
+    DialogOK('An On-Tapp.TV "Live Update" is available.', 'It will be downloaded and installed on your system.', 'Thank you.')
     
     download.download(url, zipfile)
     extract.all(zipfile, path, dp='Installing python update')
     os.remove(zipfile)
+    xbmc.executebuiltin("UpdateLocalAddons")
     

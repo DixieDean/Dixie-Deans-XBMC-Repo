@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="General">	
-		<setting id="VERSION"    type="text"      label=""                      default="0.0.0"                                                 visible="true"/>
-		<setting id="SORT"       type="labelenum" label="Sort mode"             default="ONTapp.TV Order" values="Alphabetical|ONTapp.TV Order" visible="true"/>		
-		<setting id="SHOWHIDDEN" type="bool"      label="Show hidden channels"  default="true"                                                  visible="true"/>		
-		<setting id="SHOWSTREAM" type="bool"      label="Show if stream is set" default="true"                                                  visible="true"/>				
+		<setting id="VERSION"    type="text"      label=""                                       default="0.0.0"                                                 visible="false"/>
+		<setting id="SORT"       type="labelenum" label="Sort mode"                              default="ONTapp.TV Order" values="Alphabetical|ONTapp.TV Order" visible="true"/>		
+		<setting id="SHOWHIDDEN" type="bool"      label="Show hidden channels"                   default="true"                                                  visible="true"/>		
+		<setting id="SHOWSTREAM" type="bool"      label="Show if stream is set"                  default="true"                                                  visible="true"/>
+		<setting id="KODISOURCE" type="bool"      label="Search Kodi source locations for logos" default="false"                                                 visible="true"/>
 	</category>
 </settings> 

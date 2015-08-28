@@ -293,10 +293,16 @@ class Application(xbmcgui.WindowXML):
             xbmc.executebuiltin('RunScript(script.tvguidedixie)')
         
         if select and id == MOVIES:
-            xbmc.executebuiltin('ActivateWindow(10025,videodb://1/2,return)')
+            if utils.getSetting('KodiLib') == 'true':
+                xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.genesis/?action=root_movies,return)')
+            else:
+                xbmc.executebuiltin('ActivateWindow(10025,videodb://1/2,return)')
         
         if select and id == TVSHOWS:
-            xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
+            if utils.getSetting('KodiLib') == 'true':
+                xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.genesis/?action=root_shows,return)')
+            else:
+                xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
         
         if select and id == NETFLIX:
             xbmc.executebuiltin('StartAndroidActivity("com.netflix.mediaclient"),return')
@@ -314,7 +320,7 @@ class Application(xbmcgui.WindowXML):
             xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.program.super.favourites/?label=Adult&mode=400&path=special://userdata/addon_data/plugin.program.super.favourites/Super Favourites/Adult/,return)')
         
         if select and id == VPN:
-            xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/manual.py),return')
+            xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/manual.py,return)')
 
         if select and id == VIDEOWINDOW:   
             xbmc.executebuiltin('Action(fullscreen)')  

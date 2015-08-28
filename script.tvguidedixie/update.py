@@ -261,7 +261,6 @@ def getUpdate(response, silent):
         md5      = response['MD5']
         date     = response['Date']
         channel  = response['Channel']
-        logopack = response['LogoPack']
     except Exception, e:
         return
 

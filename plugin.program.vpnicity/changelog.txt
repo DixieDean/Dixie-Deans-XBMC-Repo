@@ -1,3 +1,8 @@
+v1.2.5:
+   - Changed IP Check method.
+   - Fixed Isengard context menu display.
+   - Code changes.
+
 v1.2.4:
    - Added built-in install method for OpenELEC. Now fully automated.
 

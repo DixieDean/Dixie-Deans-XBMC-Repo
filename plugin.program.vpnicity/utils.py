@@ -382,6 +382,9 @@ def getLogfile():
     print build
     print version
 
+    if build == '14.2 Git:2015-04-03-0e5bbc5':
+        logfile = os.path.join(logpath, 'spmc.log')
+
     if version < 14:
         logfile = os.path.join(logpath, 'xbmc.log')
     else:

@@ -1,3 +1,7 @@
+v1.0.5:
+  - Added Categories to 'Edit Channel'
+  - Added option to search Kodi sources for custom logos (in Add-on Settings)
+
 v1.0.4:
   - Added 'Clone Channel' feature
 

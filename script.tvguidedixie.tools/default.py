@@ -58,7 +58,7 @@ TITLE    = utils.TITLE
 FRODO    = utils.FRODO
 GOTHAM   = utils.GOTHAM
 
-
+KODISOURCE = ADDON.getSetting('KODISOURCE') == 'true'
 
 # -----Addon Modes ----- #
 
@@ -122,16 +122,17 @@ def main():
     totalItems = len(channels)
 
     for ch in channels:        
-        channel = ch[2]
-        id      = ch[1]         
-        title   = channel.title
-        logo    = channel.logo
-        weight  = channel.weight
-        hidden  = channel.visible == 0
-        stream  = channel.streamUrl
-        userDef = channel.userDef == 1
-        desc    = channel.desc
-        isClone = channel.isClone == 1
+        channel  = ch[2]
+        id       = ch[1]         
+        title    = channel.title
+        logo     = channel.logo
+        weight   = channel.weight
+        hidden   = channel.visible == 0
+        stream   = channel.streamUrl
+        userDef  = channel.userDef == 1
+        desc     = channel.desc
+        categories = channel.categories
+        isClone  = channel.isClone == 1
 
         if hidden and not SHOWHIDDEN:
             continue
@@ -400,13 +401,15 @@ def editChannel(id):
     SELECT       = 400
     REMOVE       = 500
     DESC         = 600
-    CLONE        = 700
+    CATEGORY     = 700
+    CLONE        = 800
 
-    title   = channel.title
-    weight  = channel.weight
-    hidden  = int(channel.visible) == 0
-    userDef = int(channel.userDef) == 1
-    isClone = int(channel.isClone) == 1
+    title    = channel.title
+    weight   = channel.weight
+    categories = channel.categories
+    hidden   = int(channel.visible) == 0
+    userDef  = int(channel.userDef) == 1
+    isClone  = int(channel.isClone) == 1
 
     hideLabel = 'Show channel' if hidden else 'Hide channel'
 
@@ -415,6 +418,7 @@ def editChannel(id):
     menu.append(['Change logo',    LOGO])
 
     menu.append(['Edit description', DESC])
+    menu.append(['Edit categories', CATEGORY])
     menu.append([hideLabel,          TOGGLEHIDE])
 
     if not inSelection(weight):            
@@ -446,6 +450,9 @@ def editChannel(id):
     if option == DESC:
         return editDescription(id)
 
+    if option == CATEGORY:
+        return editCategory(id)
+
     if option == CLONE:
         return cloneChannel(id)
 
@@ -464,6 +471,21 @@ def editDescription(id):
         return False
 
     channel.desc = desc
+    return updateChannel(channel, id)
+
+
+def editCategory(id):
+    channel = getChannelFromFile(id) 
+
+    if not channel:
+        return False
+
+    categories = getText('Enter categories', text=channel.categories)
+
+    if not categories:
+        return False
+
+    channel.categories = categories
     return updateChannel(channel, id)
 
 
@@ -534,7 +556,7 @@ def newChannel():
         utils.DialogOK('%s clashes with an existing channel.' % title, 'Please enter a different name.')
 
     weight  = 0
-    channel = Channel(id, title, weight=weight, categories='User Defined', userDef=True, desc='')
+    channel = Channel(id, title, weight=weight, categories='', userDef=True, desc='')
     item    = [weight, id,  channel]
 
     channels = getAllChannels()
@@ -543,6 +565,7 @@ def newChannel():
     writeChannelsToFile(channels)
     
     editDescription(id)
+    editCategory(id)
 
     return True
 
@@ -571,7 +594,10 @@ def getImage(logo):
         logo = logo.replace('\\', '/')
         root  = logo.rsplit('/', 1)[0] + '/'
 
-    image = xbmcgui.Dialog().browse(2, 'Choose logo', 'files', '', False, False, root)
+    if KODISOURCE:
+        image = xbmcgui.Dialog().browse(2, 'Choose logo', 'files', '')
+    else:
+        image = xbmcgui.Dialog().browse(2, 'Choose logo', 'files', '', False, False, root)
     
     if image and image != root:
         return image

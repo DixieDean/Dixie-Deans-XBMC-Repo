@@ -223,14 +223,16 @@ class Database(object):
 
 
     def _initializeS(self, cancel_requested_callback):
-        # if not LOGOCHANGED:
-        #     return True
+        if not LOGOCHANGED:
+            return True
 
-        folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
-        noLogo   =  DIXIELOGOS.lower() == 'none'
-        channels =  self.getAllChannels()
-        
-        for ch in channels:  
+        folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+
+        noLogo = DIXIELOGOS.lower() == 'none'
+
+        channels = self.getAllChannels()
+
+        for ch in channels:
             channel = self.getChannelFromFile(ch)
             if channel == None:
                 continue
@@ -238,10 +240,10 @@ class Database(object):
             if noLogo:
                 channel.logo = ''
             else:
-                logoFile     = os.path.join(folder, DIXIELOGOS, channel.title + '.png')
-                channel.logo = logoFile
+                logoFile = os.path.join(folder, DIXIELOGOS, channel.title + '.png')
+                channel.logo  = logoFile
 
-            self.replaceChannel(channel)  
+            self.replaceChannel(channel)
 
         dixie.SetSetting('PREVLOGO', DIXIELOGOS)
         return True
@@ -629,7 +631,7 @@ class Database(object):
         ch = Channel(cfg[0], cfg[1], cfg[2], cfg[3], cfg[4], cfg[5], cfg[6])
 
         return ch
-        
+
 
     def getEPGView(self, channelStart, date = datetime.datetime.now(), progress_callback = None, clearExistingProgramList = True, categories = None, nmrChannels=9):
 

@@ -12,7 +12,7 @@
 	    <setting id="USER"      type="text"      label="VPN Username"         default=""/>
 	    <setting id="PASS"      type="text"      label="VPN Password"         default=""       option="hidden"/>
          <!-- <setting id="dummy"        type="action"    label="[COLOR orange][B]Click to[/B] - Verify my login details[/COLOR]"    option="close"    action="XBMC.RunScript(special://home/addons/plugin.program.vpnicity/verify.py)"/> -->
-	    <setting id="OS"        type="labelenum" label="Operating System"     default=" "      values = " |Windows|Linux|MacOS|Android|OpenELEC|RaspBMC|Raspian"/>
+	    <setting id="OS"        type="labelenum" label="Operating System"     default=" "      values = " |Windows|Linux|MacOS|Android|OpenELEC|RaspBMC|Raspian|ATV2|iOS"/>
 		
 		<setting id="dummy"		option="close"   label="Install OpenVPN" type="action" action="RunScript($CWD/install.py)" enable="!eq(-4,0)+!eq(-4,1)+!eq(-4,4)"/>
 		

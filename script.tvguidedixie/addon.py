@@ -45,13 +45,13 @@ HOME        = dixie.HOME
 TITLE       = dixie.TITLE
 VERSION     = dixie.VERSION
 DIXIEURL    = dixie.DIXIEURL
-DIXIELOGOS  = dixie.DIXIELOGOS
-LOGOPACK    = dixie.LOGOPACK
+# DIXIELOGOS  = dixie.DIXIELOGOS
+# LOGOPACK    = dixie.LOGOPACK
 # LOGOVERSION = dixie.LOGOVERSION
-SKIN        = dixie.SKIN
-SKINVERSION = dixie.SKINVERSION
-SKINZIP     = dixie.SKINZIP
-INIVERSION  = dixie.INIVERSION
+# SKIN        = dixie.SKIN
+# SKINVERSION = dixie.SKINVERSION
+# SKINZIP     = dixie.SKINZIP
+# INIVERSION  = dixie.INIVERSION
 
 skin        = dixie.SKIN
 addonpath   = dixie.RESOURCES
@@ -137,24 +137,6 @@ def CheckForChannels():
         dixie.SetSetting('updated.channels', -1) # force refresh of channels
 
 
-def CheckSkin():
-    path = os.path.join(skinfolder, skin)
-    curr = SKINVERSION
-
-    if not os.path.exists(path):
-        DownloadSkins()
-        dixie.SetSetting('SKINVERSION', curr)
-
-
-def CheckSkinVersion():
-    prev = dixie.GetSetting('SKINVERSION')
-    curr = SKINVERSION
-
-    if not prev == curr:
-        DownloadSkins()
-        dixie.SetSetting('SKINVERSION', curr)
-
-
 def CheckIniVersion():
     getIni.getIni()
 
@@ -171,24 +153,6 @@ def CheckForUpdate():
 
     while xbmcgui.Window(10000).getProperty('OTT_UPDATING') == 'True':
         xbmc.sleep(1000)
-
-
-def DownloadSkins():
-    url  = dixie.GetExtraUrl() + 'resources/' + SKINZIP
-
-    try:
-        os.makedirs(skinfolder)
-    except:
-        pass
-
-    download.download(url, dest)
-    extract.all(dest, extras)
-    dixie.SetSetting('SKINVERSION', SKINVERSION)
-
-    try:
-        os.remove(dest)
-    except:
-        pass
 
 
 def CopyKeymap():
@@ -244,8 +208,6 @@ def main(doLogin=True):
     dixie.CheckUsername()
     dixie.ShowBusy()
     CheckChanXML()
-    # CheckSkin()
-    # dixie.CheckLogos()
 
     import buggalo
     import gui
@@ -255,11 +217,11 @@ def main(doLogin=True):
 
     try:
         if not dixie.validToRun():
+            dixie.CloseBusy()
             dixie.notify('Failed to obtain a response from On-Tapp.TV')
             return
             
         CheckVersion()
-        # CheckSkinVersion()
         CheckIniVersion()
         CheckFilmOn()
         CheckForUpdate()
@@ -267,11 +229,10 @@ def main(doLogin=True):
 
         dixie.log('****** On-Tapp.EPG - All OK *******')
         
-        dixie.CloseBusy()
         message.check()
+        dixie.CloseBusy()
 
         xbmcgui.Window(10000).setProperty('OTT_RUNNING', 'True')
-        # xbmc.executebuiltin('XBMC.ActivateWindow(home)')
 
         w = gui.TVGuide()
 

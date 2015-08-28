@@ -1,3 +1,0 @@
-[B]Version 1.0[/B]
-- Initial version
-- Modified to work in conjunction with the TV Guide Dixie add-on.

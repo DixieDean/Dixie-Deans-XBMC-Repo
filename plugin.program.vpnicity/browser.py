@@ -1,5 +1,5 @@
 
-#       Copyright (C) 2013-2014
+#       Copyright (C) 2013-2015
 #       Sean Poyser (seanpoyser@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
@@ -32,18 +32,21 @@ ACTION_RIGHT = 2
 ACTION_UP    = 3
 ACTION_DOWN  = 4
 
+import utils
+USE_HELIX = (not utils.FRODO) and (not utils.GOTHAM)
+
 
 class Browser(xbmcgui.WindowXMLDialog):
 
-    def __new__(cls, addonID, countries, helix):
-        if helix:
+    def __new__(cls, addonID, countries):
+        print xbmcaddon.Addon(addonID).getAddonInfo('path')
+        if USE_HELIX:
             return super(Browser, cls).__new__(cls, 'browser-helix.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
         else:
             return super(Browser, cls).__new__(cls, 'browser.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
 
         
-
-    def __init__(self, addonID, countries, helix):
+    def __init__(self, addonID, countries):
         super(Browser, self).__init__()
         self.countries = countries
         self.root      = os.path.join(xbmcaddon.Addon(addonID).getAddonInfo('path'), 'resources', 'images')
@@ -95,8 +98,7 @@ class Browser(xbmcgui.WindowXMLDialog):
 
 
 def getCountry(addonID, countries):
-    import utils
-    dialog = Browser(addonID, countries, utils.HELIX)
+    dialog = Browser(addonID, countries)
     dialog.doModal()
     country = dialog.country
     del dialog

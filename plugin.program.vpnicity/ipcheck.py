@@ -24,16 +24,17 @@ import utils
 
 
 def Network():
-    url     = 'http://www.iplocation.net/'
+    url     = 'http://www.whereisip.net/'
     request = requests.get(url)
     link    = request.content
-    match   = re.compile("<td width='80'>(.+?)</td><td>(.+?)</td><td>(.+?)</td><td>.+?</td><td>(.+?)</td>").findall(link)
+    match   = re.compile("<b>(.+?)</b><BR>Country / Region:  <b>(.+?),(.+?)</b>").findall(link)    
     count   = 1
     
-    for ip, region, country, isp in match:
-        if count <2:
-            message = 'IP Address: %s Based in: %s ISP: %s' % (ip, country, isp)
+    for ip, country, region in match:
+        if count <3:
+            if region == ' ':
+                region  = ' Unknown'
+            message = 'IP Address: %s  Region:%s  Country: %s' % (ip, region, country)
             utils.notify(message)
-            utils.log('VPNicity IP Address is: %s' % ip)
-            utils.log('VPNicity Country is: %s' % country)
+            utils.log('VPNicity location is: %s' % match)
             count = count+1
