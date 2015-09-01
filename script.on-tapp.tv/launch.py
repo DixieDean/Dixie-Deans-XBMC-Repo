@@ -18,7 +18,7 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-import utils
+import utilsOTT as utils
 
 def main(addonID, param=None):
     try:        

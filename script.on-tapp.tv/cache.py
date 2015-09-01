@@ -23,7 +23,7 @@ import time
 import glob
 import urllib2
 
-import utils
+import utilsOTT as utils
 import xbmc
 
 

@@ -207,7 +207,7 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. VPNicity for OpenELEC.', 'This is a major improvement to the add-on', 'A fully automated install process!')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Minor bug fixes.', 'We are also aware of issues with OpenELEC Beta', 'A fix will be released soon.')
     # triggerChangelog()
     
 

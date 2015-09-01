@@ -2,7 +2,7 @@
 <window>
     <coordinates>
         <system>1</system>
-        <posx>385</posx>
+        <posx>375</posx>
         <posy>255</posy>
         </coordinates>
     <controls>        
@@ -10,7 +10,7 @@
 	    <description>Background image</description>
 	    <posx>0</posx>
 	    <posy>0</posy>
-	    <width>512</width>
+	    <width>532</width>
          <height>210</height>
 	    <texture border="20">DialogBack.png</texture>
 	</control>
@@ -18,27 +18,27 @@
         <description>List to hold 'buttons'</description>
 	    <posx>20</posx>
 	    <posy>30</posy>
-	    <width>300</width>
+	    <width>320</width>
 	    <height>152</height>	    
-        <itemwidth>300</itemwidth>
+        <itemwidth>320</itemwidth>
         <itemheight>38</itemheight> 
         <pagecontrol>4000</pagecontrol>  
         <scrolltime>200</scrolltime>
         <onright>4000</onright>
         <onleft>4000</onleft>  
 
-        <itemlayout width="300" height="38">                
+        <itemlayout width="320" height="38">                
             <control type="image">
                 <posx>0</posx>
                 <posy>0</posy>
-                <width>300</width>
+                <width>320</width>
                 <height>38</height>
                 <texture border="5">button-nofocus.png</texture>
             </control>
             <control type="label">
-		        <posx>150</posx>
+		        <posx>160</posx>
 		        <posy>0</posy>
-    		    <width>300</width>
+    		    <width>320</width>
 	    	    <height>38</height>
 		        <font>font13</font>
                 <textcolor>grey2</textcolor>
@@ -48,18 +48,18 @@
 		   </control>
        </itemlayout>
 
-       <focusedlayout width="300" height="38">
+       <focusedlayout width="320" height="38">
             <control type="image">
                 <posx>0</posx>
                 <posy>0</posy>
-                <width>300</width>
+                <width>320</width>
                 <height>38</height>
                 <texture border="5">button-nofocus.png</texture>
             </control>    
             <control type="label">
-		        <posx>150</posx>
+		        <posx>160</posx>
 	     	    <posy>0</posy>
-		        <width>300</width>
+		        <width>320</width>
 		        <height>38</height>
 		        <font>font13</font>
                 <textcolor>grey2</textcolor>
@@ -71,15 +71,15 @@
                 <visible>Control.HasFocus(3000)</visible>
 		        <posx>0</posx>
 		        <posy>0</posy>
-		        <width>300</width>
+		        <width>320</width>
 		        <height>38</height>                                        
                 <texture border="5">button-focus2.png</texture>
  		    </control>
             <control type="label">
                 <visible>Control.HasFocus(3000)</visible>
-   		        <posx>150</posx>
+   		        <posx>160</posx>
 		        <posy>0</posy>
-		        <width>300</width>
+		        <width>320</width>
 		        <height>38</height>
 		        <font>font13</font>
                 <textcolor>white</textcolor>
@@ -90,7 +90,7 @@
         </focusedlayout>
 	</control>  
 	<control type="scrollbar" id="4000">
-			<posx>315</posx>
+			<posx>336</posx>
 			<posy>30</posy>
 			<width>25</width>
 			<height>152</height>
@@ -107,7 +107,7 @@
 
         <control type="button" id="3001">
             <description>Close Window button</description>
-            <posx>430</posx>
+            <posx>440</posx>
             <posy>5</posy>
             <width>64</width>
             <height>32</height>
@@ -122,8 +122,7 @@
 		</control>	
 		
 		<control type="image" id="3002">
-			<visible1>Control.HasFocus(3000)</visible1>
-			<posx>338</posx>
+			<posx>360</posx>
 			<posy>30</posy>
 			<width>152</width>
 			<height>152</height>

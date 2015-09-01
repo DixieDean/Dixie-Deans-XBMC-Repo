@@ -33,8 +33,8 @@ import threading
 
 
 import sfile
-import utils
-import favourite
+import utilsOTT as utils
+import favourites
 import categories
 
 
@@ -97,7 +97,7 @@ class Application(xbmcgui.WindowXML):
         self.busy            = None
         self.showBack        = False
         self.timer           = None
-        self.faves           = str(favourite.getFavourites())
+        self.faves           = str(favourites.getFavourites())
         self.relaunch        = False
         self.counter         = 0
         self.listSize        = -1
@@ -294,13 +294,14 @@ class Application(xbmcgui.WindowXML):
         
         if select and id == MOVIES:
             if utils.getSetting('KodiLib') == 'true':
-                xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.genesis/?action=root_movies,return)')
+                xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=movieNavigator,return)')
             else:
                 xbmc.executebuiltin('ActivateWindow(10025,videodb://1/2,return)')
         
         if select and id == TVSHOWS:
             if utils.getSetting('KodiLib') == 'true':
-                xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.genesis/?action=root_shows,return)')
+                xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=tvNavigator,return)')
+                
             else:
                 xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
         
@@ -490,7 +491,7 @@ class Application(xbmcgui.WindowXML):
  
         cmd = 'RunScript(%s,%s)' % (self.ADDONID, param)
 
-        favourite.add(name, cmd, thumb)
+        favourites.add(name, cmd, thumb)
 
         return True
 

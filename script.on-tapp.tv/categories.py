@@ -23,7 +23,7 @@ import xbmcaddon
 import os
 import re
 
-import utils
+import utilsOTT as utils
 
 ADDONID = 'script.tvguidedixie'
 ADDON   = xbmcaddon.Addon(ADDONID)

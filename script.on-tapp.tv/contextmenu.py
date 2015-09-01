@@ -23,7 +23,7 @@ import xbmcgui
 import xbmcaddon
 import os
 
-import utils
+import utilsOTT as utils
 
 SKIN    = utils.getSetting('SKIN')
 

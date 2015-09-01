@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.program.vpnicity" name="VPNicity" version="1.2.5" provider-name="spoyser">
+<addon id="plugin.program.vpnicity" name="VPNicity" version="1.2.6" provider-name="spoyser">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" version="2.3.0"/>
@@ -67,7 +67,7 @@
 	</extension>
 </addon>
 
-<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.0.2" provider-name="Spoyser, DixieDean">
+<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.0.3" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>

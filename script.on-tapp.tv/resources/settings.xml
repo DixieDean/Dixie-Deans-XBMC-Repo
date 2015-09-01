@@ -17,6 +17,9 @@
         <setting id="SKIN"       type="select" label="31004" source="../../userdata/addon_data/script.on-tapp.tv/skins/" mask="/" default="FXB78"/>	
         <setting id="autoStart"  type="bool"   label="Start Automatically (requires reboot)"     default="false" visible="true"/>
         <setting id="KodiLib"    type="bool"   label="Override Kodi Movie/TV Libraries"          default="false" visible="true"/>
+		
+		<setting id="ADDMORE"   type="enum"   label="31006" lvalues="31007|31008|31009" default="2"/>
+		 
         <setting id="AUTOSTREAM" type="bool"   label="Automatically Stream Last Channel Watched" default="false" visible="true"/>
         <!-- <setting                 type="lsep"   label=""      visible="true" /> -->
         <setting id="KIOSKMODE"  type="bool"   label="Kiosk Mode" default="false" visible="true"/>

@@ -57,6 +57,14 @@ class Browser(xbmcgui.WindowXMLDialog):
         self.icon    = self.getControl(3002)
         self.country = ''
 
+        label      = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+        self.vpnON = len(label) > 0
+
+        if self.vpnON:
+            label = '[I]Disable %s %s[/I]' % (label, utils.TITLE)
+            liz   = xbmcgui.ListItem(label)
+            self.list.addItem(liz)
+
         for country in self.countries:
             title = country[0]
             liz   = xbmcgui.ListItem(title)
@@ -76,13 +84,26 @@ class Browser(xbmcgui.WindowXMLDialog):
 
     def onClick(self, controlId):        
         if controlId != 3001:
-            index = self.list.getSelectedPosition()        
+            index = self.list.getSelectedPosition()  
 
-            try:    self.country = self.countries[index][1]
-            except: pass
+            offset = 1 if self.vpnON else 0 
+
+            if self.vpnON and index == 0:
+                self.disable()
+            else:
+                try:    self.country = self.countries[index-offset][1]
+                except: pass
 
         self.close()
-        
+
+
+    def disable(self):
+        try:
+            import vpn
+            vpn.KillVPN()
+        except:
+            pass
+
 
     def onFocus(self, controlId):
         self.refreshImage()
@@ -91,7 +112,13 @@ class Browser(xbmcgui.WindowXMLDialog):
     def refreshImage(self):
         index = self.list.getSelectedPosition()
 
-        try:    name = self.countries[index][2] + '.png'
+        offset = 1 if self.vpnON else 0
+
+        if self.vpnON and index == 0:
+            self.icon.setImage('')
+            return
+
+        try:    name = self.countries[index-offset][2] + '.png'
         except: return
 
         self.icon.setImage(os.path.join(self.root, name))

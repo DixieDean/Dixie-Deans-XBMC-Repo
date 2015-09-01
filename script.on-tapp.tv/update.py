@@ -26,7 +26,7 @@ requests.packages.urllib3.disable_warnings()
 import json
 import os
 
-import utils
+import utilsOTT as utils
 
 ADDONID = 'script.on-tapp.tv'
 ADDON   =  xbmcaddon.Addon(ADDONID)

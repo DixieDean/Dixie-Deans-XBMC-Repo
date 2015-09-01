@@ -19,11 +19,12 @@
 #
 
 import xbmc
-import utils
+import utilsOTT as utils
 import update
 
 NOHOME = utils.getSetting('NOHOME') == 'true'
 
+update.checkUpdate()
 
 if __name__ == '__main__':
     
@@ -37,6 +38,5 @@ if __name__ == '__main__':
             param = sys.argv[1]
 
         xbmc.executebuiltin('Dialog.Close(busydialog)')
-        update.checkUpdate()
         utils.Launch(param)
         
