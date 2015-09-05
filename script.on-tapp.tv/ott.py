@@ -189,13 +189,6 @@ def ShowSFShortcuts():
         fanart = favourite.getFanart(path) 
         desc   = favourite.getOption(path, 'desc')
 
-        print name
-        print icon
-        print path
-        print fanart
-        print desc
-        print '_____________________________'
-
         menu = []
         menu.append(('Remove %s Super Favourite' % (name), '?mode=%d&url=%s' % (_REMOVESUPERFAVE, urllib.quote_plus(path))))
 
@@ -205,11 +198,12 @@ def ShowSFShortcuts():
 def ShowShortcuts():
     addons = utils.getSetting('ADDONS').split('|')
     toSort = []
-
+    
     for addon in addons:
         try:
-            name = xbmcaddon.Addon(addon).getAddonInfo('name')
-            toSort.append([Capitalize(name), addon])
+            if addon:
+                name = xbmcaddon.Addon(addon).getAddonInfo('name')
+                toSort.append([Capitalize(name), addon])
         except:
             pass
 

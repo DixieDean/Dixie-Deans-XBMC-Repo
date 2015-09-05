@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.program.vpnicity" name="VPNicity" version="1.2.6" provider-name="spoyser">
+<addon id="plugin.program.vpnicity" name="VPNicity" version="1.2.7" provider-name="spoyser">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" version="2.3.0"/>
@@ -34,20 +34,6 @@
     <description lang="en">Play built-in streams in OnTapp.TV</description>
     <platform>all</platform>
   </extension>
-</addon>
-
-<addon id="plugin.video.ustvnow-dixie" version="1.2.4" name="USTVnow for On-Tapp.TV" provider-name="DixieDean">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Plays live streams and recordings from ustvnow.com</summary>
-        <description>Credit to Lunatixz for some code used in this current version. Live streaming US TV. You MUST log in to view streams (see addon settings). You can also play any recordings you have made on ustvnow.com. Modified to work with TV Guide Dixie.</description>
-        <platform>all</platform>
-    </extension>
 </addon>
 
 <addon id="repository.Dixie-Deans-XBMC-Repo"

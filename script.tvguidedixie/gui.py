@@ -1327,7 +1327,7 @@ class TVGuide(xbmcgui.WindowXML):
     def setControlImage(self, controlId, image):
         control = self.getControl(controlId)
         if control:
-            control.setImage(image.encode('utf-8'))
+            control.setImage(image.encode('utf-8'), useCache=False)
 
     def setControlLabel(self, controlId, label):
         control = self.getControl(controlId)

@@ -45,13 +45,6 @@ HOME        = dixie.HOME
 TITLE       = dixie.TITLE
 VERSION     = dixie.VERSION
 DIXIEURL    = dixie.DIXIEURL
-# DIXIELOGOS  = dixie.DIXIELOGOS
-# LOGOPACK    = dixie.LOGOPACK
-# LOGOVERSION = dixie.LOGOVERSION
-# SKIN        = dixie.SKIN
-# SKINVERSION = dixie.SKINVERSION
-# SKINZIP     = dixie.SKINZIP
-# INIVERSION  = dixie.INIVERSION
 
 skin        = dixie.SKIN
 addonpath   = dixie.RESOURCES

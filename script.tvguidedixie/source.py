@@ -46,17 +46,12 @@ import re
 import io
 
 
-SOURCE      = dixie.GetSetting('source')
-DIXIEURL    = dixie.GetSetting('dixie.url').upper()
-DIXIELOGOS  = dixie.GetSetting('dixie.logo.folder')
-PREVLOGO    = dixie.GetSetting('PREVLOGO')
-GMTOFFSET   = dixie.GetGMTOffset()
-LOGOCHANGED = DIXIELOGOS != PREVLOGO
+SOURCE    = dixie.GetSetting('source')
+DIXIEURL  = dixie.GetSetting('dixie.url').upper()
+GMTOFFSET = dixie.GetGMTOffset()
 
 datapath    = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
 channelPath = os.path.join(datapath, 'channels')
-extras      = os.path.join(datapath, 'extras')
-logopath    = os.path.join(extras, 'logos')
 
 
 try:    os.makedirs(channelPath)
@@ -67,17 +62,28 @@ settingsFile = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), '
 
 USE_DB_FILE = True
 
-if len (DIXIELOGOS):
-    logos = os.path.join(logopath, DIXIELOGOS)
-else:
-    logos = dixie.SetSetting('dixie.logo.folder', 'None')
-
-
 SETTINGS_TO_CHECK = ['dixie.url']
 
 
 def GetDixieUrl():
     return dixie.GetDixieUrl(DIXIEURL)
+
+
+def GetLogoType():
+    return dixie.GetSetting('logo.type')
+
+
+def GetLogoFolder():
+    CUSTOM = '1'
+
+    logoType = GetLogoType()
+
+    if logoType == CUSTOM:
+        logoFolder = dixie.GetSetting('user.logo.folder')
+    else:
+        logoFolder = dixie.GetSetting('dixie.logo.folder')
+
+    return logoFolder
 
 
 def CleanFilename(text):
@@ -223,29 +229,42 @@ class Database(object):
 
 
     def _initializeS(self, cancel_requested_callback):
-        if not LOGOCHANGED:
-            return True
+        BUILTIN = '0'
+        CUSTOM  = '1'
 
-        folder = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+        logoFolder = GetLogoFolder()
+        logoType   = GetLogoType()
 
-        noLogo = DIXIELOGOS.lower() == 'none'
+        if logoType == CUSTOM:
+            logoPath = ''
+        else:
+            logoPath = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
+
+        dixie.log('Logo Path Setting:   %s' % logoPath)
+        dixie.log('Logo Folder Setting: %s' % logoFolder)
+        dixie.log('Logo Type:           %s' % logoType)
+
+        prevLogoFolder = dixie.GetSetting('PREVLOGO')
+        currLogoFolder = logoFolder
+
+        if logoType == BUILTIN:
+            if currLogoFolder == prevLogoFolder:
+                return True
 
         channels = self.getAllChannels()
 
         for ch in channels:
             channel = self.getChannelFromFile(ch)
+
             if channel == None:
                 continue
-
-            if noLogo:
-                channel.logo = ''
-            else:
-                logoFile = os.path.join(folder, DIXIELOGOS, channel.title + '.png')
-                channel.logo  = logoFile
+            
+            logoFile = os.path.join(logoPath, logoFolder, channel.title + '.png')
+            channel.logo = logoFile
 
             self.replaceChannel(channel)
 
-        dixie.SetSetting('PREVLOGO', DIXIELOGOS)
+        dixie.SetSetting('PREVLOGO', logoFolder)
         return True
 
 
@@ -1172,10 +1191,6 @@ class DIXIESource(Source):
 
 
     def __init__(self, addon):
-        self.logoFolder = None
-        if logos:
-            if os.path.exists(logos):
-                self.logoFolder = logos
         self.KEY += '.' + DIXIEURL
         self.xml = None
 
@@ -1203,7 +1218,7 @@ class DIXIESource(Source):
         io = StringIO.StringIO(self.xml)
         
         context = ElementTree.iterparse(io, events=("start", "end"))
-        return parseXMLTV(context, io, len(self.xml), self.logoFolder, progress_callback, self.offset, categories)
+        return parseXMLTV(context, io, len(self.xml), progress_callback, self.offset, categories)
 
 
     def doSettingsChanged(self):
@@ -1251,7 +1266,7 @@ def parseXMLTVDate(dateString, offset):
         return None
 
 
-def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, categories=None):
+def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
     event, root = context.next()
     elements_parsed = 0
 
@@ -1267,22 +1282,13 @@ def parseXMLTV(context, f, size, logoFolder, progress_callback, offset=0, catego
                 mergeTitle = elem.findtext("sub-title")
                 if not description:
                     description = subTitle
-                # if subTitle:
-                #     title += " " + "- " + mergeTitle
                     
                 result = Program(channel, title, parseXMLTVDate(elem.get('start'), offset), parseXMLTVDate(elem.get('stop'), offset), description, elem.findtext("sub-title"))
 
             elif elem.tag == "channel":
-                id = elem.get("id")
-                title = elem.findtext("display-name")
-                logo = None
-                if logoFolder:
-                    folder   = 'special://profile/addon_data/script.tvguidedixie/extras/logos/'
-                    logoFile = os.path.join(folder, DIXIELOGOS, title + '.png')
-                    if xbmcvfs.exists(logoFile):
-                        logo = logoFile
-
-                result = Channel(id, title, logo)
+                id     = elem.get("id")
+                title  = elem.findtext("display-name")
+                result = Channel(id, title)
 
                 if categories:
                     try:

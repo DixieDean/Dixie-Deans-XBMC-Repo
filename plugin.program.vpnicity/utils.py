@@ -132,7 +132,8 @@ def checkOS():
         log(error)
     elif plat == 'ios':
         log(error)
-    elif plat == ('oe-pi') or ('oe-arm') or ('oe-x86'):
+    # elif plat == ('oe-arm-5') or ('oe-arm-6') or ('oe-x86-5')or ('oe-x86-6'):
+    elif 'oe' in plat:
         os = 'OpenELEC'
 
     if len(os) > 1:
@@ -207,7 +208,7 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Minor bug fixes.', 'We are also aware of issues with OpenELEC Beta', 'A fix will be released soon.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. OpenELEC (Isengard Beta) fixed.', 'The add-on will work on 5.95.x and above.', 'It is also backwards compatible with 5.0.8')
     # triggerChangelog()
     
 
@@ -332,33 +333,52 @@ def showChangelog(addonID=None):
 def getOEUrl():
     oe = platform()
     
-    if oe == 'oe-pi':
-        url = resource + 'openvpn-pi.zip'
+    if oe == 'oe-arm-5':
+        url = resource + 'openvpn-arm-5.zip'
         return url
 
-    if oe == 'oe-arm':
-        url = resource + 'openvpn-arm.zip'
+    if oe == 'oe-arm-6':
+        url = resource + 'openvpn-arm-6.zip'
         return url
 
-    if oe == 'oe-x86':
-        url = resource + 'openvpn-x86.zip'
+    if oe == 'oe-x86-5':
+        url = resource + 'openvpn-x86-5.zip'
+        return url
+
+    if oe == 'oe-x86-6':
+        url = resource + 'openvpn-x86-6.zip'
         return url
 
     return
 
 
 def platform():
+    X86 = 'Platform: Linux x86'
+    ARM = 'Host CPU: ARM'
+    OE5 = 'Version: 5.0'
+    
     logfile = getLogfile()
     f = open(logfile)
     oe = f.read()
     f.close()
-    
-    if '(version for Raspberry Pi)' in oe:
-        return 'oe-pi'
-    if 'Platform: Linux ARM 32-bit' in oe:
-        return 'oe-arm'
-    if 'Platform: Linux x86 64-bit' in oe:
-        return 'oe-x86'
+
+    if ARM in oe:
+        log('======= VPNicity OE ARM processor =======')
+        if OE5 in oe:
+            log('======= VPNicity OE 5.0.x =======')
+            return 'oe-arm-5'
+        else:
+            log('======= VPNicity OE 5.95.x or 6.0.x =======')
+            return 'oe-arm-6'
+
+    if X86 in oe:
+        log('======= VPNicity OE X86 processor =======')
+        if OE5 in oe:
+            log('======= VPNicity OE 5.0.x =======')
+            return 'oe-x86-5'
+        else:
+            log('======= VPNicity OE 5.95.x or 6.0.x =======')
+            return 'oe-x86-6'
 
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'
