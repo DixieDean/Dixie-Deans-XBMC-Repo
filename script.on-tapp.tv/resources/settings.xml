@@ -6,8 +6,8 @@
         <setting id="EPGSKIN"    type="text"      label="EPGSKINVersion"    default="1.0"   visible="false"/>
         <setting id="LOGOCOLOUR" type="text"      label="LogoColourVersion" default="1.0"   visible="false"/>
         <setting id="LOGOWHITE"  type="text"      label="LogoWhiteVersion"  default="1.0"   visible="false"/>
-        <setting id="OTTUPDATE"  type="text"      label="OTTPythonVersion"  default="1.2"   visible="false"/>
-        <setting id="EPGUPDATE"  type="text"      label="EPGPythonVersion"  default="1.1"   visible="false"/>
+        <setting id="OTTUPDATE"  type="text"      label="OTTPythonVersion"  default="1.4"   visible="false"/>
+        <setting id="EPGUPDATE"  type="text"      label="EPGPythonVersion"  default="1.2"   visible="false"/>
         <setting id="ADDONS"     type="text"      label="Addons"            default=""      visible="false"/>
         <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN"          default="false" visible="false" />
         

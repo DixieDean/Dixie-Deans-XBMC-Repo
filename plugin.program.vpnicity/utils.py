@@ -208,7 +208,7 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. OpenELEC (Isengard Beta) fixed.', 'The add-on will work on 5.95.x and above.', 'It is also backwards compatible with 5.0.8')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Minor bug fix for Android.', '', '')
     # triggerChangelog()
     
 
@@ -355,35 +355,34 @@ def getOEUrl():
 def platform():
     X86 = 'Platform: Linux x86'
     ARM = 'Host CPU: ARM'
-    OE5 = 'Version: 5.0'
+    OE  = 'OpenELEC'
+    V5  = 'Version: 5.0'
     
     logfile = getLogfile()
     f = open(logfile)
     oe = f.read()
     f.close()
 
-    if ARM in oe:
-        log('======= VPNicity OE ARM processor =======')
-        if OE5 in oe:
-            log('======= VPNicity OE 5.0.x =======')
-            return 'oe-arm-5'
-        else:
+    if OE in oe:
+        if ARM in oe:
+            log('======= VPNicity OE ARM processor =======')
+            if V5 in oe:
+                log('======= VPNicity OE 5.0.x =======')
+                return 'oe-arm-5'
             log('======= VPNicity OE 5.95.x or 6.0.x =======')
             return 'oe-arm-6'
 
-    if X86 in oe:
-        log('======= VPNicity OE X86 processor =======')
-        if OE5 in oe:
-            log('======= VPNicity OE 5.0.x =======')
-            return 'oe-x86-5'
-        else:
+    if OE in oe:
+        if X86 in oe:
+            log('======= VPNicity OE X86 processor =======')
+            if V5 in oe:
+                log('======= VPNicity OE 5.0.x =======')
+                return 'oe-x86-5'
             log('======= VPNicity OE 5.95.x or 6.0.x =======')
             return 'oe-x86-6'
 
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'
-    if xbmc.getCondVisibility('system.platform.linux'):
-        return 'linux'
     if xbmc.getCondVisibility('system.platform.windows'):
         return 'windows'
     if xbmc.getCondVisibility('system.platform.osx'):
@@ -392,6 +391,9 @@ def platform():
         return 'atv2'
     if xbmc.getCondVisibility('system.platform.ios'):
         return 'ios'
+    if xbmc.getCondVisibility('system.platform.linux'):
+        return 'linux'
+
     return ''
 
 
