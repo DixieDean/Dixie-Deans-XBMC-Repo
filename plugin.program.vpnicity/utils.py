@@ -333,12 +333,20 @@ def showChangelog(addonID=None):
 def getOEUrl():
     oe = platform()
     
-    if oe == 'oe-arm-5':
+    if oe == 'oe-armv6-5':
         url = resource + 'openvpn-arm-5.zip'
         return url
 
-    if oe == 'oe-arm-6':
+    if oe == 'oe-armv6-6':
         url = resource + 'openvpn-arm-6.zip'
+        return url
+
+    if oe == 'oe-armv7-5':
+        url = resource + 'openvpn-armv7-5.zip'
+        return url
+
+    if oe == 'oe-armv7-6':
+        url = resource + 'openvpn-armv7-6.zip'
         return url
 
     if oe == 'oe-x86-5':
@@ -353,10 +361,12 @@ def getOEUrl():
 
 
 def platform():
-    X86 = 'Platform: Linux x86'
-    ARM = 'Host CPU: ARM'
-    OE  = 'OpenELEC'
-    V5  = 'Version: 5.0'
+    X86  = 'Platform: Linux x86'
+    ARM6 = 'Host CPU: ARMv6'
+    ARM7 = 'Host CPU: ARMv7'
+    OE   = 'OpenELEC'
+    TLBB = 'TLBB-OE'
+    V5   = 'Version: 5.0'
     
     logfile = getLogfile()
     f = open(logfile)
@@ -364,15 +374,22 @@ def platform():
     f.close()
 
     if OE in oe:
-        if ARM in oe:
-            log('======= VPNicity OE ARM processor =======')
+        if ARM6 in oe:
+            log('======= VPNicity OE ARMv6 processor =======')
             if V5 in oe:
                 log('======= VPNicity OE 5.0.x =======')
-                return 'oe-arm-5'
+                return 'oe-armv6-5'
             log('======= VPNicity OE 5.95.x or 6.0.x =======')
-            return 'oe-arm-6'
+            return 'oe-armv6-6'
 
-    if OE in oe:
+        if ARM7 in oe:
+            log('======= VPNicity OE ARMv7 processor =======')
+            if V5 in oe:
+                log('======= VPNicity OE 5.0.x =======')
+                return 'oe-armv7-5'
+            log('======= VPNicity OE 5.95.x or 6.0.x =======')
+            return 'oe-armv7-6'
+
         if X86 in oe:
             log('======= VPNicity OE X86 processor =======')
             if V5 in oe:
@@ -380,6 +397,10 @@ def platform():
                 return 'oe-x86-5'
             log('======= VPNicity OE 5.95.x or 6.0.x =======')
             return 'oe-x86-6'
+
+    if TLBB in oe:
+        log('======= VPNicity TLBB ARMv7 processor =======')
+        return 'oe-armv7-5'
 
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'
