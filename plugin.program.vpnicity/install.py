@@ -34,7 +34,7 @@ def install(silent=False):
         installMacOS()
         return
 
-    if utils.ADDON.getSetting('OS') == 'OpenELEC':
+    if 'OpenELEC' in utils.ADDON.getSetting('OS'):
         installOpenELEC()
         return
 
@@ -106,6 +106,7 @@ def installOpenELEC():
     import stat
 
     url = utils.getOEUrl()
+    
     if not url:
         utils.dialogOK('You do not appear to be running OpenELEC', 'Please check your settings')
         return

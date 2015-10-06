@@ -451,7 +451,7 @@ def SetupAccount():
         utils.dialogOK('We will now finish your installation.', 'Please double check your settings after we are done.', 'Thank you!')
         xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/install.py)')
 
-    if os == 'OpenELEC':
+    if 'OpenELEC' in os:
         utils.dialogOK('It appears you are running on OpenELEC.', 'We will now finish your installation.', 'Please double check your settings after we are done.')    
         xbmc.executebuiltin('XBMC.RunScript(/storage/.kodi/addons/plugin.program.vpnicity/install.py)')
         

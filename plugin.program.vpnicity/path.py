@@ -82,14 +82,6 @@ def getOpenElec(silent):
     path = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/bin/openvpn')
     if check(path):
         return path
-    
-    path = '/usr/sbin/openvpn'
-    if check(path):
-        return path
-
-    path = '/storage/.kodi/addons/network.openvpn/bin/openvpn'
-    if check(path):
-        return path
 
     return error(silent)
 
@@ -155,7 +147,7 @@ def getPath(os, silent=False):
     if os == 'Android':
         return getAndroid(silent)
 
-    if os == 'OpenELEC':
+    if 'OpenELEC' in os:
         return getOpenElec(silent)
 
     if os == 'iOS':

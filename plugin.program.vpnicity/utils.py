@@ -132,9 +132,8 @@ def checkOS():
         log(error)
     elif plat == 'ios':
         log(error)
-    # elif plat == ('oe-arm-5') or ('oe-arm-6') or ('oe-x86-5')or ('oe-x86-6'):
-    elif 'oe' in plat:
-        os = 'OpenELEC'
+    # elif 'oe' in plat:
+    #     os = 'OpenELEC'
 
     if len(os) > 1:
         log('Setting system to %s' % os)
@@ -277,7 +276,7 @@ def getSudo():
     if GetSetting('OS') == 'Windows':
         return ''
 
-    if GetSetting('OS') == 'OpenELEC':
+    if 'OpenELEC' in GetSetting('OS'):
         return ''
 
     sudo = GetSetting('SUDO') == 'true'    
@@ -361,46 +360,51 @@ def getOEUrl():
 
 
 def platform():
-    X86  = 'Platform: Linux x86'
-    ARM6 = 'Host CPU: ARMv6'
-    ARM7 = 'Host CPU: ARMv7'
-    OE   = 'OpenELEC'
-    TLBB = 'TLBB-OE'
-    V5   = 'Version: 5.0'
+    X86 = 'Platform: Linux x86'
+    V5  = 'Version: 5.0'
+    # ARM6 = 'Host CPU: ARMv6'
+    # ARM7 = 'Host CPU: ARMv7'
+    # OE   = 'OpenELEC'
+    # TLBB = 'TLBB-OE'
     
     logfile = getLogfile()
     f = open(logfile)
     oe = f.read()
     f.close()
-
-    if OE in oe:
-        if ARM6 in oe:
-            log('======= VPNicity OE ARMv6 processor =======')
-            if V5 in oe:
-                log('======= VPNicity OE 5.0.x =======')
-                return 'oe-armv6-5'
-            log('======= VPNicity OE 5.95.x or 6.0.x =======')
-            return 'oe-armv6-6'
-
-        if ARM7 in oe:
-            log('======= VPNicity OE ARMv7 processor =======')
-            if V5 in oe:
-                log('======= VPNicity OE 5.0.x =======')
-                return 'oe-armv7-5'
-            log('======= VPNicity OE 5.95.x or 6.0.x =======')
-            return 'oe-armv7-6'
-
+    
+    os = ADDON.getSetting('OS')
+    
+    if os == 'OpenELEC 5.x':
         if X86 in oe:
-            log('======= VPNicity OE X86 processor =======')
-            if V5 in oe:
-                log('======= VPNicity OE 5.0.x =======')
-                return 'oe-x86-5'
-            log('======= VPNicity OE 5.95.x or 6.0.x =======')
-            return 'oe-x86-6'
-
-    if TLBB in oe:
-        log('======= VPNicity TLBB ARMv7 processor =======')
+            log('======= VPNicity OE X86 5.0.x =======')
+            return 'oe-x86-5'
+            
+        log('======= VPNicity OE ARMv7 5.0.x =======')
         return 'oe-armv7-5'
+
+    
+    if os == 'OpenELEC 6.x':
+        if X86 in oe:
+            log('======= VPNicity OE X86 5.95.x or 6.0.x =======')
+            return 'oe-x86-6'
+        
+        log('======= VPNicity OE ARMv7 5.95.x or 6.0.x =======')
+        return 'oe-armv7-6'
+
+    
+    if os == 'OpenELEC R-Pi':
+        if V5 in oe:
+            log('======= VPNicity OE R-Pi 5.0.x =======')
+            return 'oe-armv6-5'
+        
+        log('======= VPNicity OE R-Pi 5.95.x or 6.0.x =======')
+        return 'oe-armv6-6'
+
+    
+    if os == 'TLBBv2 OpenELEC':
+        log('======= VPNicity OE TLBBv2 =======')
+        return 'oe-armv7-5'
+        
 
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'
