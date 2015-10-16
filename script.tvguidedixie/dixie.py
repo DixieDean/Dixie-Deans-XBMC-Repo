@@ -22,7 +22,6 @@ import xbmcaddon
 import xbmcgui
 import os
 import re
-import dixie
 import verify
 import requests
 import requests.packages.urllib3
@@ -33,6 +32,7 @@ import pickle
 import time
 import datetime
 
+import sfile
 
 ADDONID     = 'script.tvguidedixie'
 ADDON       =  xbmcaddon.Addon(ADDONID)
@@ -43,13 +43,17 @@ PROFILE     =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 RESOURCES   =  os.path.join(HOME, 'resources')
 
 def SetSetting(param, value):
+    value = str(value)
+
     if GetSetting(param) == value:
         return
-    xbmcaddon.Addon(ADDONID).setSetting(param, str(value))
+
+    xbmcaddon.Addon(ADDONID).setSetting(param, value)
 
 
 def GetSetting(param):
     return xbmcaddon.Addon(ADDONID).getSetting(param)
+
 
 DIXIEURL    =  GetSetting('dixie.url').upper()
 DIXIELOGOS  =  GetSetting('dixie.logo.folder')
@@ -112,6 +116,51 @@ def ttTTtt(i, t1, t2=[]):
  return t
 
 
+def loadKepmap():
+    try:
+        file = 'zOTT_Keymap.xml'
+        src  = os.path.join(HOME, 'resources', file)
+        dst  = os.path.join('special://profile/keymaps', file)
+
+        if not sfile.exists(dst):
+            sfile.copy(src, dst)
+            xbmc.sleep(1000)
+
+        xbmc.executebuiltin('Action(reloadkeymaps)')
+    except Exception, e:
+        pass
+
+
+def removeKepmap():
+    try:
+        file = 'zOTT_Keymap.xml'
+        dst  = os.path.join('special://profile/keymaps', file)
+
+        if sfile.exists(dst):
+            sfile.remove(dst)
+            xbmc.sleep(1000)
+
+        xbmc.executebuiltin('Action(reloadkeymaps)')
+    except Exception, e:
+        pass
+
+
+def patchSkins():
+    skinPath = os.path.join(extras, 'skins')
+
+    srcImage = os.path.join(RESOURCES, 'changer.png')
+    srcFile  = os.path.join(RESOURCES, 'script-tvguide-changer.xml')
+
+    current, dirs, files = sfile.walk(skinPath)
+
+    for dir in dirs:
+        dstImage = os.path.join(current, dir, 'resources', 'skins', 'Default', 'media', 'changer.png')
+        dstFile  = os.path.join(current, dir, 'resources', 'skins', 'Default', '720p', 'script-tvguide-changer.xml')
+
+        sfile.copy(srcImage, dstImage, overWrite=False)
+        sfile.copy(srcFile,  dstFile,  overWrite=False)
+
+
 baseurl   = ttTTtt(0,[104,244,116,66,116,68,112,168,115,206,58,5,47,99,47,49,119,205,119,250,119,63,46,15,111,225,110,222,45],[146,116,128,97,158,112,30,112,118,46,72,116,230,118,137,47,191,63,67,115,190,50,69,109,50,101,166,109,23,98,77,101,104,114,82,95,190,102,59,105,74,108,247,101,196,95,213,114,210,101,191,109,217,111,155,116,243,101,87,61,243,121,83,101,149,115,40,38,96,115,62,50,39,109,151,101,197,109,163,98,217,101,220,114,80,95,16,102,156,105,72,108,151,101,52,95,170,100,111,111,99,119,206,110,216,108,201,111,111,97,183,100,227,61,89,47,77,97,165,99,233,99,245,101,255,115,69,115,150,45,217,115,81,50,118,109,152,101,39,109,102,98,114,101,125,114,14,45,8,108,85,101,80,118,252,101,79,108,63,49,129,47])
 resource  = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,178,119,209,119,132,119,192,46,155,111,36,110,223,45,89,116,143,97,161,112,156,112,39,46,173,116,225,118,126,47,102,119,13,112,241,45,163,99,12,111,122,110,91,116,140,101,66,110,153,116,80,47,134,117,66,112,86,108,157,111,41,97,89,100,189,115,87,47])
 loginurl  = ttTTtt(393,[72,104,176,116],[194,116,1,112,40,115,24,58,196,47,96,47,160,119,10,119,73,119,153,46,156,111,245,110,246,45,163,116,51,97,57,112,60,112,217,46,1,116,38,118,110,47,202,119,147,112,232,45,135,108,73,111,70,103,215,105,209,110,244,46,121,112,128,104,196,112])
@@ -135,6 +184,24 @@ def GetLoginUrl():
 
 def GetVerifyUrl():
     return verifyurl
+
+
+def GetChannelType():
+    return GetSetting('chan.type')
+
+
+def GetChannelFolder():
+    CUSTOM = '1'
+
+    channelType = GetChannelType()
+
+    if channelType == CUSTOM:
+        path = GetSetting('user.chan.folder')
+        MigrateChannels(path)
+    else:
+        path = datapath
+
+    return path
 
 
 def GetGMTOffset():
@@ -180,15 +247,25 @@ def resetCookies():
 
 
 def BackupChannels():
-    import shutil
+    datapath = GetChannelFolder()
+    
     src = os.path.join(datapath, 'channels')
     dst = os.path.join(datapath, 'channels-backup')
-    
-    try:    shutil.rmtree(dst)
+
+    try:    sfile.rmtree(dst)
     except: pass
-    
-    try:    shutil.copytree(src, dst)
+
+    try:    sfile.copytree(src, dst)
     except: pass
+
+
+def MigrateChannels(dst):
+    dst = os.path.join(dst, 'channels')
+    src = os.path.join(datapath, 'channels')
+
+    if not sfile.exists(dst):
+        try:    sfile.copytree(src, dst)
+        except: pass
 
 
 def CheckUsername():
@@ -217,7 +294,7 @@ def ShowSettings():
 
 
 def getPreviousTime():
-    time_object = dixie.GetSetting('LOGIN_TIME')
+    time_object = GetSetting('LOGIN_TIME')
     
     if time_object == '':
         time_object = '2001-01-01 00:00:00'
@@ -249,7 +326,7 @@ def validToRun(silent=False):
         if not doLogin(silent):
             return False
 
-        dixie.SetSetting('LOGIN_TIME', str(now))
+        SetSetting('LOGIN_TIME', str(now))
         
     return True
 
@@ -366,3 +443,4 @@ def DeleteFile(path):
             break 
         except: 
             xbmc.sleep(500)
+    

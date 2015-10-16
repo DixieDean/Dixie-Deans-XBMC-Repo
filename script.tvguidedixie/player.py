@@ -152,13 +152,10 @@ def playSF(url):
 
 
 def play(url, windowed, name=None):
+    dixie.ShowBusy()
+    
     windowID  = xbmcgui.getCurrentWindowId()
     initSleep = 1
- 
-    isZeus = 'plugin.video.zeus' in url
-    if isZeus:
-        xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.zeus)')
-        initSleep = 20000 
  
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
@@ -166,20 +163,21 @@ def play(url, windowed, name=None):
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, sfURL = playSF(url)
         if handled:
-            if isZeus:
-                while not xbmc.Player().isPlaying() and initSleep > 0:
-                    initSleep -= 1
-                    xbmc.sleep(1000)
-                while xbmc.Player().isPlaying():
-                    xbmc.sleep(1000)
-                    CheckIdle(maxIdle)
-                xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
+            while not xbmc.Player().isPlaying() and initSleep > 0:
+                initSleep -= 1
+                xbmc.sleep(1000)
+            while xbmc.Player().isPlaying():
+                xbmc.sleep(1000)
+                CheckIdle(maxIdle)
+            xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
+            dixie.CloseBusy()
             return
         else:
             url = sfURL
  
     if url.lower().startswith('plugin://plugin.video.skygo'):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+        dixie.CloseBusy()
         return
  
     dixie.SetSetting('streamURL', url)
@@ -194,20 +192,20 @@ def play(url, windowed, name=None):
             item = playlist
  
         xbmc.Player().play(item, windowed=windowed)
+        dixie.CloseBusy()
  
         xbmc.sleep(1000)
         if not xbmc.Player().isPlaying():
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
- 
-    while not xbmc.Player().isPlaying() and initSleep > 0:
-        initSleep -= 1
-        xbmc.sleep(1000)
+            dixie.CloseBusy()
  
     while xbmc.Player().isPlaying():
         xbmc.sleep(1000)
         CheckIdle(maxIdle)
  
     xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
+    dixie.CloseBusy()
+
 
 def checkForAlternateStreaming(url):
     if 'plugin.video.expattv' in url:
@@ -272,6 +270,7 @@ def checkForAlternateStreaming(url):
 
     return False
 
+
 def alternateStream(url):
     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
     
@@ -289,4 +288,6 @@ if __name__ == '__main__':
     if len(sys.argv) > 3:
         name = sys.argv[3]
 
+    dixie.loadKepmap()
     play(sys.argv[1], sys.argv[2] == 1, name)
+    # dixie.removeKepmap()

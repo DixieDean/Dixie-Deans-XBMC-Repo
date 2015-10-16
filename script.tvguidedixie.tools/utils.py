@@ -25,6 +25,8 @@ import xbmcgui
 import os
 import re
 
+import sfile
+
 
 def GetXBMCVersion():
     #xbmc.executeJSONRPC('{ "jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["version", "name"]}, "id": 1 }')
@@ -44,7 +46,7 @@ PROFILE =  ADDON.getAddonInfo('profile')
 OTT_TITLE    = 'OnTapp.TV'
 OTT_ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
 OTT_PROFILE  = xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
-OTT_CHANNELS = os.path.join(OTT_PROFILE, 'channels')
+# OTT_CHANNELS = os.path.join(OTT_PROFILE, 'channels')
 
 
 VERSION = '1.0.3'
@@ -56,6 +58,28 @@ GETTEXT =  ADDON.getLocalizedString
 MAJOR, MINOR = GetXBMCVersion()
 FRODO        = (MAJOR == 12) and (MINOR < 9)
 GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
+
+
+def GetChannelType():
+    return OTT_ADDON.getSetting('chan.type')
+
+
+def GetChannelFolder():
+    CUSTOM = '1'
+
+    channelType = GetChannelType()
+
+    if channelType == CUSTOM:
+        path = OTT_ADDON.getSetting('user.chan.folder')
+    else:
+        path = OTT_PROFILE
+
+    return path
+
+
+channelFolder = GetChannelFolder()
+
+OTT_CHANNELS  = os.path.join(channelFolder, 'channels')
 
 
 def log(text):
@@ -89,10 +113,10 @@ def CheckVersion():
 
     ADDON.setSetting('VERSION', curr)
 
-    if prev == '0.0.0' or prev== '1.0.0':
+    if prev == '0.0.0' or prev == '1.0.0':
         folder  = xbmc.translatePath(PROFILE)
-        if not os.path.isdir(folder):
-            try:    os.makedirs(folder) 
+        if not sfile.isdir(folder):
+            try:    sfile.makedirs(folder) 
             except: pass
 
     #call showChangeLog like this to workaround bug in openElec
@@ -105,8 +129,8 @@ def GetFolder(title):
     default = ''
     folder  = xbmc.translatePath(PROFILE)
 
-    if not os.path.isdir(folder):
-        os.makedirs(folder) 
+    if not sfile.isdir(folder):
+        sfile.makedirs(folder) 
 
     folder = xbmcgui.Dialog().browse(3, title, 'files', '', False, False, default)
     if folder == default:
@@ -147,7 +171,7 @@ def deleteFile(path):
     while os.path.exists(path) and tries > 0:
         tries -= 1 
         try: 
-            os.remove(path) 
+            sfile.remove(path) 
             break 
         except: 
             xbmc.sleep(500)

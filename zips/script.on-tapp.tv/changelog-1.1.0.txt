@@ -1,3 +1,6 @@
+v1.1.0
+- Code changes to integrate with channel surfing in the EPG.
+
 v1.0.3
 - Added full Super Favourites integration.
 - Added 'Disable VPN' to VPN menu.

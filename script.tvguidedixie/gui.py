@@ -112,6 +112,8 @@ ACTION_GESTURE_ZOOM        = 502
 ACTION_GESTURE_ROTATE      = 503
 ACTION_GESTURE_PAN         = 504
 
+KEYZERO = 58
+
 KEY_NAV_BACK = 92
 KEY_CONTEXT_MENU = 117
 KEY_HOME = 159
@@ -202,7 +204,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.refresh = False
         self.notification = None
         self.redrawingEPG = False
-        self.timebarVisible = False
+#         self.timebarVisible = False
         self.isClosing = False
         self.controlAndProgramList = list()
         self.ignoreMissingControlIds = list()
@@ -210,6 +212,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.focusPoint = Point()
         self.epgView = EPGView()
         self.streamingService = streaming.StreamsService()
+        self.blackout = None
         self.player = xbmc.Player()
         self.database = None
         self.categoriesList = ADDON.getSetting('categories').split('|')
@@ -234,6 +237,16 @@ class TVGuide(xbmcgui.WindowXML):
         self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
 
 
+    def refreshChannelLabels(self, channelStart):
+        base = 7001
+        for i in range(CHANNELS_PER_PAGE):
+            try:
+                ctrl = self.getControl(base+i)
+                if ctrl:
+                    ctrl.setLabel(str(channelStart+i+1))
+            except:
+                pass
+
 
     def getControl(self, controlId):
         try:
@@ -246,41 +259,42 @@ class TVGuide(xbmcgui.WindowXML):
                 self.close()
             return None
 
-
-    def resetTimer(self):
-        try:
-            self.stopTimer()
-            self.timer = threading.Timer(1*60, self.onTimer)        
-            self.timer.start()
-        except Exception, e:
-            pass
-        
-    def stopTimer(self):                   
-        try:
-            self.timer.cancel()        
-        except Exception, e:
-            pass
-
-
-    def onTimer(self):
-        refresh = 30 * 60 #30 minutes
-        if (datetime.datetime.today() - self.viewStartDate).seconds > refresh:
-            self.viewStartDate  = datetime.datetime.today()
-            self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
-            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-        else:
-            self.updateTimebar()
-
-        self.resetTimer()
-
-
+# 
+#     def resetTimer(self):
+#         try:
+#             self.stopTimer()
+#             self.timer = threading.Timer(1*60, self.onTimer)        
+#             self.timer.start()
+#         except Exception, e:
+#             pass
+#         
+#     def stopTimer(self):                   
+#         try:
+#             self.timer.cancel()        
+#         except Exception, e:
+#             pass
+# 
+# 
+#     def onTimer(self):
+#         refresh = 30 * 60 #30 minutes
+#         if (datetime.datetime.today() - self.viewStartDate).seconds > refresh:
+#             self.viewStartDate  = datetime.datetime.today()
+#             self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
+#             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+#         else:
+#             self.updateTimebar()
+# 
+#         self.resetTimer()
+# 
+# 
     def close(self):
-        try:
-            self.stopTimer()
-            del self.timer
-        except:
-            pass
-
+        dixie.removeKepmap()
+#         try:
+#             self.stopTimer()
+#             del self.timer
+#         except:
+#             pass
+# 
         if not self.isClosing:
             self.isClosing = True
             # if self.player.isPlaying():
@@ -292,6 +306,17 @@ class TVGuide(xbmcgui.WindowXML):
 
     def final(self):
         xbmcgui.WindowXML.close(self)
+
+    def hideBlackout(self):
+        if self.blackout:
+            self.removeControl(self.blackout)
+            self.blackout = None
+
+    def showBlackout(self):
+        img = os.path.join(dixie.RESOURCES, 'blackout.jpg')
+        self.hideBlackout()
+        self.blackout = xbmcgui.ControlImage(0, 0, 1280, 720, img)
+        self.addControl(self.blackout)
 
 
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onInit'})
@@ -331,9 +356,9 @@ class TVGuide(xbmcgui.WindowXML):
             return
         self.database.initializeS(self.onSourceInitializedS, self.isSourceInitializationCancelled)
 
-        self.resetTimer()
+#         self.resetTimer()
 
-        #self.updateTimebar()
+        self.updateTimebar()
 
     @buggalo.buggalo_try_except({'method' : 'TVGuide.onAction'})
     def onAction(self, action):
@@ -479,6 +504,20 @@ class TVGuide(xbmcgui.WindowXML):
             except:
                 pass
 
+        if actionId in range(KEYZERO, KEYZERO+10):
+            key = actionId - KEYZERO
+            from channelchanger import ChannelChanger
+            channel = ChannelChanger(str(key), True)
+            channel.doModal()  
+            selection = channel.channel
+            del channel
+            try:
+                self.channelIdx = int(selection)-1
+                self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+            except:
+                pass
+
+
 
     def checkTouch(self,  action):
         id = action.getId()
@@ -587,14 +626,6 @@ class TVGuide(xbmcgui.WindowXML):
             # one single stream detected, save it and start streaming
             self.database.setCustomStreamUrl(program.channel, result)
             self.playChannel(program.channel)
-
-        # else:
-        #     # multiple matches, let user decide
-        #     d = ChooseStreamAddonDialog(result)
-        #     d.doModal()
-        #     if d.stream is not None:
-        #         self.database.setCustomStreamUrl(program.channel, d.stream)
-        #         self.playChannel(program.channel)
 
         else:
             # multiple matches, let user decide
@@ -832,10 +863,12 @@ class TVGuide(xbmcgui.WindowXML):
         wasPlaying = self.player.isPlaying()
         url = self.database.getStreamUrl(channel)
         if url:
-            if not wasPlaying:
-                self._hideControl(self.C_MAIN_BLACKOUT)
+            xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
+            # if not wasPlaying:
+            #     self._hideControl(self.C_MAIN_BLACKOUT)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
-            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d)' % (path, url, self.osdEnabled))
+            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
+            self.showBlackout()
 
             if not wasPlaying:
                 self._hideEpg()
@@ -930,10 +963,11 @@ class TVGuide(xbmcgui.WindowXML):
                 return False
 
             wasPlaying = self.player.isPlaying()
-            if not wasPlaying:
-                self._hideControl(self.C_MAIN_BLACKOUT)
+            # if not wasPlaying:
+            #     self._hideControl(self.C_MAIN_BLACKOUT)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
             xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, self.osdEnabled, name))
+            self.showBlackout()
 
             if not isRecorded:
                 filmon.removeRecording(url)
@@ -953,14 +987,19 @@ class TVGuide(xbmcgui.WindowXML):
 
     def waitForPlayBackStopped(self):
         for retry in range(0, 100):
-            time.sleep(0.1)
+            xbmc.sleep(100)
             if self.player.isPlaying():
                 break
 
-        self._showControl(self.C_MAIN_BLACKOUT)
-        while self.player.isPlaying() and not xbmc.abortRequested and not self.isClosing:
-            time.sleep(0.5)
+        retry = 5
+        while retry > 0:
+            xbmc.sleep(500)
+            while self.player.isPlaying() and not xbmc.abortRequested and not self.isClosing:
+                xbmc.sleep(500)
+                retry = 5
+            retry -= 1
 
+        xbmc.Player().stop()
         self.onPlayBackStopped()
 
     def _showOsd(self):
@@ -988,6 +1027,7 @@ class TVGuide(xbmcgui.WindowXML):
         self._hideControl(self.C_MAIN_OSD)
 
     def _hideEpg(self):
+        return
         self._hideControl(self.C_MAIN_EPG)
         self.mode = MODE_TV
         self._clearEpg()
@@ -998,16 +1038,18 @@ class TVGuide(xbmcgui.WindowXML):
             return # ignore redraw request while redrawing
         debug('onRedrawEPG')
 
+        self.hideBlackout()
+
         self.redrawingEPG = True
         self.mode = MODE_EPG
         self._showControl(self.C_MAIN_EPG)
-        self.updateTimebar()#scheduleTimer = False)
+        self.updateTimebar(scheduleTimer=False)
 
         # show Loading screen
         self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
         self._showControl(self.C_MAIN_LOADING)
         self.setFocusId(self.C_MAIN_LOADING_CANCEL)
-        self.hideTimebar()
+#         self.hideTimebar()
 
         # remove existing controls
         self._clearEpg()
@@ -1021,6 +1063,8 @@ class TVGuide(xbmcgui.WindowXML):
             return
 
         channelsWithoutPrograms = list(channels)
+        
+        self.refreshChannelLabels(self.channelIdx)
 
         # date and time row
         self.setControlLabel(self.C_MAIN_DATE, self.formatDate(self.viewStartDate))
@@ -1134,7 +1178,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.setFocus(self.controlAndProgramList[0].control)
 
         self._hideControl(self.C_MAIN_LOADING)
-        self.showTimebar()
+#         self.showTimebar()
         self.redrawingEPG = False
 
     def _clearEpg(self):
@@ -1177,28 +1221,28 @@ class TVGuide(xbmcgui.WindowXML):
             self.notification = Notification(self.database, ADDON.getAddonInfo('path'))
             self.onRedrawEPG(0, self.viewStartDate)
 
-    # def onSourceProgressUpdate(self, percentageComplete):
-    #     control = self.getControl(self.C_MAIN_LOADING_PROGRESS)
-    #     if percentageComplete < 1:
-    #         if control:
-    #             control.setPercent(1)
-    #         self.progressStartTime = datetime.datetime.now()
-    #         self.progressPreviousPercentage = percentageComplete
-    #     elif percentageComplete != self.progressPreviousPercentage:
-    #         if control:
-    #             control.setPercent(percentageComplete)
-    #         self.progressPreviousPercentage = percentageComplete
-    #         delta = datetime.datetime.now() - self.progressStartTime
-    # 
-    #         if percentageComplete < 20:
-    #             self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
-    #         else:
-    #             secondsLeft = int(delta.seconds) / float(percentageComplete) * (100.0 - percentageComplete)
-    #             if secondsLeft > 30:
-    #                 secondsLeft -= secondsLeft % 10
-    #             self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(TIME_LEFT) % secondsLeft)
-    # 
-    #     return not xbmc.abortRequested and not self.isClosing
+	def onSourceProgressUpdate(self, percentageComplete):
+		control = self.getControl(self.C_MAIN_LOADING_PROGRESS)
+		if percentageComplete < 1:
+			if control:
+				control.setPercent(1)
+			self.progressStartTime = datetime.datetime.now()
+			self.progressPreviousPercentage = percentageComplete
+		elif percentageComplete != self.progressPreviousPercentage:
+			if control:
+				control.setPercent(percentageComplete)
+			self.progressPreviousPercentage = percentageComplete
+			delta = datetime.datetime.now() - self.progressStartTime
+
+			if percentageComplete < 20:
+				self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
+			else:
+				secondsLeft = int(delta.seconds) / float(percentageComplete) * (100.0 - percentageComplete)
+				if secondsLeft > 30:
+					secondsLeft -= secondsLeft % 10
+				self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(TIME_LEFT) % secondsLeft)
+
+        return not xbmc.abortRequested and not self.isClosing
 
     def onPlayBackStopped(self):
         if not self.player.isPlaying() and not self.isClosing:
@@ -1326,8 +1370,10 @@ class TVGuide(xbmcgui.WindowXML):
 
     def setControlImage(self, controlId, image):
         control = self.getControl(controlId)
-        if control:
-            control.setImage(image.encode('utf-8'), useCache=False)
+        if not control:
+            return
+        try:    control.setImage(image.encode('utf-8'), useCache=False)
+        except: control.setImage(image.encode('utf-8'))
 
     def setControlLabel(self, controlId, label):
         control = self.getControl(controlId)
@@ -1339,22 +1385,7 @@ class TVGuide(xbmcgui.WindowXML):
         if control:
             control.setText(text)
 
-    def hideTimebar(self):
-        try:
-            self.timebarVisible = False
-            self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
-        except:
-            pass
-
-    def showTimebar(self):
-        try:
-            self.timebarVisible = True
-            self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
-        except:
-            pass
-
-
-    def updateTimebar(self): #, scheduleTimer = True):
+    def updateTimebar(self, scheduleTimer=True):
         try:
             # move timebar to current time
             timeDelta = datetime.datetime.today() - self.viewStartDate
@@ -1364,13 +1395,13 @@ class TVGuide(xbmcgui.WindowXML):
                 try:
                     # Sometimes raises:
                     # exceptions.RuntimeError: Unknown exception thrown from the call "setVisible"
-                    control.setVisible(timeDelta.days == 0 and self.timebarVisible)
+                    control.setVisible(timeDelta.days == 0)
                 except:
                     pass
                 control.setPosition(self._secondsToXposition(timeDelta.seconds), y)
 
-            #if scheduleTimer and not xbmc.abortRequested and not self.isClosing:
-            #    threading.Timer(1, self.updateTimebar).start()
+            if scheduleTimer and not xbmc.abortRequested and not self.isClosing:
+                threading.Timer(1, self.updateTimebar).start()
         except Exception:
             buggalo.onExceptionRaised()
 

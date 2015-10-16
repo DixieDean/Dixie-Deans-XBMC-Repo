@@ -1,3 +1,6 @@
+v1.0.6:
+  - On-Tapp.EPG 3.1.0 compatibility update.
+
 v1.0.5:
   - Added Categories to 'Edit Channel'
   - Added option to search Kodi sources for custom logos (in Add-on Settings)

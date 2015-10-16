@@ -53,7 +53,7 @@
 	</extension>
 </addon>
 
-<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.0.3" provider-name="Spoyser, DixieDean">
+<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.1.0" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -71,7 +71,7 @@
   </extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.0.3" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.1.0" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -118,7 +118,7 @@
     </extension>
 </addon>
 
-<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="1.0.5" provider-name="spoyser, DixieDean">
+<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="1.0.6" provider-name="spoyser, DixieDean">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>

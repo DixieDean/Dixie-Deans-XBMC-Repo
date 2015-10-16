@@ -18,25 +18,25 @@
 #
 
 import os
-import shutil
 
 import dixie
+import sfile
 
-datapath = dixie.datapath
+datapath = dixie.GetChannelFolder()
 
 
 def restoreChannels():
     src = os.path.join(datapath, 'channels-backup')
     dst = os.path.join(datapath, 'channels')
 
-    if not os.path.exists(src):
+    if not sfile.exists(src):
         return False
     
     try:
-        current, dirs, files = os.walk(src).next()
+        current, dirs, files = sfile.walk(src)
         for file in files:
             full = os.path.join(current, file)
-            shutil.copy(full,  dst)
+            sfile.copy(full,  dst)
     except Exception, e:
         print str(e)
         return False

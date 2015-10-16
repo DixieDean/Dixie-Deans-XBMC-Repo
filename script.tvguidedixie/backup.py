@@ -21,6 +21,7 @@ import xbmcgui
 import os
 
 import dixie
+import sfile
 
 import zipfile
 
@@ -69,12 +70,12 @@ def doZipfile(outputFile, dp):
     total = float(0)
     index = float(0)
 
-    for root, dirs, files in os.walk(source):
+    for root, dirs, files in sfile.walk(source):
         total += 1
         for file in files:
             total += 1
 
-    for root, dirs, files in os.walk(source):  
+    for root, dirs, files in sfile.walk(source):  
         if zip == None:
             zip = zipfile.ZipFile(outputFile, 'w', zipfile.ZIP_DEFLATED)
 

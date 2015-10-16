@@ -25,27 +25,14 @@ import os
 import source
 import dixie
 
-ID    = 'script.tvguidedixie'
-ADDON = xbmcaddon.Addon(id = ID)
 
-datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-cookiepath = os.path.join(datapath, 'cookies')
+ADDON = dixie.ADDON
+ID    = dixie.ADDONID
+
+
+datapath   = dixie.PROFILE
+cookiepath = os.path.join(datapath,   'cookies')
 cookiefile = os.path.join(cookiepath, 'cookie')
-
-if not os.path.exists(cookiepath):
-    os.makedirs(cookiepath)
-
-
-dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
-
-if os.path.exists(dst):
-   os.remove(dst)
-   xbmc.sleep(1000)
-   xbmc.executebuiltin('Action(reloadkeymaps)')
-
-
-import update
-update.checkForUpdate(silent = True)
 
 
 class Service(object):
@@ -75,31 +62,6 @@ class Service(object):
             n.scheduleNotifications()
         self.database.close(None)
 
-
-
-try:
-    #if ADDON.getSetting('cache.data.on.xbmc.startup') == 'true':
-    #    Service()
-    # Service()
-    pass
-
-except source.SourceNotConfiguredException:
-    pass
-
-except Exception, ex:
-    #xbmc.log('[script.tvguidedixie] Uncaught exception in service.py: %s' % str(ex) , xbmc.LOGDEBUG)
-    xbmc.log('[script.tvguidedixie] Uncaught exception in service.py: %s' % str(ex))
-
-
-
-if ADDON.getSetting('autoStart') == "true":
-    try:
-        #workaround Python bug in strptime which causes it to intermittently throws an AttributeError
-        import datetime, time
-        datetime.datetime.fromtimestamp(time.mktime(time.strptime('2013-01-01 19:30:00'.encode('utf-8', 'replace'), "%Y-%m-%d %H:%M:%S")))
-    except:
-        pass
-    xbmc.executebuiltin('RunScript(%s)' % ID)
 
 
 class MyMonitor(xbmc.Monitor):
@@ -132,6 +94,38 @@ class MyMonitor(xbmc.Monitor):
         for i in range(index, 10):
             dixie.SetSetting('INI_%d'   % i, '')
             dixie.SetSetting('INI_%d_E' % index, 'false')
+
+
+######################################################################
+#Functionality
+
+dixie.removeKepmap()
+dixie.patchSkins()
+
+if not os.path.exists(cookiepath):
+    os.makedirs(cookiepath)
+
+
+#legacy tidying up
+dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
+if os.path.exists(dst):
+   os.remove(dst)
+   xbmc.sleep(1000)
+   xbmc.executebuiltin('Action(reloadkeymaps)')
+
+
+import update
+update.checkForUpdate(silent = True)
+
+
+if ADDON.getSetting('autoStart') == "true":
+    try:
+        #workaround Python bug in strptime which causes it to intermittently throws an AttributeError
+        import datetime, time
+        datetime.datetime.fromtimestamp(time.mktime(time.strptime('2013-01-01 19:30:00'.encode('utf-8', 'replace'), "%Y-%m-%d %H:%M:%S")))
+    except:
+        pass
+    xbmc.executebuiltin('RunScript(%s)' % ID)
 
 
 monitor = MyMonitor()

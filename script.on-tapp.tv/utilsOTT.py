@@ -298,31 +298,38 @@ def downloadDefaults(url):
     url1 = url + 'ott/skins.zip'
     url2 = url + 'ottepg/skins.zip'
     url3 = url + 'ottepg/logos.zip'
+    url4 = url + 'ottepg/channels.zip'
     
     path1 = xbmc.translatePath(PROFILE)     # /addon_data/script.on-tapp.tv/
     path2 = os.path.join(epgpath, 'extras') # /addon_data/script.tvguidedixie/extras/
+    path3 = os.path.join(path2,   'skins')
+    path4 = os.path.join(path2,   'logos')
     
+    zip1  = os.path.join(path1,   'skins.zip')
+    zip2  = os.path.join(path2,   'skins.zip')
+    zip3  = os.path.join(path2,   'logos.zip')
+    zip4  = os.path.join(epgpath, 'channels.zip')
+
     if not os.path.exists(path1):
         os.makedirs(path1)
+        download.download(url1, zip1)
+        extract.all(zip1, path1, dp='Installing OTT skins')
+        os.remove(zip1)
     
-    if not os.path.exists(path2):
+    if not os.path.exists(path3):
         os.makedirs(path2)
+        download.download(url2, zip2)
+        extract.all(zip2, path2, dp='Installing EPG skins')
+        os.remove(zip2)
     
-    zip1  = os.path.join(path1, 'skins.zip')
-    zip2  = os.path.join(path2, 'skins.zip')
-    zip3  = os.path.join(path2, 'logos.zip')
-    
-    download.download(url1, zip1)
-    extract.all(zip1, path1, dp='Installing skins')
-    os.remove(zip1)
-    
-    download.download(url2, zip2)
-    extract.all(zip2, path2, dp='Installing skins')
-    os.remove(zip2)
-    
-    download.download(url3, zip3)
-    extract.all(zip3, path2)
-    os.remove(zip3)
+    if not os.path.exists(path4):
+        download.download(url3, zip3)
+        extract.all(zip3, path2)
+        os.remove(zip3)
+
+    download.download(url4, zip4)
+    extract.all(zip4, epgpath)
+    os.remove(zip4)
 
     Addon.setSetting('dixie.skin', 'FXB v4.0')
     setSetting('FIRSTRUN', 'true')

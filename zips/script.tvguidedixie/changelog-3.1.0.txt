@@ -1,6 +1,10 @@
-v3.0.3 (08-27-15)
-- Fixed custom logos disappearing.
-- Code updates.
+v3.1.0 (10-16-15)
+- Added channel surfing.
+- Added server/client functionality (share a master setup over a home network).
+- Added 'Reset System Messages' to the settings. Forces last message to show again.
+- Fixed triggering of some HLS streams.
+- Moved location of settings backup file to help stop lost settings after a Kodi crash.
+- Various code changes.
 
 v3.0.2 (08-23-15)
 - Fixed Add-on ID bug to allow uninstall.

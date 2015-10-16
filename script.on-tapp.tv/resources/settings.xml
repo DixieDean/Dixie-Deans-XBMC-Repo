@@ -2,8 +2,8 @@
 <settings>
     <category label="31000">
         <setting id="VERSION"    type="text"      label="Version"           default="0.0.0" visible="false"/>
-        <setting id="OTTSKIN"    type="text"      label="OTTSKINVersion"    default="1.0"   visible="false"/>
-        <setting id="EPGSKIN"    type="text"      label="EPGSKINVersion"    default="1.0"   visible="false"/>
+        <setting id="OTTSKIN"    type="text"      label="OTTSKINVersion"    default="2.0"   visible="false"/>
+        <setting id="EPGSKIN"    type="text"      label="EPGSKINVersion"    default="2.0"   visible="false"/>
         <setting id="LOGOCOLOUR" type="text"      label="LogoColourVersion" default="1.0"   visible="false"/>
         <setting id="LOGOWHITE"  type="text"      label="LogoWhiteVersion"  default="1.0"   visible="false"/>
         <setting id="OTTUPDATE"  type="text"      label="OTTPythonVersion"  default="1.4"   visible="false"/>

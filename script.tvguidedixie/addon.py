@@ -35,6 +35,7 @@ import update
 import dixie
 import getIni
 import filmon
+import sfile
 
 import settings
 settings.validate()
@@ -71,8 +72,8 @@ def CheckVersion():
     dixie.SetSetting('VERSION', curr)
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPGRADE.', 'Welcome to On-Tapp.TV 3.0', 'For help, please go to the forum release thread.')
-    # showChangelog()
+    d.ok(TITLE + ' - ' + VERSION, 'Welcome to On-Tapp.TV 3.0', 'For online support, please register at our new forum:', 'www.on-tapp-networks.com/forum')
+    showChangelog()
 
 
 def showChangelog(addonID=None):
@@ -120,14 +121,19 @@ def CheckChanXML():
         except:
             dixie.log('Error in CheckChanXML()')    
 
+
 def CheckForChannels():
-    dir    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    dir    = dixie.GetChannelFolder()
     folder = os.path.join(dir, 'channels')
     files  = []
-    try:    current, dirs, files = os.walk(folder).next()
+    try:    current, dirs, files = sfile.walk(folder)
     except: pass
     if len(files) == 0:
         dixie.SetSetting('updated.channels', -1) # force refresh of channels
+    
+    backup = os.path.join(dir, 'channels-backup')
+    if not sfile.exists(backup):
+        dixie.BackupChannels()
 
 
 def CheckIniVersion():

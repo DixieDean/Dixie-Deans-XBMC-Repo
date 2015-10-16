@@ -19,6 +19,7 @@
 #
 
 import os
+import sfile
 
 class Channel(object):
     def __init__(self, id, title='', logo='', streamUrl='', visible=1, weight=-1, categories='', userDef=0, desc='', isClone=0):
@@ -78,8 +79,8 @@ class Channel(object):
             filename, cloneID = self.cloneFilename(filename)
             localID += cloneID
             
-        try:    f = open(filename, mode='w')
-        except: return False        
+        try:    f = sfile.file(filename, 'w')
+        except: return False
 
         try:    f.write(localID.encode('utf8') + '\n')
         except: f.write(localID + '\n')
@@ -131,7 +132,7 @@ class Channel(object):
         root     = filename
         filename = root + '_clone_%d' % index
 
-        while os.path.exists(filename):
+        while sfile.exists(filename):
             index += 1
             filename = root + '_clone_%d' % index
 

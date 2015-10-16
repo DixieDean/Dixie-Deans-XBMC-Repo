@@ -41,6 +41,7 @@ from channel import Channel
 
 import dixie
 import settings
+import sfile
 
 import re
 import io
@@ -50,19 +51,20 @@ SOURCE    = dixie.GetSetting('source')
 DIXIEURL  = dixie.GetSetting('dixie.url').upper()
 GMTOFFSET = dixie.GetGMTOffset()
 
-datapath    = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
-channelPath = os.path.join(datapath, 'channels')
-
-
-try:    os.makedirs(channelPath)
-except: pass
-
+datapath  = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
 
 settingsFile = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'settings.cfg')
 
 USE_DB_FILE = True
 
 SETTINGS_TO_CHECK = ['dixie.url']
+
+channelFolder = dixie.GetChannelFolder()
+channelPath   = os.path.join(channelFolder, 'channels')
+dixie.log('Channel Folder Setting: %s' % channelPath)
+
+try:    sfile.makedirs(channelPath)
+except: pass
 
 
 def GetDixieUrl():
@@ -247,10 +249,9 @@ class Database(object):
         prevLogoFolder = dixie.GetSetting('PREVLOGO')
         currLogoFolder = logoFolder
 
-        if logoType == BUILTIN:
-            if currLogoFolder == prevLogoFolder:
-                return True
-
+        if currLogoFolder == prevLogoFolder:
+            return True
+        
         channels = self.getAllChannels()
 
         for ch in channels:
@@ -576,7 +577,7 @@ class Database(object):
         channels = []
 
         try:
-            current, dirs, files = os.walk(channelPath).next()
+            current, dirs, files = sfile.walk(channelPath)
         except Exception, e:
             dixie.log('Error in getAllChannels' % str(e))
             return channels
@@ -592,8 +593,8 @@ class Database(object):
         except: pass
 
         path = os.path.join(channelPath, id)
-        if os.path.exists(path):
-            try:    os.remove(path)
+        if sfile.exists(path):
+            try:    sfile.remove(path)
             except: pass            
 
 
@@ -607,7 +608,7 @@ class Database(object):
         if id not in self.channelDict:           
             self.channelDict[id] = channel.clone()
 
-        if not os.path.exists(path): 
+        if not sfile.exists(path): 
             channel.writeToFile(path)
 
 
@@ -625,7 +626,7 @@ class Database(object):
     def createChannel(self, channel):
         path = os.path.join(channelPath, channel.id)
 
-        if os.path.exists(path):
+        if sfile.exists(path):
             return
 
         self.addChannel(channel)
@@ -638,15 +639,13 @@ class Database(object):
     def getChannelFromFile(self, id):
         path = os.path.join(channelPath, id)
 
-        if not os.path.exists(path):
+        if not sfile.exists(path):
             return None
 
-        f = open(path, mode='r')
-        cfg = f.readlines()
-        f.close
-
-        return Channel(cfg)
+        cfg = sfile.readlines(path)
         
+        return Channel(cfg)
+
         ch = Channel(cfg[0], cfg[1], cfg[2], cfg[3], cfg[4], cfg[5], cfg[6])
 
         return ch
@@ -1204,11 +1203,10 @@ class DIXIESource(Source):
     def getDataFromExternal(self, date, progress_callback = None): 
         categories = self.getCategories()
         channels   = os.path.join(datapath, 'chan.xml')
+        
         try:
-            if os.path.exists(channels):
-                f = open(channels)
-                xml = f.read()
-                f.close()
+            if sfile.exists(channels):
+                xml = sfile.read(channels)
         except:
             dixie.log('Error reading chan.xml')
         
@@ -1227,12 +1225,10 @@ class DIXIESource(Source):
 
     def getCategories(self):        
         cat  = dict()
-        path = os.path.join(datapath, 'cats.xml')        
+        path = os.path.join(datapath, 'cats.xml')
         try:
-            if os.path.exists(path):
-                f = open(path)
-                xml = f.read()
-                f.close()
+            if sfile.exists(path):
+                xml = sfile.read(path)
         except: pass
         
         xml = xml.replace('&', '&amp;')
@@ -1294,7 +1290,7 @@ def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
                     try:
                         category = categories[title]
                         result.categories = category
-                        dixie.log('The category for %s is %s' % (title, category))
+                        # dixie.log('The category for %s is %s' % (title, category))
                     except:
                         dixie.log('Couldnt find %s in the categories' % (title))
 
@@ -1308,24 +1304,6 @@ def parseXMLTV(context, f, size, progress_callback, offset=0, categories=None):
         root.clear()
     f.close()
     
-
-def parseCATEGORIES(self, f, context):
-    path = os.path.join(datapath, 'cats.xml')
-    if os.path.exists(path):
-        f = open(path)
-        xml = f.read()
-        f.close()
-
-    for event, elem in context:
-        if event == "end":
-            result = None
-            if elem.get == "channel":
-                categories = elem.findtext("category")
-                result = Channel(categories)
-            return self.categories
-        else:
-            return None
-
 
 class FileWrapper(object):
     def __init__(self, filename):

@@ -29,6 +29,7 @@ import os
 import re
 
 import utils
+import sfile
 
 import sys
 ott  = xbmcaddon.Addon(id = 'script.tvguidedixie')
@@ -59,6 +60,7 @@ FRODO    = utils.FRODO
 GOTHAM   = utils.GOTHAM
 
 KODISOURCE = ADDON.getSetting('KODISOURCE') == 'true'
+USERLOGOS  = OTT_ADDON.getSetting('logo.type') == '1'
 
 # -----Addon Modes ----- #
 
@@ -122,17 +124,17 @@ def main():
     totalItems = len(channels)
 
     for ch in channels:        
-        channel  = ch[2]
-        id       = ch[1]         
-        title    = channel.title
-        logo     = channel.logo
-        weight   = channel.weight
-        hidden   = channel.visible == 0
-        stream   = channel.streamUrl
-        userDef  = channel.userDef == 1
-        desc     = channel.desc
+        channel    = ch[2]
+        id         = ch[1]         
+        title      = channel.title
+        logo       = channel.logo
+        weight     = channel.weight
+        hidden     = channel.visible == 0
+        stream     = channel.streamUrl
+        userDef    = channel.userDef == 1
+        desc       = channel.desc
         categories = channel.categories
-        isClone  = channel.isClone == 1
+        isClone    = channel.isClone == 1
 
         if hidden and not SHOWHIDDEN:
             continue
@@ -404,14 +406,14 @@ def editChannel(id):
     CATEGORY     = 700
     CLONE        = 800
 
-    title    = channel.title
-    weight   = channel.weight
+    title      = channel.title
+    weight     = channel.weight
     categories = channel.categories
-    hidden   = int(channel.visible) == 0
-    userDef  = int(channel.userDef) == 1
-    isClone  = int(channel.isClone) == 1
+    hidden     = int(channel.visible) == 0
+    userDef    = int(channel.userDef) == 1
+    isClone    = int(channel.isClone) == 1
 
-    hideLabel = 'Show channel' if hidden else 'Hide channel'
+    hideLabel  = 'Show channel' if hidden else 'Hide channel'
 
     menu = []
     menu.append(['Rename channel', RENAME])
@@ -539,7 +541,7 @@ def newChannel():
         id = createID(title)
 
         try:
-            current, dirs, files = os.walk(OTT_CHANNELS).next()
+            current, dirs, files = sfile.walk(OTT_CHANNELS)
         except Exception, e:
             return False
 
@@ -579,7 +581,8 @@ def updateLogo(id):
     if not logo:
         return False
 
-    logo = convertToHome(logo)
+    if not USERLOGOS:
+        logo = convertToHome(logo)
 
     channel.logo = logo
 
@@ -651,7 +654,7 @@ def getAllChannels(alphaSort = False):
     channels = []
 
     try:
-        current, dirs, files = os.walk(OTT_CHANNELS).next()
+        current, dirs, files = sfile.walk(OTT_CHANNELS)
     except Exception, e:
         return channels
     
@@ -676,12 +679,12 @@ def getAllChannels(alphaSort = False):
 def getChannelFromFile(id):
     path = os.path.join(OTT_CHANNELS, id)
 
-    if not os.path.exists(path):
+    if not sfile.exists(path):
         return None
 
-    f = open(path, mode='r')
-    cfg = f.readlines()
-    f.close
+    # f = open(path, mode='r')
+    cfg = sfile.readlines(path)
+    # f.close
 
     return Channel(cfg)
 

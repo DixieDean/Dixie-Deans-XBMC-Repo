@@ -20,18 +20,20 @@
 import xbmc
 import xbmcgui
 import xbmcaddon
-import shutil
 import os
+import sfile
+
+import dixie
 
 
 def resetChannels():
-    path = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
+    path = dixie.GetChannelFolder()
     chan = os.path.join(path, 'channels')
 
-    if os.path.exists(chan):
+    if sfile.exists(chan):
         xbmc.executebuiltin('Dialog.Show(busydialog)')
         
-        shutil.rmtree(chan)
+        sfile.rmtree(chan)
         
         xbmc.executebuiltin('Dialog.Close(busydialog)')
 
