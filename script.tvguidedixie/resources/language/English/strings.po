@@ -187,7 +187,7 @@ msgid "Click to - Restore Channels."
 msgstr ""
 
 msgctxt "#30132"
-msgid "Click to - Fully Reset On-TappTV. ALL settings will be lost inc. user/pass."
+msgid "Click to - Fully Reset On-Tapp.TV. ALL settings will be lost inc. user/pass."
 msgstr ""
 
 #empty strings from id 30133 to 30149

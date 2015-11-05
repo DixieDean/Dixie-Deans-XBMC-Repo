@@ -28,7 +28,6 @@ import urllib
 
 from xml.etree import ElementTree
 
-import buggalo
 import xbmcaddon
 import xbmcplugin
 from strings import *
@@ -51,9 +50,8 @@ SOURCE    = dixie.GetSetting('source')
 DIXIEURL  = dixie.GetSetting('dixie.url').upper()
 GMTOFFSET = dixie.GetGMTOffset()
 
-datapath  = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie/')
-
-settingsFile = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'settings.cfg')
+datapath     = dixie.PROFILE
+settingsFile = os.path.join(datapath, 'settings.cfg')
 
 USE_DB_FILE = True
 
@@ -154,10 +152,6 @@ class Database(object):
         self.updateFailed = False
         self.settingsChanged = None
 
-        buggalo.addExtraData('source', self.source.KEY)
-        for key in SETTINGS_TO_CHECK:
-           buggalo.addExtraData('setting: %s' % key, ADDON.getSetting(key))
-
         self.channelList = []
         self.channelDict = {}
 
@@ -201,7 +195,7 @@ class Database(object):
 
             except Exception, e:
                 dixie.log('Database.eventLoop() >>>>>>>>>> exception! %s' % str(e))
-                buggalo.onExceptionRaised()
+                raise
 
         dixie.log('Database.eventLoop() >>>>>>>>>> exiting...')
 
@@ -293,15 +287,15 @@ class Database(object):
 
             except sqlite3.OperationalError:
                 if cancel_requested_callback is None:
-                    xbmc.log('[script.tvguidedixie] EPG Database is locked, bailing out...', xbmc.LOGDEBUG)
+                    sfile.log('EPG Database is locked, bailing out...')
                     break
                 else:  # ignore 'database is locked'
-                    xbmc.log('[script.tvguidedixie] EPG Database is locked, retrying...', xbmc.LOGDEBUG)
+                    dixie.log('EPG Database is locked, retrying...')
 
             except sqlite3.DatabaseError:
                 self.connP = None
                 if self.alreadyTriedUnlinking:
-                    xbmc.log('[script.tvguidedixie] EPG Database is broken and unlink() failed', xbmc.LOGDEBUG)
+                    dixie.log('EPG Database is broken and unlink() failed')
                     break
                 else:
                     try:
@@ -459,7 +453,7 @@ class Database(object):
                     self.channelDict[channel] = theChannel
 
         try:
-            xbmc.log('[script.tvguidedixie] Updating caches...', xbmc.LOGDEBUG)
+            dixie.log('Updating caches...')
             if progress_callback:
                 progress_callback(0)
 

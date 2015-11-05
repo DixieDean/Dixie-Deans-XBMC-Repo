@@ -198,4 +198,5 @@ if __name__ == '__main__':
     xbmc.executebuiltin('Dialog.Show(busydialog)')
     Uploader = LogUploader()
     xbmc.executebuiltin('Dialog.Close(busydialog)')
-    addon.openSettings()
+    import dixie
+    dixie.openSettings(focus='3.1')

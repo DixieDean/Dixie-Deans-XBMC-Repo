@@ -18,16 +18,12 @@
 #
 
 import os
-import xbmc
-import xbmcgui
-import xbmcaddon
+import dixie
 import urllib
 
-import dixie
-
-ADDON       = xbmcaddon.Addon(id = 'script.tvguidedixie')
+ADDON       = dixie.ADDON
 FTVINI      = ADDON.getSetting('ftv.ini')
-datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+datapath    = dixie.PROFILE
 inipath     = os.path.join(datapath, 'ini')
 current_ini = os.path.join(datapath, 'addons.ini')
 
@@ -57,6 +53,8 @@ def getIni():
 
 
 def ftvIni():
+    import xbmcaddon
+
     if FTVINI == 'UK Links':
         ftv = 'uk.ini'
     else:
@@ -87,7 +85,6 @@ def ftvIni():
 
 if __name__ == '__main__':
     getIni()
-    d = xbmcgui.Dialog()
-    d.ok('TV Guide Dixie', 'Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
+    dixie.DialogOK('Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
     ftvIni()
 

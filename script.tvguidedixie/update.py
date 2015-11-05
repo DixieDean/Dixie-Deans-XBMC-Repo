@@ -18,7 +18,6 @@
 #
 
 import xbmc
-import xbmcaddon
 import xbmcgui
 import os
 import re
@@ -32,21 +31,22 @@ requests.packages.urllib3.disable_warnings()
 import json
 
 import dixie
+import sfile
 
-ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
-TITLE    = ADDON.getAddonInfo('name')
+
 DIXIEURL = dixie.GetSetting('dixie.url').upper()
 username = dixie.GetSetting('username')
 password = dixie.GetSetting('password')
 response = ''
 
+home       = dixie.HOME
 datapath   = dixie.PROFILE
 extras     = os.path.join(datapath, 'extras')
 logos      = os.path.join(extras,   'logos')
 logofolder = os.path.join(logos,    'None')
 logodest   = os.path.join(logos,    'logos.zip')
 
-cookiepath = os.path.join(datapath, 'cookies')
+cookiepath = os.path.join(datapath,   'cookies')
 cookiefile = os.path.join(cookiepath, 'cookie')
 
 try:
@@ -59,42 +59,22 @@ except:
 
 
 def generateMD5(path):
-    if not os.path.exists(path):
+    if not sfile.exists(path):
         return '0'
 
     try:
         import hashlib        
-        return hashlib.md5(open(path, 'r').read()).hexdigest()
+        return hashlib.md5(sfile.read(path)).hexdigest()
     except:
         pass
 
     try:
         import md5
-        return md5.new(open(path, 'r').read() ).hexdigest()
+        return md5.new(sfile.read(path)).hexdigest()
     except:
         pass
         
     return '0'
-
-
-
-def ok(title, line1, line2 = '', line3 = ''):
-   dlg = xbmcgui.Dialog()
-   dlg.ok(title, line1, line2, line3)
-
-
-
-def yesno(title, line1, line2 = '', line3 = '', no = 'No', yes = 'Yes'):
-   dlg = xbmcgui.Dialog()
-   return dlg.yesno(title, line1, line2, line3, no, yes) == 1
-
-
-
-def progress(title, line1 = '', line2 = '', line3 = ''):
-    dp = xbmcgui.DialogProgress()
-    dp.create(title, line1, line2, line3)
-    dp.update(0)
-    return dp
 
 
 
@@ -147,7 +127,7 @@ def checkForUpdate(silent = 1):
     
     if 'Error' in response:
         if not silent:
-            ok(TITLE, 'Oops! An error has occured: ', response['Error'], 'Please check your account at www.on-tapp.tv')
+            dixie.DialogOK('Oops! An error has occured: ', response['Error'], 'Please check your account at www.on-tapp.tv')
 
         allDone(silent)
         return False
@@ -156,20 +136,20 @@ def checkForUpdate(silent = 1):
 
     if not isValid:
         if not silent:
-            ok(TITLE, '', 'No EPG update available.', 'Please try again later.')
+            dixie.DialogOK('', 'No EPG update available.', 'Please try again later.')
         allDone(silent)
         return False
    
     try:
         if updateAvailable(response['Date']):
-            dixie.log ('%s EPG Update Available - %s' % (TITLE, response['Date']))
+            dixie.log ('EPG Update Available - %s' % response['Date'])
             getUpdate(response, silent)
 
         else:
             #do restore to ensure not malformed
             restoreFromZip()
             if not silent:
-                ok(TITLE, 'EPG is up-to-date.')
+                dixie.DialogOK('EPG is up-to-date.')
     except:
         pass
 
@@ -191,8 +171,8 @@ def setAlarm(mins):
     #set script to run again in x minutes
 
     updateMins = mins
-    addonPath  = xbmc.translatePath(ADDON.getAddonInfo('path'))
-    name       = TITLE + ' EPG Update'
+    addonPath  = home
+    name       = dixie.TITLE + ' EPG Update'
     script     = os.path.join(addonPath, 'update.py')
     args       = '1' #silent
     cmd        = 'AlarmClock(%s,RunScript(%s,%s),%d,True)' % (name, script, args, updateMins)
@@ -206,7 +186,7 @@ def getResponse(silent=False):
         return {'Error' : 'Failed to obtain a valid response from On-Tapp.TV'}
 
     url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
-    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile))
+    request  = requests.get(url, cookies=dixie.loadCookies(cookiefile), verify=False)
     code     = request.status_code
     response = request.content
 
@@ -233,7 +213,7 @@ def getResponse(silent=False):
 
 
 def updateAvailable(latest):
-    dir    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    dir    = datapath
     folder = os.path.join(dir, 'channels')
 
     files = []
@@ -279,7 +259,7 @@ def getUpdate(response, silent):
             deleteFile(path) 
             return False  
 
-        profile = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+        profile = datapath
 
         #delete existng zips files
         file = []
@@ -322,7 +302,7 @@ def getUpdate(response, silent):
 
 
 def restoreFromZip():
-    profile = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    profile = datapath
 
     file = []
     try:    current, dirs, files = os.walk(profile).next()
@@ -340,7 +320,7 @@ def restoreFromZip():
 
 
 def newEPGAvailable(date):
-    dir = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+    dir = datapath
     deleteFile(os.path.join(dir, 'program.db'))   
 
     dst = os.path.join(dir, 'program.db')
@@ -358,7 +338,7 @@ def newEPGAvailable(date):
 
 def getDownloadPath(date):
     try:
-        path = ADDON.getAddonInfo('profile')
+        path = datapath
         path = xbmc.translatePath(path)
         path = os.path.join(path, 'program-%s.newzip' % date)
         return path

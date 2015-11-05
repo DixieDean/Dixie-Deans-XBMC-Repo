@@ -18,25 +18,15 @@
 #
 
 import os
-import xbmc
-import xbmcgui
-import xbmcaddon
+import dixie
 
-addonPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
-cookiePath = os.path.join(addonPath, 'cookies')
-cookieFile = os.path.join(cookiePath, 'cookie')
+
+cookieFile = os.path.join(dixie.PROFILE, 'cookies', 'cookie')
 
 
 def deleteCookie():
-    try:
-        delete_file(cookieFile)
-        
-        passed = not os.path.exists(cookieFile)
-
-        return passed
-
-    except:
-        return False
+    try:    return delete_file(cookieFile)        
+    except: return False
 
 def delete_file(filename):
     tries = 10
@@ -47,13 +37,11 @@ def delete_file(filename):
         except: 
             tries -= 1
 
+    return not os.path.exists(filename)
+
 if __name__ == '__main__':
     if deleteCookie():
         os.rmdir(cookiePath)
-        d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Cookie file successfully deleted.', 'It will be re-created next time', 'you start the guide')    
+        dixie.DialogOK('Cookie file successfully deleted.', 'It will be re-created next time', 'you start the guide')    
     else:
-        d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Failed to delete cookie file.', 'The file may be locked,', 'please restart XBMC and try again')    
-
-
+        dixie.DialogOK('Failed to delete cookie file.', 'The file may be locked,', 'please restart Kodi and try again')    

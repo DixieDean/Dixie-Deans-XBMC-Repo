@@ -46,7 +46,7 @@ def getPayload():
 ADDON      = xbmcaddon.Addon(id = 'script.tvguidedixie')
 DIXIEURL   = dixie.GetSetting('dixie.url').upper()
 baseurl    = dixie.GetLoginUrl()
-datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+datapath   = dixie.PROFILE
 cookiepath = os.path.join(datapath, 'cookies')
 cookiefile = os.path.join(cookiepath, 'on-tapp.lwp')
 
@@ -55,22 +55,25 @@ urlopen = urllib2.urlopen
 Request = urllib2.Request
 cj      = cookielib.LWPCookieJar()
 opener  = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+
 urllib2.install_opener(opener)
 
-if not os.path.exists(cookiepath):
-    try:
-        os.makedirs(cookiepath)
+
+if not sfile.exists(cookiepath):
+    try:    sfile.makedirs(cookiepath)
     except: pass
 
-if os.path.isfile(cookiefile):
+
+if sfile.exists(cookiefile):
     cj.load(cookiefile)
 
 
 def resetCookie():
     try:
-        if os.path.isfile(cookiefile):
-            os.remove(cookiefile)
-    except: pass
+        if sfile.exists(cookiefile):
+            sfile.remove(cookiefile)
+    except:
+        pass
 
 
 def doLogin():
@@ -100,9 +103,9 @@ def checkFiles(url):
     code     = request.status_code
     reason   = request.reason
     
-    print '----- Check OnTapp.TV Files -----'
-    print '---------- status code ----------'
-    print code
+    dixie.log('----- Check OnTapp.TV Files -----')
+    dixie.log('---------- status code ----------')
+    dixie.Log(code)
 
     return code
 

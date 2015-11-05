@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.1.0" provider-name="Spoyser, DixieDean">
+<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.1.1" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
@@ -8,7 +8,11 @@
         <import addon="plugin.video.ontapp-player" version="0.0.2"/>
         <import addon="plugin.program.super.favourites" version="1.0.35"/>		
     </requires>	
-    <extension point="xbmc.python.script" library="default.py" />
+	
+	<extension point="xbmc.python.script" library="default.py">
+		<provides>video audio executable</provides>
+	</extension>
+	
 	<extension point="xbmc.service" library="service.py" start="login" />
     <extension point="xbmc.addon.metadata">
 		<summary lang="en">A powerful EPG add-on with many extra features. Streaming support via multiple live TV addons.</summary>

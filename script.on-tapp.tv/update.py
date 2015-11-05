@@ -28,10 +28,11 @@ import os
 
 import utilsOTT as utils
 
-ADDONID = 'script.on-tapp.tv'
-ADDON   =  xbmcaddon.Addon(ADDONID)
-HOME    =  ADDON.getAddonInfo('path')
-PROFILE =  ADDON.getAddonInfo('profile')
+
+ADDON   =  utils.ADDON
+HOME    =  utils.HOME
+PROFILE =  utils.PROFILE
+
 
 AddonID = 'script.tvguidedixie'
 Addon   =  xbmcaddon.Addon(AddonID)
@@ -47,7 +48,6 @@ FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 
 def checkUpdate():
     if not FIRSTRUN:
-        
         BASEURL = utils.getBaseURL(OTTURL)
         utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now do a back-up of any', 'existing files before installation.')
         utils.doBackup()
@@ -120,7 +120,7 @@ def checkUpdate():
             path    = xbmc.translatePath(HOME)
             zipfile = os.path.join(path, 'python-update.zip')
             
-            utils.doUpdate(url, path, zipfile)
+            utils.doOTTUpdate(url, path, zipfile, ottupdate)
             utils.setSetting('OTTUPDATE', curr)
 
 
@@ -132,12 +132,12 @@ def checkUpdate():
             path    = xbmc.translatePath(epghome)
             zipfile = os.path.join(path, 'python-update.zip')
             
-            utils.doUpdate(url, path, zipfile)
+            utils.doEPGUpdate(url, path, zipfile, epgupdate)
             utils.setSetting('EPGUPDATE', curr)
 
 
 def getResponse():
-    request  = requests.get(URL)
+    request  = requests.get(URL, verify=False)
     response = request.content
 
     utils.Log('Response in checkUpdate %s' % str(response))

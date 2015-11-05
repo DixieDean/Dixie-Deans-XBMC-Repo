@@ -26,7 +26,6 @@ import xbmcgui
 import source as src
 from notification import Notification
 from strings import *
-import buggalo
 
 import streaming
 import xbmcaddon
@@ -79,7 +78,6 @@ xml_file = os.path.join('script-tvguide-main.xml')
 if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
     XML  = xml_file
 
-DEBUG = False
 
 MODE_EPG = 'EPG'
 MODE_TV = 'TV'
@@ -147,7 +145,7 @@ except:
     pass
 
 def debug(s):
-    if DEBUG: xbmc.log(str(s), xbmc.LOGDEBUG)
+    dixie.log(str(s))
 
 class Point(object):
     def __init__(self):
@@ -204,7 +202,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.refresh = False
         self.notification = None
         self.redrawingEPG = False
-#         self.timebarVisible = False
+        self.timebarVisible = False
         self.isClosing = False
         self.controlAndProgramList = list()
         self.ignoreMissingControlIds = list()
@@ -225,6 +223,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.alternativePlayback = ADDON.getSetting('alternative.playback') == 'true'
         self.osdChannel = None
         self.osdProgram = None
+        self.osdWhen    = datetime.datetime.today() - datetime.timedelta(seconds=30) #ie in the past
 
         self.touch    = False
         self.prevCtrl = -1
@@ -255,46 +254,49 @@ class TVGuide(xbmcgui.WindowXML):
             if controlId in self.ignoreMissingControlIds:
                 return None
             if not self.isClosing:
-                xbmcgui.Dialog().ok(buggalo.getRandomHeading(), strings(SKIN_ERROR_LINE1), strings(SKIN_ERROR_LINE2), strings(SKIN_ERROR_LINE3))
+                dixie.DialogOK(strings(SKIN_ERROR_LINE1), strings(SKIN_ERROR_LINE2), strings(SKIN_ERROR_LINE3))
                 self.close()
             return None
 
-# 
-#     def resetTimer(self):
-#         try:
-#             self.stopTimer()
-#             self.timer = threading.Timer(1*60, self.onTimer)        
-#             self.timer.start()
-#         except Exception, e:
-#             pass
-#         
-#     def stopTimer(self):                   
-#         try:
-#             self.timer.cancel()        
-#         except Exception, e:
-#             pass
-# 
-# 
-#     def onTimer(self):
-#         refresh = 30 * 60 #30 minutes
-#         if (datetime.datetime.today() - self.viewStartDate).seconds > refresh:
-#             self.viewStartDate  = datetime.datetime.today()
-#             self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
-#             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-#         else:
-#             self.updateTimebar()
-# 
-#         self.resetTimer()
-# 
-# 
+ 
+    def resetTimer(self):
+        try:
+            self.stopTimer()
+            self.timer = threading.Timer(1*60, self.onTimer)        
+            self.timer.start()
+        except Exception, e:
+            pass
+         
+    def stopTimer(self):                   
+        try:    self.timer.cancel()        
+        except: pass
+ 
+ 
+    def onTimer(self):
+        refresh = 30 * 60 #30 minutes
+
+        timeDelta = datetime.datetime.today() - self.viewStartDate
+        secs      = timeDelta.seconds
+        days      = timeDelta.days
+        inZone    = (days == 0) and (secs < 2*60*60)
+
+        if secs > refresh and inZone:
+            self.viewStartDate  = datetime.datetime.today()
+            self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
+            self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+        
+        self.updateTimebar() 
+        self.resetTimer()
+ 
+ 
     def close(self):
         dixie.removeKepmap()
-#         try:
-#             self.stopTimer()
-#             del self.timer
-#         except:
-#             pass
-# 
+        try:
+            self.stopTimer()
+            del self.timer
+        except:
+            pass
+ 
         if not self.isClosing:
             self.isClosing = True
             # if self.player.isPlaying():
@@ -319,7 +321,6 @@ class TVGuide(xbmcgui.WindowXML):
         self.addControl(self.blackout)
 
 
-    @buggalo.buggalo_try_except({'method' : 'TVGuide.onInit'})
     def onInit(self):
         if self.initialized:
             if self.refresh:
@@ -328,6 +329,10 @@ class TVGuide(xbmcgui.WindowXML):
                 self.onRedrawEPG(self.channelIdx, self.viewStartDate)
                 # onInit(..) is invoked again by XBMC after a video addon exits after being invoked by XBMC.RunPlugin(..)
             return
+
+
+        windowID = xbmcgui.getCurrentWindowId()
+        xbmcgui.Window(10000).setProperty('OTT_WINDOW', str(windowID))          
 
         self.initialized = True
         self._hideControl(self.C_MAIN_MOUSE_CONTROLS, self.C_MAIN_OSD)
@@ -354,13 +359,12 @@ class TVGuide(xbmcgui.WindowXML):
             self.onSourceNotConfigured()
             self.close()
             return
+
         self.database.initializeS(self.onSourceInitializedS, self.isSourceInitializationCancelled)
 
-#         self.resetTimer()
+        self.resetTimer()
 
-        self.updateTimebar()
 
-    @buggalo.buggalo_try_except({'method' : 'TVGuide.onAction'})
     def onAction(self, action):
         debug('Mode is: %s' % self.mode)
 
@@ -505,17 +509,21 @@ class TVGuide(xbmcgui.WindowXML):
                 pass
 
         if actionId in range(KEYZERO, KEYZERO+10):
-            key = actionId - KEYZERO
-            from channelchanger import ChannelChanger
-            channel = ChannelChanger(str(key), True)
-            channel.doModal()  
-            selection = channel.channel
-            del channel
-            try:
-                self.channelIdx = int(selection)-1
-                self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-            except:
-                pass
+            now = datetime.datetime.today()
+            #don't allow 2 OSD to be created
+            if (now - self.osdWhen).seconds > 1.5:
+                self.osdWhen = now
+                key = actionId - KEYZERO
+                from osd import OSD
+                channel = OSD(str(key), True)
+                channel.doModal()  
+                selection = channel.channel
+                del channel
+                try:
+                    self.channelIdx = int(selection)-1
+                    self.onRedrawEPG(self.channelIdx, self.viewStartDate)
+                except:
+                    pass
 
 
 
@@ -562,8 +570,6 @@ class TVGuide(xbmcgui.WindowXML):
         return id
 
 
-
-    @buggalo.buggalo_try_except({'method' : 'TVGuide.onClick'})
     def onClick(self, controlId):
         if controlId in [self.C_MAIN_LOADING_CANCEL, self.C_MAIN_MOUSE_EXIT]:
             self.close()
@@ -747,7 +753,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         super(TVGuide, self).setFocus(control)
 
-    @buggalo.buggalo_try_except({'method' : 'TVGuide.onFocus'})
+
     def onFocus(self, controlId):
         try:
             controlInFocus = self.getControl(controlId)
@@ -1043,13 +1049,13 @@ class TVGuide(xbmcgui.WindowXML):
         self.redrawingEPG = True
         self.mode = MODE_EPG
         self._showControl(self.C_MAIN_EPG)
-        self.updateTimebar(scheduleTimer=False)
+        self.updateTimebar()
 
         # show Loading screen
         self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
         self._showControl(self.C_MAIN_LOADING)
         self.setFocusId(self.C_MAIN_LOADING_CANCEL)
-#         self.hideTimebar()
+        self.hideTimebar()
 
         # remove existing controls
         self._clearEpg()
@@ -1178,7 +1184,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.setFocus(self.controlAndProgramList[0].control)
 
         self._hideControl(self.C_MAIN_LOADING)
-#         self.showTimebar()
+        self.showTimebar()
         self.redrawingEPG = False
 
     def _clearEpg(self):
@@ -1194,12 +1200,12 @@ class TVGuide(xbmcgui.WindowXML):
         del self.controlAndProgramList[:]
 
     def onEPGLoadError(self):
-        print 'Delete DB OnTapp.TV - onEPGLoadError'
+        dixie.log('Delete DB OnTapp.TV - onEPGLoadError')
         deleteDB.deleteDB()
         self.redrawingEPG = False
         self._hideControl(self.C_MAIN_LOADING)
         xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(LOAD_ERROR_LINE2), strings(LOAD_ERROR_LINE3))
-        print '****** OnTapp.TV. Possible unicode text error. *******'
+        dixie.log('****** OnTapp.TV. Possible unicode text error. *******')
         self.close()
 
 
@@ -1216,33 +1222,12 @@ class TVGuide(xbmcgui.WindowXML):
     def onSourceInitializedS(self, success):
         self.database.initializeP(self.onSourceInitializedP, self.isSourceInitializationCancelled)
 
+
     def onSourceInitializedP(self, success):
         if success:
             self.notification = Notification(self.database, ADDON.getAddonInfo('path'))
             self.onRedrawEPG(0, self.viewStartDate)
 
-	def onSourceProgressUpdate(self, percentageComplete):
-		control = self.getControl(self.C_MAIN_LOADING_PROGRESS)
-		if percentageComplete < 1:
-			if control:
-				control.setPercent(1)
-			self.progressStartTime = datetime.datetime.now()
-			self.progressPreviousPercentage = percentageComplete
-		elif percentageComplete != self.progressPreviousPercentage:
-			if control:
-				control.setPercent(percentageComplete)
-			self.progressPreviousPercentage = percentageComplete
-			delta = datetime.datetime.now() - self.progressStartTime
-
-			if percentageComplete < 20:
-				self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(CALCULATING_REMAINING_TIME))
-			else:
-				secondsLeft = int(delta.seconds) / float(percentageComplete) * (100.0 - percentageComplete)
-				if secondsLeft > 30:
-					secondsLeft -= secondsLeft % 10
-				self.setControlLabel(self.C_MAIN_LOADING_TIME_LEFT, strings(TIME_LEFT) % secondsLeft)
-
-        return not xbmc.abortRequested and not self.isClosing
 
     def onPlayBackStopped(self):
         if not self.player.isPlaying() and not self.isClosing:
@@ -1254,6 +1239,7 @@ class TVGuide(xbmcgui.WindowXML):
 
     def _secondsToXposition(self, seconds):
         return self.epgView.left + (seconds * self.epgView.width / 7200)
+
 
     def _findControlOnRight(self, point):
         distanceToNearest = 10000
@@ -1385,25 +1371,44 @@ class TVGuide(xbmcgui.WindowXML):
         if control:
             control.setText(text)
 
-    def updateTimebar(self, scheduleTimer=True):
+
+    def hideTimebar(self):
+        try:
+            self.timebarVisible = False
+            self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
+        except:
+            pass
+
+    def showTimebar(self):
+        try:
+            self.timebarVisible = True
+            self.getControl(self.C_MAIN_TIMEBAR).setVisible(self.timebarVisible)
+        except:
+            pass
+
+    def updateTimebar(self):
         try:
             # move timebar to current time
             timeDelta = datetime.datetime.today() - self.viewStartDate
+            days      = timeDelta.days
+            secs      = timeDelta.seconds
+            inZone    = (days == 0) and (secs < 2*60*60)
+
             control = self.getControl(self.C_MAIN_TIMEBAR)
             if control:
                 (x, y) = control.getPosition()
                 try:
                     # Sometimes raises:
                     # exceptions.RuntimeError: Unknown exception thrown from the call "setVisible"
-                    control.setVisible(timeDelta.days == 0)
+                    control.setVisible(inZone)
                 except:
                     pass
                 control.setPosition(self._secondsToXposition(timeDelta.seconds), y)
 
-            if scheduleTimer and not xbmc.abortRequested and not self.isClosing:
-                threading.Timer(1, self.updateTimebar).start()
+            #if scheduleTimer and not xbmc.abortRequested and not self.isClosing:
+            #    threading.Timer(1, self.updateTimebar).start()
         except Exception:
-            buggalo.onExceptionRaised()
+            raise
 
 
 class PopupMenu(xbmcgui.WindowXMLDialog):
@@ -1452,7 +1457,6 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         self.touch = touch
 
 
-    @buggalo.buggalo_try_except({'method' : 'PopupMenu.onInit'})
     def onInit(self):
         # self.getControl(self.C_POPUP_OTTOOLS).setVisible(False) RD -Temporary hide of the 4oD button until a new use is found for it.
 
@@ -1525,7 +1529,6 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         xbmcgui.Window(10000).clearProperty('TVG_popup_id')
 
 
-    @buggalo.buggalo_try_except({'method' : 'PopupMenu.onAction'})
     def onAction(self, action):
         try:
             id = int(xbmcgui.Window(10000).getProperty('TVG_popup_id'))
@@ -1538,7 +1541,6 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
             self.close()
             return
 
-    @buggalo.buggalo_try_except({'method' : 'PopupMenu.onClick'})
     def onClick(self, controlId):
         if controlId == self.C_POPUP_CHOOSE_STREAM and self.database.getCustomStreamUrl(self.program.channel):
 
@@ -1584,13 +1586,13 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
         self.channelList = database.getChannelList(onlyVisible = False)
         self.swapInProgress = False
 
-    @buggalo.buggalo_try_except({'method' : 'ChannelsMenu.onInit'})
+
     def onInit(self):
         self.updateChannelList()
         self.setFocusId(self.C_CHANNELS_LIST)
         self.move = False
 
-    @buggalo.buggalo_try_except({'method' : 'ChannelsMenu.onAction'})
+
     def onAction(self, action):
         if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK, KEY_CONTEXT_MENU]:
             self.close()
@@ -1643,7 +1645,6 @@ class ChannelsMenu(xbmcgui.WindowXMLDialog):
                 idx += 1
 
 
-    @buggalo.buggalo_try_except({'method' : 'ChannelsMenu.onClick'})
     def onClick(self, controlId):
         if controlId == self.C_CHANNELS_LIST:
             listControl = self.getControl(self.C_CHANNELS_LIST)
@@ -1784,7 +1785,6 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.player.stop()
         super(StreamSetupDialog, self).close()
 
-    @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onInit'})
     def onInit(self):
         self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
 
@@ -1821,7 +1821,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl = self.getControl(StreamSetupDialog.C_STREAM_PLAYLIST)
         listControl.addItems(items)
 
-    @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onAction'})
+
     def onAction(self, action):
         if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK, KEY_CONTEXT_MENU]:
             self.close()
@@ -1831,7 +1831,6 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             self.updateAddonInfo()
 
 
-    @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onClick'})
     def onClick(self, controlId):
         if controlId == self.C_STREAM_STRM_BROWSE:
             stream = xbmcgui.Dialog().browse(1, ADDON.getLocalizedString(30304), 'video', mask='.xsp|.strm')
@@ -1938,7 +1937,7 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
                     self.getControl(self.C_STREAM_SUPERFAVE_PREVIEW).setLabel(strings(STOP_PREVIEW))
                     self.getControl(self.C_STREAM_STRM_PREVIEW).setLabel(strings(STOP_PREVIEW))
 
-    @buggalo.buggalo_try_except({'method' : 'StreamSetupDialog.onFocus'})
+
     def onFocus(self, controlId):
         if controlId == self.C_STREAM_STRM_TAB:
             self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
@@ -1991,7 +1990,7 @@ class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
         self.addons = addons
         self.stream = None
 
-    @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onInit'})
+
     def onInit(self):
         items = list()
         for id, label, url in self.addons:
@@ -2010,19 +2009,16 @@ class ChooseStreamAddonDialog(xbmcgui.WindowXMLDialog):
 
         self.setFocus(listControl)
 
-    @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onAction'})
     def onAction(self, action):
         if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK]:
             self.close()
 
-    @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onClick'})
     def onClick(self, controlId):
         if controlId == ChooseStreamAddonDialog.C_SELECTION_LIST:
             listControl = self.getControl(ChooseStreamAddonDialog.C_SELECTION_LIST)
             self.stream = listControl.getSelectedItem().getProperty('stream')
             self.close()
 
-    @buggalo.buggalo_try_except({'method' : 'ChooseStreamAddonDialog.onFocus'})
     def onFocus(self, controlId):
         pass
 
@@ -2060,19 +2056,16 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
         self.swapInProgress = False
 
 
-    @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onInit'})
     def onInit(self):
         self.updateCategoriesList()
         self.setFocusId(self.C_CATEGORIES_LIST)
 
 
-    @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onAction'})
     def onAction(self, action):
         if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK, KEY_CONTEXT_MENU]:
             self.close()
             return
 
-    @buggalo.buggalo_try_except({'method' : 'CategoriesMenu.onClick'})
     def onClick(self, controlId):
         if controlId == self.C_CATEGORIES_LIST:
             listControl = self.getControl(self.C_CATEGORIES_LIST)

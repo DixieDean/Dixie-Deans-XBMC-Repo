@@ -21,9 +21,12 @@
 
 import xbmc
 import xbmcaddon
+import xbmcgui
 
-ID    = 'script.on-tapp.tv'
-ADDON = xbmcaddon.Addon(id = ID)
+import utilsOTT as utils
+
+
+ADDON = utils.ADDON
 
 
 if ADDON.getSetting('autoStart') == "true":
@@ -34,3 +37,50 @@ if ADDON.getSetting('autoStart') == "true":
     except:
         pass
     xbmc.executebuiltin('RunScript(%s)' % ID)
+
+
+#------------------------------------------------------------------------
+
+
+class MyMonitor(xbmc.Monitor):
+    def __init__(self):
+        xbmc.Monitor.__init__(self)
+
+        self.settings = {}
+        self.settings['SKIN'] = ''        
+
+        self._onSettingsChanged(init=True)
+
+
+    def onSettingsChanged(self):
+        self._onSettingsChanged()
+
+
+    def _onSettingsChanged(self, init=False):
+        relaunch = False
+
+        for key in self.settings:
+            value = utils.getSetting(key)
+            if value <> self.settings[key]:
+                relaunch           = True
+                self.settings[key] = value
+
+        if init:
+            return
+
+        if relaunch:
+            utils.Log('Settings changed - relaunching')
+            self.relaunch()
+
+    def relaunch(self):
+        xbmcgui.Window(10000).setProperty('OTT_RELAUNCH', 'true')
+        
+#------------------------------------------------------------------------
+
+
+monitor = MyMonitor()
+
+while (not xbmc.abortRequested):
+    xbmc.sleep(1000)   
+
+del monitor

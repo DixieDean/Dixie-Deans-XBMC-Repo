@@ -55,6 +55,16 @@ def GetSetting(param):
     return xbmcaddon.Addon(ADDONID).getSetting(param)
 
 
+def GetXBMCVersion():
+    version = xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')
+    version = version.split('.')
+    return int(version[0]), int(version[1]) #major, minor eg, 13.9.902
+
+
+MAJOR, MINOR = GetXBMCVersion()
+FRODO        = (MAJOR == 12) and (MINOR < 9)
+
+
 DIXIEURL    =  GetSetting('dixie.url').upper()
 DIXIELOGOS  =  GetSetting('dixie.logo.folder')
 SKIN        =  GetSetting('dixie.skin')
@@ -335,7 +345,7 @@ def doLogin(silent=False):
     log ('************ On-Tapp.EPG Login ************')
     with requests.Session() as s:
         try:
-            s.get(GetLoginUrl())
+            s.get(GetLoginUrl(), verify=False)
         except: 
             #Rich, you might want to log something here???
             return False
@@ -345,7 +355,7 @@ def doLogin(silent=False):
         code     =  0
         
         if GetSetting('username') and GetSetting('password'):
-            login    = s.post(GetLoginUrl(), data=PAYLOAD)
+            login    = s.post(GetLoginUrl(), data=PAYLOAD, verify=False)
             response = login.content
             code     = login.status_code
             saveCookies(s.cookies, cookiefile)
@@ -434,13 +444,30 @@ def Progress(line1 = '', line2 = '', line3 = '', hide = False):
     return dp
 
 
-def DeleteFile(path):
-    tries = 5
-    while os.path.exists(path) and tries > 0:
-        tries -= 1 
-        try: 
-            os.remove(path) 
-            break 
-        except: 
-            xbmc.sleep(500)
+def openSettings(focus=None):
+    addonID = ADDONID
+    if not focus: 
+        print "3&&&&&&&&&&&&"           
+        return xbmcaddon.Addon(addonID).openSettings()
+    
+    try:
+        xbmc.executebuiltin('Addon.OpenSettings(%s)' % addonID)
+
+        value1, value2 = str(focus).split('.')
+
+        if FRODO:
+            print "1 ARE WE HERE???"
+            print value1
+            print value2
+            xbmc.executebuiltin('SetFocus(%d)' % (int(value1) + 200))
+            xbmc.executebuiltin('SetFocus(%d)' % (int(value2) + 100))
+        else:
+            print "2 ARE WE HERE???"
+            xbmc.executebuiltin('SetFocus(%d)' % (int(value1) + 100))
+            xbmc.executebuiltin('SetFocus(%d)' % (int(value2) + 200))
+
+    except Exception, e:
+        print "EEEEEEEEEEEEEEEEEEEEEEEEEEE"
+        print str(e)
+        return
     

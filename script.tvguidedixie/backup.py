@@ -33,6 +33,24 @@ LINE2 = 'Please wait, this may take a while.'
 
 
 def doBackup():
+    CUSTOM = '1'
+
+    channelType = dixie.GetSetting('chan.type')
+    logoType    = dixie.GetSetting('logo.type')
+
+    if channelType == CUSTOM:
+        dixie.ShowBusy()
+        chanpath = dixie.GetSetting('user.chan.folder')
+        dixie.MoveChannels(chanpath)
+        dixie.CloseBusy()
+
+    if logoType == CUSTOM:
+        dixie.ShowBusy()
+        logopath = dixie.GetSetting('user.logo.folder')
+        dixie.MoveLogos(logopath)
+        dixie.CloseBusy()
+        
+
     try:
         folder  = getFolder('Please select backup folder location')
 
@@ -70,12 +88,12 @@ def doZipfile(outputFile, dp):
     total = float(0)
     index = float(0)
 
-    for root, dirs, files in sfile.walk(source):
+    for root, dirs, files in os.walk(source):
         total += 1
         for file in files:
             total += 1
 
-    for root, dirs, files in sfile.walk(source):  
+    for root, dirs, files in os.walk(source):  
         if zip == None:
             zip = zipfile.ZipFile(outputFile, 'w', zipfile.ZIP_DEFLATED)
 

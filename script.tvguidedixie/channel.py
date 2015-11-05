@@ -21,6 +21,16 @@
 import os
 import sfile
 
+
+def tidy(text):
+    if (not isinstance(text, unicode)) and (not isinstance(text, str)):
+        text = str(text)
+    text = text.replace('\n', '')
+    text = text.replace('\r', '')
+    text = text.replace('\\', '/')
+    return text
+
+
 class Channel(object):
     def __init__(self, id, title='', logo='', streamUrl='', visible=1, weight=-1, categories='', userDef=0, desc='', isClone=0):
         if isinstance(id, list):
@@ -31,26 +41,20 @@ class Channel(object):
 
     def set(self, id, title, logo, streamUrl, visible, weight, categories, userDef, desc, isClone):
         if logo:
-            logo = logo.replace('\\', '/').replace('\n', '').replace('\r', '')
-        self.id         = id.replace('\n', '').replace('\r', '')
-        self.title      = title.replace('\n', '').replace('\r', '')
-        self.categories = categories.replace('\n', '').replace('\r', '')
+            logo = tidy(logo)
+
+        self.id         = tidy(id)
+        self.title      = tidy(title)
+        self.categories = tidy(categories)
         self.logo       = logo
-        self.streamUrl  = streamUrl.replace('\n', '').replace('\r', '')
+        self.streamUrl  = tidy(streamUrl)
 
-        try:    self.visible = int(visible.replace('\n', '').replace('\r', ''))
-        except: self.visible = int(visible)
+        self.visible = int(tidy(visible))
+        self.weight  = int(tidy(weight))
+        self.userDef = int(tidy(userDef))
+        self.isClone = int(tidy(isClone))
 
-        try:    self.weight = int(weight.replace('\n', '').replace('\r', ''))
-        except: self.weight = int(weight)
-
-        try:    self.userDef = int(userDef.replace('\n', '').replace('\r', ''))
-        except: self.userDef = int(userDef)
-
-        try:    self.isClone = int(isClone.replace('\n', '').replace('\r', ''))
-        except: self.isClone = int(isClone)
-
-        self.desc = desc.replace('\n', '').replace('\r', '')
+        self.desc = tidy(desc)
 
 
     def setFromList(self, list):

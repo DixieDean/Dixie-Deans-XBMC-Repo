@@ -98,7 +98,7 @@ class Application(xbmcgui.WindowXML):
         self.showBack        = False
         self.timer           = None
         self.faves           = str(favourites.getFavourites())
-        self.relaunch        = False
+        #self.relaunch        = False
         self.counter         = 0
         self.listSize        = -1
 
@@ -172,9 +172,14 @@ class Application(xbmcgui.WindowXML):
         if self.counter == 5:
             self.clearProperty('LB_FOOTER')
 
-        if self.relaunch:
+        #if self.relaunch:
+        #    self.doRelaunch()
+        #    return
+
+
+        if xbmcgui.Window(10000).getProperty('OTT_RELAUNCH') == 'true':
+            xbmcgui.Window(10000).setProperty('OTT_RELAUNCH', 'false')
             self.doRelaunch()
-            return
 
         if self.listSize <> self.getListSize():
             self.containerRefresh()
@@ -189,7 +194,7 @@ class Application(xbmcgui.WindowXML):
 
     def doRelaunch(self):
         self.stopTimer()
-        self.relaunch = False
+        #self.relaunch = False
         utils.Launch()
         self.close()
 
@@ -507,7 +512,7 @@ class Application(xbmcgui.WindowXML):
 
     def addonSettings(self):
         xbmcaddon.Addon(self.ADDONID).openSettings()
-        self.relaunch = True
+        #self.relaunch = True
         return True
         
         

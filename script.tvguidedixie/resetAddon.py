@@ -18,20 +18,24 @@
 #
 
 import xbmc
-import xbmcgui
 import xbmcaddon
-import shutil
 
+import sfile
+import dixie
 
 def resetAddon():
-    path = xbmc.translatePath('special://profile/addon_data/script.tvguidedixie')
-    shutil.rmtree(path)
+    ottv     = xbmcaddon.Addon('script.on-tapp.tv')
+    ottvdir  = ottv.getAddonInfo('profile')
     
-    d = xbmcgui.Dialog()
-    d.ok('On-Tapp.TV', 'On-Tapp.TV successfully reset.', 'It will be re-created next time', 'you start the guide')
+    sfile.rmtree(dixie.PROFILE)
+    sfile.rmtree(ottvdir)
+    
+    dixie.DialogOK('On-Tapp.TV successfully reset.', 'It will be re-created next time', 'you start the guide')
 
 
 if __name__ == '__main__':
-    xbmc.executebuiltin('Dialog.Show(busydialog)')
     resetAddon()
-    xbmc.executebuiltin('Dialog.Close(busydialog)')
+    settings = xbmc.translatePath('special://profile/settings.bak')
+    
+    try: sfile.remove(settings)
+    except: pass

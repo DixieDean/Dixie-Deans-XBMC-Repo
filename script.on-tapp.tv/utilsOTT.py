@@ -23,8 +23,11 @@ import xbmcgui
 import xbmc
 import urllib
 import os
+    
 
 import json as simplejson 
+
+import sfile
 
 
 ADDONID = 'script.on-tapp.tv'
@@ -263,17 +266,13 @@ def getKodiSetting(setting):
 
 
 def doBackup():
-    import shutil
     import datetime
     
     src = os.path.join(epgpath, 'channels')
     dst = os.path.join(epgpath, 'channels-backup')
     
-    try:    shutil.rmtree(dst)
-    except: pass
-    
-    try:    shutil.copytree(src, dst)
-    except: pass
+    sfile.remove(dst)
+    sfile.copy(src, dst)
     
     
     if os.path.exists(logos):
@@ -285,8 +284,7 @@ def doBackup():
         dst = os.path.join(logos, cur+'-%s' % date)
     
         try:
-            shutil.copytree(src, dst)
-            shutil.rmtree(src)
+            sfile.rename(src, dst)
         except:
             pass
 
@@ -314,22 +312,22 @@ def downloadDefaults(url):
         os.makedirs(path1)
         download.download(url1, zip1)
         extract.all(zip1, path1, dp='Installing OTT skins')
-        os.remove(zip1)
+        sfile.remove(zip1)
     
     if not os.path.exists(path3):
         os.makedirs(path2)
         download.download(url2, zip2)
         extract.all(zip2, path2, dp='Installing EPG skins')
-        os.remove(zip2)
+        sfile.remove(zip2)
     
     if not os.path.exists(path4):
         download.download(url3, zip3)
         extract.all(zip3, path2)
-        os.remove(zip3)
+        sfile.remove(zip3)
 
     download.download(url4, zip4)
     extract.all(zip4, epgpath)
-    os.remove(zip4)
+    sfile.remove(zip4)
 
     Addon.setSetting('dixie.skin', 'FXB v4.0')
     setSetting('FIRSTRUN', 'true')
@@ -343,7 +341,7 @@ def downloadSkins(url, path, zipfile):
     
     download.download(url, zipfile)
     extract.all(zipfile, path, dp='Installing skin update')
-    os.remove(zipfile)
+    sfile.remove(zipfile)
      
     
 def downloadLogos(url, path, zipfile):
@@ -354,17 +352,29 @@ def downloadLogos(url, path, zipfile):
     
     download.download(url, zipfile)
     extract.all(zipfile, path, dp='Installing logo update')
-    os.remove(zipfile)
+    sfile.remove(zipfile)
+    
 
-
-def doUpdate(url, path, zipfile):
+def doOTTUpdate(url, path, zipfile, ottupdate):
     import download
     import extract
     
-    DialogOK('An On-Tapp.TV "Live Update" is available.', 'It will be downloaded and installed on your system.', 'Thank you.')
+    DialogOK('An On-Tapp.TV "Live Update" is available.', 'OTTV Update %s will be downloaded and installed on your system.' % (ottupdate), 'Thank you.')
+    download.download(url, zipfile)
+    extract.all(zipfile, path, dp='Installing python update')
+    sfile.remove(zipfile)
+    Log('OTT Update %s installed' % str(ottupdate))
+    xbmc.executebuiltin('UpdateLocalAddons')
+
+
+def doEPGUpdate(url, path, zipfile, epgupdate):
+    import download
+    import extract
+
+    DialogOK('An On-Tapp.EPG "Live Update" is available.', 'EPG Update %s will be downloaded and installed on your system.' % (epgupdate), 'Thank you.')
     
     download.download(url, zipfile)
     extract.all(zipfile, path, dp='Installing python update')
-    os.remove(zipfile)
-    xbmc.executebuiltin("UpdateLocalAddons")
-    
+    sfile.remove(zipfile)
+    Log('EPG Update %s installed' % str(epgupdate))
+    xbmc.executebuiltin('UpdateLocalAddons')

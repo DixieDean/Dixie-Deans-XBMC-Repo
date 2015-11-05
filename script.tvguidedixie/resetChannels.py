@@ -34,6 +34,8 @@ def resetChannels():
         xbmc.executebuiltin('Dialog.Show(busydialog)')
         
         sfile.rmtree(chan)
+        dixie.SetSetting('logo.type', '0')
+        dixie.SetSetting('dixie.logo.folder', 'None')
         
         xbmc.executebuiltin('Dialog.Close(busydialog)')
 

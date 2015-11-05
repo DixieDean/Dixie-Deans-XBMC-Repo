@@ -26,7 +26,7 @@ import datetime
 import dixie
 
 from sqlite3        import dbapi2 as sqlite3
-from channelchanger import ChannelChanger
+from osd import OSD
 
 
 def action(key):
@@ -35,34 +35,40 @@ def action(key):
         return
 
     dixie.log('Key pressed %s' % key)    
+    print 'Key pressed %s' % key
 
-    if not key in ['SELECT', 'PGUP', 'PGDOWN', 'UP', 'DOWN', 'LEFT', 'RIGHT', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+    if not key in ['SELECT', 'PGUP', 'PGDOWN', 'UP', 'DOWN', 'LEFT', 'RIGHT', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'G']:
         dixie.log('Input not recognised')    
         return
 
     xbmcgui.Window(10000).setProperty('OTT_CHANGE_SCRIPT', 'TRUE')
 
     if key in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-        channel = ChannelChanger(key)
+        channel = OSD(key)
         channel.doModal()     
         del channel
         return
 
 
-    if key in ['LEFT', 'RIGHT']:
-        channel = ChannelChanger('PREV')
+    if key == 'LEFT':
+        channel = OSD('PREV')
+        channel.doModal()     
+        del channel
+        return
+
+    if key in ['RIGHT', 'G']:
+        channel = OSD()
         channel.doModal()     
         del channel
         return
 
     if key == 'SELECT':
-        channel = ChannelChanger('')
+        channel = OSD()
         channel.doModal()     
         del channel
         return
 
-
-    channel = ChannelChanger('')
+    channel = OSD()
     channel.doModal()     
     del channel
     return
@@ -79,11 +85,11 @@ def action(key):
 
 
 if xbmcgui.Window(10000).getProperty('OTT_CHANGE_SCRIPT') == 'TRUE':
-    dixie.log('Script already running')    
+    dixie.log('Change script already running')    
 else:
     try:
         action(sys.argv[1].upper())
     except Exception, e:
         dixie.log('Error in change script %s' % str(e))    
-        print str(e)
-    xbmcgui.Window(10000).clearProperty('OTT_CHANGE_SCRIPT')
+
+xbmcgui.Window(10000).clearProperty('OTT_CHANGE_SCRIPT')

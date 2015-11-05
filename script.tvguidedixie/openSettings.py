@@ -24,16 +24,14 @@ import xbmc
 import xbmcgui
 import os
 
-id = 'script.tvguidedixie'
+import dixie
 
-
-ADDON = xbmcaddon.Addon(id = id)
-ADDON.openSettings()
+dixie.ADDON.openSettings()
 
 xbmcgui.Window(10000).setProperty('OTT_KODI', 'false')
 
-name   =  'OTT'
-script =  os.path.join(ADDON.getAddonInfo('path'), 'launch.py')
+name   =  dixie.TITLE
+script =  os.path.join(dixie.HOME, 'launch.py')
 args   =  ''
 cmd    = 'AlarmClock(%s,RunScript(%s,%s),%d,True)' % (name, script, args, 0)
 

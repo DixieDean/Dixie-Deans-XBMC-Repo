@@ -1,5 +1,5 @@
 
-#       Copyright (C) 2013-
+#       Copyright (C) 2013-2014
 #       Sean Poyser (seanpoyser@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
@@ -23,19 +23,7 @@ import xbmcgui
 import xbmcaddon
 import os
 
-import utilsOTT as utils
-
-SKIN    = utils.getSetting('SKIN')
-
-datapath   = utils.PROFILE
-skinfolder = os.path.join(datapath, 'skins')
-skinpath   = os.path.join(skinfolder, SKIN)
-xml_file   = os.path.join('contextmenu.xml')
-
-if os.path.join(SKIN, 'skins', 'Default', '720p', xml_file):
-    XML  = xml_file
-
-PATH = skinpath
+import utils
 
 ACTION_BACK          = 92
 ACTION_PARENT_DIR    = 9
@@ -46,11 +34,15 @@ ACTION_RIGHT = 2
 ACTION_UP    = 3
 ACTION_DOWN  = 4
 
+USE_HELIX = (not utils.FRODO) and (not utils.GOTHAM)
 
 class ContextMenu(xbmcgui.WindowXMLDialog):
 
     def __new__(cls, addonID, menu):
-        return super(ContextMenu, cls).__new__(cls, XML, PATH)
+        if USE_HELIX:
+            return super(ContextMenu, cls).__new__(cls, 'contextmenu_helix.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
+        else:
+            return super(ContextMenu, cls).__new__(cls, 'contextmenu.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
         
 
     def __init__(self, addonID, menu):
@@ -59,17 +51,26 @@ class ContextMenu(xbmcgui.WindowXMLDialog):
 
         
     def onInit(self):
+        line   = 38
+        spacer = 20
+        delta  = 0 
 
-        for i in range(4):
-            self.getControl(5001+i).setVisible(False)
+        nItem = len(self.menu)
+        if nItem > 16:
+            nItem = 16
+            delta = 1
 
-        nItem = len(self.menu)  
-        if nItem > 4:
-            nItem = 4      
-        id = 5000 + nItem
-        self.getControl(id).setVisible(True)
+        height = (line+spacer) + (nItem*line)
 
-        self.list      = self.getControl(3000)
+        self.getControl(5001).setHeight(height)
+            
+        self.list = self.getControl(3000)
+        self.list.setHeight(height-spacer-(delta*line))
+
+        newY = 360 - (height/2)
+
+        self.getControl(5000).setPosition(self.getControl(5000).getX(), newY)
+
         self.params    = None
         self.paramList = []
 
@@ -82,21 +83,15 @@ class ContextMenu(xbmcgui.WindowXMLDialog):
         self.setFocus(self.list)
 
            
-    def onAction(self, action):
+    def onAction(self, action):        
         actionId = action.getId()
-
-        #print 'onAction actionID %d' % actionId
 
         if actionId in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, ACTION_BACK]:
             return self.close()
 
-        #if actionId in [ACTION_LEFT, ACTION_RIGHT]:
-        #    self.setFocusId(3001)       
-
 
     def onClick(self, controlId):
         if controlId != 3001:
-            #print 'onClick %d' % controlId
             index = self.list.getSelectedPosition()        
             try:    self.params = self.paramList[index]
             except: self.params = None
@@ -113,4 +108,5 @@ def showMenu(addonID, menu):
     menu.doModal()
     params = menu.params
     del menu
+    print "FINISHED MENU"
     return params

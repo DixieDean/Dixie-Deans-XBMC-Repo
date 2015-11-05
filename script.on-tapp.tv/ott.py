@@ -143,7 +143,7 @@ def Main():
 
 
 def ShowCatchup():
-    AddAddon('BBC iPlayer', 'plugin.video.bbciplayer', _ADDON, icon=os.path.join(IMAGES, 'OTTV-BBC_iPlayer.png'))
+    AddAddon('BBC iPlayer', 'plugin.video.iplayerwww', _ADDON, icon=os.path.join(IMAGES, 'OTTV-BBC_iPlayer.png'))
     AddAddon('ITV Player',  'plugin.video.itv',        _ADDON, icon=os.path.join(IMAGES, 'OTTV-ITV_Player.png'))
     AddAddon('UKTV Play',   'plugin.video.uktvplay',   _ADDON, icon=os.path.join(IMAGES, 'OTTV-UKTV_Play.png'))
 

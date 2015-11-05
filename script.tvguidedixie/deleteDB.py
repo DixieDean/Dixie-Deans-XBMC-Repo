@@ -24,19 +24,18 @@ import xbmcaddon
 import settings
 import dixie
 
-addon        = xbmcaddon.Addon(id = 'script.tvguidedixie')
-settingsFile = os.path.join(xbmc.translatePath(addon.getAddonInfo('profile')), 'settings.cfg')
+settingsFile = xbmc.translatePath(os.path.join(dixie.PROFILE, 'settings.cfg'))
 
 
 def deleteDB():
     try:
         import glob
-        xbmc.log("[script.tvguidedixie] Deleting database...", xbmc.LOGDEBUG)
-        dbPath  = xbmc.translatePath(xbmcaddon.Addon(id = 'script.tvguidedixie').getAddonInfo('profile'))
+        dixie.log('Deleting database...')
+        dbPath  = dixie.PROFILE
         dbFile  = os.path.join(dbPath, 'program.db')
         zipPath = os.path.join(dbPath, '*.zip')
         zipFile = glob.glob(zipPath)
-        print '=================== zipFile =================', zipFile
+        #print '=================== zipFile =================', zipFile
     
         delete_file(dbFile)
     
@@ -47,14 +46,14 @@ def deleteDB():
         passed = (not os.path.exists(dbFile)) and (not os.path.exists(zipName))
 
         if passed: 
-            xbmc.log("[script.tvguidedixie] Deleting database...PASSED", xbmc.LOGDEBUG)
+            dixie.log('Deleting database...PASSED')
         else:
-            xbmc.log("[script.tvguidedixie] Deleting database...FAILED", xbmc.LOGDEBUG)
+            dixie.log('Deleting database...FAILED')
 
         return passed
 
     except Exception, e:
-        xbmc.log('[script.tvguidedixie] Deleting database...EXCEPTION', xbmc.LOGDEBUG)
+        dixie.log('Deleting database...EXCEPTION %s' % str(e))
         return False
 
 def delete_file(filename):
@@ -72,10 +71,9 @@ if __name__ == '__main__':
     
     if deleteDB():
         xbmc.executebuiltin('Dialog.Close(busydialog)')
-        d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
+        dixie.DialogOK('EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
     
     else:
         xbmc.executebuiltin('Dialog.Close(busydialog)')
         d = xbmcgui.Dialog()
-        d.ok('OnTapp.TV', 'Failed to reset EPG.', 'Database may be locked,', 'please restart XBMC and try again')
+        dixie.DialogOK('Failed to reset EPG.', 'Database may be locked,', 'please restart Kodi and try again')

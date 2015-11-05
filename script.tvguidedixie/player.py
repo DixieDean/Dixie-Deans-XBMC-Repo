@@ -57,6 +57,11 @@ def get_params(p):
 
 
 def playSF(url):
+    launchID = '10025'
+    if xbmcgui.Window(10000).getProperty('OTT_LAUNCH_ID') == launchID:
+        url = url.replace('ActivateWindow(%s' % launchID, 'ActivateWindow(10501')
+        launchID = '10501'
+
     try:
         if url.startswith('__SF__'):
             url = url.replace('__SF__', '')
@@ -146,7 +151,7 @@ def playSF(url):
         print str(e)
         pass
 
-    url = 'ActivateWindow(10025,%s)' % url
+    url = 'ActivateWindow(%s,%s)' % (launchID, url)
     xbmc.executebuiltin(url)
     return True, ''
 
@@ -154,27 +159,20 @@ def playSF(url):
 def play(url, windowed, name=None):
     dixie.ShowBusy()
     
-    windowID  = xbmcgui.getCurrentWindowId()
-    initSleep = 1
- 
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
  
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, sfURL = playSF(url)
         if handled:
-            while not xbmc.Player().isPlaying() and initSleep > 0:
-                initSleep -= 1
-                xbmc.sleep(1000)
-            while xbmc.Player().isPlaying():
-                xbmc.sleep(1000)
-                CheckIdle(maxIdle)
-            xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
             dixie.CloseBusy()
             return
         else:
             url = sfURL
+            dixie.CloseBusy()
  
+    dixie.loadKepmap()
+    
     if url.lower().startswith('plugin://plugin.video.skygo'):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         dixie.CloseBusy()
@@ -202,9 +200,6 @@ def play(url, windowed, name=None):
     while xbmc.Player().isPlaying():
         xbmc.sleep(1000)
         CheckIdle(maxIdle)
- 
-    xbmc.executebuiltin('ActivateWindow(%d)' % windowID)
-    dixie.CloseBusy()
 
 
 def checkForAlternateStreaming(url):
@@ -270,7 +265,6 @@ def checkForAlternateStreaming(url):
 
     return False
 
-
 def alternateStream(url):
     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
     
@@ -288,6 +282,4 @@ if __name__ == '__main__':
     if len(sys.argv) > 3:
         name = sys.argv[3]
 
-    dixie.loadKepmap()
     play(sys.argv[1], sys.argv[2] == 1, name)
-    # dixie.removeKepmap()

@@ -19,15 +19,11 @@
 #
 
 import xbmc
-import xbmcaddon
 import requests
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
 
 import dixie
-
-ADDONID = 'script.tvguidedixie'
-ADDON   =  xbmcaddon.Addon(ADDONID)
 
 def CheckCredentials():
     xbmc.executebuiltin('Dialog.Show(busydialog)')
@@ -38,17 +34,17 @@ def CheckCredentials():
     
     if 'login not successful' in response:
         dixie.DialogOK('We failed to verify your credentials', '', 'Please check your settings.')
-        ADDON.openSettings()
-
     else:
         dixie.DialogOK('Your login details are correct.', '', 'Thank you.')
+
+    dixie.openSettings(focus='0.4')
 
 
 def getResponse():    
     URL     = dixie.GetVerifyUrl()
-    USER    = ADDON.getSetting('username')
-    PASS    = ADDON.getSetting('password')
-    PAYLOAD = { 'username' : USER, 'password' : PASS }
+    USER    = dixie.GetSetting('username')
+    PASS    = dixie.GetSetting('password')
+    PAYLOAD = {'username':USER, 'password':PASS}
     
     request  = requests.post(URL, data=PAYLOAD)
     response = request.content

@@ -22,24 +22,15 @@
 import xbmc
 import xbmcaddon
 import os
+
 import dixie
+import sfile
 
 
 ADDON = dixie.ADDONID
 
 ORIGINAL = 'settings.xml'
 BACKUP   = 'settings.bak'
-
-
-def DeleteFile(file):
-    tries = 10
-    while os.path.exists(file) and tries > 0:
-        tries -= 1 
-        try: 
-            os.remove(file) 
-            break 
-        except: 
-            xbmc.sleep(100)
 
 
 def validate():
@@ -62,9 +53,8 @@ def backupSettings():
     dst   = os.path.join(udata, BACKUP)
 
     try:
-        DeleteFile(dst)
-        import shutil
-        shutil.copyfile(src, dst)
+        sfile.remove(dst)
+        sfile.copy(src, dst)
         dixie.SetSetting('validator', 1)
     except Exception, e:
         pass
@@ -76,13 +66,12 @@ def restoreSettings():
     dst   = os.path.join(path,  ORIGINAL)
     src   = os.path.join(udata, BACKUP)
 
-    if not os.path.exists(src):
+    if not sfile.exists(src):
         return backupSettings()
 
     try:
-        DeleteFile(dst)
-        import shutil
-        shutil.copyfile(src, dst)
+        sfile.remove(dst)
+        sfile.copy(src, dst)
         dixie.SetSetting('validator', 1)
         xbmc.sleep(500)
     except Exception, e:
@@ -90,18 +79,13 @@ def restoreSettings():
 
 
 def get(param, file):
-    try:
-        config = []
-        param  = param + '='
-        f      = open(file, 'r')
-        config = f.readlines()
-        f.close()
-    except:
-        return None
+    try:    config = sfile.readlines(file)
+    except: return None
 
     for line in config:
         if line.startswith(param):
-            return line.split(param, 1)[-1].strip()
+            return line.split(param, 1)[-1].split('=', 1)[-1].strip()
+
     return None
 
 
@@ -113,9 +97,7 @@ def set(param, value, file):
     config = []
     try:
         param  = param + '='
-        f      = open(file, 'r')
-        config = f.readlines()
-        f.close()
+        config = sfile.readlines(file)
     except:
         pass
         
@@ -127,7 +109,7 @@ def set(param, value, file):
 
     copy.append(param + str(value))
 
-    f = open(file, 'w')
+    f = sfile.file(file, 'w')
 
     for line in copy:
         f.write(line)
@@ -136,20 +118,18 @@ def set(param, value, file):
 
 
 def getAll(file):
-    try:
-        lines = []
-        f     = open(file, 'r')
-        lines = f.readlines()
-        f.close()
-    except:
-        return []
+    try:    lines = sfile.readlines(file)
+    except: return []
 
     config = []
-    for line in lines:       
-        line = line.split('=', 1)
-        if len(line) == 1:
-            config.append([line[0].strip(), ''])
-        else:
-            config.append([line[0].strip(), line[1].strip()])
+    for line in lines:
+        try:                 
+            line = line.split('=', 1)
+            if len(line) == 1:
+                config.append([line[0].strip(), ''])
+            else:
+                config.append([line[0].strip(), line[1].strip()])
+        except:
+            pass
 
     return config
