@@ -168,14 +168,14 @@ def play(url, windowed, name=None):
             dixie.CloseBusy()
             return
         else:
-            url = sfURL
             dixie.CloseBusy()
+            url = sfURL
  
     dixie.loadKepmap()
     
     if url.lower().startswith('plugin://plugin.video.skygo'):
-        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         dixie.CloseBusy()
+        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         return
  
     dixie.SetSetting('streamURL', url)
@@ -189,15 +189,16 @@ def play(url, windowed, name=None):
             playlist.add(url, item)
             item = playlist
  
-        xbmc.Player().play(item, windowed=windowed)
         dixie.CloseBusy()
+        xbmc.Player().play(item, windowed=windowed)
  
         xbmc.sleep(1000)
         if not xbmc.Player().isPlaying():
-            xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
             dixie.CloseBusy()
+            xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
  
     while xbmc.Player().isPlaying():
+        dixie.CloseBusy()
         xbmc.sleep(1000)
         CheckIdle(maxIdle)
 
@@ -266,6 +267,7 @@ def checkForAlternateStreaming(url):
     return False
 
 def alternateStream(url):
+    dixie.CloseBusy()
     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
     
     retries = 10

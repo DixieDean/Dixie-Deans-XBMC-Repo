@@ -26,6 +26,7 @@ requests.packages.urllib3.disable_warnings()
 import json
 import os
 
+import sfile
 import utilsOTT as utils
 
 
@@ -72,6 +73,9 @@ def checkUpdate():
             path    = os.path.join(path, 'skins')
             zipfile = os.path.join(path, 'skin-update.zip')
             
+            if not sfile.exists(path):
+                sfile.makedirs(path)
+            
             utils.downloadSkins(url, path, zipfile)
             utils.setSetting('OTTSKIN', curr)
 
@@ -83,6 +87,9 @@ def checkUpdate():
             url     = utils.getBaseURL(OTTURL) + response['EPG Skin Link']
             path    = os.path.join(extras, 'skins')
             zipfile = os.path.join(path,   'skin-update.zip')
+            
+            if not sfile.exists(path):
+                sfile.makedirs(path)
             
             utils.downloadSkins(url, path, zipfile)
             utils.setSetting('EPGSKIN', curr)
@@ -96,6 +103,9 @@ def checkUpdate():
             path    = os.path.join(logos, 'Colour Logo Pack')
             zipfile = os.path.join(path,  'logo-colour-update.zip')
             
+            if not sfile.exists(path):
+                sfile.makedirs(path)
+            
             utils.downloadLogos(url, path, zipfile)
             utils.setSetting('LOGOCOLOUR', curr)
     
@@ -107,6 +117,9 @@ def checkUpdate():
             url     = utils.getBaseURL(OTTURL) + response['Logo White']
             path    = os.path.join(logos, 'White Logo Pack')
             zipfile = os.path.join(path,  'logo-white-update.zip')
+            
+            if not sfile.exists(path):
+                sfile.makedirs(path)
             
             utils.downloadLogos(url, path, zipfile)
             utils.setSetting('LOGOWHITE', curr)
@@ -131,6 +144,9 @@ def checkUpdate():
             url     = utils.getBaseURL(OTTURL) + response['EPG Update']
             path    = xbmc.translatePath(epghome)
             zipfile = os.path.join(path, 'python-update.zip')
+            
+            if not sfile.exists(path):
+                sfile.makedirs(path)
             
             utils.doEPGUpdate(url, path, zipfile, epgupdate)
             utils.setSetting('EPGUPDATE', curr)
