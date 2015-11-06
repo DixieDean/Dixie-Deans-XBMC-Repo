@@ -37,7 +37,7 @@ def CheckCredentials():
     else:
         dixie.DialogOK('Your login details are correct.', '', 'Thank you.')
 
-    dixie.openSettings(focus='0.4')
+    # dixie.openSettings(focus='0.4')
 
 
 def getResponse():    

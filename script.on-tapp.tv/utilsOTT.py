@@ -271,9 +271,11 @@ def doBackup():
     src = os.path.join(epgpath, 'channels')
     dst = os.path.join(epgpath, 'channels-backup')
     
-    sfile.remove(dst)
-    sfile.copy(src, dst)
-    
+    try:
+        sfile.remove(dst)
+        sfile.copy(src, dst)
+    except:
+        pass
     
     if os.path.exists(logos):
         now  = datetime.datetime.now()
@@ -308,19 +310,19 @@ def downloadDefaults(url):
     zip3  = os.path.join(path2,   'logos.zip')
     zip4  = os.path.join(epgpath, 'channels.zip')
 
-    if not os.path.exists(path1):
-        os.makedirs(path1)
+    if not sfile.exists(path1):
+        sfile.makedirs(path1)
         download.download(url1, zip1)
         extract.all(zip1, path1, dp='Installing OTT skins')
         sfile.remove(zip1)
     
-    if not os.path.exists(path3):
-        os.makedirs(path2)
+    if not sfile.exists(path3):
+        sfile.makedirs(path2)
         download.download(url2, zip2)
         extract.all(zip2, path2, dp='Installing EPG skins')
         sfile.remove(zip2)
     
-    if not os.path.exists(path4):
+    if not sfile.exists(path4):
         download.download(url3, zip3)
         extract.all(zip3, path2)
         sfile.remove(zip3)

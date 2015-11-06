@@ -73,7 +73,7 @@ def CheckVersion():
 
     dixie.SetSetting('VERSION', curr)
 
-    dixie.DialogOK(TITLE + ' - ' + VERSION, 'Welcome to On-Tapp.TV 3.0', 'For online support, please register at our new forum:', 'www.on-tapp-networks.com/forum')
+    dixie.DialogOK('Welcome to On-Tapp.TV 3.0', 'For online support, please register at our new forum:', 'www.on-tapp-networks.com/forum')
     showChangelog()
 
 
