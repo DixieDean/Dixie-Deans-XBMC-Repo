@@ -64,8 +64,8 @@ ACTION_PARENT_DIR = 9
 ACTION_PLAY   = 79
 ACTION_SELECT = 7
 
-# ACTION_SHOW_INFO = 34 #Q for now
-ACTION_SHOW_INFO = 0 #G for now
+
+ACTION_SHOW_INFO = -1 #currently not used
 
 PATH = os.path.join(dixie.PROFILE, 'extras', 'skins', dixie.SKIN)
 XML  = 'script-tvguide-changer.xml'
@@ -115,15 +115,16 @@ class OSD(xbmcgui.WindowXMLDialog):
         self.next        = None
         self.other       = None
 
-        #self.osdX = 205
-        #self.osdY = 510
-
         self.streamingService = streaming.StreamsService()
 
         
     def close(self):         
         if self.closeTimer != None:
             self.closeTimer.cancel()
+
+        channel = self.getChannel(self.channel)
+        if channel:
+            xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
 
         xbmcgui.WindowXMLDialog.close(self) 
 
@@ -267,7 +268,8 @@ class OSD(xbmcgui.WindowXMLDialog):
             return
         
         if channel.id == current:
-            return
+            if not self.osdMode:
+                return
 
         streamUrl = channel.streamUrl
         
@@ -277,7 +279,7 @@ class OSD(xbmcgui.WindowXMLDialog):
         if not streamUrl:
             return
 
-        xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
+        #xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
 
         prev = xbmcgui.Window(10000).getProperty('OTT_CURR_INDEX')
 
@@ -290,6 +292,10 @@ class OSD(xbmcgui.WindowXMLDialog):
 
     def detectStream(self, channel):
         result = self.streamingService.detectStream(channel)
+
+        if type(result) == str:
+            self.setCustomStreamUrl(channel, result)
+            return result
         
         if len(result) < 1:
             dixie.DialogOK('Sorry, we could not detect a stream.', '', 'Please allocate a stream for this channel.')
@@ -358,12 +364,6 @@ class OSD(xbmcgui.WindowXMLDialog):
              self.osdY = self.getControl(OSD_MINIGUIDE).getPosition()[1]
         except:
             pass
-
-        try:    
-            self.getControl(MAIN).setPosition(0,0)
-            self.getControl(MAIN).setVisible(True)
-        except:
-            pass
         
         try:    
             self.populateChannels()
@@ -382,6 +382,12 @@ class OSD(xbmcgui.WindowXMLDialog):
  
         except Exception:
             raise
+
+        try:    
+            self.getControl(MAIN).setPosition(0,0)
+            self.getControl(MAIN).setVisible(True)
+        except:
+            pass
 
 
     def onAction(self, action):
@@ -528,15 +534,21 @@ class OSD(xbmcgui.WindowXMLDialog):
         for channel in sorted:
             self.list.append(channel[2])
 
-        if self.channel <> '':
+        current = xbmcgui.Window(10000).getProperty('OTT_CHANNEL')
+        #xbmcgui.Window(10000).clearProperty('OTT_CHANNEL')
+        
+        if self.osdMode:
+            if len(current) == 0:
+                self.channel = '1'
+
+        elif self.channel <> '':
             return
 
-        current = xbmcgui.Window(10000).getProperty('OTT_CHANNEL')
         index = 0
         for channel in self.list:
             index += 1            
             if channel.id == current:
-                self.channel = str(index)
+                self.channel = str(index)                
                 self.setChannel(self.channel)     
                 xbmcgui.Window(10000).setProperty('OTT_CURR_INDEX', self.channel)
                 return
@@ -567,6 +579,6 @@ class OSD(xbmcgui.WindowXMLDialog):
            
     
 if __name__ == '__main__':
-    channel = OSD('1', osdMode=True)
+    channel = OSD(osdMode=True)
     channel.doModal()     
     del channel

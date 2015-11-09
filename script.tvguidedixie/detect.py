@@ -24,6 +24,7 @@ import xbmcgui
 import os
 
 import dixie
+import settings
 
 
 SKIN = dixie.SKIN
@@ -45,6 +46,7 @@ ACTION_PREVIOUS_MENU = 10
 KEY_NAV_BACK = 92
 
 
+
 class StreamAddonDialog(xbmcgui.WindowXMLDialog):
     C_SELECTION_LIST = 1000
 
@@ -61,17 +63,54 @@ class StreamAddonDialog(xbmcgui.WindowXMLDialog):
         self.stream = None
 
     def onInit(self):
+        try:
+            SUPERFAVES = 'plugin.program.super.favourites'
+            SF_ICON    = xbmcaddon.Addon(id=SUPERFAVES).getAddonInfo('icon')
+            
+        except:
+            SF_ICON = ''
+
         items = list()
         for id, label, url in self.addons:
             try:
-                addon = xbmcaddon.Addon(id)
-                item = xbmcgui.ListItem(label, addon.getAddonInfo('name'), addon.getAddonInfo('icon'))
+                if id.startswith('SF_'):
+                    dir  = id.split('SF_', 1)[-1]
+                    cfg  = os.path.join(dir, 'folder.cfg')
+                    icon = settings.get('ICON', cfg)
+
+                    if not icon:
+                        icon = SF_ICON
+
+                    name = ''
+                
+                elif id == 'kodi-favourite':
+                    icon = os.path.join(dixie.RESOURCES, 'kodi-favourite.png')
+                    name = ''
+
+                elif id == 'iptv-playlist':
+                    icon = os.path.join(dixie.RESOURCES, 'iptv-playlist.png')
+                    name = ''
+
+                else:
+                    addon = xbmcaddon.Addon(id)
+                    icon  = addon.getAddonInfo('icon')
+                    name  = addon.getAddonInfo('name')
+
+                if not name:
+                    name = label
+                if not icon:
+                    icon = ''
+                
+                item = xbmcgui.ListItem(label, name, icon)
                 item.setProperty('stream', url)
                 items.append(item)
+
             except:
+                pass
+
                 item = xbmcgui.ListItem(label, '', id)
                 item.setProperty('stream', url)
-                items.append(item)
+                items.append(item)        
 
         listControl = self.getControl(StreamAddonDialog.C_SELECTION_LIST)
         listControl.addItems(items)

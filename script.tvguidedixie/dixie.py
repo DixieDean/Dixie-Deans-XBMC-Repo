@@ -93,11 +93,12 @@ def log(text):
 
 
 def CloseBusy():
-    xbmc.executebuiltin('Dialog.Close(busydialog)')
-
+    try: xbmc.executebuiltin('Dialog.Close(busydialog)')
+    except: pass
 
 def ShowBusy():
-    xbmc.executebuiltin('ActivateWindow(busydialog)')
+    try: xbmc.executebuiltin('ActivateWindow(busydialog)')
+    except: pass
 
     return None
 
@@ -447,7 +448,6 @@ def Progress(line1 = '', line2 = '', line3 = '', hide = False):
 def openSettings(focus=None):
     addonID = ADDONID
     if not focus: 
-        print "3&&&&&&&&&&&&"           
         return xbmcaddon.Addon(addonID).openSettings()
     
     try:
@@ -456,18 +456,12 @@ def openSettings(focus=None):
         value1, value2 = str(focus).split('.')
 
         if FRODO:
-            print "1 ARE WE HERE???"
-            print value1
-            print value2
             xbmc.executebuiltin('SetFocus(%d)' % (int(value1) + 200))
             xbmc.executebuiltin('SetFocus(%d)' % (int(value2) + 100))
         else:
-            print "2 ARE WE HERE???"
             xbmc.executebuiltin('SetFocus(%d)' % (int(value1) + 100))
             xbmc.executebuiltin('SetFocus(%d)' % (int(value2) + 200))
 
     except Exception, e:
-        print "EEEEEEEEEEEEEEEEEEEEEEEEEEE"
         print str(e)
         return
-    

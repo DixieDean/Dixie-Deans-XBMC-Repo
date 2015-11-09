@@ -35,24 +35,18 @@ LINE2 = 'Please wait, this may take a while.'
 def doBackup():
     CUSTOM = '1'
 
-    channelType = dixie.GetSetting('chan.type')
-    logoType    = dixie.GetSetting('logo.type')
+    chanType = dixie.GetSetting('chan.type')
+    logoType = dixie.GetSetting('logo.type')
+    
+    dixie.log('Backup: Channel setting is %s' % chanType)
+    dixie.log('Backup: Logo setting is %s' % logoType)
 
-    if channelType == CUSTOM:
-        dixie.ShowBusy()
-        chanpath = dixie.GetSetting('user.chan.folder')
-        dixie.MoveChannels(chanpath)
-        dixie.CloseBusy()
-
-    if logoType == CUSTOM:
-        dixie.ShowBusy()
-        logopath = dixie.GetSetting('user.logo.folder')
-        dixie.MoveLogos(logopath)
-        dixie.CloseBusy()
-        
+    if (chanType == CUSTOM) or (logoType == CUSTOM):
+        dixie.DialogOK('It appears you are using a custom location', 'for your channels or logos (Home Networking).', 'Please back-up On-Tapp.TV manually.')
+        return
 
     try:
-        folder  = getFolder('Please select backup folder location')
+        folder = getFolder('Please select backup folder location')
 
         if not folder:
             return False

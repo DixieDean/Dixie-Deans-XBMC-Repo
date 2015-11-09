@@ -64,9 +64,9 @@ def playSF(url):
 
     try:
         if url.startswith('__SF__'):
-            url = url.replace('__SF__', '')
+            url = url.replace('__SF__', '')             
 
-        if url.lower().startswith('playmedia'):
+        if url.lower().startswith('playmedia'):           
             xbmc.executebuiltin(url)
             return True, ''
 
@@ -157,24 +157,20 @@ def playSF(url):
 
 
 def play(url, windowed, name=None):
-    dixie.ShowBusy()
     
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
  
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
-        handled, sfURL = playSF(url)
-        if handled:
-            dixie.CloseBusy()
-            return
-        else:
-            dixie.CloseBusy()
-            url = sfURL
+        handled, url = playSF(url)
+
+        if handled:            
+            return        
  
     dixie.loadKepmap()
+    # dixie.ShowBusy()
     
     if url.lower().startswith('plugin://plugin.video.skygo'):
-        dixie.CloseBusy()
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         return
  
@@ -189,16 +185,16 @@ def play(url, windowed, name=None):
             playlist.add(url, item)
             item = playlist
  
-        dixie.CloseBusy()
+        # dixie.CloseBusy()
         xbmc.Player().play(item, windowed=windowed)
  
         xbmc.sleep(1000)
         if not xbmc.Player().isPlaying():
-            dixie.CloseBusy()
+            # dixie.CloseBusy()
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
  
     while xbmc.Player().isPlaying():
-        dixie.CloseBusy()
+        # dixie.CloseBusy()
         xbmc.sleep(1000)
         CheckIdle(maxIdle)
 
@@ -267,7 +263,7 @@ def checkForAlternateStreaming(url):
     return False
 
 def alternateStream(url):
-    dixie.CloseBusy()
+    # dixie.CloseBusy()
     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
     
     retries = 10

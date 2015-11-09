@@ -87,6 +87,7 @@ class StreamsService(object):
                 for node in doc.findall('favourite'):
                     value = node.text
                     value = node.text.replace(',return','')
+
                     if value[0:11] == 'PlayMedia("':
                         value = value[11:-2]
                     elif value[0:10] == 'PlayMedia(':
@@ -123,6 +124,7 @@ class StreamsService(object):
         else:
             url  = dixie.GetSetting('playlist.url')
             path = os.path.join(datapath, 'playlist.m3u')
+            
             try:
                 urllib.urlretrieve(url, path)
             except: pass
@@ -144,6 +146,57 @@ class StreamsService(object):
         return entries
 
 
+    def locateSuperFavourites(self, title):
+        SUPERFAVES   = 'plugin.program.super.favourites'
+        SF_INSTALLED = xbmc.getCondVisibility('System.HasAddon(%s)' % SUPERFAVES) == 1
+
+        if not SF_INSTALLED:
+            return None
+
+        sfAddon = xbmcaddon.Addon(id = SUPERFAVES)
+
+        ROOT = sfAddon.getSetting('FOLDER')
+        if not ROOT:
+            ROOT = 'special://profile/addon_data/plugin.program.super.favourites/'
+
+        folder = os.path.join(ROOT, 'Super Favourites')
+
+        items = []
+
+        self._locateSuperFavourites(title.lower(), folder, items)
+
+        return items
+
+
+    def _locateSuperFavourites(self, title, folder, items):    
+        import sfile  
+        import settings
+        import urllib
+        current, dirs, files = sfile.walk(folder)
+
+        for dir in dirs:    
+            folder = os.path.join(current, dir)    
+            if dir.lower() == title:
+                cfg      = os.path.join(folder, 'folder.cfg')
+                autoplay = settings.get('AUTOPLAY', cfg)
+
+                if autoplay:
+                    uTitle  = urllib.quote_plus(title)
+                    mode    = 5400
+                    uFolder = urllib.quote_plus(folder)
+                    toAdd   = 'plugin://plugin.program.super.favourites/?label=%s&mode=%d&path=%s' % (uTitle, mode, uFolder)
+                else:               
+                    uTitle  = urllib.quote_plus(title)
+                    mode    = 400
+                    uFolder = urllib.quote_plus(folder)
+                    toAdd   = 'plugin://plugin.program.super.favourites/?label=%s&mode=%d&path=%s' % (uTitle, mode, uFolder)
+                    toAdd   = '__SF__ActivateWindow(10025,"%s",return)' % toAdd
+                    
+                items.append(['SF_'+folder, toAdd])
+
+            self._locateSuperFavourites(title, folder, items)
+        
+
     def getAddons(self):
         return self.addonsParser.sections()
 
@@ -155,22 +208,23 @@ class StreamsService(object):
         @param channel:
         @type channel: source.Channel
         """
-        favourites = self.loadFavourites()
-        playlist   = self.loadPlaylist()
-        
 
-        # First check favourites, if we get exact match we use it
-        for label, stream in favourites:
-            if label == channel.title:
-                return stream
-
-        # Second check playlist, if we get exact match we use it
-        for label, stream in playlist:
-            if label == channel.title:
-                return stream
-        
-        # Third check all addons and return all matches
         matches = list()
+
+        # Get any Super Favourites with channel name
+        superFaves = self.locateSuperFavourites(channel.title)
+        
+        if superFaves:
+            if len(superFaves) == 1:
+                matches.append((superFaves[0][0], 'Super Folder', superFaves[0][1]))
+            else:
+                index = 0
+                for superFave in superFaves:
+                    index += 1
+                    label = 'Super Folder (%d)' % index
+                    matches.append((superFave[0], label, superFave[1]))        
+
+        # Get any Add-ons with channel name
         for id in self.getAddons():
             try:
                 xbmcaddon.Addon(id)
@@ -183,17 +237,35 @@ class StreamsService(object):
                 
                 if (channel.title in label) or (label in channel.title):
                     matches.append((id, label, stream))
-                    
-        # for id in self.loadFavourites():
-        #     id = 'plugin.video.ontapp-player'
-        #
-        #     for (label, stream) in self.loadFavourites():
-        #         label = label.upper()
-        #         channel.title = channel.title.upper()
-        #
-        #         if (channel.title in label) or (label in channel.title):
-        #             matches.append((id, label, stream))
+
+        
+        # Get any Kodi Favourites with channel name
+        kodiFaves = self.loadFavourites()
+        
+        if kodiFaves:
+            id = 'kodi-favourite'
+            
+            for (label, stream) in kodiFaves:
+                label = label.upper()
+                channel.title = channel.title.upper()
+
+                if (channel.title in label) or (label in channel.title):
+                    matches.append((id, label, stream))
                 
+
+        # Get any Playlist entries with channel name
+        iptvPlaylist = self.loadPlaylist()
+        
+        if iptvPlaylist:
+            id = 'iptv-playlist'
+        
+            for (label, stream) in iptvPlaylist:
+                label = label.upper()
+                channel.title = channel.title.upper()
+
+                if (channel.title in label) or (label in channel.title):
+                    matches.append((id, label, stream))
+
             
         if len(matches) == 1:
             return matches[0][2]

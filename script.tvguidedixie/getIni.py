@@ -33,7 +33,10 @@ def getIni():
     
     path = current_ini
 
-    url = dixie.GetExtraUrl() + 'resources/addons.ini'
+    if dixie.GetSetting('dixie.url').upper() == 'ALL CHANNELS':
+        url = dixie.GetExtraUrl() + 'resources/addons.ini'
+    else:
+        url = dixie.GetExtraUrl() + 'resources/other/addons.ini'
 
     try:
         urllib.urlretrieve(url, path)

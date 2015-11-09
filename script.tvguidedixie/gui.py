@@ -330,7 +330,6 @@ class TVGuide(xbmcgui.WindowXML):
                 # onInit(..) is invoked again by XBMC after a video addon exits after being invoked by XBMC.RunPlugin(..)
             return
 
-
         windowID = xbmcgui.getCurrentWindowId()
         xbmcgui.Window(10000).setProperty('OTT_WINDOW', str(windowID))          
 
@@ -521,10 +520,42 @@ class TVGuide(xbmcgui.WindowXML):
                 del channel
                 try:
                     self.channelIdx = int(selection)-1
-                    self.onRedrawEPG(self.channelIdx, self.viewStartDate)
-                except:
+                                      
+                    self.onRedrawEPG(self.channelIdx, self.viewStartDate) 
+                    self.resetFocus()                  
+                                       
+                except Exception, e:
                     pass
 
+
+    def resetFocus(self):
+        try:
+            if len(controlAndProgramList) < 1:
+                return
+
+            title = self.getControl(4010).getLabel()
+
+            for pair in self.controlAndProgramList:                       
+                if pair.program.channel.title == title:
+                    self.setFocus(pair.control)
+                    return
+
+            self.setFocus(controlAndProgramList[0].control)
+        except:
+            pass
+
+
+    def resetToChannel(self, channelID):
+        channels = self.database.getChannelList(onlyVisible=True)
+
+        index = 0
+        for channel in channels:
+            if channelID == channel.id:
+                self.onRedrawEPG(index, self.viewStartDate)
+                return            
+            index += 1
+
+        self.onRedrawEPG(0, self.viewStartDate)
 
 
     def checkTouch(self,  action):
@@ -635,8 +666,10 @@ class TVGuide(xbmcgui.WindowXML):
 
         else:
             # multiple matches, let user decide
-            d = ChooseStreamAddonDialog(result)
+            import detect
+            d = detect.StreamAddonDialog(result)
             d.doModal()
+            
             if d.stream is not None:
                 self.database.setCustomStreamUrl(program.channel, d.stream)
                 self.playChannel(program.channel)
@@ -1004,7 +1037,7 @@ class TVGuide(xbmcgui.WindowXML):
                 xbmc.sleep(500)
                 retry = 5
             retry -= 1
-
+        
         xbmc.Player().stop()
         self.onPlayBackStopped()
 
@@ -1226,7 +1259,13 @@ class TVGuide(xbmcgui.WindowXML):
     def onSourceInitializedP(self, success):
         if success:
             self.notification = Notification(self.database, ADDON.getAddonInfo('path'))
-            self.onRedrawEPG(0, self.viewStartDate)
+            #first time redraw
+            current = xbmcgui.Window(10000).getProperty('OTT_CHANNEL')
+
+            if len(current) == 0: #SJP           
+                self.onRedrawEPG(0, self.viewStartDate)
+            else:
+                self.resetToChannel(current)
 
 
     def onPlayBackStopped(self):
@@ -1865,7 +1904,12 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
             if chooser.GetFave('OTT'):
                 path  = xbmc.getInfoLabel('Skin.String(OTT.Path)')
                 label = xbmc.getInfoLabel('Skin.String(OTT.Label)')
-                path = '__SF__' + path
+
+                if path.lower().startswith('playmedia'):
+                    import re
+                    path = re.compile('"(.+?)"').search(path).group(1)
+                else:             
+                    path = '__SF__' + path
 
                 self.database.setCustomStreamUrl(self.channel, path)
                 self.getControl(self.C_STREAM_SUPERFAVE_LABEL).setText(label)
