@@ -1,3 +1,6 @@
+v3.1.5 (11-11-15)
+- Fix for clean install and Add-on reset scripts.
+
 v3.1.4 (11-09-15)
 - EPG and Mini-Guide move focus to last channel watched when re-opened.
 - Implemented Super Favourites 'Auto-Play' feature.

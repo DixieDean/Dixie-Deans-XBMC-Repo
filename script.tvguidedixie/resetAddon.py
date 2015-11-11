@@ -26,15 +26,17 @@ import dixie
 
 ottv     = xbmcaddon.Addon('script.on-tapp.tv')
 ottvdir  = ottv.getAddonInfo('profile')
+ottvskin = os.path.join(ottvdir, 'skins')
 settings = xbmc.translatePath('special://profile/settings.bak')
 
 def resetAddon():
     try:
         sfile.rmtree(dixie.PROFILE)
+        sfile.rmtree(ottvskin)
         sfile.remove(settings)
         ottv.setSetting('FIRSTRUN', 'false')
-        dixie.SetSetting('logo.type' '0')
-        dixie.SetSetting('dixie.logo.folder' 'None')
+        dixie.SetSetting('logo.type', '0')
+        dixie.SetSetting('dixie.logo.folder', 'None')
     except:
         pass
     dixie.DialogOK('On-Tapp.TV successfully reset.', 'It will be re-created next time', 'you start the guide')

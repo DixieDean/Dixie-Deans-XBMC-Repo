@@ -310,23 +310,29 @@ def downloadDefaults(url):
     zip3  = os.path.join(path2,   'logos.zip')
     zip4  = os.path.join(epgpath, 'channels.zip')
 
+    if not sfile.exists(epgpath):
+        sfile.makedirs(epgpath)
+    
     if not sfile.exists(path1):
         sfile.makedirs(path1)
-        download.download(url1, zip1)
-        extract.all(zip1, path1, dp='Installing OTT skins')
-        sfile.remove(zip1)
+    download.download(url1, zip1)
+    extract.all(zip1, path1, dp='Installing OTT skins')
+    sfile.remove(zip1)
     
-    if not sfile.exists(path3):
+    if not sfile.exists(path2):
         sfile.makedirs(path2)
-        download.download(url2, zip2)
-        extract.all(zip2, path2, dp='Installing EPG skins')
-        sfile.remove(zip2)
+    download.download(url2, zip2)
+    extract.all(zip2, path2, dp='Installing EPG skins')
+    sfile.remove(zip2)
     
     if not sfile.exists(path4):
-        download.download(url3, zip3)
-        extract.all(zip3, path2)
-        sfile.remove(zip3)
-
+        sfile.makedirs(path2)
+    download.download(url3, zip3)
+    extract.all(zip3, path2)
+    sfile.remove(zip3)
+    
+    if not sfile.exists(epgpath):
+        sfile.makedirs(epgpath)
     download.download(url4, zip4)
     extract.all(zip4, epgpath)
     sfile.remove(zip4)

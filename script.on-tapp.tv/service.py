@@ -36,7 +36,7 @@ if ADDON.getSetting('autoStart') == "true":
         datetime.datetime.fromtimestamp(time.mktime(time.strptime('2013-01-01 19:30:00'.encode('utf-8', 'replace'), "%Y-%m-%d %H:%M:%S")))
     except:
         pass
-    xbmc.executebuiltin('RunScript(%s)' % ID)
+    xbmc.executebuiltin('RunScript(%s)' % utils.ADDONID)
 
 
 #------------------------------------------------------------------------
