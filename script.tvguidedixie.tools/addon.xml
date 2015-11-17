@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="1.0.6" provider-name="spoyser, DixieDean">
+<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="1.0.7" provider-name="spoyser, DixieDean">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>

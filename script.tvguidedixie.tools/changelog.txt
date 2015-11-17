@@ -1,3 +1,6 @@
+v1.0.7:
+  - Fix for new channel creation.
+
 v1.0.6:
   - On-Tapp.EPG 3.1.0 compatibility update.
 

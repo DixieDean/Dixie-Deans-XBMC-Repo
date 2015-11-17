@@ -36,7 +36,7 @@ def GetXBMCVersion():
     return int(version[0]), int(version[1]) #major, minor
 
 
-TITLE   = 'OnTapp.TV Tools'
+TITLE   = 'On-Tapp.TV Tools'
 ADDONID = 'script.tvguidedixie.tools'
 ADDON   =  xbmcaddon.Addon(ADDONID)
 HOME    =  ADDON.getAddonInfo('path')
@@ -49,10 +49,10 @@ OTT_PROFILE  = xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
 # OTT_CHANNELS = os.path.join(OTT_PROFILE, 'channels')
 
 
-VERSION = '1.0.3'
-ICON    =  os.path.join(HOME, 'icon.png')
-FANART  =  os.path.join(HOME, 'fanart.jpg')
-GETTEXT =  ADDON.getLocalizedString
+VERSION = ADDON.getAddonInfo('version')
+ICON    = os.path.join(HOME, 'icon.png')
+FANART  = os.path.join(HOME, 'fanart.jpg')
+GETTEXT = ADDON.getLocalizedString
 
 
 MAJOR, MINOR = GetXBMCVersion()

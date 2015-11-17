@@ -558,7 +558,7 @@ def newChannel():
         utils.DialogOK('%s clashes with an existing channel.' % title, 'Please enter a different name.')
 
     weight  = 0
-    channel = Channel(id, title, weight=weight, categories='', userDef=True, desc='')
+    channel = Channel(id, title, weight=weight, categories='', userDef=1, desc='')
     item    = [weight, id,  channel]
 
     channels = getAllChannels()
