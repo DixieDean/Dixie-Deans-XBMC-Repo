@@ -1,3 +1,11 @@
+v1.3.2:
+   - Added Canadian and GB(London) servers.
+   - Added Super Favourites Global Menu plugin.
+   - Added Kodi context menu item (15.x and above).
+   - Changed IP Check website.
+     Some results are still false but VPN connection is correct.
+   - VPN utilities file fix.
+
 v1.3.1:
    - Added Canadian and GB(London) servers.
    - Added Super Favourites Global Menu plugin.

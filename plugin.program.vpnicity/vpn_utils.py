@@ -38,6 +38,7 @@ PROFILE   =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 ICON      =  os.path.join(HOME, 'icon.png')
 ICON      =  xbmc.translatePath(ICON)
 RESOURCES =  os.path.join(HOME, 'resources')
+DISABLE   =  os.path.join(RESOURCES, 'images', 'disable.png')
 
 
 def GetSetting(param):
