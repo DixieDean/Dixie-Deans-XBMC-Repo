@@ -1,5 +1,6 @@
-#
-#      Copyright (C) 2014 Richard Dean (write2dixie@gmail.com)
+
+#       Copyright (C) 2015-
+#       Sean Poyser (seanpoyser@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -17,22 +18,34 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
-import requests
-
-import re
-import vpn_utils as utils
+import xbmc
+import xbmcaddon
 
 
-def Network():
-    url     = 'http://www.iplocation.net/'
-    request = requests.get(url)
-    link    = request.content
-    match   = re.compile("<td width='80'>(.+?)</td><td>(.+?) <img src='.+?'></td><td>(.+?)</td><td>.+?</td><td>(.+?)</td>").findall(link)
-    count   = 1
-    
-    for ip, country, region, isp in match:
-        if count <2:
-            message = 'IP Address: %s  Country: %s  Region: %s' % (ip, country, region)
-            utils.notify(message)
-            utils.log('VPNicity location is: %s' % match)
-            count = count+1
+ADDONID = 'plugin.program.vpnicity'
+
+def add(params):
+    if xbmc.getCondVisibility('System.HasAddon(%s)' % ADDONID) <> 1:
+        return None
+
+    try:
+        if ADDONID in params['path']:
+            return None
+
+        return 'VPNicity Connect'
+    except Exception, e:
+        pass
+
+    return None
+
+
+def process(option, params):
+    import sys
+    addon = xbmcaddon.Addon(ADDONID)
+    path  = addon.getAddonInfo('path')
+    sys.path.insert(0, path)
+
+    import vpn
+    import browser
+    country = browser.getCountry('plugin.program.vpnicity', vpn.GetCountries())
+    vpn.BestVPN(country)

@@ -25,7 +25,7 @@ import xbmcplugin
 import xbmcgui
 import os
 import urllib
-import utils
+import vpn_utils as utils
 import vpn
 
 
@@ -59,6 +59,7 @@ def Main():
     import message
     message.check()
     utils.checkVersion()
+    CheckPlugin()
     vpn.CheckUsername()
     
     if not vpn.validToRun():
@@ -73,7 +74,7 @@ def Main():
 
     if len(current) > 0:
         abrv      = xbmcgui.Window(10000).getProperty('VPNICITY_ABRV')
-        thumbnail = os.path.join(IMAGES, abrv.lower()+'.png')
+        thumbnail = utils.DISABLE #'os.path.join(IMAGES, abrv.lower()+'.png')
         addDir('-- Disable %s %s' % (current, TITLE), _KILL, thumbnail=thumbnail, isFolder=False)
 
     mode     = _COUNTRY
@@ -96,6 +97,13 @@ def Main():
 
         try:    CreateFile(country[0], country[1])
         except: pass
+
+
+def CheckPlugin():
+    if ADDON.getSetting('SFPLUGIN') == 'false':
+        if utils.yesno('Would you like to install the ', 'VPNicity Connect plug-in?', 'Access VPNicity anywhere in Kodi!'):
+            xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/installSF.py)')
+        else: pass
 
 
 def CreateFile(label,abrv=''):

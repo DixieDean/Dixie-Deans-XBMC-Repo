@@ -46,7 +46,7 @@
         <setting id="ignore.stream"         label="Always Offer To Choose Stream"         type="bool"   default="false" visible="true"/>
 		<setting id="playlist.type"         label="IPTV Playlist"                         type="enum"   default="URL" values="URL|File" visible="true"/>
 		<setting id="playlist.file"         label="File"                                  type="file"   visible="eq(-1,1)" />
-		<setting id="playlist.url"          label="URL"                                   type="text" visible="eq(-2,0)"/>
+		<setting id="playlist.url"          label="URL"                                   type="text"   default="http://ccloudtv.org/lists/kodi.txt" visible="eq(-2,0)"/>
         <setting id="ftv.ini"               label="Choose Film-On UK TV Links"            type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="true" />
 		<setting id="local.ini"             label="Allow Enhanced Add-on Linking"         type="bool"   default="true" visible="false"/>
         <setting id="enable.osd"            label="30118"                                 type="bool"   default="true" enable="eq(2,false)" visible="false"/>
@@ -71,7 +71,7 @@
  		<setting id="dummy" label="[COLOR orange][B]Click to upload log[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)" option="close" />
  		<setting type="lsep" label="Add an email to receive a link to your log"/>
  		<setting id="email" type="text" label="Email address"/>
-	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true" visible="false"/>
+	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true" visible="true"/>
         <setting id="dummy" label="30131" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/restoreChannels.py)" />
         <setting id="dummy" label="30126" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/deleteDB.py)" />
         <setting id="dummy" label="30127" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetChannels.py)" />

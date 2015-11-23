@@ -6,8 +6,9 @@
 	    <setting id="SERVER"     type="text" label="server" default="" visible="false"/>
 	    <setting id="LOGIN_TIME" type="text" label="login"  default="" visible="false"/>
 	
-		<setting id="CONTEXT"   type="bool"      label="Enable VPNicity context menu"  default="false"  visible="true"/>		
-		<setting id="AUTO"      type="bool"      label="Autoselect VPNicity" default="true"  visible="true"/>		
+		<setting id="CONTEXT"   type="bool"      label="Enable VPNicity context menu" default="false"  visible="true"/>		
+		<setting id="AUTO"      type="bool"      label="Autoselect VPNicity"          default="true"   visible="true"/>
+        <setting id="SFPLUGIN"  type="bool"      label="SF-Plugin Installed"          default="false"  visible="false"/>
 
 	    <setting id="USER"      type="text"      label="VPN Username"         default=""/>
 	    <setting id="PASS"      type="text"      label="VPN Password"         default=""       option="hidden"/>

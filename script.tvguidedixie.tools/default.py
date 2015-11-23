@@ -27,13 +27,13 @@ import xbmcgui
 import urllib
 import os
 import re
+import requests
 
 import utils
 import sfile
 
 import sys
-ott  = xbmcaddon.Addon(id = 'script.tvguidedixie')
-path = ott.getAddonInfo('path')
+path    = utils.OTT_HOME
 sys.path.insert(0, path)
 
 from channel import Channel
@@ -58,9 +58,11 @@ GETTEXT  = utils.GETTEXT
 TITLE    = utils.TITLE
 FRODO    = utils.FRODO
 GOTHAM   = utils.GOTHAM
+BASEURL  = utils.GetBaseUrl()
 
-KODISOURCE = ADDON.getSetting('KODISOURCE') == 'true'
-USERLOGOS  = OTT_ADDON.getSetting('logo.type') == '1'
+KODISOURCE =  ADDON.getSetting('KODISOURCE') == 'true'
+USERLOGOS  =  OTT_ADDON.getSetting('logo.type') == '1'
+EXTRAS     =  os.path.join(OTT_PROFILE, 'extras')
 
 # -----Addon Modes ----- #
 
@@ -83,6 +85,11 @@ _EDIT          = 1500
 _NEWCHANNEL    = 1600
 _REMOVE        = 1700
 _CLONE         = 1800
+_EDITCHANNELS  = 1900
+_ADDSKINSLIST  = 2000
+_ADDLOGOSLIST  = 2100
+_GETSKINS      = 2200
+_GETLOGOS      = 2300
 
 
 # --------------------- Addon Settings --------------------- #
@@ -116,10 +123,83 @@ if ALPHASORT:
 # -------------------------------------------------------------- #
 
 
-
 def main():
     utils.CheckVersion()
 
+    addDir('Edit Channels',  _EDITCHANNELS, thumbnail=ICON, fanart=FANART, isFolder=True)
+    
+    addDir('Add Skins',      _ADDSKINSLIST, thumbnail=ICON, fanart=FANART, isFolder=True)
+    addDir('Add Logo Packs', _ADDLOGOSLIST, thumbnail=ICON, fanart=FANART, isFolder=True)
+    
+
+def getSkinList(id):
+    regex = 'skin name="(.+?)" url="(.+?)" icon="(.+?)" fanart="(.+?)" description="(.+?)"'
+    url   =  BASEURL + 'skins/'
+
+    skins = url + 'skinlist.xml'
+    req   = requests.get(skins)
+    html  = req.content
+    items = re.compile(regex).findall(html)
+
+    for item in items:
+        label  = item[0]
+        id     = url + item[1]
+        icon   = url + item[2]
+        fanart = url + item[3]
+        desc   = item[4]
+        
+        addDir(label, _GETSKINS, id, desc=desc, thumbnail=icon, fanart=fanart, isFolder=False)
+
+
+def getSkin(label, url):
+    path    = os.path.join(EXTRAS, 'skins')
+    zipfile = os.path.join(path,   'skins.zip')
+    
+    if utils.DialogYesNo('Would you like to install ' + label, 'and make it your active skin?', 'It will be downloaded and installed into your system.'):
+        download(path, zipfile)
+        utils.DialogOK(label + ' skin has been installed successfully.', 'It is now set as your active EPG skin.', 'Please restart On-Tapp.TV. Thank you.')
+        OTT_ADDON.setSetting('dixie.skin', label)
+
+
+def getLogosList(id):
+    regex = 'logopack name="(.+?)" url="(.+?)" icon="(.+?)" fanart="(.+?)" description="(.+?)"'
+    url   =  BASEURL + 'logos/'
+
+    logos = url + 'logopacklist.xml'
+    req   = requests.get(logos)
+    html  = req.content
+    items = re.compile(regex).findall(html)
+
+    for item in items:
+        label  = item[0]
+        id     = url + item[1]
+        icon   = url + item[2]
+        fanart = url + item[3]
+        desc   = item[4]
+           
+        addDir(label, _GETLOGOS, id, desc=desc, thumbnail=icon, fanart=fanart, isFolder=False)
+
+
+def getLogos(label, url):
+    path    = os.path.join(EXTRAS, 'logos')
+    zipfile = os.path.join(path,   'logos.zip')
+    
+    if utils.DialogYesNo('Would you like to install ' + label, 'and make it your active logo-pack?', 'It will be downloaded and installed into your system.'):
+        download(path, zipfile)
+        utils.DialogOK(label + ' logo-pack has been installed successfully.', 'It is now set as your active logo-pack.', 'Please restart On-Tapp.TV. Thank you.')
+        OTT_ADDON.setSetting('dixie.logo.folder', label)
+
+
+def download(path, zipfile):    
+    import download
+    import extract
+    
+    download.download(url, zipfile)
+    extract.all(zipfile, path)
+    sfile.remove(zipfile)
+
+
+def editChannels():
     channels   = getAllChannels(ALPHASORT)
     totalItems = len(channels)
 
@@ -739,7 +819,7 @@ def refresh():
     xbmc.executebuiltin('Container.Refresh')
 
     
-def addDir(label, mode, id = '', weight = -1, thumbnail='', fanart=FANART, isFolder=True, menu=None, infolabels={}, totalItems=0):
+def addDir(label, mode, id = '', weight = -1, desc='', thumbnail='', fanart=FANART, isFolder=True, menu=None, infolabels={}, totalItems=0):
     u  = sys.argv[0]
 
     u += '?label=' + urllib.quote_plus(label)
@@ -759,8 +839,13 @@ def addDir(label, mode, id = '', weight = -1, thumbnail='', fanart=FANART, isFol
 
     liz = xbmcgui.ListItem(label, iconImage=thumbnail, thumbnailImage=thumbnail)
 
+    if desc:
+        infolabels['plot'] = desc
+
     if len(infolabels) > 0:
         liz.setInfo(type='Video', infoLabels=infolabels)
+   
+    liz.setProperty('Fanart_Image', fanart)
 
     if menu:
         liz.addContextMenuItems(menu, replaceItems=True)
@@ -895,8 +980,34 @@ if mode == _CLONE:
     doRefresh = cloneChannel(id)
 
 
+if mode == _EDITCHANNELS:
+    editChannels()
+
+
+if mode == _ADDSKINSLIST:
+    getSkinList(id)
+
+
+if mode == _GETSKINS:
+    label = urllib.unquote_plus(params['label'])
+    url   = urllib.unquote_plus(params['id'])
+    
+    getSkin(label, url)
+
+
+if mode == _ADDLOGOSLIST:
+    getLogosList(id)
+
+
+if mode == _GETLOGOS:
+    label = urllib.unquote_plus(params['label'])
+    url   = urllib.unquote_plus(params['id'])
+    
+    getLogos(label, url)
+
+
 if doRefresh:
     refresh()
 
-
+xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 xbmcplugin.endOfDirectory(int(sys.argv[1]), cacheToDisc=cacheToDisc)

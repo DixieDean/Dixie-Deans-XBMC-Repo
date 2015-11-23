@@ -48,6 +48,8 @@ SUPERFAVES   = 'plugin.program.super.favourites'
 SF_INSTALLED = xbmc.getCondVisibility('System.HasAddon(%s)' % SUPERFAVES) == 1
 SFFILE       = ''
 
+TOOLS = 'script.tvguidedixie.tools'
+
 try:
     import sys
     sfAddon = xbmcaddon.Addon(id = SUPERFAVES)
@@ -85,16 +87,18 @@ _ADDSHORTCUT     = 900
 _VPNICITY        = 1000
 _SUPERSEARCH     = 1100
 _REMOVESHORTCUT  = 1200
-_SYSTEM          = 1300
+_TOOLS          = 1300
 _LIBRARY         = 1400
 _SUPERFAVE       = 1500
 _REMOVESUPERFAVE = 1600
 
-_CATEGORIES     = 2000
-_SETTINS        = 2001
-_TOOLS          = 2002
-_VPN            = 2003
-
+_CATEGORIES = 2000
+_SETTINS    = 2001
+_CHANNELS   = 2002
+_SKINS      = 2003
+_LOGOS      = 2004
+_INI        = 2005
+_VPN        = 2006
 
 
 WINDOWID = 10005 #music
@@ -124,15 +128,15 @@ def Main():
 
     AddAddon('TV Guide',   'script.tvguidedixie', _SCRIPT,  icon=os.path.join(IMAGES, 'OTTV-TV_Guide.png'))
 
-    AddLibrary('Movies',   '',  _MOVIES,  icon=os.path.join(IMAGES, 'OTTV-Movies.png'))
-    AddLibrary('TV Shows', '',  _TVSHOWS, icon=os.path.join(IMAGES, 'OTTV-TV_Shows.png'))
+    AddLibrary('Movies',   '',  _MOVIES,    icon=os.path.join(IMAGES, 'OTTV-Movies.png'))
+    AddLibrary('TV Shows', '',  _TVSHOWS,   icon=os.path.join(IMAGES, 'OTTV-TV_Shows.png'))
 
-    AddSubFolder('TV Catch Up', _CATCHUP, icon=os.path.join(IMAGES, 'OTTV-TV_Catchup.png'), desc='Catch up on shows you have missed')
+    AddSubFolder('TV Catch Up', _CATCHUP,   icon=os.path.join(IMAGES, 'OTTV-TV_Catchup.png'), desc='Catch up on shows you have missed')
 
-    AddAddon('Search',     SUPERFAVES, _SUPERSEARCH, icon=os.path.join(IMAGES, 'OTTV-Search.png'), desc='Search all your favourite addons all from one place')
-    AddAddon('Favourites', SUPERFAVES, _ADDON,       icon=os.path.join(IMAGES, 'OTTV-Favourites.png'))
+    AddAddon('Search',          SUPERFAVES, _SUPERSEARCH, icon=os.path.join(IMAGES, 'OTTV-Search.png'), desc='Search all your favourite addons all from one place')
+    AddAddon('Favourites',      SUPERFAVES, _ADDON,       icon=os.path.join(IMAGES, 'OTTV-Favourites.png'))
 
-    # AddSubFolder('System',      _SYSTEM,  icon=os.path.join(IMAGES, 'OTTV-System.png'),  desc='Settings and Tools')
+    AddSubFolder('Tools', _TOOLS, icon=os.path.join(IMAGES, 'OTTV-Tools.png'),  desc='Settings and Tools')
 
     if not KIOSKMODE:
         ShowShortcuts()
@@ -148,18 +152,16 @@ def ShowCatchup():
     AddAddon('UKTV Play',   'plugin.video.uktvplay',   _ADDON, icon=os.path.join(IMAGES, 'OTTV-UKTV_Play.png'))
 
 
-def ShowSystem():
-    AddAddon('Settings', 'script.tvguidedixie',       _SETTINGS,   icon=os.path.join(IMAGES, 'OTTV-Settings.png'), desc='Configure your TV Guide')
-    AddAddon('Tools',    'script.tvguidedixie.tools', _ADDON,      icon=os.path.join(IMAGES, 'OTTV-Tools.png'),    desc='Use On-Tapp.TV Tools to edit your channels')
+def ShowTools():
+    AddAddon('Channels',            TOOLS,  _CHANNELS, icon=os.path.join(IMAGES, 'OTTV-edit-channels.png'), desc='Edit your channels - Change logos, change visibility, change order or even add your own!')
+    AddAddon('Install Skins',       TOOLS,  _SKINS,    icon=os.path.join(IMAGES, 'OTTV-install-skins.png'), desc='Install new skins and use them to change the EPG look and feel.')
+    AddAddon('Install Logo-Packs',  TOOLS,  _LOGOS,    icon=os.path.join(IMAGES, 'OTTV-install-logos.png'), desc='Install new logo-packs and use them in the EPG.')
+    AddAddon('Update Add-on Links', TOOLS,  _INI,      icon=os.path.join(IMAGES, 'OTTV-update-addons.png'), desc='Update the built-in Add-on links to 3rd party live TV add-ons available for Kodi.')
     AddVPNicity()
 
 
 def ShowSettings(addonID):
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % addonID)
-
-
-def OpenTools():
-    xbmc.executebuiltin('XBMC.RunAddon(script.tvguidedixie.tools)')
 
 
 def PlayMedia(url, windowed=True):
@@ -386,7 +388,7 @@ def GetAddon(addonID):
     icon    = os.path.join(home, 'icon.png')
     fanart  = os.path.join(home, 'fanart.jpg')
 
-    return [addon, home, profile, title, version, summary, desc ,icon, fanart]
+    return [addon, home, profile, title, version, summary, desc, icon, fanart]
 
 
 def AddAddon(name, addonID, mode, icon=None, fanart=None, desc=None, contextMenu=[], replaceItems=False):
@@ -534,12 +536,26 @@ def onParams(application, _params):
         ShowSettings()
 
 
+    elif mode == _INI:
+        cmd = 'XBMC.RunScript(special://home/addons/script.tvguidedixie/getIni.py)'
+        xbmc.executebuiltin(cmd)
+        
+
+
+    elif mode == _CHANNELS:
+        xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d")' % (WINDOWID, TOOLS, 1900))
+
+
+    elif mode == _SKINS:
+        xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d")' % (WINDOWID, TOOLS, 2000))
+
+
+    elif mode == _LOGOS:
+        xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d")' % (WINDOWID, TOOLS, 2100))
+
+
     elif mode == _TOOLS:
-        OpenTools()
-
-
-    elif mode == _SYSTEM:
-        ShowSystem()
+        ShowTools()
 
 
     elif mode == _YOUTUBE:

@@ -29,7 +29,18 @@ ottvdir  = ottv.getAddonInfo('profile')
 ottvskin = os.path.join(ottvdir, 'skins')
 settings = xbmc.translatePath('special://profile/settings.bak')
 
+OTTVURL  = ottv.getSetting('ottv.url').upper()
+OTEPGURL = dixie.GetSetting('dixie.url').upper()
+
 def resetAddon():
+    if OTEPGURL == 'OTHER':
+        ottv.setSetting('ottv.url', 'other')
+        ottv.setSetting('SKIN',     'OTT-Skin')
+    
+    if OTTVURL == 'OTHER':
+        dixie.SetSetting('dixie.url',  'Other')
+        dixie.SetSetting('dixie.skin', 'EPG-Skin')
+        
     try:
         sfile.rmtree(dixie.PROFILE)
         sfile.rmtree(ottvskin)

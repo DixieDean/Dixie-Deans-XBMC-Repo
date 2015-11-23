@@ -337,7 +337,15 @@ def downloadDefaults(url):
     extract.all(zip4, epgpath)
     sfile.remove(zip4)
 
-    Addon.setSetting('dixie.skin', 'FXB v4.0')
+    if OTTURL == 'OTHER':
+        Addon.setSetting('dixie.url', 'Other')
+        Addon.setSetting('dixie.skin', 'EPG-Skin')
+        setSetting('SKIN', 'OTT-Skin')
+    else:
+        Addon.setSetting('dixie.url', 'All Channels')
+        Addon.setSetting('dixie.skin', 'FXB v4.0')
+        setSetting('SKIN', 'FXB78')
+    
     setSetting('FIRSTRUN', 'true')
 
 

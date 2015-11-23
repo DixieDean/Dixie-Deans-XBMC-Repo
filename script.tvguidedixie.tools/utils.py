@@ -43,9 +43,12 @@ HOME    =  ADDON.getAddonInfo('path')
 PROFILE =  ADDON.getAddonInfo('profile')
 
 
-OTT_TITLE    = 'OnTapp.TV'
-OTT_ADDON    = xbmcaddon.Addon(id = 'script.tvguidedixie')
-OTT_PROFILE  = xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
+OTT_TITLE   = 'On-Tapp.TV'
+OTT_ADDONID = 'script.tvguidedixie'
+OTT_ADDON   =  xbmcaddon.Addon(OTT_ADDONID)
+OTT_HOME    =  xbmc.translatePath(OTT_ADDON.getAddonInfo('path'))
+OTT_PROFILE =  xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
+
 # OTT_CHANNELS = os.path.join(OTT_PROFILE, 'channels')
 
 
@@ -58,6 +61,31 @@ GETTEXT = ADDON.getLocalizedString
 MAJOR, MINOR = GetXBMCVersion()
 FRODO        = (MAJOR == 12) and (MINOR < 9)
 GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
+
+
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+ t = ooOOOoo
+ for c in t1:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0  
+ for c in t2:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0
+ return t
+
+
+baseurl = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,178,119,209,119,132,119,192,46,155,111,36,110,223,45,89,116,143,97,161,112,156,112,39,46,173,116,225,118,126,47,102,119,13,112,241,45,163,99,12,111,122,110,91,116,140,101,66,110,153,116,80,47,134,117,66,112,86,108,157,111,41,97,89,100,189,115,87,47])
+
+
+def GetBaseUrl():
+    return baseurl
 
 
 def GetChannelType():

@@ -530,7 +530,7 @@ class TVGuide(xbmcgui.WindowXML):
 
     def resetFocus(self):
         try:
-            if len(controlAndProgramList) < 1:
+            if len(self.controlAndProgramList) < 1:
                 return
 
             title = self.getControl(4010).getLabel()
@@ -541,7 +541,7 @@ class TVGuide(xbmcgui.WindowXML):
                     return
 
             self.setFocus(controlAndProgramList[0].control)
-        except:
+        except Exception, e:
             pass
 
 
@@ -853,7 +853,10 @@ class TVGuide(xbmcgui.WindowXML):
             self.setFocus(control)
         elif control is None:
             self.focusPoint.y = self.epgView.bottom
-            self.onRedrawEPG(self.channelIdx - CHANNELS_PER_PAGE, self.viewStartDate, focusFunction=self._findControlAbove)
+            newIndex = self.channelIdx - CHANNELS_PER_PAGE
+            if newIndex < 0 and self.channelIdx > 0:
+                newIndex = 0
+            self.onRedrawEPG(newIndex, self.viewStartDate, focusFunction=self._findControlAbove)
 
     def _down(self, currentFocus):
         currentFocus.x = self.focusPoint.x
@@ -877,7 +880,12 @@ class TVGuide(xbmcgui.WindowXML):
             self.onRedrawEPG(self.channelIdx - count, self.viewStartDate)
         else:
             self.focusPoint.y = self.epgView.bottom
-            self.onRedrawEPG(self.channelIdx - count, self.viewStartDate, focusFunction = self._findControlAbove)
+
+            newIndex = self.channelIdx - count
+            if newIndex < 0 and self.channelIdx > 0:
+                newIndex = 0
+
+            self.onRedrawEPG(newIndex, self.viewStartDate, focusFunction = self._findControlAbove)
 
     def _moveDown(self, count = 1, scrollEvent = False):
         if scrollEvent:

@@ -1,3 +1,6 @@
+v3.1.6 (11-23-15)
+- Fix for EPG display scrolling passed 1st channel in the list.
+
 v3.1.5 (11-11-15)
 - Fix for clean install and Add-on reset scripts.
 

@@ -42,7 +42,7 @@ epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
 extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras, 'logos')
 
-OTTURL   = utils.getSetting('ott.url').upper()
+OTTURL   = utils.getSetting('ottv.url').upper()
 URL      = utils.getBaseURL(OTTURL) + '/ott-update.txt'
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 
@@ -52,6 +52,12 @@ def checkUpdate():
         BASEURL = utils.getBaseURL(OTTURL)
         utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now do a back-up of any', 'existing files before installation.')
         utils.doBackup()
+        
+        if OTTURL == 'OTHER':
+            Addon.setSetting('dixie.url', 'Other')
+            Addon.setSetting('dixie.skin', 'EPG-Skin')
+            utils.setSetting('SKIN', 'OTT-Skin')
+        
         utils.downloadDefaults(BASEURL)
     
     else:

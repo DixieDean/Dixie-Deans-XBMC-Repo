@@ -1,3 +1,6 @@
+v1.1.6
+- Added Tools Section. Links to new features of On-Tapp.TV Tools add-on.
+
 v1.1.5
 - Fix for clean install and Add-on reset scripts.
 
