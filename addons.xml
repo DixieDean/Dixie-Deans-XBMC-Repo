@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.program.vpnicity" name="VPNicity" version="1.3.3" provider-name="spoyser">
+<addon id="plugin.program.vpnicity" name="VPNicity" version="1.3.5" provider-name="spoyser">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" version="2.3.0"/>
@@ -20,6 +20,13 @@
     <source></source>
     <email></email>
   </extension>
+  <extension point="kodi.context.item" library="manual.py">
+      <item>
+          <label>VPNicity Connect</label>
+          <visible>true</visible>
+      </item>
+  </extension>
+
 </addon>
 
 <addon id="plugin.video.ontapp-player" name="OnTapp.TV Player" version="0.0.5" provider-name="Mikey1234, DixieDean">
