@@ -11,7 +11,7 @@
         <setting id="ADDONS"     type="text"      label="Addons"            default=""      visible="false"/>
         <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN"          default="false" visible="false" />
         
-        <setting id="ottv.url"    type="labelenum" label="OTT URL" values="kodi|other" default="kodi" visible="true" />
+        <setting id="ottv.url"    type="labelenum" label="OTT URL" values="kodi|other" default="kodi" visible="false" />
         
         <setting id="dummy"      type="action" label="Click to - Open Main Settings" action="XBMC.RunScript(special://home/addons/script.on-tapp.tv/openSettings.py)" />
         <setting id="SKIN"       type="select" label="31004" source="../../userdata/addon_data/script.on-tapp.tv/skins/" mask="/" default="FXB78"/>	
