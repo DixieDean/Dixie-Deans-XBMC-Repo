@@ -19,7 +19,7 @@
 #
 
 import os
-import utils
+import vpn_utils as utils
 import path
 import subprocess
 

@@ -21,7 +21,7 @@ import xbmcgui
 import urllib
 import time
 
-import utils
+import vpn_utils as utils
 
 def download(url, dest, dp = None):
     if not dp:

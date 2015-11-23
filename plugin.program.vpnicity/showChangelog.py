@@ -19,5 +19,5 @@
 #
 
 if __name__ == '__main__':
-    import utils
+    import vpn_utils as utils
     utils.showChangelog()

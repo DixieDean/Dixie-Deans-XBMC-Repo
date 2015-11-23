@@ -32,7 +32,9 @@ ACTION_RIGHT = 2
 ACTION_UP    = 3
 ACTION_DOWN  = 4
 
-import utils
+import vpn_utils as utils
+
+
 USE_HELIX = (not utils.FRODO) and (not utils.GOTHAM)
 
 
@@ -89,7 +91,10 @@ class Browser(xbmcgui.WindowXMLDialog):
             offset = 1 if self.vpnON else 0 
 
             if self.vpnON and index == 0:
+                import threading
+                threading.Timer(1, self.close).start()
                 self.disable()
+                return
             else:
                 try:    self.country = self.countries[index-offset][1]
                 except: pass
@@ -115,7 +120,7 @@ class Browser(xbmcgui.WindowXMLDialog):
         offset = 1 if self.vpnON else 0
 
         if self.vpnON and index == 0:
-            self.icon.setImage('')
+            self.icon.setImage(utils.DISABLE)
             return
 
         try:    name = self.countries[index-offset][2] + '.png'

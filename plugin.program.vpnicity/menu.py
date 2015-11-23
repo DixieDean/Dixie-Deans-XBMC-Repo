@@ -22,7 +22,7 @@
 import xbmc
 import xbmcgui
 
-import utils
+import vpn_utils as utils
 
 ADDONID = utils.ADDONID
 TITLE   = utils.TITLE

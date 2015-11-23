@@ -21,7 +21,7 @@
 
 import vpn
 import browser
-import utils
+import vpn_utils as utils
 
 country = browser.getCountry(utils.ADDONID, vpn.GetCountries())
 vpn.BestVPN(country)

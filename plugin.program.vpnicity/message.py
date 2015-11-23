@@ -19,7 +19,7 @@
 
 import xbmcgui
 
-import utils
+import vpn_utils as utils
 
 import urllib2
 import json

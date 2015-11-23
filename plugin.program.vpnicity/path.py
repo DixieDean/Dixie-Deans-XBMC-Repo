@@ -19,7 +19,7 @@
 #
 
 import xbmc
-import utils
+import vpn_utils as utils
 import os
 
 

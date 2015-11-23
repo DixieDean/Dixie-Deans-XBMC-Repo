@@ -24,7 +24,7 @@ import glob
 import urllib2
 
 import xbmc
-import utils
+import vpn_utils as utils
 
 CacheDir  = xbmc.translatePath(os.path.join(utils.ADDON.getAddonInfo('profile'), 'cache'))
 CacheSize = 100

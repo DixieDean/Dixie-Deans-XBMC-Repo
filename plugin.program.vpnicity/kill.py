@@ -23,7 +23,8 @@ import os
 import subprocess
 import xbmcgui
 import xbmc
-import utils
+import vpn_utils as utils
+
 
 def KillVPN(): 
     xbmcgui.Window(10000).clearProperty('VPNICITY_LABEL')

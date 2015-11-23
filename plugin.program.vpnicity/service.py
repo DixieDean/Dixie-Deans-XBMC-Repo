@@ -24,7 +24,7 @@ import xbmcaddon
 import xbmcgui
 import os
 
-import utils
+import vpn_utils as utils
 
 ADDONID =  utils.ADDONID
 ADDON   =  utils.ADDON
