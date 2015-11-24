@@ -1,3 +1,6 @@
+v3.1.7 (11-24-15)
+- Improved reading of online IPTV playlists.
+
 v3.1.6 (11-23-15)
 - Fix for EPG display scrolling passed 1st channel in the list.
 

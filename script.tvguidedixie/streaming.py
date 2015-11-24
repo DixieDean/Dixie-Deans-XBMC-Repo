@@ -27,6 +27,7 @@ import os
 import re
 import xbmcaddon
 import urllib
+import requests
 
 import dixie
 
@@ -126,7 +127,11 @@ class StreamsService(object):
             path = os.path.join(datapath, 'playlist.m3u')
             
             try:
-                urllib.urlretrieve(url, path)
+                request  = requests.get(url)
+                playlist = request.content
+            
+                with open(path, 'wb') as f:
+                    f.write(playlist)
             except: pass
 
         if os.path.exists(path):
