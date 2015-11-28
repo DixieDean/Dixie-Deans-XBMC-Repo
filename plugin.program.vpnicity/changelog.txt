@@ -1,3 +1,6 @@
+v1.3.6:
+   - Updated flags and graphics.
+
 v1.3.5:
    - Version bump to force refresh repo.
    - Added Canadian and GB(London) servers.

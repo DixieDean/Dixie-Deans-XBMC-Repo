@@ -53,7 +53,7 @@ msgid "Cancel"
 msgstr ""
 
 msgctxt "#30009"
-msgid "No listings available but streams will still play."
+msgid "Listings coming soon."
 msgstr ""
 
 #empty strings from id 30010 to 30099

@@ -42,19 +42,17 @@ epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
 extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras, 'logos')
 
-OTTURL   = utils.getSetting('ottv.url').upper()
-URL      = utils.getBaseURL(OTTURL) + '/ott-update.txt'
+URL      = utils.getBaseURL() + '/ott-update.txt'
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 
 
 def checkUpdate():
     if not FIRSTRUN:
-        BASEURL = utils.getBaseURL(OTTURL)
+        BASEURL = utils.getBaseURL()
         utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now do a back-up of any', 'existing files before installation.')
         utils.doBackup()
         
-        if OTTURL == 'OTHER':
-            Addon.setSetting('dixie.url', 'Other')
+        if utils.GetSystem():
             Addon.setSetting('dixie.skin', 'EPG-Skin')
             utils.setSetting('SKIN', 'OTT-Skin')
         
@@ -74,7 +72,7 @@ def checkUpdate():
         prev = utils.getSetting('OTTSKIN')
 
         if not prev == curr:
-            url     = utils.getBaseURL(OTTURL) + response['OTT Skin Link']
+            url     = utils.getBaseURL() + response['OTT Skin Link']
             path    = xbmc.translatePath(PROFILE) 
             path    = os.path.join(path, 'skins')
             zipfile = os.path.join(path, 'skin-update.zip')
@@ -90,7 +88,7 @@ def checkUpdate():
         prev = utils.getSetting('EPGSKIN')
 
         if not prev == curr:
-            url     = utils.getBaseURL(OTTURL) + response['EPG Skin Link']
+            url     = utils.getBaseURL() + response['EPG Skin Link']
             path    = os.path.join(extras, 'skins')
             zipfile = os.path.join(path,   'skin-update.zip')
             
@@ -105,7 +103,7 @@ def checkUpdate():
         prev = utils.getSetting('LOGOCOLOUR')
 
         if not prev == curr:
-            url     = utils.getBaseURL(OTTURL) + response['Logo Colour']
+            url     = utils.getBaseURL() + response['Logo Colour']
             path    = os.path.join(logos, 'Colour Logo Pack')
             zipfile = os.path.join(path,  'logo-colour-update.zip')
             
@@ -120,7 +118,7 @@ def checkUpdate():
         prev = utils.getSetting('LOGOWHITE')
 
         if not prev == curr:
-            url     = utils.getBaseURL(OTTURL) + response['Logo White']
+            url     = utils.getBaseURL() + response['Logo White']
             path    = os.path.join(logos, 'White Logo Pack')
             zipfile = os.path.join(path,  'logo-white-update.zip')
             
@@ -135,7 +133,7 @@ def checkUpdate():
         prev = utils.getSetting('OTTUPDATE')
 
         if not prev == curr:
-            url     = utils.getBaseURL(OTTURL) + response['OTT Update']
+            url     = utils.getBaseURL() + response['OTT Update']
             path    = xbmc.translatePath(HOME)
             zipfile = os.path.join(path, 'python-update.zip')
             
@@ -147,7 +145,7 @@ def checkUpdate():
         prev = utils.getSetting('EPGUPDATE')
 
         if not prev == curr:
-            url     = utils.getBaseURL(OTTURL) + response['EPG Update']
+            url     = utils.getBaseURL() + response['EPG Update']
             path    = xbmc.translatePath(epghome)
             zipfile = os.path.join(path, 'python-update.zip')
             

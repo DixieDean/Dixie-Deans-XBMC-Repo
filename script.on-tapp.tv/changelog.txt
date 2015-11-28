@@ -1,3 +1,6 @@
+v1.1.8
+- Changed first run routine.
+
 v1.1.7
 - Added Tools Section. Links to new features of On-Tapp.TV Tools add-on.
 - Settings file fix.

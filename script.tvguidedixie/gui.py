@@ -310,11 +310,13 @@ class TVGuide(xbmcgui.WindowXML):
         xbmcgui.WindowXML.close(self)
 
     def hideBlackout(self):
+        return
         if self.blackout:
             self.removeControl(self.blackout)
             self.blackout = None
 
     def showBlackout(self):
+        return
         img = os.path.join(dixie.RESOURCES, 'blackout.jpg')
         self.hideBlackout()
         self.blackout = xbmcgui.ControlImage(0, 0, 1280, 720, img)
@@ -1085,7 +1087,7 @@ class TVGuide(xbmcgui.WindowXML):
             return # ignore redraw request while redrawing
         debug('onRedrawEPG')
 
-        self.hideBlackout()
+        # self.hideBlackout()
 
         self.redrawingEPG = True
         self.mode = MODE_EPG

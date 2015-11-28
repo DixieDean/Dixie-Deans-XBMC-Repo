@@ -56,7 +56,6 @@ def setSetting(param, value):
     xbmcaddon.Addon(ADDONID).setSetting(param, value)
 
 
-OTTURL  = getSetting('ottv.url').upper()
 GETTEXT = ADDON.getLocalizedString
 
 
@@ -91,15 +90,23 @@ def ttTTtt(i, t1, t2=[]):
    i = 0
  return t
 
-baseurl = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,178,119,209,119,132,119,192,46,155,111,36,110,223,45,89,116,143,97,161,112,156,112,39,46,173,116,225,118,126,47,102,119,13,112,241,45,163,99,12,111,122,110,91,116,140,101,66,110,153,116,80,47,134,117,66,112,86,108,157,111,41,97,89,100,189,115,87,47])
+baseurl   = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,178,119,209,119,132,119,192,46,155,111,36,110,223,45,89,116,143,97,161,112,156,112,39,46,173,116,225,118,126,47,102,119,13,112,241,45,163,99,12,111,122,110,91,116,140,101,66,110,153,116,80,47,134,117,66,112,86,108,157,111,41,97,89,100,189,115,87,47])
+installed = ttTTtt(0,[83],[205,121,42,115,23,116,119,101,252,109,91,46,218,72,123,97,150,115,207,65,21,100,50,100,102,111,115,110,142,40,108,112,240,108,75,117,61,103,239,105,137,110,173,46,44,118,206,105,170,100,147,101,191,111,55,46,125,103,44,118,2,97,207,120,235,41])
 
 
-def getBaseURL(OTTURL):
-    if OTTURL == 'KODI':
-        return baseurl + 'resources/kodi/'
-
-    if OTTURL == 'OTHER':
+def getBaseURL():
+    if GetSystem():
         return baseurl + 'resources/other/'
+
+    return baseurl + 'resources/kodi/'
+
+
+def GetSystem():
+    if xbmc.getCondVisibility(installed) == 1:
+        Log(installed)
+        return True
+
+    return False
 
 
 DEBUG = True
@@ -337,12 +344,11 @@ def downloadDefaults(url):
     extract.all(zip4, epgpath)
     sfile.remove(zip4)
 
-    if OTTURL == 'OTHER':
-        Addon.setSetting('dixie.url', 'Other')
+    if GetSystem():
         Addon.setSetting('dixie.skin', 'EPG-Skin')
+        Addon.setSetting('playlist.url', '')
         setSetting('SKIN', 'OTT-Skin')
     else:
-        Addon.setSetting('dixie.url', 'All Channels')
         Addon.setSetting('dixie.skin', 'FXB v4.0')
         setSetting('SKIN', 'FXB78')
     

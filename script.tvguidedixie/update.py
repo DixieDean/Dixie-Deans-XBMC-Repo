@@ -34,7 +34,6 @@ import dixie
 import sfile
 
 
-DIXIEURL = dixie.GetSetting('dixie.url').upper()
 username = dixie.GetSetting('username')
 password = dixie.GetSetting('password')
 response = ''
@@ -185,7 +184,7 @@ def getResponse(silent=False):
     if not dixie.validToRun(silent):
         return {'Error' : 'Failed to obtain a valid response from On-Tapp.TV'}
 
-    url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+    url      = dixie.GetDixieUrl() + 'update.txt'
     request  = requests.get(url, cookies=dixie.loadCookies(cookiefile), verify=False)
     code     = request.status_code
     response = request.content

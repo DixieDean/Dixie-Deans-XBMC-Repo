@@ -46,8 +46,6 @@ import re
 import io
 
 
-SOURCE    = dixie.GetSetting('source')
-DIXIEURL  = dixie.GetSetting('dixie.url').upper()
 GMTOFFSET = dixie.GetGMTOffset()
 
 datapath     = dixie.PROFILE
@@ -55,7 +53,7 @@ settingsFile = os.path.join(datapath, 'settings.cfg')
 
 USE_DB_FILE = True
 
-SETTINGS_TO_CHECK = ['dixie.url']
+SETTINGS_TO_CHECK = ['']
 
 channelFolder = dixie.GetChannelFolder()
 channelPath   = os.path.join(channelFolder, 'channels')
@@ -63,10 +61,6 @@ dixie.log('Channel Folder Setting: %s' % channelPath)
 
 try:    sfile.makedirs(channelPath)
 except: pass
-
-
-def GetDixieUrl():
-    return dixie.GetDixieUrl(DIXIEURL)
 
 
 def GetLogoType():
@@ -1184,7 +1178,7 @@ class DIXIESource(Source):
 
 
     def __init__(self, addon):
-        self.KEY += '.' + DIXIEURL
+        self.KEY += '.' + dixie.GetKey()
         self.xml = None
 
         gmt = addon.getSetting('gmtfrom').replace('GMT', '')

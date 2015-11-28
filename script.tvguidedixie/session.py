@@ -44,7 +44,6 @@ def getPayload():
     return urllib.urlencode(getAccount())
 
 ADDON      = xbmcaddon.Addon(id = 'script.tvguidedixie')
-DIXIEURL   = dixie.GetSetting('dixie.url').upper()
 baseurl    = dixie.GetLoginUrl()
 datapath   = dixie.PROFILE
 cookiepath = os.path.join(datapath, 'cookies')
@@ -97,7 +96,7 @@ def doLogin():
 
 
 def checkFiles(url):
-    url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+    url      = dixie.GetDixieUrl() + 'update.txt'
     request  = requests.get(url, allow_redirects=False, auth=(getUsername(), getPassword()))
     response = request.text
     code     = request.status_code
@@ -111,7 +110,7 @@ def checkFiles(url):
 
 
 def getFiles(url):
-    url      = dixie.GetDixieUrl(DIXIEURL) + 'update.txt'
+    url      = dixie.GetDixieUrl() + 'update.txt'
     request  = requests.get(url, allow_redirects=False, auth=(getUsername(), getPassword()))
     response = request.text
 

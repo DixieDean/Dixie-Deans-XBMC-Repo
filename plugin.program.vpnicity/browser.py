@@ -84,7 +84,8 @@ class Browser(xbmcgui.WindowXMLDialog):
         self.refreshImage()
 
 
-    def onClick(self, controlId):        
+    def onClick(self, controlId):
+        print '************  in browser.py country chosen, trying VPN  ************'
         if controlId != 3001:
             index = self.list.getSelectedPosition()  
 

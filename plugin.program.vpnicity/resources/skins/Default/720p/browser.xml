@@ -6,20 +6,34 @@
         <posy>255</posy>
         </coordinates>
     <controls>        
+        <control type="image">
+            <posx>0</posx>
+            <posy>192</posy>
+            <description>Title Bar</description>
+            <aligny>top</aligny>
+            <width>532</width>
+            <height>80</height>
+            <texture>vpn-connect.png</texture>
+        </control>
+        
+
         <control type="image" id="5000">
 	    <description>Background image</description>
 	    <posx>0</posx>
-	    <posy>0</posy>
+	    <posy>2</posy>
 	    <width>532</width>
-         <height>210</height>
-	    <texture border="20">DialogBack.png</texture>
+        <height>210</height>
+	    <texture>vpn-DialogBack.png</texture>
+		<bordertexture>vpn-border.png</bordertexture>
+		<bordersize>2</bordersize>
 	</control>
+    
     <control type="list" id="3000">
         <description>List to hold 'buttons'</description>
 	    <posx>20</posx>
 	    <posy>30</posy>
 	    <width>320</width>
-	    <height>152</height>	    
+	    <height>154</height>	    
         <itemwidth>320</itemwidth>
         <itemheight>38</itemheight> 
         <pagecontrol>4000</pagecontrol>  
@@ -32,16 +46,18 @@
                 <posx>0</posx>
                 <posy>0</posy>
                 <width>320</width>
-                <height>38</height>
-                <texture border="5">button-nofocus.png</texture>
+                <height>40</height>
+                <texture>vpn-button-nofocus.png</texture>
+        		<bordertexture>vpn-border.png</bordertexture>
+        		<bordersize>2</bordersize>
             </control>
             <control type="label">
 		        <posx>160</posx>
 		        <posy>0</posy>
     		    <width>320</width>
-	    	    <height>38</height>
+	    	    <height>40</height>
 		        <font>font13</font>
-                <textcolor>grey2</textcolor>
+                <textcolor>white</textcolor>
 		        <aligny>center</aligny>		    
 		        <align>center</align>
 		        <info>ListItem.Label</info>
@@ -53,16 +69,18 @@
                 <posx>0</posx>
                 <posy>0</posy>
                 <width>320</width>
-                <height>38</height>
-                <texture border="5">button-nofocus.png</texture>
+                <height>40</height>
+                <texture>vpn-button-nofocus.png</texture>
+        		<bordertexture>vpn-border.png</bordertexture>
+        		<bordersize>2</bordersize>
             </control>    
             <control type="label">
 		        <posx>160</posx>
 	     	    <posy>0</posy>
 		        <width>320</width>
-		        <height>38</height>
+		        <height>40</height>
 		        <font>font13</font>
-                <textcolor>grey2</textcolor>
+                <textcolor>white</textcolor>
 		        <aligny>center</aligny>		    
 		        <align>center</align>
 		        <info>ListItem.Label</info>
@@ -72,21 +90,21 @@
 		        <posx>0</posx>
 		        <posy>0</posy>
 		        <width>320</width>
-		        <height>38</height>                                        
-                <texture border="5">button-focus2.png</texture>
+		        <height>40</height>                                        
+                <texture border="5">vpn-button-focus2.png</texture>
  		    </control>
             <control type="label">
                 <visible>Control.HasFocus(3000)</visible>
    		        <posx>160</posx>
 		        <posy>0</posy>
 		        <width>320</width>
-		        <height>38</height>
+		        <height>40</height>
 		        <font>font13</font>
                 <textcolor>white</textcolor>
 		        <aligny>center</aligny>		    
 		        <align>center</align>
 		        <info>ListItem.Label</info>
-		    </control>                           
+		    </control>
         </focusedlayout>
 	</control>  
 	<control type="scrollbar" id="4000">
@@ -94,11 +112,11 @@
 			<posy>30</posy>
 			<width>25</width>
 			<height>152</height>
-			<texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
-			<texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
-			<texturesliderbarfocus border="0,14,0,14">ScrollBarV_bar_focus.png</texturesliderbarfocus>
-			<textureslidernib>ScrollBarNib.png</textureslidernib>
-			<textureslidernibfocus>ScrollBarNib.png</textureslidernibfocus>
+			<texturesliderbackground border="0,14,0,14">vpn-ScrollBarV.png</texturesliderbackground>
+			<texturesliderbar border="0,14,0,14">vpn-ScrollBarV_bar.png</texturesliderbar>
+			<texturesliderbarfocus border="0,14,0,14">vpn-ScrollBarV_bar_focus.png</texturesliderbarfocus>
+			<textureslidernib>vpn-ScrollBarNib.png</textureslidernib>
+			<textureslidernibfocus>vpn-ScrollBarNib.png</textureslidernibfocus>
 			<onleft>3000</onleft>
 			<onright>3000</onright>                
 			<showonepage>false</showonepage>
@@ -107,25 +125,38 @@
 
         <control type="button" id="3001">
             <description>Close Window button</description>
-            <posx>440</posx>
-            <posy>5</posy>
-            <width>64</width>
-            <height>32</height>
+            <posx>500</posx>
+            <posy>9</posy>
+            <width>24</width>
+            <height>24</height>
             <label>-</label>
             <font>-</font>
             <onclick>PreviousMenu</onclick>
-            <texturefocus>DialogCloseButton-focus.png</texturefocus>
-            <texturenofocus>DialogCloseButton.png</texturenofocus>
+            <texturefocus>vpn-DialogCloseButton-focus.png</texturefocus>
+            <texturenofocus>vpn-DialogCloseButton.png</texturenofocus>
             <visible>system.getbool(input.enablemouse)</visible>			
             <onup>3000</onup>
             <ondown>3000</ondown>
-		</control>	
+		</control>
+        <control type="label">
+            <description>Date</description>
+            <posx>515</posx>
+            <posy>224</posy>
+            <width>220</width>
+            <height>35</height>
+            <font>font12</font>
+            <align>right</align>
+            <aligny>top</aligny>
+            <textcolor>white</textcolor>
+            <label>$INFO[System.Date(DDD dd MMM)]</label>
+        </control>
+        
 		
 		<control type="image" id="3002">
-			<posx>360</posx>
-			<posy>30</posy>
-			<width>152</width>
-			<height>152</height>
+			<posx>380</posx>
+			<posy>65</posy>
+			<width>128</width>
+			<height>86</height>
 		</control>
     </controls>
 </window>

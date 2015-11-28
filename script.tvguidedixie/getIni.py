@@ -52,11 +52,15 @@ def getIni():
     
     path = current_ini
 
-    if dixie.DIXIEURL == 'ALL CHANNELS':
-        url = dixie.GetExtraUrl() + 'resources/addons.ini'
-    else:
+    if dixie.GetSystem():
         url = dixie.GetExtraUrl() + 'resources/other/addons.ini'
-
+        try:
+            urllib.urlretrieve(url, path)
+        except: pass
+        return
+    
+    
+    url = dixie.GetExtraUrl() + 'resources/addons.ini'
     try:
         urllib.urlretrieve(url, path)
     except: pass

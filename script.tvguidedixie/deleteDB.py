@@ -35,7 +35,6 @@ def deleteDB():
         dbFile  = os.path.join(dbPath, 'program.db')
         zipPath = os.path.join(dbPath, '*.zip')
         zipFile = glob.glob(zipPath)
-        #print '=================== zipFile =================', zipFile
     
         delete_file(dbFile)
     
@@ -57,6 +56,7 @@ def deleteDB():
         return False
 
 def delete_file(filename):
+    dixie.SetSetting('epg.date', '2000-01-01')
     tries = 10
     while os.path.exists(filename) and tries > 0:
         settings.set('ChannelsUpdated', 0, settingsFile)
@@ -67,13 +67,13 @@ def delete_file(filename):
             tries -= 1 
 
 if __name__ == '__main__':
-    xbmc.executebuiltin('Dialog.Show(busydialog)')
+    dixie.ShowBusy()
     
     if deleteDB():
-        xbmc.executebuiltin('Dialog.Close(busydialog)')
+        dixie.CloseBusy()
         dixie.DialogOK('EPG successfully reset.', 'It will be re-created next time', 'you start the guide')    
     
     else:
-        xbmc.executebuiltin('Dialog.Close(busydialog)')
+        dixie.CloseBusy()
         d = xbmcgui.Dialog()
         dixie.DialogOK('Failed to reset EPG.', 'Database may be locked,', 'please restart Kodi and try again')

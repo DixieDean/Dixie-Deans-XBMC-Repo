@@ -208,7 +208,7 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Minor bug fix for Android.', '', '')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Added VPNicity Connect plugin', 'Use it anywhere in Kodi!', 'Also, updated flags and graphics.')
     # triggerChangelog()
     
 

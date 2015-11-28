@@ -47,7 +47,6 @@ ADDON       = dixie.ADDON
 HOME        = dixie.HOME
 TITLE       = dixie.TITLE
 VERSION     = dixie.VERSION
-DIXIEURL    = dixie.DIXIEURL
 
 skin        = dixie.SKIN
 addonpath   = dixie.RESOURCES
@@ -214,10 +213,7 @@ def main(doLogin=True):
     import message
     dixie.CheckUsername()
     dixie.ShowBusy()
-    CheckChanXML()
-
     import gui
-
 
     try:
         if not dixie.validToRun():
@@ -225,8 +221,8 @@ def main(doLogin=True):
             dixie.notify('Failed to obtain a response from On-Tapp.TV')
             return
             
-        CheckPlugin()
         CheckVersion()
+        CheckPlugin()
         CheckIniVersion()
         CheckFilmOn()
         CheckForUpdate()

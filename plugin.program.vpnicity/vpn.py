@@ -166,6 +166,7 @@ def KillVPN(silent=False):
     kill.KillVPN()
     if not silent:
         message = '%s now disabled' % TITLE
+        xbmcgui.Window(10000).setProperty('VPNICITY_CONNECTED', 'False')
         utils.notify(message)
         ipcheck.Network()
 
@@ -327,6 +328,7 @@ def VPN(label, abrv, server):
             xbmcgui.Window(10000).setProperty('VPNICITY_LABEL',  label)
             xbmcgui.Window(10000).setProperty('VPNICITY_ABRV',   abrv)
             xbmcgui.Window(10000).setProperty('VPNICITY_SERVER', server)
+            xbmcgui.Window(10000).setProperty('VPNICITY_CONNECTED', 'True')
             ipcheck.Network()
 
         else:

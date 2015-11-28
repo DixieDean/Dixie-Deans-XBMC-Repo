@@ -295,6 +295,8 @@ class Application(xbmcgui.WindowXML):
             functionality.OpenTools()
         
         if select and id == TVGUIDE:
+            print '************  in application.py trigger netkill.py  ************'
+            xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netkill.py,return)')
             xbmc.executebuiltin('RunScript(script.tvguidedixie)')
         
         if select and id == MOVIES:
@@ -311,7 +313,10 @@ class Application(xbmcgui.WindowXML):
                 xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
         
         if select and id == NETFLIX:
-            xbmc.executebuiltin('StartAndroidActivity("com.netflix.mediaclient"),return')
+            print '************  in application.py trigger netcon.py  ************'
+            xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netcon.py,return)')
+                        
+            # xbmc.executebuiltin('StartAndroidActivity("com.netflix.mediaclient"),return')
         
         if select and id == MOVIEANDTV:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.video.genesis)')

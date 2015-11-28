@@ -23,35 +23,48 @@ import os
 
 import sfile
 import dixie
+import deleteDB
 
 ottv     = xbmcaddon.Addon('script.on-tapp.tv')
-ottvdir  = ottv.getAddonInfo('profile')
-ottvskin = os.path.join(ottvdir, 'skins')
+otepg    = dixie.PROFILE
+epgchan  = os.path.join(otepg, 'channels')
 settings = xbmc.translatePath('special://profile/settings.bak')
 
-OTTVURL  = ottv.getSetting('ottv.url').upper()
-OTEPGURL = dixie.GetSetting('dixie.url').upper()
 
 def resetAddon():
-    if OTEPGURL == 'OTHER':
-        ottv.setSetting('ottv.url', 'other')
-        ottv.setSetting('SKIN',     'OTT-Skin')
+    dixie.SetSetting('epg.date', '2000-01-01')
+    dixie.SetSetting('logo.type', '0')
+    dixie.SetSetting('dixie.logo.folder', 'None')
     
-    if OTTVURL == 'OTHER':
-        dixie.SetSetting('dixie.url',  'Other')
+    if dixie.GetSystem():
+        ottv.setSetting('SKIN', 'OTT-Skin')
         dixie.SetSetting('dixie.skin', 'EPG-Skin')
-        
-    try:
-        sfile.rmtree(dixie.PROFILE)
-        sfile.rmtree(ottvskin)
-        sfile.remove(settings)
+        dixie.SetSetting('playlist.url', '')
+        deleteFiles()
+
+    else:
         ottv.setSetting('FIRSTRUN', 'false')
-        dixie.SetSetting('logo.type', '0')
-        dixie.SetSetting('dixie.logo.folder', 'None')
-    except:
-        pass
-    dixie.DialogOK('On-Tapp.TV successfully reset.', 'It will be re-created next time', 'you start the guide')
+        deleteFiles()
+
+    dixie.CloseBusy()
+    
+    
+
+
+def deleteFiles():
+    try:
+        deleteDB.deleteDB()
+        sfile.rmtree(epgchan)
+        sfile.remove(settings)
+                
+        dixie.DialogOK('On-Tapp.TV successfully reset.', 'It will be recreated next time', 'you start the guide.')
+        
+    except Exception, e:
+        error = str(e)
+        dixie.log('%s :: Error resetting OTTV' % error)
+        dixie.DialogOK('On-Tapp.TV failed to reset.', error, 'Please restart Kodi and try again.')
 
 
 if __name__ == '__main__':
+    dixie.ShowBusy()
     resetAddon()

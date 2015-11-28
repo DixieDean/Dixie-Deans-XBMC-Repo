@@ -30,6 +30,7 @@ def KillVPN():
     xbmcgui.Window(10000).clearProperty('VPNICITY_LABEL')
     xbmcgui.Window(10000).clearProperty('VPNICITY_ABRV')
     xbmcgui.Window(10000).clearProperty('VPNICITY_SERVER')
+    xbmcgui.Window(10000).clearProperty('VPNICITY_CONNECTED')
 
     if os.name == 'nt':
         try:
@@ -45,6 +46,7 @@ def KillVPN():
 
     # Android
     if utils.platform() == "android" :
+        print '************  in kill.py kill vpn android activity  ************'
         xbmc.executebuiltin( "StartAndroidActivity(%s,%s)" % ( "com.vpnicity.openvpn.control", "com.vpnicity.openvpn.control.DISCONNECT") )
         return
 
