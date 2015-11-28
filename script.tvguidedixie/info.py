@@ -28,7 +28,7 @@ from channel import Channel
 from source import Program
 
 PROGRAM_DB = 'program.db'
-DB_KEY     = 'dixie.' + dixie.DIXIEURL
+DB_KEY     = 'dixie.' + dixie.GetKey()
 
 
 class InfoService(object):
