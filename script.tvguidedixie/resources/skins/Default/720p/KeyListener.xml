@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<animation effect="fade" start="0" end="100" time="200">WindowOpen</animation>
+	<animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+	<coordinates>
+		<left>350</left>
+		<top>250</top>
+	</coordinates>
+	<controls>
+		<control type="group">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>580</width>
+				<height>100</height>
+        	    <texture>key-dialog-back.png</texture>
+        		<bordertexture>key-border.png</bordertexture>
+        		<bordersize>2</bordersize>
+			</control>
+			<control type="image" id="400">
+				<description>avatar</description>
+				<left>20</left>
+				<top>10</top>
+				<width>80</width>
+				<height>80</height>
+				<aspectratio>keep</aspectratio>
+				<texture>DefaultFile.png</texture>
+			</control>
+			<control type="fadelabel" id="401">
+				<description>Line 1 Label</description>
+				<left>130</left>
+				<top>20</top>
+				<width>540</width>
+				<height>20</height>
+				<font>font12_title</font>
+				<textcolor>white</textcolor>
+				<align>left</align>
+				<aligny>top</aligny>
+			</control>
+			<control type="fadelabel" id="402">
+				<description>Line 2 Label</description>
+				<left>130</left>
+				<top>50</top>
+				<width>540</width>
+				<height>20</height>
+				<font>font12_title</font>
+				<textcolor>white</textcolor>
+				<align>left</align>
+				<aligny>top</aligny>
+			</control>
+		</control>
+	</controls>
+</window>

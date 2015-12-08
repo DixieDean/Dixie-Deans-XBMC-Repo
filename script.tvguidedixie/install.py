@@ -67,6 +67,9 @@ if __name__ == '__main__':
         xbmc.executebuiltin('Dialog.Close(busydialog)')
         dixie.DialogOK('On-Tapp.TV Mini-Guide installed ', 'into the Super Favourites Gobal Menu', 'Thank you.')
         
+        if dixie.DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
+            xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)')
+        
     else:
         xbmc.executebuiltin('Dialog.Close(busydialog)')
         dixie.DialogOK('On-Tapp.TV Mini-Guide failed to install.', 'Ensure you have Super Favourites installed.', 'Thank you.')

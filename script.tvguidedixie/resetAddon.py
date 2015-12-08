@@ -36,7 +36,7 @@ def resetAddon():
     dixie.SetSetting('logo.type', '0')
     dixie.SetSetting('dixie.logo.folder', 'None')
     
-    if dixie.GetSystem():
+    if dixie.isDSF():
         ottv.setSetting('SKIN', 'OTT-Skin')
         dixie.SetSetting('dixie.skin', 'EPG-Skin')
         dixie.SetSetting('playlist.url', '')

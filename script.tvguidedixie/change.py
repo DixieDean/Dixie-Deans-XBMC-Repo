@@ -31,11 +31,10 @@ from osd import OSD
 
 def action(key):
     if xbmcgui.Window(10000).getProperty('OTT_RUNNING') != 'True':
-        dixie.log('OTT not running')    
+        dixie.log('OTT not running')
         return
 
     dixie.log('Key pressed %s' % key)    
-    print 'Key pressed %s' % key
 
     if not key in ['SELECT', 'PGUP', 'PGDOWN', 'UP', 'DOWN', 'LEFT', 'RIGHT', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'G']:
         dixie.log('Input not recognised')    

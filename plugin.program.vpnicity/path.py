@@ -170,7 +170,6 @@ def error(silent):
     if silent:
         return None
 
-    import utils
     import xbmcgui
     xbmcgui.Dialog().ok(utils.TITLE + ' - ' + utils.VERSION, 'Could not find a VPN application.', 'Please check your settings and try again.')
     return None

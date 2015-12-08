@@ -164,6 +164,10 @@ def ShowSettings(addonID):
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % addonID)
 
 
+def OpenTools():
+    xbmc.executebuiltin('XBMC.RunAddon(script.tvguidedixie.tools)')
+
+
 def PlayMedia(url, windowed=True):
     APPLICATION.setResolvedUrl(url, success=True, listItem=None, windowed=windowed)
 

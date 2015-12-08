@@ -42,6 +42,7 @@ ICON        =  xbmc.translatePath(ICON)
 PROFILE     =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
 RESOURCES   =  os.path.join(HOME, 'resources')
 
+
 def SetSetting(param, value):
     value = str(value)
 
@@ -72,6 +73,7 @@ VERSION     =  ADDON.getAddonInfo('version')
 TITLE       = 'On-Tapp.EPG'
 LOGOPACK    = 'Colour Logo Pack'
 DEBUG       =  GetSetting('DEBUG') == 'true'
+KEYMAP_HOT  = 'ottv_hot.xml'
 
 datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
 extras     = os.path.join(datapath, 'extras')
@@ -175,26 +177,46 @@ baseurl   = ttTTtt(0,[104,244,116,66,116,68,112,168,115,206,58,5,47,99,47,49,119
 resource  = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,178,119,209,119,132,119,192,46,155,111,36,110,223,45,89,116,143,97,161,112,156,112,39,46,173,116,225,118,126,47,102,119,13,112,241,45,163,99,12,111,122,110,91,116,140,101,66,110,153,116,80,47,134,117,66,112,86,108,157,111,41,97,89,100,189,115,87,47])
 loginurl  = ttTTtt(393,[72,104,176,116],[194,116,1,112,40,115,24,58,196,47,96,47,160,119,10,119,73,119,153,46,156,111,245,110,246,45,163,116,51,97,57,112,60,112,217,46,1,116,38,118,110,47,202,119,147,112,232,45,135,108,73,111,70,103,215,105,209,110,244,46,121,112,128,104,196,112])
 verifyurl = ttTTtt(211,[136,104,34,116,82,116,10,112,216,115,105,58,30,47,240,47,201,111,178,110,160,45],[121,116,0,97,232,112,168,112,107,46,147,116,137,118,134,47,9,118,43,101,218,114,147,105,8,102,130,121,253,47,127,105,138,110,242,100,123,101,139,120,232,46,154,112,251,104,194,112])
-installed = ttTTtt(0,[83],[205,121,42,115,23,116,119,101,252,109,91,46,218,72,123,97,150,115,207,65,21,100,50,100,102,111,115,110,142,40,108,112,240,108,75,117,61,103,239,105,137,110,173,46,44,118,206,105,170,100,147,101,191,111,55,46,125,103,44,118,2,97,207,120,235,41])
+dsf       = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
+
+
+def WriteKeymap(start, end):
+    dest = os.path.join('special://profile/keymaps', KEYMAP_HOT)
+    cmd  = '<keymap><Global><keyboard><%s>XBMC.RunScript(special://home/addons/script.tvguidedixie/osd.py)</%s></keyboard></Global></keymap>'  % (start, end)
+    
+    f = sfile.file(dest, 'w')
+    f.write(cmd)
+    f.close()
+    xbmc.sleep(1000)
+
+    tries = 4
+    while not sfile.exists(dest) and tries > 0:
+        tries -= 1
+        f = sfile.file(dest, 'w')
+        f.write(cmd)
+        f.close()
+        xbmc.sleep(1000)
+
+    return True
 
 
 def GetDixieUrl():
-    if GetSystem():
+    if isDSF():
         return baseurl + 'other/'
 
     return baseurl + 'all/'
 
 
 def GetKey():
-    if GetSystem():
+    if isDSF():
         return 'OTHER'
 
     return 'ALL CHANNELS'
 
 
-def GetSystem():
-    if xbmc.getCondVisibility(installed) == 1:
-        log(installed)
+def isDSF():
+    if xbmc.getCondVisibility('System.HasAddon(%s)' % dsf) == 1:
+        log(dsf)
         return True
 
     return False
@@ -295,15 +317,21 @@ def MigrateChannels(dst):
 
 
 def CheckUsername():
-    if GetSetting('username') != '' and GetSetting('password') != '':
+    if GetUser() != '' and GetPass() != '':
         return True
 
     if DialogYesNo('On-Tapp.TV requires a subscription.', '', 'Would you like to enter your account details now?'):
         username = DialogKB('', 'Enter Your On-Tapp.TV Username')
-        SetSetting('username', username)
+        if isDSF():
+            xbmcaddon.Addon(dsf).setSetting('username', username)
+        else:
+            SetSetting('username', username)
 
         password = DialogKB('', 'Enter Your On-Tapp.TV Password')
-        SetSetting('password', password)
+        if isDSF():
+            xbmcaddon.Addon(dsf).setSetting('password', password)
+        else:
+            SetSetting('password', password)
         
         verify.CheckCredentials()
 
@@ -361,11 +389,11 @@ def doLogin(silent=False):
             #Rich, you might want to log something here???
             return False
             
-        PAYLOAD  = { 'log' : GetSetting('username'), 'pwd' : GetSetting('password'), 'wp-submit' : 'Log In' }
+        PAYLOAD  = { 'log' : GetUser(), 'pwd' : GetPass(), 'wp-submit' : 'Log In' }
         response = 'login_error'
         code     =  0
         
-        if GetSetting('username') and GetSetting('password'):
+        if GetUser() and GetPass():
             login    = s.post(GetLoginUrl(), data=PAYLOAD, verify=False)
             response = login.content
             code     = login.status_code
@@ -406,6 +434,24 @@ def doLogin(silent=False):
         return False
 
 
+def GetUser():
+    if isDSF():
+        username = xbmcaddon.Addon(dsf).getSetting('username')
+        return username
+
+    username = GetSetting('username')
+    return username
+    
+
+def GetPass():
+    if isDSF():
+        password = xbmcaddon.Addon(dsf).getSetting('password')
+        return password
+
+    password = GetSetting('password')
+    return password
+
+    
 def GetCats():
     path = os.path.join(PROFILE, 'cats.xml')
 

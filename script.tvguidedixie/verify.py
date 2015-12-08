@@ -42,9 +42,9 @@ def CheckCredentials():
 
 def getResponse():    
     URL     = dixie.GetVerifyUrl()
-    USER    = dixie.GetSetting('username')
-    PASS    = dixie.GetSetting('password')
-    PAYLOAD = {'username':USER, 'password':PASS}
+    USER    = dixie.GetUser()
+    PASS    = dixie.GetPass()
+    PAYLOAD = {'username' : USER, 'password' : PASS}
     
     request  = requests.post(URL, data=PAYLOAD)
     response = request.content

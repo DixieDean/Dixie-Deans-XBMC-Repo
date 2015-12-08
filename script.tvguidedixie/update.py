@@ -34,8 +34,8 @@ import dixie
 import sfile
 
 
-username = dixie.GetSetting('username')
-password = dixie.GetSetting('password')
+username = dixie.GetUser()
+password = dixie.GetPass()
 response = ''
 
 home       = dixie.HOME

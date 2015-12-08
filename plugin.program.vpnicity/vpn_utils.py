@@ -75,6 +75,33 @@ def ttTTtt(i, t1, t2=[]):
 
 baseurl  = ttTTtt(870,[129,104,93,116,41,116,188,112,79,58,12,47,7,47],[128,119,211,119,222,119,250,46,234,119,33,108,243,118,125,112,52,110,59,46,126,99,65,111,222,109,211,47,47,115,56,101,108,114,54,118,180,101,86,114,38,76,163,105,135,115,212,116,120,46,39,120,185,109,169,108])
 resource = ttTTtt(0,[104],[235,116,107,116,114,112,250,115,192,58,222,47,240,47,113,119,51,119,6,119,94,46,176,111,90,110,171,45,205,116,227,97,196,112,22,112,171,46,171,116,81,118,111,47,143,119,21,112,193,45,10,99,131,111,100,110,121,116,72,101,134,110,18,116,111,47,189,118,228,112,171,110,15,47])
+dsf      = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
+
+
+def isDSF():
+    if xbmc.getCondVisibility('System.HasAddon(%s)' % dsf) == 1:
+        log(dsf)
+        return True
+
+    return False
+
+
+def GetUser():
+    if isDSF():
+        username = xbmcaddon.Addon(dsf).getSetting('username')
+        return username
+
+    username = GetSetting('USER')
+    return username
+    
+
+def GetPass():
+    if isDSF():
+        password = xbmcaddon.Addon(dsf).getSetting('password')
+        return password
+
+    password = GetSetting('PASS')
+    return password
 
 
 def GetXBMCVersion():
@@ -208,7 +235,7 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Added VPNicity Connect plugin', 'Use it anywhere in Kodi!', 'Also, updated flags and graphics.')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Improved IP check on VPN connect.', '', 'Country/Region info should be more accurate.')
     # triggerChangelog()
     
 

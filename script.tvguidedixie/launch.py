@@ -145,7 +145,13 @@ def CheckFilmOn():
 
 
 def CheckPlugin():
-    if dixie.GetSetting('MINIGUIDE') == 'false':
+    filename  = 'OTTV Mini-Guide.py'
+
+    sfaves = xbmcaddon.Addon('plugin.program.super.favourites')
+    path   = sfaves.getAddonInfo('profile')
+    file   = os.path.join(path, 'Plugins', filename)
+    
+    if not sfile.exists(file):
         if dixie.DialogYesNo('Would you like to install the ', 'On-Tapp.TV Mini-Guide?', 'Access our listings anywhere in Kodi!'):
             xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/install.py)')
         else: pass

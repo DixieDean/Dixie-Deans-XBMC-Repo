@@ -56,22 +56,8 @@ extras      = os.path.join(datapath, 'extras')
 skinfolder  = os.path.join(datapath, extras, 'skins')
 skinpath    = os.path.join(skinfolder, SKIN)
 
-PATH        = skinpath
-
-if TRAILERS == 'HD-Trailers.net':
-    trailers = 'XBMC.RunAddon(plugin.video.hdtrailers_net)'
-
-if TRAILERS == 'Apple iTunes Trailers':
-    trailers = 'XBMC.RunAddon(plugin.video.itunes_trailers)'
-
-if USTV == 'Hulu':
-    ustv = 'XBMC.RunAddon(plugin.video.hulu)'
-
-if USTV == 'Hulu-Beta':
-    ustv = 'XBMC.RunAddon(plugin.video.hulu-beta)'
-
-if USTV == 'USTV VoD':
-    ustv = 'XBMC.RunAddon(plugin.video.ustvvod)'
+PATH = skinpath
+DSF  = dixie.isDSF()
 
 
 xml_file = os.path.join('script-tvguide-main.xml')
@@ -734,41 +720,10 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin(cmd)
             self.close()
 
-        elif buttonClicked == PopupMenu.C_POPUP_IPLAYER:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.ontapp-player)')
-
-        elif buttonClicked == PopupMenu.C_POPUP_ITVPLAYER:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.itv)')
-
         elif buttonClicked == PopupMenu.C_POPUP_OTTOOLS:
             self.refresh = True
             xbmc.executebuiltin('XBMC.RunAddon(script.tvguidedixie.tools)')
 
-        elif buttonClicked == PopupMenu.C_POPUP_USTV:
-            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?ch_fanart&mode=%d&name=%s&url=%s",return)' % (10025,'plugin.video.F.T.V', 131, 'My Recordings', 'url'))
-            xbmc.executebuiltin("Container.Refresh")
-            #xbmc.executebuiltin(ustv)
-
-        elif buttonClicked == PopupMenu.C_POPUP_UKTVPLAY:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.uktvplay)')
-
-        elif buttonClicked == PopupMenu.C_POPUP_SUPERFAVES:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
-            # import sys
-            # sfAddon = xbmcaddon.Addon(id = 'plugin.program.super.favourites')
-            # sfPath  = sfAddon.getAddonInfo('path')
-            # sys.path.insert(0, sfPath)
-            # import chooser
-            # chooser.Main()
-
-        elif buttonClicked == PopupMenu.C_POPUP_VPN:
-            xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/menu.py,%s)' % self.database.getStreamUrl(program.channel))
-
-        elif buttonClicked == PopupMenu.C_POPUP_SUPER_SEARCH:
-            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s",return)' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
-
-        # elif buttonClicked == PopupMenu.C_POPUP_QUIT:
-        #     self.close()
 
 
     def setFocusId(self, controlId):
@@ -905,16 +860,20 @@ class TVGuide(xbmcgui.WindowXML):
         self.playChannel(channel)
 
     def playChannel(self, channel):
-        if self.prePlayOptions(channel):
-            return True
+        if not DSF:
+            if self.prePlayOptions(channel):
+                return True
 
         self.currentChannel = channel
         wasPlaying = self.player.isPlaying()
-        url = self.database.getStreamUrl(channel)
+
+        if DSF:
+            url = 'DSF:%s' % channel.id
+        else:
+            url = self.database.getStreamUrl(channel)
+
         if url:
             xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
-            # if not wasPlaying:
-            #     self._hideControl(self.C_MAIN_BLACKOUT)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
             xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
             self.showBlackout()

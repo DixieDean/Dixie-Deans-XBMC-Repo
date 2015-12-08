@@ -52,17 +52,12 @@ def getIni():
     
     path = current_ini
 
-    if dixie.GetSystem():
-        url = dixie.GetExtraUrl() + 'resources/other/addons.ini'
-        try:
-            urllib.urlretrieve(url, path)
-        except: pass
+    if dixie.isDSF():
         return
     
-    
     url = dixie.GetExtraUrl() + 'resources/addons.ini'
-    try:
-        urllib.urlretrieve(url, path)
+
+    try: urllib.urlretrieve(url, path)
     except: pass
 
     if not os.path.exists(inipath):

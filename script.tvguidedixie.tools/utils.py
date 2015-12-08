@@ -143,9 +143,10 @@ def CheckVersion():
 
     if prev == '0.0.0' or prev == '1.0.0':
         folder  = xbmc.translatePath(PROFILE)
-        if not sfile.isdir(folder):
-            try:    sfile.makedirs(folder) 
-            except: pass
+        try:
+            if not sfile.isdir(folder):
+                sfile.makedirs(folder) 
+        except: pass
 
     #call showChangeLog like this to workaround bug in openElec
     script = os.path.join(HOME, 'showChangelog.py')

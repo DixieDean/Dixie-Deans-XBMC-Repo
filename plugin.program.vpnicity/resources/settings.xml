@@ -11,7 +11,7 @@
         <setting id="SFPLUGIN"  type="bool"      label="SF-Plugin Installed"          default="false"  visible="false"/>
 
 	    <setting id="USER"      type="text"      label="VPN Username"         default=""/>
-	    <setting id="PASS"      type="text"      label="VPN Password"         default=""       option="hidden"/>
+	    <setting id="PASS"      type="text"      label="VPN Password"         default=""/>
          <!-- <setting id="dummy"        type="action"    label="[COLOR orange][B]Click to[/B] - Verify my login details[/COLOR]"    option="close"    action="XBMC.RunScript(special://home/addons/plugin.program.vpnicity/verify.py)"/> -->
 	    <setting id="OS"        type="labelenum" label="Operating System"     default=" "      values = " |Windows|Linux|MacOS|Android|OpenELEC 5.x|OpenELEC 6.x|OpenELEC R-Pi|TLBBv2 OpenELEC|RaspBMC|Raspian"/>
 		

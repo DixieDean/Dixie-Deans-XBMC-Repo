@@ -672,7 +672,7 @@ def updateLogo(id):
 
 def getImage(logo):
     if len(logo) == 0:
-        root = ''
+        root = '/'
     else:
         logo = logo.replace('\\', '/')
         root  = logo.rsplit('/', 1)[0] + '/'

@@ -8,7 +8,9 @@
         <setting id="dummy"             label="[COLOR orange][B]Click to verify your login details[/B][/COLOR]"    type="action"    option="close"    action="XBMC.RunScript(special://home/addons/script.tvguidedixie/verify.py)"/>
         <setting id="dixie.url"         label="30117" type="labelenum" values="All Channels|Other" default="All Channels" visible="false" />
 
-		<setting label="" type="lsep" visible="false" />
+        <setting id="HOTKEY"            label="[COLOR orange][B]Click to program Mini-Guide Hot Key[/B][/COLOR]" type="action"       action="RunScript($CWD/keyProgrammer.py)"/>
+		
+        <setting label="" type="lsep" visible="false" />
 
  		<setting id="gmtfrom"           label="30124" type="labelenum"     default="GMT" values="GMT-12|GMT-11|GMT-10|GMT-9|GMT-8|GMT-7|GMT-6|GMT-5|GMT-4|GMT-3|GMT-2|GMT-1|GMT|GMT+1|GMT+2|GMT+3|GMT+4|GMT+5|GMT+6|GMT+7|GMT+8|GMT+9|GMT+10|GMT+11|GMT+12" visible="false" />
 		<setting id="dummy"             label="Download Default Logo Pack" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/logoDownloader.py)" visible="false" />
@@ -46,7 +48,7 @@
         <setting id="ignore.stream"         label="Always Offer To Choose Stream"         type="bool"   default="false" visible="true"/>
 		<setting id="playlist.type"         label="IPTV Playlist"                         type="enum"   default="URL" values="URL|File" visible="true"/>
 		<setting id="playlist.file"         label="File"                                  type="file"   visible="eq(-1,1)" />
-		<setting id="playlist.url"          label="URL"                                   type="text"   default="http://ccloudtv.org/lists/kodi.txt" visible="eq(-2,0)"/>
+		<setting id="playlist.url"          label="URL"                                   type="text"   default="http://gaslists.github.io/lists/kodi.txt" visible="eq(-2,0)"/>
         <setting id="ftv.ini"               label="Choose Film-On UK TV Links"            type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="true" />
 		<setting id="local.ini"             label="Allow Enhanced Add-on Linking"         type="bool"   default="true" visible="false"/>
         <setting id="enable.osd"            label="30118"                                 type="bool"   default="true" enable="eq(2,false)" visible="false"/>

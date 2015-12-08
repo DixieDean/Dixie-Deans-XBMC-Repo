@@ -78,7 +78,6 @@ PATH = skinpath
 xml_file = os.path.join('main.xml')
 if os.path.join(SKIN, 'skins', 'Default', '720p', xml_file):
     XML  = xml_file
-
   
 
 class Application(xbmcgui.WindowXML):
@@ -87,7 +86,7 @@ class Application(xbmcgui.WindowXML):
 
 
     def __init__(self, addonID):        
-        super(Application, self).__init__()  
+        super(Application, self).__init__()
         self.ADDONID         = addonID
         self.skin            = utils.getSetting('SKIN')
         self.properties      = {}        
@@ -280,8 +279,8 @@ class Application(xbmcgui.WindowXML):
             functionality.ShowCategories(categoriesList)
 
         if select and id == SETTINGS:
-            if utils.getSetting('SKIN') == 'GVAx':
-                addonID = 'plugin.video.gvax.tv'
+            if utils.isDSF():
+                addonID = utils.dsf
             else:
                 addonID = 'script.tvguidedixie'
 
@@ -295,10 +294,11 @@ class Application(xbmcgui.WindowXML):
             functionality.OpenTools()
         
         if select and id == TVGUIDE:
-            print '************  in application.py trigger netkill.py  ************'
-            xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netkill.py,return)')
+            if xbmcgui.Window(10000).getProperty('VPNICITY_CONNECTED') == 'True':
+                xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netkill.py,return)')
             xbmc.executebuiltin('RunScript(script.tvguidedixie)')
         
+
         if select and id == MOVIES:
             if utils.getSetting('KodiLib') == 'true':
                 xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=movieNavigator,return)')
@@ -308,15 +308,11 @@ class Application(xbmcgui.WindowXML):
         if select and id == TVSHOWS:
             if utils.getSetting('KodiLib') == 'true':
                 xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=tvNavigator,return)')
-                
             else:
                 xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
         
         if select and id == NETFLIX:
-            print '************  in application.py trigger netcon.py  ************'
             xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netcon.py,return)')
-                        
-            # xbmc.executebuiltin('StartAndroidActivity("com.netflix.mediaclient"),return')
         
         if select and id == MOVIEANDTV:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.video.genesis)')

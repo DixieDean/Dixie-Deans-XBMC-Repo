@@ -118,7 +118,7 @@ class StreamsService(object):
         entries   = list()
         label     = ''
         value     = ''
-        
+                
         if iptv_type == IPTV_FILE:
             path = os.path.join(dixie.GetSetting('playlist.file'))
 

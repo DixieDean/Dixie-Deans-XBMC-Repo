@@ -1,3 +1,6 @@
+v1.3.7:
+   - Improved IP check on VPN connect.
+
 v1.3.6:
    - Updated flags and graphics.
 

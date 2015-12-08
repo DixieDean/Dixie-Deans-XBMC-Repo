@@ -141,4 +141,4 @@ def installOpenELEC():
 
 if __name__ == '__main__':
     install()
-    utils.ADDON.openSettings()
+    # utils.ADDON.openSettings()

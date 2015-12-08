@@ -42,7 +42,7 @@ epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
 extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras, 'logos')
 
-URL      = utils.getBaseURL() + '/ott-update.txt'
+URL      = utils.getBaseURL() + 'ott-update.txt'
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 
 
@@ -52,7 +52,7 @@ def checkUpdate():
         utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now do a back-up of any', 'existing files before installation.')
         utils.doBackup()
         
-        if utils.GetSystem():
+        if utils.isDSF():
             Addon.setSetting('dixie.skin', 'EPG-Skin')
             utils.setSetting('SKIN', 'OTT-Skin')
         
@@ -158,6 +158,7 @@ def checkUpdate():
 
 def getResponse():
     request  = requests.get(URL, verify=False)
+    print 'on-tapp.tv', URL
     response = request.content
 
     utils.Log('Response in checkUpdate %s' % str(response))

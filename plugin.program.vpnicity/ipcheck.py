@@ -17,22 +17,18 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
+import xbmcgui
 import requests
 
-import re
 import vpn_utils as utils
 
 
 def Network():
-    url     = 'http://www.iplocation.net/'
-    request = requests.get(url)
-    link    = request.content
-    match   = re.compile("<td width='80'>(.+?)</td><td>(.+?) <img src='.+?'></td><td>(.+?)</td><td>.+?</td><td>(.+?)</td>").findall(link)
-    count   = 1
-    
-    for ip, country, region, isp in match:
-        if count <2:
-            message = 'IP Address: %s  Country: %s  Region: %s' % (ip, country, region)
-            utils.notify(message)
-            utils.log('VPNicity location is: %s' % match)
-            count = count+1
+    request  = requests.get('http://www.trackip.net/ip?json')
+    response = request.json()
+    address  = response["ip"]
+    country  = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+
+    message = 'IP Address: %s  Country: %s' % (address, country)
+    utils.notify(message)
+    utils.log('VPNicity location is: ' + message)

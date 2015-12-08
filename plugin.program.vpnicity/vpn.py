@@ -49,8 +49,8 @@ import quicknet
 
 
 LOGINURL = utils.LOGINURL
-USERNAME = utils.GetSetting('USER')
-PASSWORD = utils.GetSetting('PASS')
+USERNAME = utils.GetUser()
+PASSWORD = utils.GetPass()
 
 
 class MyVPN():
@@ -512,8 +512,9 @@ def Login():
         except: 
             return False
         
-        USER     = ADDON.getSetting('USER')
-        PASS     = ADDON.getSetting('PASS')
+        USER = utils.GetUser()
+        PASS = utils.GetPass()
+        
         PAYLOAD  = { 'log' : USER, 'pwd' : PASS, 'wp-submit' : 'Log In' }
         response = 'login_error'
         code     =  0

@@ -1,3 +1,6 @@
+v1.1.9
+- Added programmable HotKey to activate Mini-Guide globally in Kodi.
+
 v1.1.8
 - Changed first run routine.
 

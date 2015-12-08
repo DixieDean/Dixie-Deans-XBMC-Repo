@@ -56,6 +56,19 @@ def get_params(p):
     return param
 
 
+def playDSF(url, windowed):
+    try:
+        channel  = url.split(':', 1)[-1]
+        url      = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
+        playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
+        playlist.clear()
+        playlist.add(url, xbmcgui.ListItem(''))
+        xbmc.Player().play(playlist, windowed=windowed)
+        return True
+    except:
+        return False
+
+
 def playSF(url):
     launchID = '10025'
     if xbmcgui.Window(10000).getProperty('OTT_LAUNCH_ID') == launchID:
@@ -157,23 +170,28 @@ def playSF(url):
 
 
 def play(url, windowed, name=None):
+    handled = False
     
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
  
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, url = playSF(url)
+        if handled:
+            return
 
-        if handled:            
-            return        
- 
     dixie.loadKepmap()
     # dixie.ShowBusy()
     
     if url.lower().startswith('plugin://plugin.video.skygo'):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         return
- 
+
+    if url.lower().startswith('dsf'):
+        if playDSF(url, windowed):
+            wait(maxIdle)
+        return
+
     dixie.SetSetting('streamURL', url)
  
     if not checkForAlternateStreaming(url):
@@ -192,9 +210,11 @@ def play(url, windowed, name=None):
         if not xbmc.Player().isPlaying():
             # dixie.CloseBusy()
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+            wait(maxIdle)
  
+
+def wait(maxIdle):
     while xbmc.Player().isPlaying():
-        # dixie.CloseBusy()
         xbmc.sleep(1000)
         CheckIdle(maxIdle)
 
@@ -212,7 +232,7 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.itv' in url:        
         return alternateStream(url)
         
-    if 'plugin.video.iplayer' in url:
+    if 'plugin.video.iplayerwww' in url:
         return alternateStream(url)
         
     if 'plugin.video.musicvideojukebox' in url:

@@ -25,13 +25,14 @@ import vpn_utils as utils
 import xbmc
 import xbmcgui
 
-utils.dialogOK('Please choose a country to connect to.', '', 'Netflix will start after we are connected.')
-country = browser.getCountry(utils.ADDONID, vpn.GetCountries())
-
-print '************  in netcon.py country chosen, trying VPN  ************'
-
-vpn.BestVPN(country)
-
-if xbmcgui.Window(10000).getProperty('VPNICITY_CONNECTED') == 'True':
-    utils.dialogOK('VPN connected.', '', 'We will now log you into your Netflix account.')
+if not utils.yesno('Would you like to connect a different ', 'country before watching Netflix?', ''):
     xbmc.executebuiltin('StartAndroidActivity("com.netflix.mediaclient"),return')
+
+else:
+    country = browser.getCountry(utils.ADDONID, vpn.GetCountries())
+
+    vpn.BestVPN(country)
+
+    if xbmcgui.Window(10000).getProperty('VPNICITY_CONNECTED') == 'True':
+        utils.dialogOK('VPN connected.', '', 'We will now log you into your Netflix account.')
+        xbmc.executebuiltin('StartAndroidActivity("com.netflix.mediaclient"),return')

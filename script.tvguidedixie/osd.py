@@ -73,6 +73,7 @@ XML  = 'script-tvguide-changer.xml'
 OTT_CHANNELS = os.path.join(dixie.GetChannelFolder(), 'channels')
 IGNORESTRM   = dixie.GetSetting('ignore.stream') == 'true'
 
+DSF = dixie.isDSF()
 
 MAIN          = 5000
 EPG_CHANNEL   = 6000
@@ -271,7 +272,10 @@ class OSD(xbmcgui.WindowXMLDialog):
             if not self.osdMode:
                 return
 
-        streamUrl = channel.streamUrl
+        if DSF:
+            streamUrl = 'DSF:%s' % channel.id
+        else:
+            streamUrl = channel.streamUrl
         
         if not streamUrl:
            streamUrl = self.detectStream(channel)
