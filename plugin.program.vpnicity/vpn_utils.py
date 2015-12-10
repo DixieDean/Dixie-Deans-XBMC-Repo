@@ -160,8 +160,6 @@ def checkOS():
         log(error)
     elif plat == 'ios':
         log(error)
-    # elif 'oe' in plat:
-    #     os = 'OpenELEC'
 
     if len(os) > 1:
         log('Setting system to %s' % os)
@@ -235,8 +233,8 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Improved IP check on VPN connect.', '', 'Country/Region info should be more accurate.')
-    # triggerChangelog()
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Bugfix related to VPNicity Connect plugin.', 'For online support, please visit our forum.', 'www.on-tapp-networks.com/forum')
+    triggerChangelog()
     
 
 def dialogOK(line1, line2='', line3=''):
@@ -432,7 +430,7 @@ def platform():
     if os == 'TLBBv2 OpenELEC':
         log('======= VPNicity OE TLBBv2 =======')
         return 'oe-armv7-5'
-        
+
 
     if xbmc.getCondVisibility('system.platform.android'):
         return 'android'

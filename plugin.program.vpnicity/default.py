@@ -27,6 +27,7 @@ import os
 import urllib
 import vpn_utils as utils
 import vpn
+import path
 
 
 ADDON    = utils.ADDON
@@ -60,6 +61,7 @@ def Main():
     message.check()
     utils.checkVersion()
     vpn.CheckUsername()
+    path.getPath(utils.ADDON.getSetting('OS'), silent=True)
     CheckPlugin()
     
     if not vpn.validToRun():
@@ -100,18 +102,13 @@ def Main():
 
 
 def CheckPlugin():
-    import sfile
-    
-    filename  = 'VPNicity Connect.py'
-
-    sfaves = xbmcaddon.Addon('plugin.program.super.favourites')
-    path   = sfaves.getAddonInfo('profile')
-    file   = os.path.join(path, 'Plugins', filename)
-    
-    if not sfile.exists(file):
+    if ADDON.getSetting('SFPLUGIN') == 'false':
         if utils.yesno('Would you like to install the ', 'VPNicity Connect plug-in?', 'Access VPNicity anywhere in Kodi!'):
             xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/installSF.py)')
-        else: pass
+            ADDON.setSetting('SFPLUGIN', 'true')
+            ADDON.setSetting('CONTEXT', 'false')
+    
+    ADDON.setSetting('SFPLUGIN', 'true')    
 
 
 def CreateFile(label,abrv=''):

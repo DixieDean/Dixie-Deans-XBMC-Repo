@@ -41,9 +41,6 @@ def vpnConnect():
             else:
                 utils.log('Installing VPNicity Connect Plugin...FAILED')
         
-            utils.SetSetting('SFPLUGIN', 'true')
-            utils.SetSetting('CONTEXT', 'false')
-        
             return passed
         
         except Exception, e:

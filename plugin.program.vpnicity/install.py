@@ -38,6 +38,10 @@ def install(silent=False):
         installOpenELEC()
         return
 
+    if utils.ADDON.getSetting('OS') == 'Ember 3.x.x':
+        installEmber()
+        return
+
     cmdLine  = utils.getSudo()
     cmdLine +='apt-get update;'
     cmdLine +='sudo apt-get -y install openvpn;'
@@ -137,6 +141,40 @@ def installOpenELEC():
         utils.dialogOK('VPN application successfully installed')
     else:
         utils.dialogOK('VPN application installation failed', 'Please try again later')
+
+
+def installEmber():
+    import download
+    import extract
+    import stat
+    
+    url      = utils.getResourceUrl() + 'openvpn-ember.zip'
+    bindir   = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/ember/')
+    dest     = os.path.join(bindir, 'openvpn-ember.zip')
+    emberbin = os.path.join(bindir, 'openvpn')
+    
+    try:
+        os.makedirs(bindir)
+    except:
+        pass
+
+    download.download(url, dest)
+    extract.all(dest, bindir)
+    
+    st = os.stat(emberbin)
+    os.chmod(emberbin, st.st_mode | stat.S_IEXEC)
+    
+    try:
+        os.remove(dest)
+    except:
+        pass
+        
+    success = path.getPath(utils.ADDON.getSetting('OS'), silent=True)
+
+    if success:
+        utils.dialogOK('Ember VPN application successfully installed')
+    else:
+        utils.dialogOK('Ember VPN application installation failed', 'Please try again later')
 
 
 if __name__ == '__main__':
