@@ -137,14 +137,6 @@ def GetBest(abrv):
     import random
     return random.choice(cities)
 
-    #best = cities[0]
-
-    #for city in cities:
-    #    if best[2] > city[2]:
-    #        best = city
-
-    #return best
-
     
 def GetCities(abrv):
     abrv  = abrv.upper()
@@ -174,8 +166,6 @@ def KillVPN(silent=False):
 def Run(cmdline, timeout=0):
     if utils.platform() == "android":
         return RunAndroid(cmdline, timeout)
-
-    utils.log('COMMAND - %s' % cmdline)
 
     ret = 'Error: Process failed to start'
 
@@ -213,11 +203,6 @@ def Run(cmdline, timeout=0):
         ps  = subprocess.Popen(cmdline, shell=False, stdout=subprocess.PIPE)
         ret = ps.stdout.read()
         ps.stdout.close()
-
-    #try:
-    #    utils.log('RESULT - %s' % str(ret))
-    #except:
-    #    pass
 
     return ret
 
@@ -271,6 +256,7 @@ def OpenVPN(config):
         cmdline += '"' + config + '"'
         cmdline  = cmdline.replace('\\', '/')
 
+    utils.log('COMMAND - %s' % cmdline)
     return Run(cmdline, timeout)
 
 
@@ -321,8 +307,6 @@ def VPN(label, abrv, server):
     if response:
         label = label.rsplit(' (', 1)[0]
         if IsEnabled(response):
-            # if utils.platform() == "android":
-            #     xbmc.sleep(10000)
             message = '%s %s now enabled' % (label, TITLE)
             utils.notify(message)         
             xbmcgui.Window(10000).setProperty('VPNICITY_LABEL',  label)
@@ -340,10 +324,6 @@ def VPN(label, abrv, server):
             ipcheck.Network() 
             success = False
 
-    #DeleteFile(authPath)
-    #DeleteFile(cfgPath)
-    #DeleteFile(RESPONSE)
-
     return success
 
 
@@ -359,8 +339,6 @@ def DeleteFile(path):
 
 
 def WriteAuthentication(path):
-    # CheckUsername()
-
     user = USERNAME + '@vpnicity'
     pwd  = PASSWORD
 
@@ -417,7 +395,6 @@ def WriteConfiguration(server, dest, authPath):
 
 
 def CheckUsername():
-    utils.log('================== in CheckUsername ==================')
     user = USERNAME
     pwd  = PASSWORD
 
@@ -470,7 +447,6 @@ def ShowSettings():
 
 
 def getPreviousTime():
-    utils.log('================== in getPreviousTime ==================')
     time_object = utils.GetSetting('LOGIN_TIME')
     
     if time_object == '':
@@ -494,7 +470,6 @@ def parseTime(when):
 
 
 def validToRun():
-    utils.log('================== in validToRun ==================')
     previousTime = getPreviousTime()
     now          = datetime.datetime.today()
     delta        = now - previousTime
@@ -561,7 +536,7 @@ def Login():
             
         message = 'There was a problem logging into VPNicity'
         
-        utils.log('************ VPNicity Error ************')
+        utils.log('************ VPNicity Login Error ************')
         utils.log(message + ' : ' + error)
         utils.log('****************************************')
         utils.dialogOK(message, error, 'Please check your account at www.vpnicity.com')

@@ -24,11 +24,10 @@ import vpn_utils as utils
 
 
 def Network():
-    request  = requests.get('http://www.trackip.net/ip?json')
-    response = request.json()
-    address  = response["ip"]
-    country  = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
-
+    address = requests.get('https://api.ipify.org').text
+    country = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+    
     message = 'IP Address: %s  Country: %s' % (address, country)
+
     utils.notify(message)
     utils.log('VPNicity location is: ' + message)
