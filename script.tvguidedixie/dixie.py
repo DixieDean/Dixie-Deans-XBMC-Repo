@@ -34,13 +34,14 @@ import datetime
 
 import sfile
 
-ADDONID     = 'script.tvguidedixie'
-ADDON       =  xbmcaddon.Addon(ADDONID)
-HOME        =  ADDON.getAddonInfo('path')
-ICON        =  os.path.join(HOME, 'icon.png')
-ICON        =  xbmc.translatePath(ICON)
-PROFILE     =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
-RESOURCES   =  os.path.join(HOME, 'resources')
+ADDONID    = 'script.tvguidedixie'
+ADDON      =  xbmcaddon.Addon(ADDONID)
+HOME       =  ADDON.getAddonInfo('path')
+ICON       =  os.path.join(HOME, 'icon.png')
+ICON       =  xbmc.translatePath(ICON)
+PROFILE    =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
+RESOURCES  =  os.path.join(HOME, 'resources')
+PVRACTIVE  = (xbmc.getCondVisibility('Pvr.HasTVChannels')) or (xbmc.getCondVisibility('Pvr.HasRadioChannels')) == True
 
 
 def SetSetting(param, value):

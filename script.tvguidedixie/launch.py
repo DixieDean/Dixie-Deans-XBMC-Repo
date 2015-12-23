@@ -1,5 +1,3 @@
-
-
 #
 #      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com)
 #

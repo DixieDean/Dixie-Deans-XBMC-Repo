@@ -1,3 +1,9 @@
+v3.2.1 (12-21-15)
+- Added support for full Kodi PVR integration. 
+- Matching PVR channels auto-detected.
+- Any available PVR channels will show in 'Choose Stream' under 'Favourites'.
+- Added support for Ruya and HDTV plugins.
+
 v3.2.0 (12-05-15)
 - Added programmable HotKey to activate Mini-Guide globally in Kodi.
 

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#
+#      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com) - With acknowledgement to some original code by twinther (Tommy Winther)
 
 import xbmc
 import xbmcaddon
@@ -58,8 +61,11 @@ def get_params(p):
 
 def playDSF(url, windowed):
     try:
-        channel  = url.split(':', 1)[-1]
-        url      = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
+        channel = url.split(':', 1)[-1]
+        url = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
+        if channel == 'ESPN +':
+            url = 'plugin://%s/?channel=ESPN plus' % (dixie.dsf)
+        dixie.log(url)
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         playlist.clear()
         playlist.add(url, xbmcgui.ListItem(''))
@@ -174,14 +180,34 @@ def play(url, windowed, name=None):
     
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
     maxIdle = getIdle * 60 * 60
+
+    dixie.loadKepmap()
+    # dixie.ShowBusy()
+    
+    if url.startswith('HDTV:'):
+        import hdtv
+        url = hdtv.getURL(url)
+        dixie.log(url)
+        playAndWait(url, windowed, maxIdle)
+        return
+
+    if url.startswith('IPTV:'):
+        import iptv
+        url = iptv.getURL(url)
+        dixie.log(url)
+        playAndWait(url, windowed, maxIdle)
+        return
  
+    if url.isdigit():
+        command = ('{"jsonrpc": "2.0", "id":"1", "method": "Player.Open","params":{"item":{"channelid":%s}}}' % url)
+        xbmc.executeJSONRPC(command)
+        return
+    
     if (url.startswith('__SF__')) or ('plugin://plugin.program.super.favourites' in url.lower()):
         handled, url = playSF(url)
         if handled:
             return
 
-    dixie.loadKepmap()
-    # dixie.ShowBusy()
     
     if url.lower().startswith('plugin://plugin.video.skygo'):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
@@ -211,7 +237,12 @@ def play(url, windowed, name=None):
             # dixie.CloseBusy()
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
             wait(maxIdle)
- 
+
+
+def playAndWait(url, windowed, maxIdle):
+    xbmc.Player().play(url, windowed=windowed)
+    wait(maxIdle)
+
 
 def wait(maxIdle):
     while xbmc.Player().isPlaying():
@@ -299,5 +330,5 @@ if __name__ == '__main__':
     name = None
     if len(sys.argv) > 3:
         name = sys.argv[3]
-
+    
     play(sys.argv[1], sys.argv[2] == 1, name)

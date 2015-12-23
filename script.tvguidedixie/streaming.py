@@ -1,20 +1,6 @@
+# -*- coding: utf-8 -*-
 #
 #      Copyright (C) 2014 Sean Poyser and Richard Dean (write2dixie@gmail.com) - With acknowledgement to some original code by twinther (Tommy Winther)
-#
-#  This Program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2, or (at your option)
-#  any later version.
-#
-#  This Program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with XBMC; see the file COPYING.  If not, write to
-#  the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
-#  http://www.gnu.org/copyleft/gpl.html
 #
 
 
@@ -28,6 +14,7 @@ import re
 import xbmcaddon
 import urllib
 import requests
+import json
 
 import dixie
 
@@ -35,6 +22,7 @@ ADDON    = dixie.ADDON
 LOCAL    = dixie.GetSetting('local.ini') == 'true'
 FTVINI   = dixie.GetSetting('ftv.ini')
 datapath = dixie.PROFILE
+
 
 class StreamsService(object):
     def __init__(self):
@@ -180,7 +168,7 @@ class StreamsService(object):
         current, dirs, files = sfile.walk(folder)
 
         for dir in dirs:    
-            folder = os.path.join(current, dir)    
+            folder = os.path.join(current, dir)
             if dir.lower() == title:
                 cfg      = os.path.join(folder, 'folder.cfg')
                 autoplay = settings.get('AUTOPLAY', cfg)
@@ -271,7 +259,22 @@ class StreamsService(object):
                 if (channel.title in label) or (label in channel.title):
                     matches.append((id, label, stream))
 
+
+        # Get entries from PVRchannels with channel name    
+        import pvr
+        PVRchannels = pvr.getPVRChannels()
+        
+        if PVRchannels:
+            id = 'xbmc.pvr'
             
+            for (label, stream) in PVRchannels:
+                label = label.upper()
+                channel.title = channel.title.upper()
+
+                if (channel.title in label) or (label in channel.title):
+                    matches.append((id, label, stream))
+        
+
         if len(matches) == 1:
             return matches[0][2]
         else:

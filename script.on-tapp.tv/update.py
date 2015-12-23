@@ -158,7 +158,6 @@ def checkUpdate():
 
 def getResponse():
     request  = requests.get(URL, verify=False)
-    print 'on-tapp.tv', URL
     response = request.content
 
     utils.Log('Response in checkUpdate %s' % str(response))

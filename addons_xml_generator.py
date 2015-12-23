@@ -168,11 +168,17 @@ if ( __name__ == "__main__" ):
                     #print('processing file: ' + os.path.join(rootdir,x,y))
                     if re.search("addon.xml|changelog|icon|fanart", y):
                         shutil.copyfile(os.path.join(rootdir,x,y), os.path.join(zipsfolder,y))
-                        print('Copying %s to %s'  %(y, zipsfolder))           
+                        print('Copying %s to %s'  %(y, zipsfolder))     
+                         
                 ##check for and zip the folders
                 print('Zipping %s and moving to %s\n' %(x,zipsfolder))
                 try:
                     zipfolder(zipfilenamefirstpart, version+zipfilenamelastpart, foldertozip, zipsfolder)
+                    
+                    oldlog = os.path.join(zipsfolder, 'changelog.txt')
+                    newlog = os.path.join(zipsfolder, 'changelog' + version + '.txt')
+
+                    os.rename(oldlog, newlog)
                     print('zipped with zipfolder\n')
                 except:
                     if os.path.exists(zipsfolder + x + version + '.zip' ):
@@ -181,16 +187,14 @@ if ( __name__ == "__main__" ):
                     try:
                         shutil.move(shutil.make_archive(foldertozip + version, 'zip', foldertozip), zipsfolder)
                         print('zipped with shutil\n')
+                        
                     except Exception as e:
                         print('Cannot create zip file\nshutil %s\n' %e)
-                
-        # changelog = os.path.join(zipsfolder + x + version, 'changelog.txt')
-        # print changelog
-        # for changelog in zipsfolder:
-        #     os.rename(changelog, 'changelog-' + version + '.txt')
+                    
+
 
     except Exception as e:
         print('Cannot create or move the needed files\n%s' %e)
     print('Done')
-    i = True
-    while i : raw_input('Press enter key to exit '); i = False
+    # i = True
+    # while i : raw_input('Press enter key to exit '); i = False

@@ -68,7 +68,7 @@ class StreamAddonDialog(xbmcgui.WindowXMLDialog):
             SF_ICON    = xbmcaddon.Addon(id=SUPERFAVES).getAddonInfo('icon')
             
         except:
-            SF_ICON = ''
+            SF_ICON   = ''
 
         items = list()
         for id, label, url in self.addons:
@@ -90,6 +90,10 @@ class StreamAddonDialog(xbmcgui.WindowXMLDialog):
                 elif id == 'iptv-playlist':
                     icon = os.path.join(dixie.RESOURCES, 'iptv-playlist.png')
                     name = ''
+
+                elif id == 'xbmc.pvr':
+                    icon = os.path.join(dixie.RESOURCES, 'kodi-pvr.png')
+                    name = 'PVR'
 
                 else:
                     addon = xbmcaddon.Addon(id)

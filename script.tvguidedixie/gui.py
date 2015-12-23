@@ -1796,8 +1796,21 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     def onInit(self):
         self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
 
+        import pvr
+        kodipvr    = pvr.getPVRChannels()
         favourites = self.streamingService.loadFavourites()
-        items = list()
+
+        items  = list()  
+
+        try:
+            for label, value in kodipvr:
+                label = '[COLOR orange]PVR: [/COLOR]' + label
+                item  = xbmcgui.ListItem(label)
+                item.setProperty('stream', value)
+                items.append(item)
+        except Exception:
+            pass
+        
         for label, value in favourites:
             item = xbmcgui.ListItem(label)
             item.setProperty('stream', value)
@@ -1806,7 +1819,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl = self.getControl(StreamSetupDialog.C_STREAM_FAVOURITES)
         listControl.addItems(items)
 
-        items = list()
+
+        items = list()            
         for id in self.streamingService.getAddons():
             try:
                 addon = xbmcaddon.Addon(id) # raises Exception if addon is not installed
