@@ -8,7 +8,8 @@
         <setting id="dummy"             label="[COLOR orange][B]Click to verify your login details[/B][/COLOR]"    type="action"    option="close"    action="XBMC.RunScript(special://home/addons/script.tvguidedixie/verify.py)"/>
         <setting id="dixie.url"         label="30117" type="labelenum" values="All Channels|Other" default="All Channels" visible="false" />
 
-        <setting id="HOTKEY"            label="[COLOR orange][B]Click to program Mini-Guide Hot Key[/B][/COLOR]" type="action"       action="RunScript($CWD/keyProgrammer.py)"/>
+        <setting id="HOTKEY"            label="[COLOR orange][B]Click to program Mini-Guide Hot Key[/B][/COLOR]" type="action"       action="XBMC.RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)"/>
+        <setting id="dummy"             label="[COLOR orange][B]Click to reset Mini-Guide Hot Key[/B][/COLOR]"              type="action"       action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetHotkey.py)" />
 		
         <setting label="" type="lsep" visible="false" />
 
@@ -33,6 +34,7 @@
 	    <setting id="updated.channels" label="Updated Channels"         type="number" default="0"        visible="false" />
 		<setting id="messageID"        label="messageID"                type="text"   default="0"        visible="false" />
 	    <setting id="LOGIN_TIME"       label="login"                    type="text"   default=""         visible="false"/>
+	    <setting id="LOGIN_HDTV"       label="login"                    type="text"   default=""         visible="false"/>
 
 		<setting id="gmtprev"     type="text" label="Previous GMT"    default="0" visible="false"/>
 		<setting id="categories"  type="text" label="categories"      default="" visible="false"/>

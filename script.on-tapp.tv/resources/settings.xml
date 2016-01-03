@@ -16,7 +16,9 @@
         <setting id="dummy"      type="action" label="Click to - Open Main Settings" action="XBMC.RunScript(special://home/addons/script.on-tapp.tv/openSettings.py)" />
         <setting id="SKIN"       type="select" label="31004" source="../../userdata/addon_data/script.on-tapp.tv/skins/" mask="/" default="FXB78"/>	
         <setting id="HOTKEY"     type="action" label="[COLOR orange][B]Click to program Mini-Guide Hot Key[/B][/COLOR]" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)"/>
-        <setting id="autoStart"  type="bool"   label="Start Automatically (requires reboot)"     default="false" visible="true"/>
+        <setting id="dummy"      type="action" label="[COLOR orange][B]Click to reset Mini-Guide Hot Key[/B][/COLOR]"              action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetHotkey.py)" />
+        
+		<setting id="autoStart"  type="bool"   label="Start Automatically (requires reboot)"     default="false" visible="true"/>
         <setting id="KodiLib"    type="bool"   label="Override Kodi Movie/TV Libraries"          default="false" visible="true"/>
 		
 		<setting id="ADDMORE"   type="enum"   label="31006" lvalues="31007|31008|31009" default="2"/>

@@ -145,8 +145,8 @@ def checkForUpdate(silent = 1):
             getUpdate(response, silent)
 
         else:
-            #do restore to ensure not malformed
-            restoreFromZip()
+            # do restore to ensure not malformed
+            # restoreFromZip()
             if not silent:
                 dixie.DialogOK('EPG is up-to-date.')
     except:
@@ -326,7 +326,9 @@ def newEPGAvailable(date):
     src = os.path.join(dir, 'program-XXXXXX.db')
     src = src.replace('XXXXXX', date)
 
-    try:    os.rename(src, dst)
+    try:
+        os.rename(src, dst)
+        deleteFile(src)
     except: pass
 
     dixie.SetSetting('epg.date', date)

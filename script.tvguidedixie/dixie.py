@@ -343,8 +343,8 @@ def ShowSettings():
     ADDON.openSettings()
 
 
-def getPreviousTime():
-    time_object = GetSetting('LOGIN_TIME')
+def getPreviousTime(setting):
+    time_object = GetSetting(setting)
     
     if time_object == '':
         time_object = '2001-01-01 00:00:00'
@@ -366,8 +366,18 @@ def parseTime(when):
     return when
 
 
+def validTime(setting, maxAge):
+    previousTime = getPreviousTime(setting)
+    now          = datetime.datetime.today()
+    delta        = now - previousTime
+    nSeconds     = (delta.days * 86400) + delta.seconds
+    
+    return nSeconds <= maxAge
+
+
 def validToRun(silent=False):
-    previousTime = getPreviousTime()
+    setting      = 'LOGIN_TIME'
+    previousTime = getPreviousTime(setting)
     now          = datetime.datetime.today()
     delta        = now - previousTime
     nSeconds     = (delta.days * 86400) + delta.seconds

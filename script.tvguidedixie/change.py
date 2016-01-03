@@ -30,9 +30,9 @@ from osd import OSD
 
 
 def action(key):
-    if xbmcgui.Window(10000).getProperty('OTT_RUNNING') != 'True':
-        dixie.log('OTT not running')
-        return
+    # if xbmcgui.Window(10000).getProperty('OTT_RUNNING') != 'True':
+    #     dixie.log('OTT not running')
+    #     return
 
     dixie.log('Key pressed %s' % key)    
 

@@ -18,55 +18,31 @@
 #
 
 import xbmc
-import xbmcaddon
 import os
 
-import sfile
 import dixie
-import deleteDB
+import sfile
 
-ottv     = xbmcaddon.Addon('script.on-tapp.tv')
-otepg    = dixie.PROFILE
-epgchan  = os.path.join(otepg, 'channels')
-settings = xbmc.translatePath('special://profile/settings.bak')
-hotkey   = xbmc.translatePath('special://profile/keymaps/ottv_hot.xml')
+hotkey = xbmc.translatePath('special://profile/keymaps/ottv_hot.xml')
 
 
-def resetAddon():
-    dixie.SetSetting('epg.date', '2000-01-01')
-    dixie.SetSetting('logo.type', '0')
-    dixie.SetSetting('dixie.logo.folder', 'None')
-    
-    if dixie.isDSF():
-        ottv.setSetting('SKIN', 'OTT-Skin')
-        dixie.SetSetting('dixie.skin', 'EPG-Skin')
-        dixie.SetSetting('playlist.url', '')
-        deleteFiles()
-
-    else:
-        ottv.setSetting('FIRSTRUN', 'false')
-        deleteFiles()
-
+def resetHotkey():
+    deleteFiles()
     dixie.CloseBusy()
-    
-    
 
 
 def deleteFiles():
     try:
-        deleteDB.deleteDB()
-        sfile.rmtree(epgchan)
-        sfile.remove(settings)
         sfile.remove(hotkey)
                 
-        dixie.DialogOK('On-Tapp.TV successfully reset.', 'It will be recreated next time', 'you start the guide.')
+        dixie.DialogOK('On-Tapp.TV Hot Key successfully reset.', '', '')
         
     except Exception, e:
         error = str(e)
         dixie.log('%s :: Error resetting OTTV' % error)
-        dixie.DialogOK('On-Tapp.TV failed to reset.', error, 'Please restart Kodi and try again.')
+        dixie.DialogOK('On-Tapp.TV Hot Key failed to reset.', error, 'Please restart Kodi and try again.')
 
 
 if __name__ == '__main__':
     dixie.ShowBusy()
-    resetAddon()
+    resetHotkey()

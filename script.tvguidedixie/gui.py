@@ -204,6 +204,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.categoriesList = []
         self.mode = MODE_EPG
         self.currentChannel = None
+        self.highlight      = None
 
         self.osdEnabled = ADDON.getSetting('enable.osd') == 'true' and ADDON.getSetting('alternative.playback') != 'true'
         self.alternativePlayback = ADDON.getSetting('alternative.playback') == 'true'
@@ -859,7 +860,39 @@ class TVGuide(xbmcgui.WindowXML):
         channel = self.database.getPreviousChannel(self.currentChannel)
         self.playChannel(channel)
 
+    def removeHighlight(self):
+        if self.highlight:
+            self.removeControl(self.highlight)
+            self.highlight = None
+
     def playChannel(self, channel):
+        self.removeHighlight()
+        control = self.getFocus()
+        if control in [elem.control for elem in self.controlAndProgramList]:
+            texture = os.path.join(dixie.RESOURCES, 'orange-focus.png')
+            x, y    = control.getPosition()
+            width   = control.getWidth()
+            height  = control.getHeight()
+            label   = control.getLabel()
+            timeout = 10
+
+            self.highlight = xbmcgui.ControlButton(
+                    x,
+                    y,
+                    width,
+                    height,
+                    label,
+                    noFocusTexture = texture,
+                    focusTexture   = texture,
+                    textColor      = TEXT_COLOR,
+                    focusedColor   = FOCUSED_COLOR,
+                    shadowColor    = SHADOW_COLOR
+                )
+
+            self.addControl(self.highlight)
+            threading.Timer(timeout, self.removeHighlight).start()
+
+
         if not DSF:
             if self.prePlayOptions(channel):
                 return True
@@ -1190,6 +1223,8 @@ class TVGuide(xbmcgui.WindowXML):
         self.redrawingEPG = False
 
     def _clearEpg(self):
+        self.removeHighlight()
+
         controls = [elem.control for elem in self.controlAndProgramList]
         try:
             self.removeControls(controls)

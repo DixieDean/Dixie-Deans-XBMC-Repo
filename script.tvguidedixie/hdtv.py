@@ -2,67 +2,95 @@
 
 import sys
 
-l1lll11ll = sys.version_info [0] == 2
-l11ll1l1 = 2048
-l1111111 = 7
+l1llll1ll = sys.version_info [0] == 2
+l1l1111l = 2048
+l111l111 = 7
 
-def l1ll11 (l1l1l1l):
-	global l11ll1ll
+def l1lll1 (l1l1lll):
+	global l1l111l1
 	
-	l111lll1 = ord (l1l1l1l [-1])
-	l1lll1lll = l1l1l1l [:-1]
+	l11l1l1l = ord (l1l1lll [-1])
+	l1lllllll = l1l1lll [:-1]
 	
-	l1l1ll1l = l111lll1 % len (l1lll1lll)
-	l1l1111 = l1lll1lll [:l1l1ll1l] + l1lll1lll [l1l1ll1l:]
+	l1ll11l1 = l11l1l1l % len (l1lllllll)
+	l1l11l1 = l1lllllll [:l1ll11l1] + l1lllllll [l1ll11l1:]
 		
-	if l1lll11ll:
-		l11l1l = unicode () .join ([unichr (ord (char) - l11ll1l1 - (l1lll1 + l111lll1) % l1111111) for l1lll1, char in enumerate (l1l1111)])
+	if l1llll1ll:
+		l11lll = unicode () .join ([unichr (ord (char) - l1l1111l - (l1111 + l11l1l1l) % l111l111) for l1111, char in enumerate (l1l11l1)])
 	else:
-		l11l1l = str () .join ([chr (ord (char) - l11ll1l1 - (l1lll1 + l111lll1) % l1111111) for l1lll1, char in enumerate (l1l1111)])
+		l11lll = str () .join ([chr (ord (char) - l1l1111l - (l1111 + l11l1l1l) % l111l111) for l1111, char in enumerate (l1l11l1)])
 		
-	return eval (l11l1l)
+	return eval (l11lll)
 
 
 
 
 import xbmc
 import json
+import time
+import datetime
+import os
+
 import dixie
 
+PATH    = os.path.join(dixie.PROFILE, l1lll1 (u"ࠩࡷࡩࡲࡶࠧ࢑"))
+SETTING = l1lll1 (u"ࠪࡐࡔࡍࡉࡏࡡࡋࡈ࡙࡜ࠧ࢒")
+
+
 def getURL(url):
-    url      = url.split(l1ll11 (u"ࠩ࠽ࠫ࢑"), 1)[-1].lower()
-    l1l111ll = l1l1ll11l()
-    result   = l1l111ll[l1ll11 (u"ࠪࡶࡪࡹࡵ࡭ࡶࠪ࢒")]
-    l111l11l    = result[l1ll11 (u"ࠫ࡫࡯࡬ࡦࡵࠪ࢓")]
-
-    for file in l111l11l:
-        l1l1l1lll   = file[l1ll11 (u"ࠬࡲࡡࡣࡧ࡯ࠫ࢔")]
-        l1l1l1ll1 = l1l1l1lll.rsplit(l1ll11 (u"࡛࠭࠰ࡅࡒࡐࡔࡘ࡝ࠨ࢕"), 1)[0].split(l1ll11 (u"ࠧ࡜ࡅࡒࡐࡔࡘࠠࡸࡪ࡬ࡸࡪࡣࠧ࢖"), 1)[-1]
-        
-        if url == l1l1l1ll1.lower():
-
-            return file[l1ll11 (u"ࠨࡨ࡬ࡰࡪ࠭ࢗ")]
-
-
-def l1l1ll11l():
-    l1l1ll1l1 = l1ll11 (u"ࠩࡳࡰࡺ࡭ࡩ࡯࠰ࡹ࡭ࡩ࡫࡯࠯ࡪࡧࡸࡻ࠭࢘")
-    l1l1ll111  =  xbmc.getCondVisibility(l1ll11 (u"ࠪࡗࡾࡹࡴࡦ࡯࠱ࡌࡦࡹࡁࡥࡦࡲࡲ࠭ࠫࡳ࢙ࠪࠩ") % l1l1ll1l1) == True
-
-    if l1l1ll111:
-        l1ll1l11    = (l1ll11 (u"ࠫࢀࠨࡪࡴࡱࡱࡶࡵࡩࠢ࠻ࠤ࠵࠲࠵ࠨࠬࠡࠤࡰࡩࡹ࡮࡯ࡥࠤ࠽ࠦࡋ࡯࡬ࡦࡵ࠱ࡋࡪࡺࡄࡪࡴࡨࡧࡹࡵࡲࡺࠤ࠯ࠤࠧࡶࡡࡳࡣࡰࡷࠧࡀࡻࠣࡦ࡬ࡶࡪࡩࡴࡰࡴࡼࠦ࠿ࠨࡰ࡭ࡷࡪ࡭ࡳࡀ࠯࠰ࡲ࡯ࡹ࡬࡯࡮࠯ࡸ࡬ࡨࡪࡵ࠮ࡩࡦࡷࡺ࠴ࡅࡡࡤࡶ࡬ࡳࡳࡃ࡭ࡢ࡫ࡱࡣࡱ࡯ࡳࡵࠨࡷ࡭ࡹࡲࡥ࠾ࠨࡸࡶࡱࡃࠢࡾ࠮ࠣࠦ࡮ࡪࠢ࠻ࠢ࠴ࢁ࢚ࠬ"))
-        l1l1ll1ll  = (l1ll11 (u"ࠬࢁࠢ࡫ࡵࡲࡲࡷࡶࡣࠣ࠼ࠥ࠶࠳࠶ࠢ࠭ࠢࠥࡱࡪࡺࡨࡰࡦࠥ࠾ࠧࡌࡩ࡭ࡧࡶ࠲ࡌ࡫ࡴࡅ࡫ࡵࡩࡨࡺ࡯ࡳࡻࠥ࠰ࠥࠨࡰࡢࡴࡤࡱࡸࠨ࠺ࡼࠤࡧ࡭ࡷ࡫ࡣࡵࡱࡵࡽࠧࡀࠢࡱ࡮ࡸ࡫࡮ࡴ࠺࠰࠱ࡳࡰࡺ࡭ࡩ࡯࠰ࡹ࡭ࡩ࡫࡯࠯ࡪࡧࡸࡻ࠵࠿ࡢࡥࡷ࡭ࡴࡴ࠽࡭࡫ࡹࡩࡹࡼ࡟ࡢ࡮࡯ࠪࡹ࡯ࡴ࡭ࡧࡀࡅࡱࡲࠫࡤࡪࡤࡲࡳ࡫࡬ࡴࠨࡸࡶࡱࡃࠢࡾ࠮ࠣࠦ࡮ࡪࠢ࠻ࠢ࠴ࢁ࢛ࠬ"))
+    if dixie.validTime(SETTING, 60 * 60 * 8): 
+        l1l1l11l = json.load(open(PATH))
     else:
-        l1ll1l11    = (l1ll11 (u"࠭ࡻࠣ࡬ࡶࡳࡳࡸࡰࡤࠤ࠽ࠦ࠷࠴࠰ࠣ࠮ࠣࠦࡲ࡫ࡴࡩࡱࡧࠦ࠿ࠨࡆࡪ࡮ࡨࡷ࠳ࡍࡥࡵࡆ࡬ࡶࡪࡩࡴࡰࡴࡼࠦ࠱ࠦࠢࡱࡣࡵࡥࡲࡹࠢ࠻ࡽࠥࡨ࡮ࡸࡥࡤࡶࡲࡶࡾࠨ࠺ࠣࡲ࡯ࡹ࡬࡯࡮࠻࠱࠲ࡴࡱࡻࡧࡪࡰ࠱ࡺ࡮ࡪࡥࡰ࠰ࡵࡹࡾࡧࡩࡱࡶࡹ࠳ࡄࡧࡣࡵ࡫ࡲࡲࡂࡳࡡࡪࡰࡢࡰ࡮ࡹࡴࠧࡶ࡬ࡸࡱ࡫࠽ࠧࡷࡵࡰࡂࠨࡽ࠭ࠢࠥ࡭ࡩࠨ࠺ࠡ࠳ࢀࠫ࢜"))
-        l1l1ll1ll  = (l1ll11 (u"ࠧࡼࠤ࡭ࡷࡴࡴࡲࡱࡥࠥ࠾ࠧ࠸࠮࠱ࠤ࠯ࠤࠧࡳࡥࡵࡪࡲࡨࠧࡀࠢࡇ࡫࡯ࡩࡸ࠴ࡇࡦࡶࡇ࡭ࡷ࡫ࡣࡵࡱࡵࡽࠧ࠲ࠠࠣࡲࡤࡶࡦࡳࡳࠣ࠼ࡾࠦࡩ࡯ࡲࡦࡥࡷࡳࡷࡿࠢ࠻ࠤࡳࡰࡺ࡭ࡩ࡯࠼࠲࠳ࡵࡲࡵࡨ࡫ࡱ࠲ࡻ࡯ࡤࡦࡱ࠱ࡶࡺࡿࡡࡪࡲࡷࡺ࠴ࡅࡡࡤࡶ࡬ࡳࡳࡃ࡬ࡪࡸࡨࡸࡻࡥࡡ࡭࡮ࠩࡸ࡮ࡺ࡬ࡦ࠿ࡄࡰࡱ࠱ࡣࡩࡣࡱࡲࡪࡲࡳࠧࡷࡵࡰࡂࠨࡽ࠭ࠢࠥ࡭ࡩࠨ࠺ࠡ࠳ࢀࠫ࢝"))
+        l1l1l11l = l1ll111ll(url)
+        l1ll11111(SETTING)
+
+    stream = url.split(l1lll1 (u"ࠫ࠿࠭࢓"), 1)[-1].lower()
+    result = l1l1l11l[l1lll1 (u"ࠬࡸࡥࡴࡷ࡯ࡸࠬ࢔")]
+    l11l111l  = result[l1lll1 (u"࠭ࡦࡪ࡮ࡨࡷࠬ࢕")]
+
+    for file in l11l111l:
+        l1ll111l1   = file[l1lll1 (u"ࠧ࡭ࡣࡥࡩࡱ࠭࢖")]
+        l1ll111l1   = l1ll111l1.replace(l1lll1 (u"ࠨࠢ࡞࠳ࡈࡕࡌࡐࡔࡠࠫࢗ"), l1lll1 (u"ࠩ࡞࠳ࡈࡕࡌࡐࡔࡠࠫ࢘"))
+        l1l1lllll = l1ll111l1.rsplit(l1lll1 (u"ࠪ࡟࠴ࡉࡏࡍࡑࡕࡡ࢙ࠬ"), 1)[0].split(l1lll1 (u"ࠫࡠࡉࡏࡍࡑࡕࠤࡼ࡮ࡩࡵࡧࡠ࢚ࠫ"), 1)[-1]
+
+        if stream == l1l1lllll.lower():
+            return file[l1lll1 (u"ࠬ࡬ࡩ࡭ࡧ࢛ࠪ")]
+
+    return None
+    
+
+def l1ll111ll(url):
+    l1lll11l    = (l1lll1 (u"࠭ࡻࠣ࡬ࡶࡳࡳࡸࡰࡤࠤ࠽ࠦ࠷࠴࠰ࠣ࠮ࠣࠦࡲ࡫ࡴࡩࡱࡧࠦ࠿ࠨࡆࡪ࡮ࡨࡷ࠳ࡍࡥࡵࡆ࡬ࡶࡪࡩࡴࡰࡴࡼࠦ࠱ࠦࠢࡱࡣࡵࡥࡲࡹࠢ࠻ࡽࠥࡨ࡮ࡸࡥࡤࡶࡲࡶࡾࠨ࠺ࠣࡲ࡯ࡹ࡬࡯࡮࠻࠱࠲ࡴࡱࡻࡧࡪࡰ࠱ࡺ࡮ࡪࡥࡰ࠰ࡂࡃࡄࡅ࠯ࡀࡣࡦࡸ࡮ࡵ࡮࠾࡯ࡤ࡭ࡳࡥ࡬ࡪࡵࡷࠪࡹ࡯ࡴ࡭ࡧࡀࠪࡺࡸ࡬࠾ࠤࢀ࠰ࠥࠨࡩࡥࠤ࠽ࠤ࠶ࢃࠧ࢜"))
+    l1ll11l11  = (l1lll1 (u"ࠧࡼࠤ࡭ࡷࡴࡴࡲࡱࡥࠥ࠾ࠧ࠸࠮࠱ࠤ࠯ࠤࠧࡳࡥࡵࡪࡲࡨࠧࡀࠢࡇ࡫࡯ࡩࡸ࠴ࡇࡦࡶࡇ࡭ࡷ࡫ࡣࡵࡱࡵࡽࠧ࠲ࠠࠣࡲࡤࡶࡦࡳࡳࠣ࠼ࡾࠦࡩ࡯ࡲࡦࡥࡷࡳࡷࡿࠢ࠻ࠤࡳࡰࡺ࡭ࡩ࡯࠼࠲࠳ࡵࡲࡵࡨ࡫ࡱ࠲ࡻ࡯ࡤࡦࡱ࠱ࡃࡄࡅ࠿࠰ࡁࡤࡧࡹ࡯࡯࡯࠿࡯࡭ࡻ࡫ࡴࡷࡡࡤࡰࡱࠬࡴࡪࡶ࡯ࡩࡂࡇ࡬࡭࠭ࡦ࡬ࡦࡴ࡮ࡦ࡮ࡶࠪࡺࡸ࡬࠾ࠤࢀ࠰ࠥࠨࡩࡥࠤ࠽ࠤ࠶ࢃࠧ࢝"))
+
+    if url.startswith(l1lll1 (u"ࠨࡊࡇࡘ࡛ࡀࠧ࢞")):
+        l1lll11l    = l1lll11l.replace(  l1lll1 (u"ࠩࡂࡃࡄࡅࠧ࢟"), l1lll1 (u"ࠪ࡬ࡩࡺࡶࠨࢠ"))
+        l1ll11l11  = l1ll11l11.replace(l1lll1 (u"ࠫࡄࡅ࠿ࡀࠩࢡ"), l1lll1 (u"ࠬ࡮ࡤࡵࡸࠪࢢ"))
+
+    if url.startswith(l1lll1 (u"࠭ࡈࡅࡖ࡙࠶࠿࠭ࢣ")):
+        l1lll11l    = l1lll11l.replace(  l1lll1 (u"ࠧࡀࡁࡂࡃࠬࢤ"), l1lll1 (u"ࠨࡴࡸࡽࡦ࡯ࡰࡵࡸࠪࢥ"))
+        l1ll11l11  = l1ll11l11.replace(l1lll1 (u"ࠩࡂࡃࡄࡅࠧࢦ"), l1lll1 (u"ࠪࡶࡺࡿࡡࡪࡲࡷࡺࠬࢧ"))
 
     try:
+        message = l1lll1 (u"ࠫࡑࡵࡧࡨ࡫ࡱ࡫ࠥ࡯࡮ࡵࡱࠣࡷࡪࡸࡶࡦࡴ࠱ࠤࡔࡴࡥࠡ࡯ࡲࡱࡪࡴࡴࠡࡲ࡯ࡩࡦࡹࡥ࠯ࠩࢨ")
+        dixie.notify(message)
         dixie.ShowBusy()
-        xbmc.executeJSONRPC(l1ll1l11)
-        l1l111ll = xbmc.executeJSONRPC(l1l1ll1ll)
-
+        xbmc.executeJSONRPC(l1lll11l)
+        l1l1l11l = xbmc.executeJSONRPC(l1ll11l11)
+        
         dixie.CloseBusy()
-        return json.loads(l1ll11 (u"ࡶࠤࠥ࢞") + (l1l111ll.decode(l1ll11 (u"ࠩ࡯ࡥࡹ࡯࡮࠮࠳ࠪ࢟"), l1ll11 (u"ࠪ࡭࡬ࡴ࡯ࡳࡧࠪࢠ"))))
+    
+        content = json.loads(l1l1l11l.decode(l1lll1 (u"ࠬࡲࡡࡵ࡫ࡱ࠱࠶࠭ࢩ"), l1lll1 (u"࠭ࡩࡨࡰࡲࡶࡪ࠭ࢪ")))
+    
+        json.dump(content, open(PATH,l1lll1 (u"ࠧࡸࠩࢫ")))
+
+        return content
     
     except Exception:
         dixie.CloseBusy()
-        return {l1ll11 (u"ࠫࡊࡸࡲࡰࡴࠪࢡ") : l1ll11 (u"ࠬࡖ࡬ࡶࡩ࡬ࡲࠥࡋࡲࡳࡱࡵࠫࢢ")}
+        return {l1lll1 (u"ࠨࡇࡵࡶࡴࡸࠧࢬ") : l1lll1 (u"ࠩࡓࡰࡺ࡭ࡩ࡯ࠢࡈࡶࡷࡵࡲࠨࢭ")}
+
+
+def l1ll11111(l1ll1111l):
+    now = datetime.datetime.today()
+    dixie.SetSetting(l1ll1111l, str(now))
