@@ -42,18 +42,26 @@ def getURL(url):
         l1l1l11l = json.load(open(PATH))
     else:
         l1l1l11l = l1ll111ll(url)
-        l1ll11111(SETTING)
+        l1l1lllll(SETTING)
 
     stream = url.split(l1lll1 (u"ࠫ࠿࠭࢓"), 1)[-1].lower()
-    result = l1l1l11l[l1lll1 (u"ࠬࡸࡥࡴࡷ࡯ࡸࠬ࢔")]
-    l11l111l  = result[l1lll1 (u"࠭ࡦࡪ࡮ࡨࡷࠬ࢕")]
+    
+    try:
+        result = l1l1l11l[l1lll1 (u"ࠬࡸࡥࡴࡷ࡯ࡸࠬ࢔")]
+        l11l111l  = result[l1lll1 (u"࠭ࡦࡪ࡮ࡨࡷࠬ࢕")]
+    
+    except Exception as e:
+        l1l1llll1(e)
+        return None
+        
+        
 
     for file in l11l111l:
         l1ll111l1   = file[l1lll1 (u"ࠧ࡭ࡣࡥࡩࡱ࠭࢖")]
         l1ll111l1   = l1ll111l1.replace(l1lll1 (u"ࠨࠢ࡞࠳ࡈࡕࡌࡐࡔࡠࠫࢗ"), l1lll1 (u"ࠩ࡞࠳ࡈࡕࡌࡐࡔࡠࠫ࢘"))
-        l1l1lllll = l1ll111l1.rsplit(l1lll1 (u"ࠪ࡟࠴ࡉࡏࡍࡑࡕࡡ࢙ࠬ"), 1)[0].split(l1lll1 (u"ࠫࡠࡉࡏࡍࡑࡕࠤࡼ࡮ࡩࡵࡧࡠ࢚ࠫ"), 1)[-1]
+        l1ll11111 = l1ll111l1.rsplit(l1lll1 (u"ࠪ࡟࠴ࡉࡏࡍࡑࡕࡡ࢙ࠬ"), 1)[0].split(l1lll1 (u"ࠫࡠࡉࡏࡍࡑࡕࠤࡼ࡮ࡩࡵࡧࡠ࢚ࠫ"), 1)[-1]
 
-        if stream == l1l1lllll.lower():
+        if stream == l1ll11111.lower():
             return file[l1lll1 (u"ࠬ࡬ࡩ࡭ࡧ࢛ࠪ")]
 
     return None
@@ -86,11 +94,23 @@ def l1ll111ll(url):
 
         return content
     
-    except Exception:
-        dixie.CloseBusy()
+    except Exception as e:
+        l1l1llll1(e)
         return {l1lll1 (u"ࠨࡇࡵࡶࡴࡸࠧࢬ") : l1lll1 (u"ࠩࡓࡰࡺ࡭ࡩ࡯ࠢࡈࡶࡷࡵࡲࠨࢭ")}
 
 
-def l1ll11111(l1ll1111l):
+def l1l1lllll(l1ll1111l):
     now = datetime.datetime.today()
     dixie.SetSetting(l1ll1111l, str(now))
+
+
+def l1l1llll1(e):
+    l111111l = l1lll1 (u"ࠪࡗࡴࡸࡲࡺ࠮ࠣࡥࡳࠦࡥࡳࡴࡲࡶࠥࡵࡣࡤࡷࡵࡩࡩࡀࠠࡋࡕࡒࡒࠥࡋࡲࡳࡱࡵ࠾ࠥࠫࡳࠨࢮ")  %e
+    l11111l1 = l1lll1 (u"ࠫࡕࡲࡥࡢࡵࡨࠤࡷ࡫࠭࡭࡫ࡱ࡯ࠥࡺࡨࡪࡵࠣࡧ࡭ࡧ࡮࡯ࡧ࡯ࠤࡦࡴࡤࠡࡶࡵࡽࠥࡧࡧࡢ࡫ࡱ࠲ࠬࢯ")
+    l11111ll = l1lll1 (u"࡛ࠬࡳࡦ࠼ࠣࡇࡴࡴࡴࡦࡺࡷࠤࡒ࡫࡮ࡶࠢࡀࡂࠥࡘࡥ࡮ࡱࡹࡩ࡙ࠥࡴࡳࡧࡤࡱࠬࢰ")
+    
+    dixie.log(e)
+    dixie.DialogOK(l111111l, l11111l1, l11111ll)    
+    dixie.SetSetting(SETTING, l1lll1 (u"࠭ࠧࢱ"))
+    
+    
