@@ -47,113 +47,114 @@ FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 
 
 def checkUpdate():
+    if utils.isDSF():
+        import dsf
+        dsf.checkUpdate()
+        return
+    
     if not FIRSTRUN:
         BASEURL = utils.getBaseURL()
         utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now do a back-up of any', 'existing files before installation.')
         utils.doBackup()
-        
-        if utils.isDSF():
-            Addon.setSetting('dixie.skin', 'EPG-Skin')
-            utils.setSetting('SKIN', 'OTT-Skin')
-        
         utils.downloadDefaults(BASEURL)
+        return
     
-    else:
-        response   = getResponse()
-        ottskin    = response['OTTSkin']
-        epgskin    = response['EPGSkin']
-        logocolour = response['LogoColour']
-        logowhite  = response['LogoWhite']
-        ottupdate  = response['OTTUpdate']
-        epgupdate  = response['EPGUpdate']
+    response   = getResponse()
+    ottskin    = response['OTTSkin']
+    epgskin    = response['EPGSkin']
+    logocolour = response['LogoColour']
+    logowhite  = response['LogoWhite']
+    ottupdate  = response['OTTUpdate']
+    epgupdate  = response['EPGUpdate']
 
 
-        curr = ottskin
-        prev = utils.getSetting('OTTSKIN')
+    curr = ottskin
+    prev = utils.getSetting('OTTSKIN')
 
-        if not prev == curr:
-            url     = utils.getBaseURL() + response['OTT Skin Link']
-            path    = xbmc.translatePath(PROFILE) 
-            path    = os.path.join(path, 'skins')
-            zipfile = os.path.join(path, 'skin-update.zip')
-            
-            if not sfile.exists(path):
-                sfile.makedirs(path)
-            
-            utils.downloadSkins(url, path, zipfile)
-            utils.setSetting('OTTSKIN', curr)
-
-
-        curr = epgskin
-        prev = utils.getSetting('EPGSKIN')
-
-        if not prev == curr:
-            url     = utils.getBaseURL() + response['EPG Skin Link']
-            path    = os.path.join(extras, 'skins')
-            zipfile = os.path.join(path,   'skin-update.zip')
-            
-            if not sfile.exists(path):
-                sfile.makedirs(path)
-            
-            utils.downloadSkins(url, path, zipfile)
-            utils.setSetting('EPGSKIN', curr)
-
-    
-        curr = logocolour
-        prev = utils.getSetting('LOGOCOLOUR')
-
-        if not prev == curr:
-            url     = utils.getBaseURL() + response['Logo Colour']
-            path    = os.path.join(logos, 'Colour Logo Pack')
-            zipfile = os.path.join(path,  'logo-colour-update.zip')
-            
-            if not sfile.exists(path):
-                sfile.makedirs(path)
-            
-            utils.downloadLogos(url, path, zipfile)
-            utils.setSetting('LOGOCOLOUR', curr)
-    
-
-        curr = logowhite
-        prev = utils.getSetting('LOGOWHITE')
-
-        if not prev == curr:
-            url     = utils.getBaseURL() + response['Logo White']
-            path    = os.path.join(logos, 'White Logo Pack')
-            zipfile = os.path.join(path,  'logo-white-update.zip')
-            
-            if not sfile.exists(path):
-                sfile.makedirs(path)
-            
-            utils.downloadLogos(url, path, zipfile)
-            utils.setSetting('LOGOWHITE', curr)
+    if not prev == curr:
+        url     = utils.getBaseURL() + response['OTT Skin Link']
+        path    = xbmc.translatePath(PROFILE) 
+        path    = os.path.join(path, 'skins')
+        zipfile = os.path.join(path, 'skin-update.zip')
+        
+        if not sfile.exists(path):
+            sfile.makedirs(path)
+        
+        utils.downloadSkins(url, path, zipfile)
+        utils.setSetting('OTTSKIN', curr)
 
 
-        curr = ottupdate
-        prev = utils.getSetting('OTTUPDATE')
+    curr = epgskin
+    prev = utils.getSetting('EPGSKIN')
 
-        if not prev == curr:
-            url     = utils.getBaseURL() + response['OTT Update']
-            path    = xbmc.translatePath(HOME)
-            zipfile = os.path.join(path, 'python-update.zip')
-            
-            utils.doOTTUpdate(url, path, zipfile, ottupdate)
-            utils.setSetting('OTTUPDATE', curr)
+    if not prev == curr:
+        url     = utils.getBaseURL() + response['EPG Skin Link']
+        path    = os.path.join(extras, 'skins')
+        zipfile = os.path.join(path,   'skin-update.zip')
+        
+        if not sfile.exists(path):
+            sfile.makedirs(path)
+        
+        utils.downloadSkins(url, path, zipfile)
+        utils.setSetting('EPGSKIN', curr)
 
 
-        curr = epgupdate
-        prev = utils.getSetting('EPGUPDATE')
+    curr = logocolour
+    prev = utils.getSetting('LOGOCOLOUR')
 
-        if not prev == curr:
-            url     = utils.getBaseURL() + response['EPG Update']
-            path    = xbmc.translatePath(epghome)
-            zipfile = os.path.join(path, 'python-update.zip')
-            
-            if not sfile.exists(path):
-                sfile.makedirs(path)
-            
-            utils.doEPGUpdate(url, path, zipfile, epgupdate)
-            utils.setSetting('EPGUPDATE', curr)
+    if not prev == curr:
+        url     = utils.getBaseURL() + response['Logo Colour']
+        path    = os.path.join(logos, 'Colour Logo Pack')
+        zipfile = os.path.join(path,  'logo-colour-update.zip')
+        
+        if not sfile.exists(path):
+            sfile.makedirs(path)
+        
+        utils.downloadLogos(url, path, zipfile)
+        utils.setSetting('LOGOCOLOUR', curr)
+
+
+    curr = logowhite
+    prev = utils.getSetting('LOGOWHITE')
+
+    if not prev == curr:
+        url     = utils.getBaseURL() + response['Logo White']
+        path    = os.path.join(logos, 'White Logo Pack')
+        zipfile = os.path.join(path,  'logo-white-update.zip')
+        
+        if not sfile.exists(path):
+            sfile.makedirs(path)
+        
+        utils.downloadLogos(url, path, zipfile)
+        utils.setSetting('LOGOWHITE', curr)
+
+
+    curr = ottupdate
+    prev = utils.getSetting('OTTUPDATE')
+
+    if not prev == curr:
+        url     = utils.getBaseURL() + response['OTT Update']
+        path    = xbmc.translatePath(HOME)
+        zipfile = os.path.join(path, 'python-update.zip')
+        
+        utils.doOTTUpdate(url, path, zipfile, ottupdate)
+        utils.setSetting('OTTUPDATE', curr)
+
+
+    curr = epgupdate
+    prev = utils.getSetting('EPGUPDATE')
+
+    if not prev == curr:
+        url     = utils.getBaseURL() + response['EPG Update']
+        path    = xbmc.translatePath(epghome)
+        zipfile = os.path.join(path, 'python-update.zip')
+        
+        if not sfile.exists(path):
+            sfile.makedirs(path)
+        
+        utils.doEPGUpdate(url, path, zipfile, epgupdate)
+        utils.setSetting('EPGUPDATE', curr)
+    return
 
 
 def getResponse():

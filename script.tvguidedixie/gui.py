@@ -721,10 +721,32 @@ class TVGuide(xbmcgui.WindowXML):
             xbmc.executebuiltin(cmd)
             self.close()
 
+        elif buttonClicked == PopupMenu.C_POPUP_IPLAYER:
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.ontapp-player)')
+
+        elif buttonClicked == PopupMenu.C_POPUP_ITVPLAYER:
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.itv)')
+
         elif buttonClicked == PopupMenu.C_POPUP_OTTOOLS:
             self.refresh = True
             xbmc.executebuiltin('XBMC.RunAddon(script.tvguidedixie.tools)')
 
+        elif buttonClicked == PopupMenu.C_POPUP_USTV:
+            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?ch_fanart&mode=%d&name=%s&url=%s",return)' % (10025,'plugin.video.F.T.V', 131, 'My Recordings', 'url'))
+            xbmc.executebuiltin("Container.Refresh")
+            #xbmc.executebuiltin(ustv)
+
+        elif buttonClicked == PopupMenu.C_POPUP_UKTVPLAY:
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.uktvplay)')
+
+        elif buttonClicked == PopupMenu.C_POPUP_SUPERFAVES:
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.program.super.favourites)')
+
+        elif buttonClicked == PopupMenu.C_POPUP_VPN:
+            xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/menu.py,%s)' % self.database.getStreamUrl(program.channel))
+
+        elif buttonClicked == PopupMenu.C_POPUP_SUPER_SEARCH:
+            xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s",return)' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
 
 
     def setFocusId(self, controlId):

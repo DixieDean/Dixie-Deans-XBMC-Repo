@@ -254,13 +254,14 @@ def GetChannelFolder():
 
 
 def GetGMTOffset():
-    gmt = GetSetting('gmtfrom').replace('GMT', '')
-
-    if gmt == '':
-        offset = 0
-    else:
-        offset = int(gmt)
-
+    # gmt = GetSetting('gmtfrom').replace('GMT', '')
+    #
+    # if gmt == '':
+    #     offset = 0
+    # else:
+    #     offset = int(gmt)
+    
+    offset = 0
     return datetime.timedelta(hours = offset)
 
 

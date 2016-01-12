@@ -61,8 +61,12 @@ def get_params(p):
 
 def playDSF(url, windowed):
     try:
+        # import urllib
+        # channel = urllib.quote_plus(url.split(':', 1)[-1])
+        # url = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
         channel = url.split(':', 1)[-1]
         url = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
+        
         if channel == 'ESPN +':
             url = 'plugin://%s/?channel=ESPN plus' % (dixie.dsf)
         dixie.log(url)
@@ -83,9 +87,9 @@ def playSF(url):
 
     try:
         if url.startswith('__SF__'):
-            url = url.replace('__SF__', '')             
+            url = url.replace('__SF__', '')
 
-        if url.lower().startswith('playmedia'):           
+        if url.lower().startswith('playmedia'):
             xbmc.executebuiltin(url)
             return True, ''
 
@@ -108,7 +112,7 @@ def playSF(url):
 
             original = original.replace('%26', 'SF_AMP_SF') #protect '&' within parameters
 
-            cmd = urllib.unquote_plus(original)            
+            cmd = urllib.unquote_plus(original)
 
             try:    noFanart = favourite.removeFanart(cmd)
             except: pass
@@ -129,7 +133,7 @@ def playSF(url):
             return True, ''
 
         import urllib
-        params = url.split('?', 1)[-1]    
+        params = url.split('?', 1)[-1]
         params = get_params(params)
 
         try:    mode = int(urllib.unquote_plus(params['mode']))
@@ -142,7 +146,7 @@ def playSF(url):
         except: path = None
 
         dirs = []
-        if path:          
+        if path:
             try:    current, dirs, files = os.walk(path).next()
             except: pass
             
@@ -235,6 +239,7 @@ def play(url, windowed, name=None):
 
     # dixie.CloseBusy()
     xbmc.Player().play(item, windowed=windowed)
+    print '***** ottv is playing *****', item, url
 
     xbmc.sleep(3000)
     if not xbmc.Player().isPlaying():

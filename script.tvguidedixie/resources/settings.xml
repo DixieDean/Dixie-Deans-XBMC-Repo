@@ -35,6 +35,7 @@
 		<setting id="messageID"        label="messageID"                type="text"   default="0"        visible="false" />
 	    <setting id="LOGIN_TIME"       label="login"                    type="text"   default=""         visible="false"/>
 	    <setting id="LOGIN_HDTV"       label="login"                    type="text"   default=""         visible="false"/>
+	    <setting id="LOGIN_IPTV"       label="login"                    type="text"   default=""         visible="false"/>
 
 		<setting id="gmtprev"     type="text" label="Previous GMT"    default="0" visible="false"/>
 		<setting id="categories"  type="text" label="categories"      default="" visible="false"/>

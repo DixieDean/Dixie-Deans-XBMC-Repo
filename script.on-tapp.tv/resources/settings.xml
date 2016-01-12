@@ -9,6 +9,14 @@
         <setting id="OTTUPDATE"  type="text"      label="OTTPythonVersion"  default="1.6"   visible="false"/>
         <setting id="EPGUPDATE"  type="text"      label="EPGPythonVersion"  default="1.6"   visible="false"/>
         <setting id="ADDONS"     type="text"      label="Addons"            default=""      visible="false"/>
+
+        <setting id="DSFOTTSKIN"    type="text"   label="dsfOTTSKIN"    default="0.0"   visible="false"/>
+        <setting id="DSFEPGSKIN"    type="text"   label="dsfEPGSKIN"    default="0.0"   visible="false"/>
+        <setting id="DSFLOGOS"      type="text"   label="dsfLogos"      default="0.0"   visible="false"/>
+        <setting id="DSFOTTUPDATE"  type="text"   label="dsfOTTPython"  default="0.0"   visible="false"/>
+        <setting id="DSFEPGUPDATE"  type="text"   label="dsfEPGPython"  default="0.0"   visible="false"/>
+        <setting id="DSFUPDATE"     type="text"   label="dsfPython"     default="0.0"   visible="false"/>
+
         <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN"          default="false" visible="false" />
         
         <setting id="ottv.url"    type="labelenum" label="OTT URL" values="kodi|other" default="kodi" visible="false" />

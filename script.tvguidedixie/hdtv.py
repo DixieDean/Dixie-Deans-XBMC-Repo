@@ -33,8 +33,8 @@ import os
 
 import dixie
 
-PATH    = os.path.join(dixie.PROFILE, l1lll1 (u"ࠩࡷࡩࡲࡶࠧ࢑"))
-SETTING = l1lll1 (u"ࠪࡐࡔࡍࡉࡏࡡࡋࡈ࡙࡜ࠧ࢒")
+PATH    = os.path.join(dixie.PROFILE, 'temp')
+SETTING = 'LOGIN_HDTV'
 
 
 def getURL(url):
@@ -58,29 +58,29 @@ def getURL(url):
 
     for file in l11l111l:
         l1ll111l1   = file[l1lll1 (u"ࠧ࡭ࡣࡥࡩࡱ࠭࢖")]
-        l1ll111l1   = l1ll111l1.replace(l1lll1 (u"ࠨࠢ࡞࠳ࡈࡕࡌࡐࡔࡠࠫࢗ"), l1lll1 (u"ࠩ࡞࠳ࡈࡕࡌࡐࡔࡠࠫ࢘"))
-        l1ll11111 = l1ll111l1.rsplit(l1lll1 (u"ࠪ࡟࠴ࡉࡏࡍࡑࡕࡡ࢙ࠬ"), 1)[0].split(l1lll1 (u"ࠫࡠࡉࡏࡍࡑࡕࠤࡼ࡮ࡩࡵࡧࡠ࢚ࠫ"), 1)[-1]
+        l1ll111l1   = l1ll111l1.replace(l1lll1 (u"ࠨࠢࠣࠫࢗ"), l1lll1 (u"ࠩࠣࠫ࢘")).replace(l1lll1 (u"ࠪࠤࡠ࠵ࡃࡐࡎࡒࡖࡢ࢙࠭"), l1lll1 (u"ࠫࡠ࠵ࡃࡐࡎࡒࡖࡢ࢚࠭"))
+        l1ll11111 = l1ll111l1.rsplit(l1lll1 (u"ࠬࡡ࠯ࡄࡑࡏࡓࡗࡣ࢛ࠧ"), 1)[0].split(l1lll1 (u"࡛࠭ࡄࡑࡏࡓࡗࠦࡷࡩ࡫ࡷࡩࡢ࠭࢜"), 1)[-1]
 
         if stream == l1ll11111.lower():
-            return file[l1lll1 (u"ࠬ࡬ࡩ࡭ࡧ࢛ࠪ")]
+            return file[l1lll1 (u"ࠧࡧ࡫࡯ࡩࠬ࢝")]
 
     return None
     
 
 def l1ll111ll(url):
-    l1lll11l    = (l1lll1 (u"࠭ࡻࠣ࡬ࡶࡳࡳࡸࡰࡤࠤ࠽ࠦ࠷࠴࠰ࠣ࠮ࠣࠦࡲ࡫ࡴࡩࡱࡧࠦ࠿ࠨࡆࡪ࡮ࡨࡷ࠳ࡍࡥࡵࡆ࡬ࡶࡪࡩࡴࡰࡴࡼࠦ࠱ࠦࠢࡱࡣࡵࡥࡲࡹࠢ࠻ࡽࠥࡨ࡮ࡸࡥࡤࡶࡲࡶࡾࠨ࠺ࠣࡲ࡯ࡹ࡬࡯࡮࠻࠱࠲ࡴࡱࡻࡧࡪࡰ࠱ࡺ࡮ࡪࡥࡰ࠰ࡂࡃࡄࡅ࠯ࡀࡣࡦࡸ࡮ࡵ࡮࠾࡯ࡤ࡭ࡳࡥ࡬ࡪࡵࡷࠪࡹ࡯ࡴ࡭ࡧࡀࠪࡺࡸ࡬࠾ࠤࢀ࠰ࠥࠨࡩࡥࠤ࠽ࠤ࠶ࢃࠧ࢜"))
-    l1ll11l11  = (l1lll1 (u"ࠧࡼࠤ࡭ࡷࡴࡴࡲࡱࡥࠥ࠾ࠧ࠸࠮࠱ࠤ࠯ࠤࠧࡳࡥࡵࡪࡲࡨࠧࡀࠢࡇ࡫࡯ࡩࡸ࠴ࡇࡦࡶࡇ࡭ࡷ࡫ࡣࡵࡱࡵࡽࠧ࠲ࠠࠣࡲࡤࡶࡦࡳࡳࠣ࠼ࡾࠦࡩ࡯ࡲࡦࡥࡷࡳࡷࡿࠢ࠻ࠤࡳࡰࡺ࡭ࡩ࡯࠼࠲࠳ࡵࡲࡵࡨ࡫ࡱ࠲ࡻ࡯ࡤࡦࡱ࠱ࡃࡄࡅ࠿࠰ࡁࡤࡧࡹ࡯࡯࡯࠿࡯࡭ࡻ࡫ࡴࡷࡡࡤࡰࡱࠬࡴࡪࡶ࡯ࡩࡂࡇ࡬࡭࠭ࡦ࡬ࡦࡴ࡮ࡦ࡮ࡶࠪࡺࡸ࡬࠾ࠤࢀ࠰ࠥࠨࡩࡥࠤ࠽ࠤ࠶ࢃࠧ࢝"))
+    l1lll11l    = (l1lll1 (u"ࠨࡽࠥ࡮ࡸࡵ࡮ࡳࡲࡦࠦ࠿ࠨ࠲࠯࠲ࠥ࠰ࠥࠨ࡭ࡦࡶ࡫ࡳࡩࠨ࠺ࠣࡈ࡬ࡰࡪࡹ࠮ࡈࡧࡷࡈ࡮ࡸࡥࡤࡶࡲࡶࡾࠨࠬࠡࠤࡳࡥࡷࡧ࡭ࡴࠤ࠽ࡿࠧࡪࡩࡳࡧࡦࡸࡴࡸࡹࠣ࠼ࠥࡴࡱࡻࡧࡪࡰ࠽࠳࠴ࡶ࡬ࡶࡩ࡬ࡲ࠳ࡼࡩࡥࡧࡲ࠲ࡄࡅ࠿ࡀ࠱ࡂࡥࡨࡺࡩࡰࡰࡀࡱࡦ࡯࡮ࡠ࡮࡬ࡷࡹࠬࡴࡪࡶ࡯ࡩࡂࠬࡵࡳ࡮ࡀࠦࢂ࠲ࠠࠣ࡫ࡧࠦ࠿ࠦ࠱ࡾࠩ࢞"))
+    l1ll11l11  = (l1lll1 (u"ࠩࡾࠦ࡯ࡹ࡯࡯ࡴࡳࡧࠧࡀࠢ࠳࠰࠳ࠦ࠱ࠦࠢ࡮ࡧࡷ࡬ࡴࡪࠢ࠻ࠤࡉ࡭ࡱ࡫ࡳ࠯ࡉࡨࡸࡉ࡯ࡲࡦࡥࡷࡳࡷࡿࠢ࠭ࠢࠥࡴࡦࡸࡡ࡮ࡵࠥ࠾ࢀࠨࡤࡪࡴࡨࡧࡹࡵࡲࡺࠤ࠽ࠦࡵࡲࡵࡨ࡫ࡱ࠾࠴࠵ࡰ࡭ࡷࡪ࡭ࡳ࠴ࡶࡪࡦࡨࡳ࠳ࡅ࠿ࡀࡁ࠲ࡃࡦࡩࡴࡪࡱࡱࡁࡱ࡯ࡶࡦࡶࡹࡣࡦࡲ࡬ࠧࡶ࡬ࡸࡱ࡫࠽ࡂ࡮࡯࠯ࡨ࡮ࡡ࡯ࡰࡨࡰࡸࠬࡵࡳ࡮ࡀࠦࢂ࠲ࠠࠣ࡫ࡧࠦ࠿ࠦ࠱ࡾࠩ࢟"))
 
-    if url.startswith(l1lll1 (u"ࠨࡊࡇࡘ࡛ࡀࠧ࢞")):
-        l1lll11l    = l1lll11l.replace(  l1lll1 (u"ࠩࡂࡃࡄࡅࠧ࢟"), l1lll1 (u"ࠪ࡬ࡩࡺࡶࠨࢠ"))
-        l1ll11l11  = l1ll11l11.replace(l1lll1 (u"ࠫࡄࡅ࠿ࡀࠩࢡ"), l1lll1 (u"ࠬ࡮ࡤࡵࡸࠪࢢ"))
+    if url.startswith(l1lll1 (u"ࠪࡌࡉ࡚ࡖ࠻ࠩࢠ")):
+        l1lll11l    = l1lll11l.replace(  l1lll1 (u"ࠫࡄࡅ࠿ࡀࠩࢡ"), l1lll1 (u"ࠬ࡮ࡤࡵࡸࠪࢢ"))
+        l1ll11l11  = l1ll11l11.replace(l1lll1 (u"࠭࠿ࡀࡁࡂࠫࢣ"), l1lll1 (u"ࠧࡩࡦࡷࡺࠬࢤ"))
 
-    if url.startswith(l1lll1 (u"࠭ࡈࡅࡖ࡙࠶࠿࠭ࢣ")):
-        l1lll11l    = l1lll11l.replace(  l1lll1 (u"ࠧࡀࡁࡂࡃࠬࢤ"), l1lll1 (u"ࠨࡴࡸࡽࡦ࡯ࡰࡵࡸࠪࢥ"))
-        l1ll11l11  = l1ll11l11.replace(l1lll1 (u"ࠩࡂࡃࡄࡅࠧࢦ"), l1lll1 (u"ࠪࡶࡺࡿࡡࡪࡲࡷࡺࠬࢧ"))
+    if url.startswith(l1lll1 (u"ࠨࡊࡇࡘ࡛࠸࠺ࠨࢥ")):
+        l1lll11l    = l1lll11l.replace(  l1lll1 (u"ࠩࡂࡃࡄࡅࠧࢦ"), l1lll1 (u"ࠪࡶࡺࡿࡡࡪࡲࡷࡺࠬࢧ"))
+        l1ll11l11  = l1ll11l11.replace(l1lll1 (u"ࠫࡄࡅ࠿ࡀࠩࢨ"), l1lll1 (u"ࠬࡸࡵࡺࡣ࡬ࡴࡹࡼࠧࢩ"))
 
     try:
-        message = l1lll1 (u"ࠫࡑࡵࡧࡨ࡫ࡱ࡫ࠥ࡯࡮ࡵࡱࠣࡷࡪࡸࡶࡦࡴ࠱ࠤࡔࡴࡥࠡ࡯ࡲࡱࡪࡴࡴࠡࡲ࡯ࡩࡦࡹࡥ࠯ࠩࢨ")
+        message = l1lll1 (u"࠭ࡌࡰࡩࡪ࡭ࡳ࡭ࠠࡪࡰࡷࡳࠥࡹࡥࡳࡸࡨࡶ࠳ࠦࡏ࡯ࡧࠣࡱࡴࡳࡥ࡯ࡶࠣࡴࡱ࡫ࡡࡴࡧ࠱ࠫࢪ")
         dixie.notify(message)
         dixie.ShowBusy()
         xbmc.executeJSONRPC(l1lll11l)
@@ -88,15 +88,15 @@ def l1ll111ll(url):
         
         dixie.CloseBusy()
     
-        content = json.loads(l1l1l11l.decode(l1lll1 (u"ࠬࡲࡡࡵ࡫ࡱ࠱࠶࠭ࢩ"), l1lll1 (u"࠭ࡩࡨࡰࡲࡶࡪ࠭ࢪ")))
+        content = json.loads(l1l1l11l.decode(l1lll1 (u"ࠧ࡭ࡣࡷ࡭ࡳ࠳࠱ࠨࢫ"), l1lll1 (u"ࠨ࡫ࡪࡲࡴࡸࡥࠨࢬ")))
     
-        json.dump(content, open(PATH,l1lll1 (u"ࠧࡸࠩࢫ")))
+        json.dump(content, open(PATH,l1lll1 (u"ࠩࡺࠫࢭ")))
 
         return content
     
     except Exception as e:
         l1l1llll1(e)
-        return {l1lll1 (u"ࠨࡇࡵࡶࡴࡸࠧࢬ") : l1lll1 (u"ࠩࡓࡰࡺ࡭ࡩ࡯ࠢࡈࡶࡷࡵࡲࠨࢭ")}
+        return {l1lll1 (u"ࠪࡉࡷࡸ࡯ࡳࠩࢮ") : l1lll1 (u"ࠫࡕࡲࡵࡨ࡫ࡱࠤࡊࡸࡲࡰࡴࠪࢯ")}
 
 
 def l1l1lllll(l1ll1111l):
@@ -105,12 +105,12 @@ def l1l1lllll(l1ll1111l):
 
 
 def l1l1llll1(e):
-    l111111l = l1lll1 (u"ࠪࡗࡴࡸࡲࡺ࠮ࠣࡥࡳࠦࡥࡳࡴࡲࡶࠥࡵࡣࡤࡷࡵࡩࡩࡀࠠࡋࡕࡒࡒࠥࡋࡲࡳࡱࡵ࠾ࠥࠫࡳࠨࢮ")  %e
-    l11111l1 = l1lll1 (u"ࠫࡕࡲࡥࡢࡵࡨࠤࡷ࡫࠭࡭࡫ࡱ࡯ࠥࡺࡨࡪࡵࠣࡧ࡭ࡧ࡮࡯ࡧ࡯ࠤࡦࡴࡤࠡࡶࡵࡽࠥࡧࡧࡢ࡫ࡱ࠲ࠬࢯ")
-    l11111ll = l1lll1 (u"࡛ࠬࡳࡦ࠼ࠣࡇࡴࡴࡴࡦࡺࡷࠤࡒ࡫࡮ࡶࠢࡀࡂࠥࡘࡥ࡮ࡱࡹࡩ࡙ࠥࡴࡳࡧࡤࡱࠬࢰ")
+    l111111l = l1lll1 (u"࡙ࠬ࡯ࡳࡴࡼ࠰ࠥࡧ࡮ࠡࡧࡵࡶࡴࡸࠠࡰࡥࡦࡹࡷ࡫ࡤ࠻ࠢࡍࡗࡔࡔࠠࡆࡴࡵࡳࡷࡀࠠࠦࡵࠪࢰ")  %e
+    l11111l1 = l1lll1 (u"࠭ࡐ࡭ࡧࡤࡷࡪࠦࡲࡦ࠯࡯࡭ࡳࡱࠠࡵࡪ࡬ࡷࠥࡩࡨࡢࡰࡱࡩࡱࠦࡡ࡯ࡦࠣࡸࡷࡿࠠࡢࡩࡤ࡭ࡳ࠴ࠧࢱ")
+    l11111ll = l1lll1 (u"ࠧࡖࡵࡨ࠾ࠥࡉ࡯࡯ࡶࡨࡼࡹࠦࡍࡦࡰࡸࠤࡂࡄࠠࡓࡧࡰࡳࡻ࡫ࠠࡔࡶࡵࡩࡦࡳࠧࢲ")
     
-    dixie.log(e)
-    dixie.DialogOK(l111111l, l11111l1, l11111ll)    
-    dixie.SetSetting(SETTING, l1lll1 (u"࠭ࠧࢱ"))
+    dixie.l1l1l1ll(e)
+    dixie.l111l1l(l111111l, l11111l1, l11111ll)    
+    dixie.SetSetting(SETTING, l1lll1 (u"ࠨࠩࢳ"))
     
     

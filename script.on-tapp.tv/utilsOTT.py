@@ -95,9 +95,6 @@ dsf     = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53
 
 
 def getBaseURL():
-    if isDSF():
-        return baseurl + 'resources/other/'
-
     return baseurl + 'resources/kodi/'
 
 
@@ -344,13 +341,8 @@ def downloadDefaults(url):
     extract.all(zip4, epgpath)
     sfile.remove(zip4)
 
-    if isDSF():
-        Addon.setSetting('dixie.skin', 'EPG-Skin')
-        Addon.setSetting('playlist.url', '')
-        setSetting('SKIN', 'OTT-Skin')
-    else:
-        Addon.setSetting('dixie.skin', 'FXB v4.0')
-        setSetting('SKIN', 'FXB78')
+    Addon.setSetting('dixie.skin', 'FXB v4.0')
+    setSetting('SKIN', 'FXB78')
     
     setSetting('FIRSTRUN', 'true')
 
