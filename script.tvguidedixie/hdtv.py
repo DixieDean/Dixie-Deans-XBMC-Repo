@@ -109,8 +109,8 @@ def l1l1llll1(e):
     l11111l1 = l1lll1 (u"࠭ࡐ࡭ࡧࡤࡷࡪࠦࡲࡦ࠯࡯࡭ࡳࡱࠠࡵࡪ࡬ࡷࠥࡩࡨࡢࡰࡱࡩࡱࠦࡡ࡯ࡦࠣࡸࡷࡿࠠࡢࡩࡤ࡭ࡳ࠴ࠧࢱ")
     l11111ll = l1lll1 (u"ࠧࡖࡵࡨ࠾ࠥࡉ࡯࡯ࡶࡨࡼࡹࠦࡍࡦࡰࡸࠤࡂࡄࠠࡓࡧࡰࡳࡻ࡫ࠠࡔࡶࡵࡩࡦࡳࠧࢲ")
     
-    dixie.l1l1l1ll(e)
-    dixie.l111l1l(l111111l, l11111l1, l11111ll)    
+    dixie.log(e)
+    dixie.DialogOK(l111111l, l11111l1, l11111ll)    
     dixie.SetSetting(SETTING, l1lll1 (u"ࠨࠩࢳ"))
     
     
