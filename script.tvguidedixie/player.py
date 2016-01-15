@@ -229,30 +229,24 @@ def play(url, windowed, name=None):
 
     dixie.SetSetting('streamURL', url)
  
-    item = url
-    if name:
-        item     = xbmcgui.ListItem(name, thumbnailImage=ICON)
-        playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
-        playlist.clear()
-        playlist.add(url, item)
-        item = playlist
+    if not checkForAlternateStreaming(url):
+        playAndWait(url, windowed, maxIdle)
+        print '***** ottv is playing *****', url
 
-    # dixie.CloseBusy()
-    xbmc.Player().play(item, windowed=windowed)
-    print '***** ottv is playing *****', item, url
-
-    xbmc.sleep(3000)
-    if not xbmc.Player().isPlaying():
-        # dixie.CloseBusy()
-        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-        wait(maxIdle)
-
+        xbmc.sleep(3000)
+        if not xbmc.Player().isPlaying():
+            # dixie.CloseBusy()
+            xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+            print '***** ottv RunPlugin *****', url
+            wait(maxIdle)
 
 def playAndWait(url, windowed, maxIdle, delay=0):
     playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
     playlist.clear()
     playlist.add(url, xbmcgui.ListItem(''))
-    xbmc.Player().play(playlist, windowed=windowed)
+    try:
+        xbmc.Player().play(playlist, windowed=windowed)
+    except: pass
 
     if delay == 0:
         wait(maxIdle)
@@ -274,6 +268,83 @@ def wait(maxIdle):
     while xbmc.Player().isPlaying():
         xbmc.sleep(1000)
         CheckIdle(maxIdle)
+
+
+def checkForAlternateStreaming(url):
+    if 'plugin.video.expattv' in url:
+        return alternateStream(url)
+
+    if 'plugin.video.filmon' in url:
+        return alternateStream(url)
+
+    if 'plugin.video.notfilmon' in url:
+        return alternateStream(url)
+        
+    if 'plugin.video.itv' in url:        
+        return alternateStream(url)
+        
+    if 'plugin.video.iplayerwww' in url:
+        return alternateStream(url)
+        
+    if 'plugin.video.musicvideojukebox' in url:
+        return alternateStream(url)
+        
+    if 'plugin.video.muzu.tv' in url:        
+        return alternateStream(url)
+        
+    if 'plugin.audio.ramfm' in url:        
+        return alternateStream(url)
+        
+    if 'plugin.video.movie25' in url:
+        return alternateStream(url)
+        
+    if 'plugin.video.irishtv' in url:
+        return alternateStream(url)
+        
+    if 'plugin.video.F.T.V' in url:        
+        return alternateStream(url)
+
+    if 'plugin.video.sportsaholic' in url:        
+        return alternateStream(url)
+        
+    if 'plugin.video.navi-x' in url:        
+        return alternateStream(url)
+
+    if 'plugin.video.mxnews' in url:        
+        return alternateStream(url)
+
+    if 'plugin.program.skygo.launcher' in url:        
+        return alternateStream(url)
+
+    if 'plugin.program.advanced.launcher' in url:        
+        return alternateStream(url)
+
+    if 'plugin.video.iplayer' in url:        
+        return alternateStream(url)
+
+    if 'plugin.video.stalker' in url:
+        return alternateStream(url)
+
+    if 'plugin.video.sparky' in url:
+        return alternateStream(url)
+
+    if 'plugin.video.sportsmania' in url:
+        return alternateStream(url)
+
+    return False
+
+def alternateStream(url):
+    # dixie.CloseBusy()
+    xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+    print '***** ottv alternateStream *****', url
+    
+    retries = 10
+    while retries > 0 and not xbmc.Player().isPlaying():
+        retries -= 1
+        xbmc.sleep(1000)
+        
+    return True
+
 
 
 if __name__ == '__main__': 

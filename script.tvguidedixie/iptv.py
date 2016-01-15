@@ -35,7 +35,7 @@ import os
 
 import dixie
 
-PATH    = os.path.join(dixie.l1lll11ll, l1lll1 (u"ࠩ࡬ࡴࡹࡼ࡟ࡤࡪࡤࡲࡳ࡫࡬ࡴࠩࢴ"))
+PATH    = os.path.join(dixie.PROFILE, l1lll1 (u"ࠩ࡬ࡴࡹࡼ࡟ࡤࡪࡤࡲࡳ࡫࡬ࡴࠩࢴ"))
 SETTING = l1lll1 (u"ࠪࡐࡔࡍࡉࡏࡡࡌࡔ࡙࡜ࠧࢵ")
 
 def getURL(url):
