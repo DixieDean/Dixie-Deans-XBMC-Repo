@@ -134,7 +134,7 @@ def getRaspian(silent):
 
 
 def getEmber(silent):
-    path = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/ember/openvpn')
+    path = os.path.join(os.path.expanduser('~'), 'Programs', 'bin', 'openvpn')
     if check(path):
         return path
 

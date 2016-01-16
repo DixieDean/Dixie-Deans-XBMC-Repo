@@ -149,8 +149,8 @@ def installEmber():
     import stat
     
     url      = utils.getResourceUrl() + 'openvpn-ember.zip'
-    bindir   = xbmc.translatePath('special://profile/addon_data/plugin.program.vpnicity/ember/')
-    dest     = os.path.join(bindir, 'openvpn-ember.zip')
+    bindir   = os.path.join(os.path.expanduser('~'), 'Programs', 'bin')
+    dest     = os.path.join(xbmc.translatePath('special://temp'), 'openvpn-ember.zip')
     emberbin = os.path.join(bindir, 'openvpn')
     
     try:
