@@ -163,6 +163,24 @@ def installEmber():
     
     st = os.stat(emberbin)
     os.chmod(emberbin, st.st_mode | stat.S_IEXEC)
+
+    # Patch to enable setting the default route to tun0 when it is brought up by openvpn:
+    # Note: This is not required for Ember v3.0.1 +
+    tunup_script = '/etc/NetworkManager/dispatcher.d/02-tunup'
+    if not os.path.isfile(tunup_script):
+        script_text = '''#!/bin/sh
+LOGGER="/usr/bin/logger -s -p user.notice -t NetworkManagerDispatcher"
+if [ -n $1 ] && [ $1 == "tun0" ] && [ $2 == "up" ]; then
+    $LOGGER "$1 inteface up, setting default route ..."
+    /sbin/route add default dev tun0
+fi
+if [ -n $1 ] && [ $2 == "down" ]; then
+    $LOGGER "$1 inteface down..."
+fi'''
+        with open(tunup_script, "w") as script:
+            script.write(script_text)
+    subprocess.Popen("chown -R root:root /etc/NetworkManager/dispatcher.d/*" , shell=True, close_fds=True)
+    subprocess.Popen("chmod -R 755 /etc/NetworkManager/dispatcher.d/*" , shell=True, close_fds=True)
     
     try:
         os.remove(dest)
