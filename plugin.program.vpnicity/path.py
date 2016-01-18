@@ -72,6 +72,14 @@ def getAndroid(silent):
     if check(path):
         return path
 
+    path = '/storage/emulated/0/Download/ics-openvpn-0.6.44.apk'
+    if check(path):
+        return path
+    
+    path = '/sdcard/Android/data/ics-openvpn-0.6.44.apk'
+    if check(path):
+        return path
+
     return error(silent)
 
 
