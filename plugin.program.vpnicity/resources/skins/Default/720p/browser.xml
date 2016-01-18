@@ -138,20 +138,20 @@
             <onup>3000</onup>
             <ondown>3000</ondown>
 		</control>
-        <control type="label">
-            <description>Date</description>
-            <posx>515</posx>
-            <posy>224</posy>
-            <width>220</width>
+        <control type="label" id="3003">
+            <description>Info</description>
+            <visible>Control.IsVisible(3003)</visible>
+            <posx>260</posx>
+            <posy>220</posy>
+            <width>260</width>
             <height>35</height>
-            <font>font12</font>
-            <align>right</align>
+            <font>font13</font>
+            <align>left</align>
             <aligny>top</aligny>
             <textcolor>white</textcolor>
-            <label>$INFO[System.Date(DDD dd MMM)]</label>
+            <scroll>true</scroll>
         </control>
         
-		
 		<control type="image" id="3002">
 			<posx>380</posx>
 			<posy>65</posy>

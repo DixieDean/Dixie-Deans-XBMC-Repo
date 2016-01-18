@@ -13,12 +13,12 @@
 	    <setting id="USER"      type="text"      label="VPN Username"         default=""/>
 	    <setting id="PASS"      type="text"      label="VPN Password"         default=""/>
          <!-- <setting id="dummy"        type="action"    label="[COLOR orange][B]Click to[/B] - Verify my login details[/COLOR]"    option="close"    action="XBMC.RunScript(special://home/addons/plugin.program.vpnicity/verify.py)"/> -->
-	    <setting id="OS"        type="labelenum" label="Operating System"     default=" "      values = " |Windows|Linux|MacOS|Android|OpenELEC 5.x|OpenELEC 6.x|OpenELEC R-Pi|TLBBv2 OpenELEC|RaspBMC|Raspian|Ember 3.x.x"/>
+	    <setting id="OS"        type="labelenum" label="Operating System"     default=" "      values = " |Windows|Linux|MacOS|Android|Android TV|OpenELEC 5.x|OpenELEC 6.x|OpenELEC R-Pi|TLBBv2 OpenELEC|RaspBMC|Raspian|EmbER"/>
 		
-		<setting id="dummy"		option="close"   label="Install OpenVPN" type="action" action="RunScript($CWD/install.py)" enable="!eq(-1,0)+!eq(-1,1)+!eq(-1,4)"/>
+		<setting id="dummy"		option="close"   label="Install OpenVPN" type="action" action="RunScript($CWD/install.py)"      enable="!eq(-1,0)+!eq(-1,1)+!eq(-1,4)+!eq(-1,5)"/>
 		
-	    <setting id="SUDO"      type="bool"      label="Use Sudo (Enter your OS user account password below)"       default="false" enable="!eq(-2,0)+!eq(-2,1)+!eq(-2,4)+!eq(-2,5)+!eq(-2,6)+!eq(-2,7)+!eq(-2,8)" option="hidden"/>
-	    <setting id="SUDOPASS"  type="text"      label="[COLOR orange]Sudo Password[/COLOR]"   default=""      enable="!eq(-3,0)+!eq(-3,1)+!eq(-3,4)+!eq(-3,5)+!eq(-3,6)+!eq(-3,7)+!eq(-3,8)+eq(-1,true)" option="hidden"/>
+	    <setting id="SUDO"      type="bool"      label="Use Sudo (Enter your OS user account password below)"   default="false" enable="!eq(-2,0)+!eq(-2,1)+!eq(-2,4)+!eq(-2,5)+!eq(-2,6)+!eq(-2,7)+!eq(-2,8)+!eq(-2,9)" option="hidden"/>
+	    <setting id="SUDOPASS"  type="text"      label="[COLOR orange]Sudo Password[/COLOR]"                    default=""      enable="!eq(-3,0)+!eq(-3,1)+!eq(-3,4)+!eq(-3,5)+!eq(-3,6)+!eq(-3,7)+!eq(-3,8))+!eq(-3,9)+eq(-1,true)" option="hidden"/>
 		
 		<setting id="VERSION"   type="text"      label="Current Version"               default="0.0.0"  visible="false"/>
 		<setting id="VIDEO"     type="bool"      label="Video shown"                   default="false"  visible="false"/>

@@ -68,7 +68,16 @@ def Main():
         utils.log('Login Error')
         return
 
-    # utils.checkOS()
+    # import ipcheck
+    address = xbmcgui.Window(10000).getProperty('VPNICITY_ADDR')
+    country = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+    if country == '':
+        country = 'VPNicity not active'
+    
+    addDir('[COLOR orange]VPNicity Network Info:[/COLOR]',     _SEPARATOR,  isFolder=False)
+    addDir('[COLOR orange]IP Address:[/COLOR] %s' % (address), _SEPARATOR,  isFolder=False)
+    addDir('[COLOR orange]Country:[/COLOR] %s' %    (country), _SEPARATOR,  isFolder=False)
+    addDir('', _SEPARATOR,  isFolder=False)
 
     addDir('-- Configure %s' % TITLE,   _SETTINGS,  isFolder=False)
 

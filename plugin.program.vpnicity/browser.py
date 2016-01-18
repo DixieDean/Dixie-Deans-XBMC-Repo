@@ -41,7 +41,6 @@ USE_HELIX = (not utils.FRODO) and (not utils.GOTHAM)
 class Browser(xbmcgui.WindowXMLDialog):
 
     def __new__(cls, addonID, countries):
-        print xbmcaddon.Addon(addonID).getAddonInfo('path')
         if USE_HELIX:
             return super(Browser, cls).__new__(cls, 'browser-helix.xml', xbmcaddon.Addon(addonID).getAddonInfo('path'))
         else:
@@ -57,11 +56,20 @@ class Browser(xbmcgui.WindowXMLDialog):
     def onInit(self):
         self.list    = self.getControl(3000)
         self.icon    = self.getControl(3002)
+        self.status  = self.getControl(3003)
         self.country = ''
 
-        label      = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+        address =  xbmcgui.Window(10000).getProperty('VPNICITY_ADDR')
+        country =  xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+        if country == '':
+            country = 'VPNicity not active'
+        
+        status = '[COLOR orange]IP Address:[/COLOR] %s | [COLOR orange]Country:[/COLOR] %s ' % (address, country)
+        self.status.setLabel(status)
+        
+        label = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
         self.vpnON = len(label) > 0
-
+        
         if self.vpnON:
             label = '[I]Disable %s %s[/I]' % (label, utils.TITLE)
             liz   = xbmcgui.ListItem(label)
@@ -85,7 +93,6 @@ class Browser(xbmcgui.WindowXMLDialog):
 
 
     def onClick(self, controlId):
-        print '************  in browser.py country chosen, trying VPN  ************'
         if controlId != 3001:
             index = self.list.getSelectedPosition()  
 

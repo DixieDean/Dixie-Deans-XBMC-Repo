@@ -24,10 +24,20 @@ import vpn_utils as utils
 
 
 def Network():
-    address = requests.get('https://api.ipify.org').text
-    country = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
-    
-    message = 'IP Address: %s  Country: %s' % (address, country)
+    try:
+        getIP()
+        address = xbmcgui.Window(10000).getProperty('VPNICITY_ADDR')
+        country = xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
 
-    utils.notify(message)
-    utils.log('VPNicity location is: ' + message)
+        message = 'IP Address: %s  Country: %s' % (address, country)
+
+        utils.notify(message)
+        utils.log('VPNicity location is: ' + message)
+    except: pass
+
+def getIP():
+    response = requests.get('https://api.ipify.org').text
+    xbmcgui.Window(10000).setProperty('VPNICITY_ADDR', response)
+    #
+    # return response
+    

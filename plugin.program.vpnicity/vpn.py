@@ -36,7 +36,7 @@ ADDONID  = utils.ADDONID
 
 REGEX = 'server name="(.+?)" capacity="(.+?)" city="(.+?)" country="(.+?)" icon="(.+?)" ip="(.+?)" status="(.+?)" visible="(.+?)"'
 
-COUNTRIES = {'AU':'Australia', 'AT':'Austria', 'BE':'Belguim', 'BR':'Brazil', 'CA':'Canada', 'DK':'Denmark', 'DE':'Germany', 'ES':'Spain', 'FR':'France', 'GB':'Great Britain', 'HU':'Hungary',  'JP':'Japan', 'KR':'South Korea', 'NL':'Netherlands', 'PL':'Poland', 'SG':'Singapore', 'CH':'Switzerland', 'SE':'Sweden', 'UK':'United Kingdom', 'US':'United States'}
+COUNTRIES = {'AU':'Australia', 'AT':'Austria', 'BE':'Belguim', 'BR':'Brazil', 'CA':'Canada', 'DK':'Denmark', 'DE':'Germany', 'ES':'Spain', 'FR':'France', 'GB':'Great Britain', 'HU':'Hungary',  'JP':'Japan', 'KR':'South Korea', 'LU':'Luxembourg', 'NL':'Netherlands', 'PL':'Poland', 'SG':'Singapore', 'CH':'Switzerland', 'SE':'Sweden', 'UK':'United Kingdom', 'US':'United States'}
 
 URL      = utils.getBaseUrl()
 ADDON    = utils.ADDON
@@ -530,7 +530,6 @@ def Login():
             error = error.replace('</strong>', '')
             error = error.replace('<a href="https://www.vpnicity.com/wp-login.php?action=lostpassword">Lost your password?</a>', '')
             error = error.strip()
-            print error
         except:
             error = ''
             

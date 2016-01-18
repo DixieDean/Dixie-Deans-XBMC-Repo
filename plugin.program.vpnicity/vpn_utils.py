@@ -233,7 +233,7 @@ def checkVersion():
     #     showVideo()
 
     d = xbmcgui.Dialog()
-    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Change to how VPNicity checks IP address.', 'For online support, please visit our forum.', 'www.on-tapp-networks.com/forum')
+    d.ok(TITLE + ' - ' + VERSION, 'UPDATE. Live VPNicity network info added.', 'For online support, please visit our forum.', 'www.on-tapp-networks.com/forum')
     triggerChangelog()
     
 

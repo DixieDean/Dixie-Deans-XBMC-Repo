@@ -23,41 +23,47 @@ import os
 import sfile
 import dixie
 
-filename  = 'OTTV Mini-Guide.py'
-
-sfaves = xbmcaddon.Addon('plugin.program.super.favourites')
-path   = sfaves.getAddonInfo('profile')
-file   = os.path.join(path, 'Plugins', filename)
+sfaves    = 'plugin.program.super.favourites'
+installed =  xbmc.getCondVisibility('System.HasAddon(%s)' % sfaves) == 1
 
 
 def miniGuide():
-        try:
-            install_file(filename)
-        
-            passed = (sfile.exists(file))
-        
-            if passed: 
-                dixie.log('Installing Mini-Guide Plugin...PASSED')
-            else:
-                dixie.log('Installing Mini-Guide Plugin...FAILED')
-        
-            dixie.SetSetting('MINIGUIDE', 'true')
-        
-            return passed
-        
-        except Exception, e:
-            dixie.log('Installing Mini-Guide Plugin...EXCEPTION %s' % str(e))
+    if not installed:
+        return False
+
+    try:
+        filename = 'OTTV Mini-Guide.py'
+        sfaddon  =  xbmcaddon.Addon(id = sfaves)
+        path     =  sfaddon.getAddonInfo('profile')
+        file     =  os.path.join(path, 'Plugins', filename)
+
+        install_file(filename)
+    
+        passed = (sfile.exists(file))
+    
+        if passed: 
+            dixie.log('Installing Mini-Guide Plugin...PASSED')
+        else:
+            dixie.log('Installing Mini-Guide Plugin...FAILED')
+    
+        dixie.SetSetting('MINIGUIDE', 'true')
+    
+        return passed
+    
+    except Exception, e:
+        dixie.log('Installing Mini-Guide Plugin...EXCEPTION %s' % str(e))
         
         return False
 
 
-def install_file(filename):
+def install_file(filename, file, path):
     ottv = dixie.HOME
     src  = os.path.join(ottv, 'resources', filename)
     
     if not os.path.exists(path):
         sfile.makedirs(path)
-        sfile.copy(src, file)
+    
+    sfile.copy(src, file)
 
 
 if __name__ == '__main__':

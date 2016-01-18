@@ -23,33 +23,38 @@ import os
 import sfile
 import vpn_utils as utils
 
-filename  = 'VPNicity Connect.py'
-
-sfaves = xbmcaddon.Addon('plugin.program.super.favourites')
-path   = sfaves.getAddonInfo('profile')
-file   = os.path.join(path, 'Plugins', filename)
+sfaves    = 'plugin.program.super.favourites'
+installed =  xbmc.getCondVisibility('System.HasAddon(%s)' % sfaves) == 1
 
 
 def vpnConnect():
-        try:
-            install_file(filename)
-        
-            passed = (sfile.exists(file))
-        
-            if passed: 
-                utils.log('Installing VPNicity Connect Plugin...PASSED')
-            else:
-                utils.log('Installing VPNicity Connect Plugin...FAILED')
-        
-            return passed
-        
-        except Exception, e:
-            utils.log('Installing VPNicity Connect Plugin...EXCEPTION %s' % str(e))
+    if not installed:
+        return False
+
+    try:
+        filename = 'VPNicity Connect.py'
+        sfaddon  =  xbmcaddon.Addon(id = sfaves)
+        path     =  sfaddon.getAddonInfo('profile')
+        file     =  os.path.join(path, 'Plugins', filename)
+
+        install_file(filename, file, path)
+    
+        passed = (sfile.exists(file))
+    
+        if passed: 
+            utils.log('Installing VPNicity Connect Plugin...PASSED')
+        else:
+            utils.log('Installing VPNicity Connect Plugin...FAILED')
+    
+        return passed
+    
+    except Exception, e:
+        utils.log('Installing VPNicity Connect Plugin...EXCEPTION %s' % str(e))
         
         return False
 
 
-def install_file(filename):
+def install_file(filename, file, path):
     vpn = utils.HOME
     src = os.path.join(vpn, 'resources', filename)
     
