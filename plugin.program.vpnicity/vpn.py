@@ -209,7 +209,18 @@ def Run(cmdline, timeout=0):
 
 def RunAndroid(cmdline, timeout=0):
     xbmc.executebuiltin(cmdline)
-
+    
+    logfile = utils.getLogfile()
+    f = open(logfile)
+    response = f.read()
+    f.close()
+    
+    error = 'ExceptionOccurred launching com.vpnicity.openvpn.control'
+    
+    if error in response:
+        utils.dialogOK('ERROR: VPN Control App not installed.', 'Please check your settings.', 'Android installation info: www.vpnicity.com/setup-android/')
+        return
+        
     path = RESPONSE
 
     xbmc.sleep(5000)
@@ -237,11 +248,16 @@ def RunAndroid(cmdline, timeout=0):
 
 
 def OpenVPN(config):
-    import path
-    exe = path.getPath(ADDON.getSetting('OS'))
+    if not utils.platform() == "android":
+        import path
+        
+        exe = path.getPath(ADDON.getSetting('OS'))
+        try: utils.log('OpenVPN binary location: ' + exe)
+        except: pass
 
-    if not exe:
-        return None
+        if not exe:
+            utils.log('OpenVPN binary not found')
+            return None
 
     try:    timeout  = int(ADDON.getSetting('TIMEOUT'))
     except: timeout  = 99999

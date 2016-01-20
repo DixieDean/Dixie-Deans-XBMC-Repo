@@ -32,6 +32,10 @@ epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
 extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras, 'logos')
 
+SkinID   = 'skin.bello-dsf'
+Skin     =  xbmcaddon.Addon(SkinID) # forked bello version: 3.0.8
+skinhome =  Skin.getAddonInfo('path')
+
 BASEURL  = 'https://www.on-tapp.tv/wp-content/uploads/resources/other/'
 URL      =  BASEURL + 'dsf-update.txt'
 FIRSTRUN =  utils.getSetting('FIRSTRUN') == 'true'
@@ -56,6 +60,7 @@ def checkUpdate():
     ottupdate  = response['DSFOTTUpdate']
     epgupdate  = response['DSFEPGUpdate']
     dsfupdate  = response['DSFUpdate']
+    kodiskin   = response['DSFKodiSkin']
 
 
     curr = ottskin
@@ -145,6 +150,21 @@ def checkUpdate():
         doDSFUpdate(url, path, zipfile, dsfupdate)
         utils.setSetting('DSFUPDATE', curr)
     
+
+    curr = kodiskin
+    prev = utils.getSetting('DSFKODISKIN')
+
+    if not prev == curr:
+        url     = BASEURL + response['DSF Kodi Skin']
+        path    = xbmc.translatePath(skinhome)
+        zipfile = os.path.join(path, 'dsf-kodi-skin.zip')
+        
+        if not sfile.exists(path):
+            sfile.makedirs(path)
+        
+        doDSFUpdate(url, path, zipfile, kodiskin)
+        utils.setSetting('DSFKODISKIN', curr)
+
     return
 
 
@@ -233,6 +253,9 @@ def downloadDefaults(url):
     Addon.setSetting('playlist.url', '')
     utils.setSetting('SKIN', 'OTT-Skin')
     
+    if DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
+        xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)')
+    
     utils.setSetting('FIRSTRUN', 'true')
 
 
@@ -293,4 +316,17 @@ def doDSFUpdate(url, path, zipfile, dsfupdate):
     extract.all(zipfile, path, dp='Installing python update')
     sfile.remove(zipfile)
     utils.Log('EPG Update %s installed' % str(dsfupdate))
+    xbmc.executebuiltin('UpdateLocalAddons')
+
+
+def doDSFSkinUpdate(url, path, zipfile, kodiskin):
+    import download
+    import extract
+
+    utils.DialogOK('Un GVAX es "Live Update" disponible.', 'Actualización %s será descargado e instalado en su sistema.' % (kodiskin), 'Gracias.')
+    
+    download.download(url, zipfile)
+    extract.all(zipfile, path, dp='Installing skin update')
+    sfile.remove(zipfile)
+    utils.Log('Skin Update %s installed' % str(kodiskin))
     xbmc.executebuiltin('UpdateLocalAddons')

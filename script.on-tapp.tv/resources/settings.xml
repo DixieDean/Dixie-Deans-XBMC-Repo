@@ -16,6 +16,7 @@
         <setting id="DSFOTTUPDATE"  type="text"   label="dsfOTTPython"  default="0.0"   visible="false"/>
         <setting id="DSFEPGUPDATE"  type="text"   label="dsfEPGPython"  default="0.0"   visible="false"/>
         <setting id="DSFUPDATE"     type="text"   label="dsfPython"     default="0.0"   visible="false"/>
+        <setting id="DSFKODISKIN"   type="text"   label="dsfKodiSkin"   default="0.0"   visible="false"/>
 
         <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN"          default="false" visible="false" />
         

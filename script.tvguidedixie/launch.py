@@ -20,7 +20,6 @@
 import xbmc
 import xbmcaddon
 import xbmcgui
-import xbmcvfs
 import urllib
 import urllib2
 from hashlib import md5
@@ -59,6 +58,8 @@ database    = os.path.join(datapath,   'program.db')
 channel_xml = os.path.join(addonpath,  'chan.xml')
 image       = xbmcgui.ControlImage
 
+FIRSTRUN = dixie.GetSetting('FIRSTRUN') == 'true'
+
 
 def CheckVersion():
     prev = dixie.GetSetting('VERSION')
@@ -76,11 +77,6 @@ def CheckVersion():
 
 def showChangelog(addonID=None):
     try:
-        if addonID:
-            ADDON = xbmcaddon.Addon(addonID)
-        else:
-            ADDON = xbmcaddon.Addon()
-
         f     = open(ADDON.getAddonInfo('changelog'))
         text  = f.read()
         title = '%s - %s' % (xbmc.getLocalizedString(24054), ADDON.getAddonInfo('name'))
@@ -106,7 +102,7 @@ def showText(heading, text):
             retry -= 1
             win.getControl(1).setLabel(heading)
             win.getControl(5).setText(text)
-            return
+            # return
         except:
             pass
 
@@ -140,20 +136,6 @@ def CheckIniVersion():
 
 def CheckFilmOn():
     getIni.ftvIni()
-
-
-def CheckPlugin():
-    try:
-        filename  = 'OTTV Mini-Guide.py'
-
-        sfaves = xbmcaddon.Addon('plugin.program.super.favourites')
-        path   = sfaves.getAddonInfo('profile')
-        file   = os.path.join(path, 'Plugins', filename)
-    
-        if not sfile.exists(file):
-            xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/install.py)')
-    
-    except: pass
 
 
 def CheckForUpdate():
@@ -227,7 +209,6 @@ def main(doLogin=True):
             return
             
         CheckVersion()
-        CheckPlugin()
         CheckIniVersion()
         CheckFilmOn()
         CheckForUpdate()

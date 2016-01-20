@@ -41,6 +41,7 @@ FANART  =  os.path.join(HOME, 'fanart.jpg')
 
 AddonID = 'script.tvguidedixie'
 Addon   =  xbmcaddon.Addon(AddonID)
+epghome =  Addon.getAddonInfo('path')
 epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
 extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras,  'logos')
@@ -344,6 +345,11 @@ def downloadDefaults(url):
     Addon.setSetting('dixie.skin', 'FXB v4.0')
     setSetting('SKIN', 'FXB78')
     
+    if DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
+        xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)')
+    
+    installSFPlugin()
+    
     setSetting('FIRSTRUN', 'true')
 
 
@@ -392,3 +398,25 @@ def doEPGUpdate(url, path, zipfile, epgupdate):
     sfile.remove(zipfile)
     Log('EPG Update %s installed' % str(epgupdate))
     xbmc.executebuiltin('UpdateLocalAddons')
+
+
+def installSFPlugin():
+    sfavourites  = 'plugin.program.super.favourites'
+    sf_installed =  xbmc.getCondVisibility('System.HasAddon(%s)' % sfavourites) == 1
+    
+    if not sf_installed:
+        return
+    
+    try:
+        filename = 'OTTV Mini-Guide.py'
+        sfaddon  =  xbmcaddon.Addon(id = sfavourites)
+        path     =  sfaddon.getAddonInfo('profile')
+        file     =  os.path.join(path, 'Plugins', filename)
+        src      =  os.path.join(epghome, 'resources', filename)
+
+        if not os.path.exists(path):
+            sfile.makedirs(path)
+
+        sfile.copy(src, file)
+
+    except: pass

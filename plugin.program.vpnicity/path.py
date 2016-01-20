@@ -63,24 +63,24 @@ def getMacOS(silent):
 #-------------------------------------------------------------
 
 
-def getAndroid(silent):
-    path = '/data/app/de.blinkt.openvpn-1.apk'
-    if check(path):
-        return path
-    
-    path = '/data/app/de.blinkt.openvpn-2.apk'
-    if check(path):
-        return path
-
-    path = '/storage/emulated/0/Download/ics-openvpn-0.6.44.apk'
-    if check(path):
-        return path
-    
-    path = '/sdcard/Android/data/ics-openvpn-0.6.44.apk'
-    if check(path):
-        return path
-
-    return error(silent)
+# def getAndroid(silent):
+#     path = '/data/app/de.blinkt.openvpn-1.apk'
+#     if check(path):
+#         return path
+#
+#     path = '/data/app/de.blinkt.openvpn-2.apk'
+#     if check(path):
+#         return path
+#
+#     path = '/storage/emulated/0/Download/ics-openvpn-0.6.44.apk'
+#     if check(path):
+#         return path
+#
+#     path = '/sdcard/Android/data/ics-openvpn-0.6.44.apk'
+#     if check(path):
+#         return path
+#
+#     return error(silent)
 
 
 #-------------------------------------------------------------
@@ -162,8 +162,8 @@ def getPath(os, silent=False):
     if os == 'MacOS':
         return getMacOS(silent)
 
-    if os == 'Android':
-        return getAndroid(silent)
+    # if os == 'Android':
+    #     return getAndroid(silent)
 
     if 'OpenELEC' in os:
         return getOpenElec(silent)
@@ -198,5 +198,4 @@ def error(silent):
 
 def check(path):
     path = path.replace('/', os.sep)
-    utils.log('VPNicity binary path is: ' + path)
     return os.path.exists(path)

@@ -65,9 +65,10 @@ VIDEOWINDOW = 3010
 
 LISTBACK  = -999
 
-GETTEXT = utils.GETTEXT
-FRODO   = utils.FRODO
-SKIN    = utils.getSetting('SKIN')
+GETTEXT  = utils.GETTEXT
+FRODO    = utils.FRODO
+SKIN     = utils.getSetting('SKIN')
+FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 
 datapath    = utils.PROFILE
 skinfolder  = os.path.join(datapath, 'skins')
@@ -178,7 +179,8 @@ class Application(xbmcgui.WindowXML):
 
         if xbmcgui.Window(10000).getProperty('OTT_RELAUNCH') == 'true':
             xbmcgui.Window(10000).setProperty('OTT_RELAUNCH', 'false')
-            self.doRelaunch()
+            if not FIRSTRUN:
+                self.doRelaunch()
 
         if self.listSize <> self.getListSize():
             self.containerRefresh()
@@ -188,7 +190,7 @@ class Application(xbmcgui.WindowXML):
 
     def doRefresh(self):
         self.newList()
-        self.onBack()         
+        self.onBack()
 
 
     def doRelaunch(self):
