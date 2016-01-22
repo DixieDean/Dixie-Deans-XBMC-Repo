@@ -200,6 +200,13 @@ def play(url, windowed, name=None):
             playAndWait(stream, windowed, maxIdle, delay=delay)
         return
 
+    if url.startswith('IPLAY'):
+        import iplayer
+
+        stream = iplayer.getURL(url)
+        playAndWait(stream, windowed, maxIdle)
+        return
+
     if url.startswith('IPTV:'):
         import iptv
         url = iptv.getURL(url)
@@ -231,13 +238,11 @@ def play(url, windowed, name=None):
  
     if not checkForAlternateStreaming(url):
         playAndWait(url, windowed, maxIdle)
-        print '***** ottv is playing *****', url
 
         xbmc.sleep(3000)
         if not xbmc.Player().isPlaying():
             # dixie.CloseBusy()
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-            print '***** ottv RunPlugin *****', url
             wait(maxIdle)
 
 def playAndWait(url, windowed, maxIdle, delay=0):

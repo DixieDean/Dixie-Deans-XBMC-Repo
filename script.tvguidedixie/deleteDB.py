@@ -33,16 +33,9 @@ def deleteDB():
         dixie.log('Deleting database...')
         dbPath  = dixie.PROFILE
         dbFile  = os.path.join(dbPath, 'program.db')
-        zipPath = os.path.join(dbPath, '*.zip')
-        zipFile = glob.glob(zipPath)
-    
         delete_file(dbFile)
-    
-        for zipName in zipFile:
-            base, ext = os.path.splitext(zipName)
-            delete_file(zipName)
-    
-        passed = (not os.path.exists(dbFile)) and (not os.path.exists(zipName))
+
+        passed  = not os.path.exists(dbFile)
 
         if passed: 
             dixie.log('Deleting database...PASSED')

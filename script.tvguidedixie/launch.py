@@ -186,16 +186,6 @@ def RemoveKeymap():
     xbmc.executebuiltin('Action(reloadkeymaps)')
 
 
-try:
-    if not os.path.exists(current_ini):
-        try: os.makedirs(datapath)
-        except: pass
-        shutil.copy(default_ini, datapath)
-        shutil.copy(local_ini, datapath)
-except:
-    pass
-
-
 def main(doLogin=True):
     import message
     dixie.CheckUsername()
