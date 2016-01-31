@@ -55,6 +55,7 @@ def _check():
     try:
         currentID = utils.GetSetting('messageID')
         currentID = float(currentID)
+        
     except Exception, e:
         print str(e)
         currentID = 0

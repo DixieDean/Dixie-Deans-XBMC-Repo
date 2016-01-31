@@ -1,3 +1,7 @@
+v3.2.9 (Jan-31-16)
+- Changed 'Reset Addon' script.
+- Exception added to catch possible login time error.
+
 v3.2.8 (Jan-22-16)
 - Added support for BBC iPlayer live TV channels.
 - Bugfix for the 'Reset Programme Listings' setting.

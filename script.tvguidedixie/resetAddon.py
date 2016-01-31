@@ -23,16 +23,16 @@ import os
 
 import sfile
 import dixie
-import deleteDB
 
 ottv     = xbmcaddon.Addon('script.on-tapp.tv')
-otepg    = dixie.PROFILE
-epgchan  = os.path.join(otepg, 'channels')
+ottdata  = xbmc.translatePath(ottv.getAddonInfo('profile'))
+epgdata  = dixie.PROFILE
 settings = xbmc.translatePath('special://profile/settings.bak')
 hotkey   = xbmc.translatePath('special://profile/keymaps/ottv_hot.xml')
 
 
 def resetAddon():
+    deleteFiles()
     dixie.SetSetting('epg.date', '2000-01-01')
     dixie.SetSetting('logo.type', '0')
     dixie.SetSetting('dixie.logo.folder', 'None')
@@ -41,21 +41,14 @@ def resetAddon():
         ottv.setSetting('SKIN', 'OTT-Skin')
         dixie.SetSetting('dixie.skin', 'EPG-Skin')
         dixie.SetSetting('playlist.url', '')
-        deleteFiles()
-
-    else:
-        ottv.setSetting('FIRSTRUN', 'false')
-        deleteFiles()
 
     dixie.CloseBusy()
-    
-    
 
 
 def deleteFiles():
     try:
-        deleteDB.deleteDB()
-        sfile.rmtree(epgchan)
+        sfile.rmtree(ottdata)
+        sfile.rmtree(epgdata)
         sfile.remove(settings)
         sfile.remove(hotkey)
                 
@@ -70,3 +63,4 @@ def deleteFiles():
 if __name__ == '__main__':
     dixie.ShowBusy()
     resetAddon()
+    ottv.setSetting('FIRSTRUN', 'false')

@@ -41,7 +41,7 @@ IMAGES   =  os.path.join(HOME, 'resources', 'images')
 ICON     =  os.path.join(HOME, 'icon.png')
 FANART   =  os.path.join(HOME, 'fanart.jpg')
 
-HASABRV  = len(ADDON.getSetting('ABRV')) > 0
+HASABRV  = len(utils.GetSetting('ABRV')) > 0
 
 ENABLEAUTO  = 'Autostart %s VPNicity'
 DISABLEAUTO = 'Clear autostart'
@@ -61,7 +61,7 @@ def Main():
     message.check()
     utils.checkVersion()
     vpn.CheckUsername()
-    path.getPath(utils.ADDON.getSetting('OS'), silent=True)
+    path.getPath(utils.GetSetting('OS'), silent=True)
     CheckPlugin()
     
     if not vpn.validToRun():
@@ -91,7 +91,7 @@ def Main():
     mode     = _COUNTRY
     isFolder = True
 
-    if ADDON.getSetting('AUTO') == 'true':
+    if utils.GetSetting('AUTO') == 'true':
         mode     = _VPN
         isFolder = False
 
@@ -111,13 +111,13 @@ def Main():
 
 
 def CheckPlugin():
-    if ADDON.getSetting('SFPLUGIN') == 'false':
+    if utils.GetSetting('SFPLUGIN') == 'false':
         if utils.yesno('Would you like to install the ', 'VPNicity Connect plug-in?', 'Access VPNicity anywhere in Kodi!'):
             xbmc.executebuiltin('XBMC.RunScript(special://home/addons/plugin.program.vpnicity/installSF.py)')
-            ADDON.setSetting('SFPLUGIN', 'true')
-            ADDON.setSetting('CONTEXT', 'false')
+            utils.SetSetting('SFPLUGIN', 'true')
+            utils.SetSetting('CONTEXT', 'false')
     
-    ADDON.setSetting('SFPLUGIN', 'true')    
+    utils.SetSetting('SFPLUGIN', 'true')    
 
 
 def CreateFile(label,abrv=''):
@@ -140,9 +140,9 @@ def clearAuto():
 
 
 def setAuto(abrv, label='', server=''):
-    ADDON.setSetting('ABRV',   abrv)
-    ADDON.setSetting('LABEL',  label)
-    ADDON.setSetting('SERVER', server)
+    utils.SetSetting('ABRV',   abrv)
+    utils.SetSetting('LABEL',  label)
+    utils.SetSetting('SERVER', server)
 
 
 def connect(label, abrv, server):

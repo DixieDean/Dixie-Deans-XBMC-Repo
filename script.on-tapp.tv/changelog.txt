@@ -1,3 +1,6 @@
+v1.2.3
+- Bugfix for Kodi 16 (Jarvis) when opening/changing the add-on settings.
+
 v1.2.2
 - Mini-Guide bugfix.
 

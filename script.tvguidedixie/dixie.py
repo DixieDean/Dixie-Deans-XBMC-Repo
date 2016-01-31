@@ -345,14 +345,17 @@ def ShowSettings():
 
 
 def getPreviousTime(setting):
-    time_object = GetSetting(setting)
+    try:
+        time_object  = GetSetting('LOGIN_TIME')
+        previousTime = parseTime(time_object)
     
-    if time_object == '':
-        time_object = '2001-01-01 00:00:00'
-        
-    previousTime = parseTime(time_object)
+        return previousTime
     
-    return previousTime
+    except:
+        time_object  = '2001-01-01 00:00:00'
+        previousTime = parseTime(time_object)
+    
+        return previousTime
 
 
 def parseTime(when):
