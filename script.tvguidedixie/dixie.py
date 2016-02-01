@@ -346,7 +346,7 @@ def ShowSettings():
 
 def getPreviousTime(setting):
     try:
-        time_object  = GetSetting('LOGIN_TIME')
+        time_object = GetSetting(setting)
         previousTime = parseTime(time_object)
     
         return previousTime
