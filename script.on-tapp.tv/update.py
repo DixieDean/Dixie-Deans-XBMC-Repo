@@ -54,7 +54,7 @@ def checkUpdate():
     
     if not FIRSTRUN:
         BASEURL = utils.getBaseURL()
-        utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now do a back-up of any', 'existing files before installation.')
+        utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now install some needed files.', 'This may take a few minutes, so please be patient.')
         utils.doBackup()
         utils.downloadDefaults(BASEURL)
         return

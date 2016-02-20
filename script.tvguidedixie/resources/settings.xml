@@ -26,7 +26,7 @@
         <setting id="PREVLOGO"         label="Previous LogoPack"           type="text"   default="None"  visible="false" />
 		<setting id="FIRSTRUN"         label="FIRSTRUN"                    type="bool"   default="false" visible="false" />
 		<setting id="MINIGUIDE"        label="Mini-Guide Installed"        type="bool"   default="false" visible="false" />
-	    
+
 		<setting id="dummy"            label="Reset System Messages"    type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetMessage.py)" visible="true" />
 	    <setting id="dummy"            label="Update EPG data now"      type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/update.py,0)" visible="false" />
  	    <setting id="epg.date"         label="Update EPG Date"          type="text"   default="01-01-01" visible="false" />
@@ -36,6 +36,7 @@
 	    <setting id="LOGIN_TIME"       label="login"                    type="text"   default=""         visible="false"/>
 	    <setting id="LOGIN_HDTV"       label="login"                    type="text"   default=""         visible="false"/>
 	    <setting id="LOGIN_IPTV"       label="login"                    type="text"   default=""         visible="false"/>
+	    <setting id="LOGIN_UKTV"       label="login"                    type="text"   default=""         visible="false"/>
 
 		<setting id="gmtprev"     type="text" label="Previous GMT"    default="0" visible="false"/>
 		<setting id="categories"  type="text" label="categories"      default="" visible="false"/>

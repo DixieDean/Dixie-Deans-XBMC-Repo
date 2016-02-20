@@ -107,15 +107,6 @@ def showText(heading, text):
             pass
 
 
-def CheckChanXML():
-    chanpath = os.path.join(datapath, 'chan.xml')
-    if not os.path.exists(chanpath):
-        try:
-            shutil.copy(channel_xml, datapath)
-        except:
-            dixie.log('Error in CheckChanXML()')    
-
-
 def CheckForChannels():
     dir    = dixie.GetChannelFolder()
     folder = os.path.join(dir, 'channels')
@@ -148,7 +139,37 @@ def CheckForUpdate():
         xbmc.sleep(1000)
 
 
+def CheckDSF():
+    try:
+        if not dixie.isDSF():
+            return
+
+        dsf  = xbmcaddon.Addon(id = 'plugin.video.gvax')
+        path = dsf.getAddonInfo('path')
+
+        sys.path.insert(0, path)
+        import gvax
+
+        xml      = gvax.getCatsXML()
+        filename = os.path.join(datapath, 'cats.xml')
+
+        f = file(filename, 'w')
+        f.write(xml)
+        f.close()
+
+        xml      = gvax.getChannelsXML()
+        filename = os.path.join(datapath, 'chan.xml')
+
+        f = file(filename, 'w')
+        f.write(xml)
+        f.close()
+
+    except:
+        pass
+
+
 def CopyKeymap():
+    return
     src = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
     if os.path.exists(src):
         os.remove(src)
@@ -170,6 +191,7 @@ def CopyKeymap():
 
 
 def RemoveKeymap():
+    return
     src = os.path.join(xbmc.translatePath(ADDON.getAddonInfo('profile')), 'super_favourites_menu.xml')
 
     if not os.path.exists(src):
@@ -202,6 +224,7 @@ def main(doLogin=True):
         CheckIniVersion()
         CheckFilmOn()
         CheckForUpdate()
+        # CheckDSF()
         CheckForChannels()
 
         dixie.log('****** On-Tapp.EPG - All OK *******')

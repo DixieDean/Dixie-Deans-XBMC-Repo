@@ -36,6 +36,7 @@ import sfile
 import utilsOTT as utils
 import favourites
 import categories
+import rss
 
 
 ACTION_SELECT     = 7
@@ -57,10 +58,10 @@ TVGUIDE     = 3000
 MOVIES      = 3001
 TVSHOWS     = 3002
 NETFLIX     = 3003
-MOVIEANDTV  = 3004
 WORLDTV     = 3005
 ANDROID     = 3006
 ADULT       = 3007
+KID         = 3008
 VIDEOWINDOW = 3010
 
 LISTBACK  = -999
@@ -69,6 +70,7 @@ GETTEXT  = utils.GETTEXT
 FRODO    = utils.FRODO
 SKIN     = utils.getSetting('SKIN')
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
+DSF      = utils.isDSF()
 
 datapath    = utils.PROFILE
 skinfolder  = os.path.join(datapath, 'skins')
@@ -77,8 +79,9 @@ skinpath    = os.path.join(skinfolder, SKIN)
 PATH = skinpath
 
 xml_file = os.path.join('main.xml')
-if os.path.join(SKIN, 'skins', 'Default', '720p', xml_file):
-    XML  = xml_file
+
+os.path.join(SKIN, 'skins', 'Default', '720p', xml_file)
+XML  = xml_file
   
 
 class Application(xbmcgui.WindowXML):
@@ -98,7 +101,6 @@ class Application(xbmcgui.WindowXML):
         self.showBack        = False
         self.timer           = None
         self.faves           = str(favourites.getFavourites())
-        #self.relaunch        = False
         self.counter         = 0
         self.listSize        = -1
 
@@ -107,8 +109,17 @@ class Application(xbmcgui.WindowXML):
         self.setProperty('LB_MAINDESC', GETTEXT(30002))
 
 
-    def onInit(self): 
+    def onInit(self):
+        self.rss = None
+
+        # if DSF:
+        #     winID    = xbmcgui.getCurrentWindowId()
+        #     self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
+        #     self.updateDisplay()
+
         self.clearList()
+
+        xbmcgui.Window(10000).clearProperty('GVAX_LIMITED')
 
         if self.start:            
             self.lists.append([]) 
@@ -123,7 +134,7 @@ class Application(xbmcgui.WindowXML):
 
         #add new list so we can just call onBack        
         self.newList()
-        self.onBack()         
+        self.onBack()
 
 
     def run(self, param=''):        
@@ -142,6 +153,8 @@ class Application(xbmcgui.WindowXML):
               
     def close(self):
         self.stopTimer()
+        del self.rss
+        xbmcgui.Window(10000).clearProperty('GVAX_LIMITED')
         xbmcgui.WindowXML.close(self)
 
 
@@ -171,6 +184,8 @@ class Application(xbmcgui.WindowXML):
 
         if self.counter == 5:
             self.clearProperty('LB_FOOTER')
+        
+        self.updateDisplay()
 
         #if self.relaunch:
         #    self.doRelaunch()
@@ -221,9 +236,6 @@ class Application(xbmcgui.WindowXML):
         if controlId == NETFLIX:
             return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Watch content from Netflix')
 
-        if controlId == MOVIEANDTV:
-            return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Browse and search for TV Shows and Movies')
-
         if controlId == WORLDTV:
             return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Browse and search for TV Shows and Movies')
 
@@ -232,9 +244,54 @@ class Application(xbmcgui.WindowXML):
 
         if controlId == ADULT:
             return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Adult Section')
+
+        if controlId == KID:
+            return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Ninos Section')
         
         xbmcgui.Window(10000).setProperty('GVAX_DESC', '')
 
+
+    def getGVAXSetting(self, setting):
+        try:    return xbmcaddon.Addon('plugin.video.gvax').getSetting(setting)
+        except: return ''
+
+
+    def updateVPN(self):
+        try:
+            self.status  = self.getControl(2004)
+            self.country = ''
+
+            address =  xbmcgui.Window(10000).getProperty('VPNICITY_ADDR')
+            country =  xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
+            if country == '':
+                country = 'VPNicity not active'
+        
+            status = '[COLOR orange]IP Address:[/COLOR] [CR]%s [CR][COLOR orange]Country:[/COLOR] [CR]%s ' % (address, country)
+            self.status.setLabel(status)
+        except:
+            pass
+
+
+    def updateAdult(self):
+        try:
+            isAdult = self.getGVAXSetting('PROTECTED').lower() == 'true'        
+            text    = 'Adulto' if isAdult else 'Ninos'            
+
+            self.setProperty('GVAX_ADULT', text)
+            self.getControl(ADULT).setVisible(isAdult)
+            self.getControl(KID).setVisible(not isAdult)          
+        except:
+            pass
+
+    def updateDisplay(self):
+        self.rss.update()
+        self.updateVPN()
+        self.updateAdult()
+        
+
+    def openSettings(self, addonID):
+        functionality.ShowSettings(addonID)
+        
 
     def onAction(self, action):
         #see here https://github.com/xbmc/xbmc/blob/master/xbmc/guilib/Key.h for the full list
@@ -257,7 +314,10 @@ class Application(xbmcgui.WindowXML):
 
         select = (actionId == ACTION_SELECT) or (actionId == ACTION_LCLICK)
 
-        if select and id == MAINLIST:   
+        if not select:
+            return
+
+        if id == MAINLIST:   
             liz        = self.getSelectedItem()
             param      = liz.getProperty('Param')
             image      = liz.getProperty('Image')
@@ -273,66 +333,63 @@ class Application(xbmcgui.WindowXML):
                 self.onParams(param, isFolder)
                 self.resetTimer()
 
-        if select and id == CATEGORIES:
+        if id == CATEGORIES:
             categoriesList = categories.getSetting('categories').split('|')
             if categoriesList[0] == '':
                 categoriesList = []
                
             functionality.ShowCategories(categoriesList)
 
-        if select and id == SETTINGS:
-            if utils.isDSF():
+        if id == SETTINGS:
+            if DSF:
                 addonID = utils.dsf
             else:
                 addonID = 'script.tvguidedixie'
 
-            functionality.ShowSettings(addonID)
+            self.openSettings(addonID)
 
         
-        if select and id == TOOLS:
-            functionality.OpenTools()
-        
-        if select and id == TOOLS:
-            functionality.OpenTools()
-        
-        if select and id == TVGUIDE:
-            if xbmcgui.Window(10000).getProperty('VPNICITY_CONNECTED') == 'True':
-                xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netkill.py,return)')
-            xbmc.executebuiltin('RunScript(script.tvguidedixie)')
-        
+        if id == TOOLS:
+            functionality.OpenTools()    
 
-        if select and id == MOVIES:
+        if id == MOVIES:
             if utils.getSetting('KodiLib') == 'true':
                 xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=movieNavigator,return)')
             else:
                 xbmc.executebuiltin('ActivateWindow(10025,videodb://1/2,return)')
         
-        if select and id == TVSHOWS:
+        if id == TVSHOWS:
             if utils.getSetting('KodiLib') == 'true':
                 xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=tvNavigator,return)')
             else:
                 xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
         
-        if select and id == NETFLIX:
+        if id == NETFLIX:
             xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netcon.py,return)')
         
-        if select and id == MOVIEANDTV:
-            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.genesis)')
-        
-        if select and id == WORLDTV:
+        if id == WORLDTV:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.video.alluc.api)')
         
-        if select and id == ANDROID:
+        if id == ANDROID:
             xbmc.executebuiltin('ActivateWindow(10025,androidapp://sources/apps,return)')
         
-        if select and id == ADULT:
+        if id == ADULT:
             xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.program.super.favourites/?label=Adult&mode=400&path=special://userdata/addon_data/plugin.program.super.favourites/Super Favourites/Adult/,return)')
         
-        if select and id == VPN:
+        if id == VPN:
             xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/manual.py,return)')
-
-        if select and id == VIDEOWINDOW:   
+        
+        if id == VIDEOWINDOW:   
             xbmc.executebuiltin('Action(fullscreen)')  
+
+        if id == KID:
+            xbmcgui.Window(10000).setProperty('GVAX_LIMITED', 'true')
+            id = TVGUIDE
+
+        if id == TVGUIDE:
+            if xbmcgui.Window(10000).getProperty('VPNICITY_CONNECTED') == 'True':
+                xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netkill.py,return)')
+            xbmc.executebuiltin('RunScript(script.tvguidedixie)')
         
                                  
     def onClick(self, controlId):        
@@ -340,7 +397,9 @@ class Application(xbmcgui.WindowXML):
 
 
     def onBack(self): 
-        self.lists.pop()
+        try:    self.lists.pop()
+        except: pass
+
         if len(self.lists) == 0:
             self.close()
             return

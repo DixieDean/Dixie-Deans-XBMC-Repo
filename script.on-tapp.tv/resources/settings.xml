@@ -18,9 +18,9 @@
         <setting id="DSFUPDATE"     type="text"   label="dsfPython"     default="0.0"   visible="false"/>
         <setting id="DSFKODISKIN"   type="text"   label="dsfKodiSkin"   default="0.0"   visible="false"/>
 
-        <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN"          default="false" visible="false" />
-        
-        <setting id="ottv.url"    type="labelenum" label="OTT URL" values="kodi|other" default="kodi" visible="false" />
+        <setting id="FIRSTRUN"   type="bool"      label="FIRSTRUN" default="false" visible="false" />
+		<setting id="MIGRATED"   type="bool"      label="MIGRATED" default="false" visible="false" />
+        <setting id="ottv.url"   type="labelenum" label="OTT URL"  default="kodi"  values="kodi|other"  visible="false" />
         
         <setting id="dummy"      type="action" label="Click to - Open Main Settings" action="XBMC.RunScript(special://home/addons/script.on-tapp.tv/openSettings.py)" option="close" />
         <setting id="SKIN"       type="select" label="31004" source="../../userdata/addon_data/script.on-tapp.tv/skins/" mask="/" default="FXB78"/>	

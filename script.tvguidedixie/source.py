@@ -1,6 +1,6 @@
 #
-#      Copyright (C) 2013 Tommy Winther
-#      http://tommy.winther.nu
+#
+#      Copyright (C) 2014 Sean Poyser - With acknowledgement to some original code by twinther (Tommy Winther)
 #
 #  This Program is free software; you can redistribute it and/or modifye
 #  it under the terms of the GNU General Public License as published by
@@ -55,6 +55,8 @@ USE_DB_FILE = True
 
 SETTINGS_TO_CHECK = ['']
 
+DSF = dixie.isDSF()
+
 channelFolder = dixie.GetChannelFolder()
 channelPath   = os.path.join(channelFolder, 'channels')
 dixie.log('Channel Folder Setting: %s' % channelPath)
@@ -81,6 +83,9 @@ def GetLogoFolder():
 
 
 def CleanFilename(text):
+    if DSF:
+        return text
+
     text = text.replace('*', '_star')
     text = text.replace('+', '_plus')
     text = text.replace(' ', '_')
@@ -219,6 +224,16 @@ class Database(object):
 
 
     def _initializeS(self, cancel_requested_callback):
+        return self.initializeChannels()
+
+
+    def initializeChannels(self):
+        channels = self.getAllChannels()
+
+        if len(channels) == 0:
+            dixie.SetSetting('PREVLOGO', '')
+            return
+
         BUILTIN = '0'
         CUSTOM  = '1'
 
@@ -237,23 +252,26 @@ class Database(object):
         prevLogoFolder = dixie.GetSetting('PREVLOGO')
         currLogoFolder = logoFolder
 
-        if currLogoFolder == prevLogoFolder:
-            return True
+        #if currLogoFolder == prevLogoFolder:
+        #    return True
+
+        dixie.SetSetting('PREVLOGO', currLogoFolder)
         
-        channels = self.getAllChannels()
-
         for ch in channels:
-            channel = self.getChannelFromFile(ch)
-
+            channel  = self.getChannelFromFile(ch)
+            chtitle = channel.title
+#             if DSF:
+#                 chtitle = urllib.quote_plus(channel.title)
+            
             if channel == None:
                 continue
             
-            logoFile = os.path.join(logoPath, logoFolder, channel.title + '.png')
-            channel.logo = logoFile
+            logoFile = os.path.join(logoPath, logoFolder, chtitle + '.png')
+            
+            if channel.logo <> logoFile:
+                channel.logo = logoFile    
+                self.replaceChannel(channel)                       
 
-            self.replaceChannel(channel)
-
-        dixie.SetSetting('PREVLOGO', logoFolder)
         return True
 
 
@@ -518,6 +536,8 @@ class Database(object):
             dixie.SetSetting('current.channels', update)
             self.channelDict = {}
             self.updateInProgress = False
+
+        self.initializeChannels()
 
         self.updateInProgress = False
 

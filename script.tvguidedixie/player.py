@@ -74,7 +74,6 @@ def playDSF(url, windowed):
         playlist.clear()
         playlist.add(url, xbmcgui.ListItem(''))
         xbmc.Player().play(playlist, windowed=windowed)
-        return True
     except:
         return False
 
@@ -190,7 +189,6 @@ def play(url, windowed, name=None):
     
     if url.startswith('HDTV'):
         import hdtv
-
         delay  = 5
         stream = hdtv.getURL(url)
         
@@ -202,7 +200,6 @@ def play(url, windowed, name=None):
 
     if url.startswith('IPLAY'):
         import iplayer
-
         stream = iplayer.getURL(url)
         playAndWait(stream, windowed, maxIdle)
         return
@@ -212,6 +209,13 @@ def play(url, windowed, name=None):
         url = iptv.getURL(url)
         dixie.log(url)
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
+        return
+
+    if url.startswith('UKTV'):
+        import uktv
+        stream = uktv.getURL(url)
+        dixie.log(stream)
+        playAndWait(stream, windowed, maxIdle)
         return
  
     if url.isdigit():
@@ -223,11 +227,6 @@ def play(url, windowed, name=None):
         handled, url = playSF(url)
         if handled:
             return
-
-    
-    if url.lower().startswith('plugin://plugin.video.skygo'):
-        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
-        return
 
     if url.lower().startswith('dsf'):
         if playDSF(url, windowed):
@@ -291,8 +290,8 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.iplayerwww' in url:
         return alternateStream(url)
         
-    if 'plugin.video.musicvideojukebox' in url:
-        return alternateStream(url)
+    # if 'plugin.video.uktvfrance' in url:
+    #     return alternateStream(url)
         
     if 'plugin.video.muzu.tv' in url:        
         return alternateStream(url)
@@ -330,10 +329,7 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.stalker' in url:
         return alternateStream(url)
 
-    if 'plugin.video.sparky' in url:
-        return alternateStream(url)
-
-    if 'plugin.video.sportsmania' in url:
+    if 'plugin.video.stealthplus' in url:
         return alternateStream(url)
 
     return False

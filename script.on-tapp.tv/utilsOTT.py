@@ -91,8 +91,8 @@ def ttTTtt(i, t1, t2=[]):
    i = 0
  return t
 
-baseurl = ttTTtt(0,[104,229,116,71,116,131,112,130,115],[164,58,247,47,243,47,178,119,209,119,132,119,192,46,155,111,36,110,223,45,89,116,143,97,161,112,156,112,39,46,173,116,225,118,126,47,102,119,13,112,241,45,163,99,12,111,122,110,91,116,140,101,66,110,153,116,80,47,134,117,66,112,86,108,157,111,41,97,89,100,189,115,87,47])
-dsf     = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
+baseurl = 'http://files.on-tapp.tv/'
+dsf     =  ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
 
 
 def getBaseURL():
@@ -303,7 +303,6 @@ def downloadDefaults(url):
     url1 = url + 'ott/skins.zip'
     url2 = url + 'ottepg/skins.zip'
     url3 = url + 'ottepg/logos.zip'
-    url4 = url + 'ottepg/channels.zip'
     
     path1 = xbmc.translatePath(PROFILE)     # /addon_data/script.on-tapp.tv/
     path2 = os.path.join(epgpath, 'extras') # /addon_data/script.tvguidedixie/extras/
@@ -336,12 +335,6 @@ def downloadDefaults(url):
     extract.all(zip3, path2)
     sfile.remove(zip3)
     
-    if not sfile.exists(epgpath):
-        sfile.makedirs(epgpath)
-    download.download(url4, zip4)
-    extract.all(zip4, epgpath)
-    sfile.remove(zip4)
-
     Addon.setSetting('dixie.skin', 'FXB v4.0')
     setSetting('SKIN', 'FXB78')
     

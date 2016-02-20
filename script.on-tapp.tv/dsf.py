@@ -36,9 +36,10 @@ SkinID   = 'skin.bello-dsf'
 Skin     =  xbmcaddon.Addon(SkinID) # forked bello version: 3.0.8
 skinhome =  Skin.getAddonInfo('path')
 
-BASEURL  = 'https://www.on-tapp.tv/wp-content/uploads/resources/other/'
+BASEURL  = 'http://files.on-tapp.tv/resources/other/'
 URL      =  BASEURL + 'dsf-update.txt'
 FIRSTRUN =  utils.getSetting('FIRSTRUN') == 'true'
+# MIGRATED =  utils.getSetting('MIGRATED') == 'true'
 
 
 def checkUpdate():
@@ -51,9 +52,19 @@ def checkUpdate():
 
         downloadDefaults(BASEURL)
         return
-    
+
+    # if not MIGRATED:
+    #     utils.DialogOK('Bienvenido a GVAX', 'We will now install some needed files.', 'This may take a few minutes, so please be patient.')
+    #     doBackup()
+    #
+    #     Addon.setSetting('dixie.skin', 'EPG-Skin')
+    #     utils.setSetting('SKIN', 'OTT-Skin')
+    #
+    #     downloadDefaults(BASEURL)
+    #     return
+
     response   = getResponse()
-    
+
     ottskin    = response['DSFOTTSkin']
     epgskin    = response['DSFEPGSkin']
     logocolour = response['DSFLogos']
@@ -253,7 +264,7 @@ def downloadDefaults(url):
     Addon.setSetting('playlist.url', '')
     utils.setSetting('SKIN', 'OTT-Skin')
     
-    if DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
+    if utils.DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
         xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)')
     
     utils.setSetting('FIRSTRUN', 'true')
