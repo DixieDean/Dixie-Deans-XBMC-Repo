@@ -23,11 +23,26 @@ import xbmcgui
 import xbmc
 import urllib
 import os
-    
-
-import json as simplejson 
+import json
 
 import sfile
+
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+ t = ooOOOoo
+ for c in t1:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0  
+ for c in t2:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0
+ return t
 
 
 ADDONID = 'script.on-tapp.tv'
@@ -45,6 +60,15 @@ epghome =  Addon.getAddonInfo('path')
 epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
 extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras,  'logos')
+baseurl = 'http://files.on-tapp-networks.com/'
+
+try:
+    DSFID   = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
+    DSF     = xbmcaddon.Addon(DSFID)
+    DSFVER  = DSF.getAddonInfo('version')
+    home    = DSF.getAddonInfo('path')
+    profile = xbmc.translatePath(DSF.getAddonInfo('profile'))
+except: pass
 
 
 def getSetting(param):
@@ -74,37 +98,26 @@ GOTHAM       = (MAJOR == 13) or (MAJOR == 12 and MINOR == 9)
 HELIX        = (MAJOR == 14) or (MAJOR == 13 and MINOR == 9)
 
 
-ooOOOoo = ''
-def ttTTtt(i, t1, t2=[]):
- t = ooOOOoo
- for c in t1:
-  t += chr(c)
-  i += 1
-  if i > 1:
-   t = t[:-1]
-   i = 0  
- for c in t2:
-  t += chr(c)
-  i += 1
-  if i > 1:
-   t = t[:-1]
-   i = 0
- return t
-
-baseurl = 'http://files.on-tapp.tv/'
-dsf     =  ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
-
-
 def getBaseURL():
+    if isDSF():
+        if getSubSystem() == '80906':
+            return baseurl + 'resources/swi/'
+        else:
+            return baseurl + 'resources/dsf/'
+
     return baseurl + 'resources/kodi/'
 
 
 def isDSF():
-    if xbmc.getCondVisibility('System.HasAddon(%s)' % dsf) == 1:
-        Log(dsf)
+    if xbmc.getCondVisibility('System.HasAddon(%s)' % DSFID) == 1:
+        Log(DSFID)
         return True
 
     return False
+
+
+def getSubSystem():
+    return DSF.getSetting('GVAX-SUBSYS')
 
 
 DEBUG = True
@@ -259,7 +272,7 @@ def getKodiSetting(setting):
         response = xbmc.executeJSONRPC(query)
         Log(response)
 
-        response = simplejson.loads(response)                
+        response = json.loads(response)
 
         if response.has_key('result'):
             if response['result'].has_key('value'):

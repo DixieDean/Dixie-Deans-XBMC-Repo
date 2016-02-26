@@ -61,14 +61,9 @@ def get_params(p):
 
 def playDSF(url, windowed):
     try:
-        # import urllib
-        # channel = urllib.quote_plus(url.split(':', 1)[-1])
-        # url = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
-        channel = url.split(':', 1)[-1]
-        url = 'plugin://%s/?channel=%s' % (dixie.dsf, channel)
-        
-        if channel == 'ESPN +':
-            url = 'plugin://%s/?channel=ESPN plus' % (dixie.dsf)
+        import urllib
+        channel = urllib.quote_plus(url.split(':', 1)[-1])
+        url = 'plugin://%s/?channel=%s' % (dixie.DSFID, channel)
         dixie.log(url)
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         playlist.clear()

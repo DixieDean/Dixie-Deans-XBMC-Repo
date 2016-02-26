@@ -16,34 +16,34 @@ import sfile
 import utilsOTT as utils
 
 
-ADDON   =  utils.ADDON
-HOME    =  utils.HOME
-PROFILE =  utils.PROFILE
+ADDON   = utils.ADDON
+HOME    = utils.HOME
+PROFILE = utils.PROFILE
 
-DSFID   = 'plugin.video.gvax'
-DSF     =  xbmcaddon.Addon(DSFID)
-home    =  DSF.getAddonInfo('path')
-profile =  xbmc.translatePath(DSF.getAddonInfo('profile'))
+AddonID = utils.AddonID
+Addon   = utils.Addon  
+epghome = utils.epghome
+epgpath = utils.epgpath
+extras  = utils.extras 
+logos   = utils.logos  
 
-AddonID = 'script.tvguidedixie'
-Addon   =  xbmcaddon.Addon(AddonID)
-epghome =  Addon.getAddonInfo('path')
-epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
-extras  =  os.path.join(epgpath, 'extras')
-logos   =  os.path.join(extras, 'logos')
+DSFID   = utils.DSFID
+DSF     = utils.DSF
+DSFVER  = utils.DSFVER
+home    = utils.home
+profile = utils.profile
+
+URL      =  utils.getBaseURL() + 'dsf-update.txt'
+FIRSTRUN =  utils.getSetting('FIRSTRUN') == 'true'
 
 SkinID   = 'skin.bello-dsf'
 Skin     =  xbmcaddon.Addon(SkinID) # forked bello version: 3.0.8
 skinhome =  Skin.getAddonInfo('path')
 
-BASEURL  = 'http://files.on-tapp.tv/resources/other/'
-URL      =  BASEURL + 'dsf-update.txt'
-FIRSTRUN =  utils.getSetting('FIRSTRUN') == 'true'
-# MIGRATED =  utils.getSetting('MIGRATED') == 'true'
-
 
 def checkUpdate():
     if not FIRSTRUN:
+        BASEURL = utils.getBaseURL()
         utils.DialogOK('Bienvenido a GVAX', 'Ahora vamos a hacer una copia de seguridad de alguno de', 'los archivos existentes antes de la instalación.') 
         doBackup()
         
@@ -53,18 +53,7 @@ def checkUpdate():
         downloadDefaults(BASEURL)
         return
 
-    # if not MIGRATED:
-    #     utils.DialogOK('Bienvenido a GVAX', 'We will now install some needed files.', 'This may take a few minutes, so please be patient.')
-    #     doBackup()
-    #
-    #     Addon.setSetting('dixie.skin', 'EPG-Skin')
-    #     utils.setSetting('SKIN', 'OTT-Skin')
-    #
-    #     downloadDefaults(BASEURL)
-    #     return
-
     response   = getResponse()
-
     ottskin    = response['DSFOTTSkin']
     epgskin    = response['DSFEPGSkin']
     logocolour = response['DSFLogos']
@@ -221,7 +210,7 @@ def downloadDefaults(url):
     url1 = url + 'ott/skins.zip'
     url2 = url + 'ottepg/skins.zip'
     url3 = url + 'ottepg/logos.zip'
-    url4 = url + 'ottepg/channels.zip'
+    # url4 = url + 'ottepg/channels.zip'
     
     path1 = xbmc.translatePath(PROFILE)     # /addon_data/script.on-tapp.tv/
     path2 = os.path.join(epgpath, 'extras') # /addon_data/script.tvguidedixie/extras/
@@ -231,7 +220,7 @@ def downloadDefaults(url):
     zip1  = os.path.join(path1,   'skins.zip')
     zip2  = os.path.join(path2,   'skins.zip')
     zip3  = os.path.join(path2,   'logos.zip')
-    zip4  = os.path.join(epgpath, 'channels.zip')
+    # zip4  = os.path.join(epgpath, 'channels.zip')
 
     if not sfile.exists(epgpath):
         sfile.makedirs(epgpath)
@@ -254,11 +243,11 @@ def downloadDefaults(url):
     extract.all(zip3, path2)
     sfile.remove(zip3)
     
-    if not sfile.exists(epgpath):
-        sfile.makedirs(epgpath)
-    download.download(url4, zip4)
-    extract.all(zip4, epgpath)
-    sfile.remove(zip4)
+    # if not sfile.exists(epgpath):
+    #     sfile.makedirs(epgpath)
+    # download.download(url4, zip4)
+    # extract.all(zip4, epgpath)
+    # sfile.remove(zip4)
 
     Addon.setSetting('dixie.skin', 'EPG-Skin')
     Addon.setSetting('playlist.url', '')

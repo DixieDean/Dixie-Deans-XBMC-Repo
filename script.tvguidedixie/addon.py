@@ -22,7 +22,7 @@ import xbmcgui
 import os
 import dixie
 
-def main():          
+def main():
     windowID = xbmcgui.Window(10000).getProperty('OTT_WINDOW')
     try:
         windowID = int(windowID)

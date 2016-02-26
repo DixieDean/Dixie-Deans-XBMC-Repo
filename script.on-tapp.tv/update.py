@@ -30,17 +30,16 @@ import sfile
 import utilsOTT as utils
 
 
-ADDON   =  utils.ADDON
-HOME    =  utils.HOME
-PROFILE =  utils.PROFILE
+ADDON   = utils.ADDON
+HOME    = utils.HOME
+PROFILE = utils.PROFILE
 
-
-AddonID = 'script.tvguidedixie'
-Addon   =  xbmcaddon.Addon(AddonID)
-epghome =  Addon.getAddonInfo('path')
-epgpath =  xbmc.translatePath(Addon.getAddonInfo('profile'))
-extras  =  os.path.join(epgpath, 'extras')
-logos   =  os.path.join(extras, 'logos')
+AddonID = utils.AddonID
+Addon   = utils.Addon  
+epghome = utils.epghome
+epgpath = utils.epgpath
+extras  = utils.extras 
+logos   = utils.logos  
 
 URL      = utils.getBaseURL() + 'ott-update.txt'
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'

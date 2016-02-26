@@ -58,6 +58,7 @@ TVGUIDE     = 3000
 MOVIES      = 3001
 TVSHOWS     = 3002
 NETFLIX     = 3003
+MOVIEANDTV  = 3004
 WORLDTV     = 3005
 ANDROID     = 3006
 ADULT       = 3007
@@ -72,6 +73,7 @@ SKIN     = utils.getSetting('SKIN')
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 DSF      = utils.isDSF()
 
+
 datapath    = utils.PROFILE
 skinfolder  = os.path.join(datapath, 'skins')
 skinpath    = os.path.join(skinfolder, SKIN)
@@ -82,7 +84,6 @@ xml_file = os.path.join('main.xml')
 
 os.path.join(SKIN, 'skins', 'Default', '720p', xml_file)
 XML  = xml_file
-  
 
 class Application(xbmcgui.WindowXML):
     def __new__(cls, addonID):
@@ -103,6 +104,7 @@ class Application(xbmcgui.WindowXML):
         self.faves           = str(favourites.getFavourites())
         self.counter         = 0
         self.listSize        = -1
+        self.rss             = None
 
         self.setProperty('LB_FOOTER',  'Powered by SWIFT')
         self.setProperty('LB_TITLE',    GETTEXT(30000))
@@ -110,16 +112,14 @@ class Application(xbmcgui.WindowXML):
 
 
     def onInit(self):
-        self.rss = None
-
-        # if DSF:
-        #     winID    = xbmcgui.getCurrentWindowId()
-        #     self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
-        #     self.updateDisplay()
+        if (not self.rss) and (DSF) and (utils.DSFVER > '1.0.2'):
+            winID    = xbmcgui.getCurrentWindowId()
+            self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
+            self.updateDisplay()
 
         self.clearList()
 
-        xbmcgui.Window(10000).clearProperty('GVAX_LIMITED')
+        xbmcgui.Window(10000).clearProperty('DSF_LIMITED')
 
         if self.start:            
             self.lists.append([]) 
@@ -154,7 +154,7 @@ class Application(xbmcgui.WindowXML):
     def close(self):
         self.stopTimer()
         del self.rss
-        xbmcgui.Window(10000).clearProperty('GVAX_LIMITED')
+        xbmcgui.Window(10000).clearProperty('DSF_LIMITED')
         xbmcgui.WindowXML.close(self)
 
 
@@ -172,7 +172,7 @@ class Application(xbmcgui.WindowXML):
             return
 
         try:
-            self.timer.cancel()        
+            self.timer.cancel()
             del self.timer
             self.timer = None
         except Exception, e:
@@ -236,6 +236,9 @@ class Application(xbmcgui.WindowXML):
         if controlId == NETFLIX:
             return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Watch content from Netflix')
 
+        if controlId == MOVIEANDTV:
+            return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Browse and search for TV Shows and Movies')
+
         if controlId == WORLDTV:
             return xbmcgui.Window(10000).setProperty('GVAX_DESC', 'Browse and search for TV Shows and Movies')
 
@@ -251,8 +254,9 @@ class Application(xbmcgui.WindowXML):
         xbmcgui.Window(10000).setProperty('GVAX_DESC', '')
 
 
-    def getGVAXSetting(self, setting):
-        try:    return xbmcaddon.Addon('plugin.video.gvax').getSetting(setting)
+    def getDSFSetting(self, setting):
+        try:
+            return utils.DSF.getSetting(setting)
         except: return ''
 
 
@@ -274,12 +278,12 @@ class Application(xbmcgui.WindowXML):
 
     def updateAdult(self):
         try:
-            isAdult = self.getGVAXSetting('PROTECTED').lower() == 'true'        
-            text    = 'Adulto' if isAdult else 'Ninos'            
+            isAdult = self.getDSFSetting('PROTECTED').lower() == 'true'
+            text    = 'Adultos' if isAdult else 'Ninos'
 
             self.setProperty('GVAX_ADULT', text)
             self.getControl(ADULT).setVisible(isAdult)
-            self.getControl(KID).setVisible(not isAdult)          
+            self.getControl(KID).setVisible(not isAdult)
         except:
             pass
 
@@ -307,9 +311,9 @@ class Application(xbmcgui.WindowXML):
             return self.onContextMenu()
             
         if actionId in [ACTION_PARENT_DIR, ACTION_BACK] or buttonId in [ESC]:
-            return self.onBack()        
+            return self.onBack()
 
-        try:    id = self.getFocus().getId()         
+        try:    id = self.getFocus().getId()
         except: id = 0
 
         select = (actionId == ACTION_SELECT) or (actionId == ACTION_LCLICK)
@@ -342,7 +346,7 @@ class Application(xbmcgui.WindowXML):
 
         if id == SETTINGS:
             if DSF:
-                addonID = utils.dsf
+                addonID = utils.DSFID
             else:
                 addonID = 'script.tvguidedixie'
 
@@ -367,6 +371,9 @@ class Application(xbmcgui.WindowXML):
         if id == NETFLIX:
             xbmc.executebuiltin('RunScript(special://home/addons/plugin.program.vpnicity/netcon.py,return)')
         
+        if select and id == MOVIEANDTV:
+            xbmc.executebuiltin('XBMC.RunAddon(plugin.video.genesis)')
+        
         if id == WORLDTV:
             xbmc.executebuiltin('XBMC.RunAddon(plugin.video.alluc.api)')
         
@@ -383,7 +390,7 @@ class Application(xbmcgui.WindowXML):
             xbmc.executebuiltin('Action(fullscreen)')  
 
         if id == KID:
-            xbmcgui.Window(10000).setProperty('GVAX_LIMITED', 'true')
+            xbmcgui.Window(10000).setProperty('DSF_LIMITED', 'true')
             id = TVGUIDE
 
         if id == TVGUIDE:

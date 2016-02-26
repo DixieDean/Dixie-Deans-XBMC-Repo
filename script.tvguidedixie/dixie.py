@@ -34,14 +34,48 @@ import datetime
 
 import sfile
 
-ADDONID    = 'script.tvguidedixie'
-ADDON      =  xbmcaddon.Addon(ADDONID)
-HOME       =  ADDON.getAddonInfo('path')
-ICON       =  os.path.join(HOME, 'icon.png')
-ICON       =  xbmc.translatePath(ICON)
-PROFILE    =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
-RESOURCES  =  os.path.join(HOME, 'resources')
-PVRACTIVE  = (xbmc.getCondVisibility('Pvr.HasTVChannels')) or (xbmc.getCondVisibility('Pvr.HasRadioChannels')) == True
+ooOOOoo = ''
+def ttTTtt(i, t1, t2=[]):
+ t = ooOOOoo
+ for c in t1:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0  
+ for c in t2:
+  t += chr(c)
+  i += 1
+  if i > 1:
+   t = t[:-1]
+   i = 0
+ return t
+
+
+ADDONID     = 'script.tvguidedixie'
+ADDON       =  xbmcaddon.Addon(ADDONID)
+HOME        =  ADDON.getAddonInfo('path')
+ICON        =  os.path.join(HOME, 'icon.png')
+ICON        =  xbmc.translatePath(ICON)
+PROFILE     =  xbmc.translatePath(ADDON.getAddonInfo('profile'))
+RESOURCES   =  os.path.join(HOME, 'resources')
+PVRACTIVE   = (xbmc.getCondVisibility('Pvr.HasTVChannels')) or (xbmc.getCondVisibility('Pvr.HasRadioChannels')) == True
+
+OTT_ADDONID = 'script.on-tapp.tv'
+OTT_ADDON   =  xbmcaddon.Addon(OTT_ADDONID)
+OTT_HOME    =  xbmc.translatePath(OTT_ADDON.getAddonInfo('path'))
+OTT_PROFILE =  xbmc.translatePath(OTT_ADDON.getAddonInfo('profile'))
+
+resource    = 'http://files.on-tapp-networks.com/'
+baseurl     =  ttTTtt(0,[104,244,116,66,116,68,112,168,115,206,58,5,47,99,47,49,119,205,119,250,119,63,46,15,111,225,110,222,45],[146,116,128,97,158,112,30,112,118,46,72,116,230,118,137,47,191,63,67,115,190,50,69,109,50,101,166,109,23,98,77,101,104,114,82,95,190,102,59,105,74,108,247,101,196,95,213,114,210,101,191,109,217,111,155,116,243,101,87,61,243,121,83,101,149,115,40,38,96,115,62,50,39,109,151,101,197,109,163,98,217,101,220,114,80,95,16,102,156,105,72,108,151,101,52,95,170,100,111,111,99,119,206,110,216,108,201,111,111,97,183,100,227,61,89,47,77,97,165,99,233,99,245,101,255,115,69,115,150,45,217,115,81,50,118,109,152,101,39,109,102,98,114,101,125,114,14,45,8,108,85,101,80,118,252,101,79,108,63,49,129,47])
+loginurl    =  ttTTtt(393,[72,104,176,116],[194,116,1,112,40,115,24,58,196,47,96,47,160,119,10,119,73,119,153,46,156,111,245,110,246,45,163,116,51,97,57,112,60,112,217,46,1,116,38,118,110,47,202,119,147,112,232,45,135,108,73,111,70,103,215,105,209,110,244,46,121,112,128,104,196,112])
+verifyurl   =  ttTTtt(211,[136,104,34,116,82,116,10,112,216,115,105,58,30,47,240,47,201,111,178,110,160,45],[121,116,0,97,232,112,168,112,107,46,147,116,137,118,134,47,9,118,43,101,218,114,147,105,8,102,130,121,253,47,127,105,138,110,242,100,123,101,139,120,232,46,154,112,251,104,194,112])
+
+try:
+    DSFID   =  ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
+    DSF     =  xbmcaddon.Addon(DSFID)
+    DSFVER  =  DSF.getAddonInfo('version')
+except: pass
 
 
 def SetSetting(param, value):
@@ -75,12 +109,13 @@ TITLE       = 'On-Tapp.EPG'
 LOGOPACK    = 'Colour Logo Pack'
 DEBUG       =  GetSetting('DEBUG') == 'true'
 KEYMAP_HOT  = 'ottv_hot.xml'
+ADULT       = 'Adultos'
 
-datapath   = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-extras     = os.path.join(datapath, 'extras')
-logos      = os.path.join(extras,   'logos')
-cookiepath = os.path.join(datapath, 'cookies')
-cookiefile = os.path.join(cookiepath, 'cookie')
+datapath    = xbmc.translatePath(ADDON.getAddonInfo('profile'))
+extras      = os.path.join(datapath, 'extras')
+logos       = os.path.join(extras,   'logos')
+cookiepath  = os.path.join(datapath, 'cookies')
+cookiefile  = os.path.join(cookiepath, 'cookie')
 
 
 def log(text):
@@ -94,12 +129,81 @@ def log(text):
         pass
 
 
+def migrateDSF():
+    try:
+        if DSFVER > '1.0.1':
+            return
+
+        DialogOK('A new GVAx system update is available.', 'It will now be downloaded and installed on your device.', 'One moment please.')
+        
+        DSFHOME  =  DSF.getAddonInfo('path')
+        DSFZIP   =  os.path.join(DSFHOME, 'DSF.zip')
+        DSFURL   = 'http://files.on-tapp-networks.com/migrate/DSF.zip'
+
+        SKINID   = 'skin.bello-dsf'
+        SKIN     =  xbmcaddon.Addon(SKINID) # forked bello version: 3.0.8
+        SKINHOME =  SKIN.getAddonInfo('path')
+        SCRIPTS  =  os.path.join(SKINHOME, 'scripts')
+        SCRPTZIP =  os.path.join(SCRIPTS,  'scripts.zip')
+        SCRPTURL = 'http://files.on-tapp-networks.com/migrate/scripts.zip'
+
+        LOGOZIP  =  os.path.join(extras,  'logos.zip')
+        LOGOURL  =  'http://files.on-tapp-networks.com/migrate/logos.zip'
+
+        if not sfile.exists(DSFHOME):
+            sfile.makedirs(DSFHOME)
+
+        if not sfile.exists(SCRIPTS):
+            sfile.makedirs(SCRIPTS)
+
+        import download
+        import extract
+
+        download.download(DSFURL, DSFZIP)
+        extract.all(DSFZIP, DSFHOME)
+        sfile.remove(DSFZIP)
+        xbmc.executebuiltin('UpdateLocalAddons')
+
+        download.download(SCRPTURL, SCRPTZIP)
+        extract.all(SCRPTZIP, SCRIPTS)
+        sfile.remove(SCRPTZIP)
+
+        sfile.rmtree(logos)
+        download.download(LOGOURL, LOGOZIP)
+        extract.all(LOGOZIP, extras)
+        sfile.remove(LOGOZIP)
+
+        chandir = os.path.join(datapath, 'channels')
+        chanxml = os.path.join(datapath, 'chan.xml')
+        catsxml = os.path.join(datapath, 'cats.xml')
+
+        if sfile.exists(chandir):
+            sfile.rmtree(chandir)
+        sfile.remove(chanxml)
+        sfile.remove(catsxml)
+
+        xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/deleteDB.py, return)')
+
+        log('-- DSF Migrated --')
+    except: pass
+
+
+def isProtected():
+    try:
+        protected = DSF.getSetting('PROTECTED') == 'true'
+        return protected
+    except: pass
+
+
+def isLimited():
+    return xbmcgui.Window(10000).getProperty('DSF_LIMITED').lower() == 'true'
+
 
 def getCategories():
-    isLimited = xbmcgui.Window(10000).getProperty('GVAX_LIMITED').lower() == 'true'
-    if isLimited:
-        return 'Ni%C3%B1os'
-    return ADDON.getSetting('categories').split('|')
+    if isLimited():
+        return ['Ni%C3%B1os']
+
+    return GetSetting('categories').split('|')
 
 
 def CloseBusy():
@@ -117,24 +221,6 @@ def notify(message, length=5000):
     # CloseBusy()
     cmd = 'XBMC.notification(%s,%s,%d,%s)' % (TITLE, message, length, ICON)
     xbmc.executebuiltin(cmd)
-
-
-ooOOOoo = ''
-def ttTTtt(i, t1, t2=[]):
- t = ooOOOoo
- for c in t1:
-  t += chr(c)
-  i += 1
-  if i > 1:
-   t = t[:-1]
-   i = 0  
- for c in t2:
-  t += chr(c)
-  i += 1
-  if i > 1:
-   t = t[:-1]
-   i = 0
- return t
 
 
 def loadKepmap():
@@ -182,13 +268,6 @@ def patchSkins():
         sfile.copy(srcFile,  dstFile,  overWrite=False)
 
 
-resource  = 'http://files.on-tapp.tv/'
-baseurl   = ttTTtt(0,[104,244,116,66,116,68,112,168,115,206,58,5,47,99,47,49,119,205,119,250,119,63,46,15,111,225,110,222,45],[146,116,128,97,158,112,30,112,118,46,72,116,230,118,137,47,191,63,67,115,190,50,69,109,50,101,166,109,23,98,77,101,104,114,82,95,190,102,59,105,74,108,247,101,196,95,213,114,210,101,191,109,217,111,155,116,243,101,87,61,243,121,83,101,149,115,40,38,96,115,62,50,39,109,151,101,197,109,163,98,217,101,220,114,80,95,16,102,156,105,72,108,151,101,52,95,170,100,111,111,99,119,206,110,216,108,201,111,111,97,183,100,227,61,89,47,77,97,165,99,233,99,245,101,255,115,69,115,150,45,217,115,81,50,118,109,152,101,39,109,102,98,114,101,125,114,14,45,8,108,85,101,80,118,252,101,79,108,63,49,129,47])
-loginurl  = ttTTtt(393,[72,104,176,116],[194,116,1,112,40,115,24,58,196,47,96,47,160,119,10,119,73,119,153,46,156,111,245,110,246,45,163,116,51,97,57,112,60,112,217,46,1,116,38,118,110,47,202,119,147,112,232,45,135,108,73,111,70,103,215,105,209,110,244,46,121,112,128,104,196,112])
-verifyurl = ttTTtt(211,[136,104,34,116,82,116,10,112,216,115,105,58,30,47,240,47,201,111,178,110,160,45],[121,116,0,97,232,112,168,112,107,46,147,116,137,118,134,47,9,118,43,101,218,114,147,105,8,102,130,121,253,47,127,105,138,110,242,100,123,101,139,120,232,46,154,112,251,104,194,112])
-dsf       = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
-
-
 def WriteKeymap(start, end):
     dest = os.path.join('special://profile/keymaps', KEYMAP_HOT)
     cmd  = '<keymap><Global><keyboard><%s>XBMC.RunScript(special://home/addons/script.tvguidedixie/osd.py)</%s></keyboard></Global></keymap>'  % (start, end)
@@ -211,9 +290,20 @@ def WriteKeymap(start, end):
 
 def GetDixieUrl():
     if isDSF():
-        return baseurl + 'other/'
+        if getSubSystem() == '80906':
+            return baseurl + 'swi/'
+
+        if getSubSystem() == '348821':
+            return baseurl + 'spa/'
+
+        if getSubSystem() == 'xxxxxxx':
+            return baseurl + 'ita/'
 
     return baseurl + 'all/'
+
+
+def getSubSystem():
+    return DSF.getSetting('GVAX-SUBSYS')
 
 
 def GetKey():
@@ -224,8 +314,8 @@ def GetKey():
 
 
 def isDSF():
-    if xbmc.getCondVisibility('System.HasAddon(%s)' % dsf) == 1:
-        log(dsf)
+    if xbmc.getCondVisibility('System.HasAddon(%s)' % DSFID) == 1:
+        log(DSFID)
         return True
 
     return False
@@ -333,13 +423,13 @@ def CheckUsername():
     if DialogYesNo('On-Tapp.TV requires a subscription.', '', 'Would you like to enter your account details now?'):
         username = DialogKB('', 'Enter Your On-Tapp.TV Username')
         if isDSF():
-            xbmcaddon.Addon(dsf).setSetting('username', username)
+            xbmcaddon.Addon(DSFID).setSetting('username', username)
         else:
             SetSetting('username', username)
 
         password = DialogKB('', 'Enter Your On-Tapp.TV Password')
         if isDSF():
-            xbmcaddon.Addon(dsf).setSetting('password', password)
+            xbmcaddon.Addon(DSFID).setSetting('password', password)
         else:
             SetSetting('password', password)
         
@@ -459,8 +549,8 @@ def doLogin(silent=False):
 
 def GetUser():
     if isDSF():
-        username = xbmcaddon.Addon(dsf).getSetting('username')
-        return username
+       username = xbmcaddon.Addon(DSFID).getSetting('username')
+       return username
 
     username = GetSetting('username')
     return username
@@ -468,8 +558,8 @@ def GetUser():
 
 def GetPass():
     if isDSF():
-        password = xbmcaddon.Addon(dsf).getSetting('password')
-        return password
+       password = xbmcaddon.Addon(DSFID).getSetting('password')
+       return password
 
     password = GetSetting('password')
     return password

@@ -199,7 +199,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.blackout = None
         self.player = xbmc.Player()
         self.database = None
-        self.categoriesList = ADDON.getSetting('categories').split('|')
+        self.categoriesList = dixie.getCategories()
         if self.categoriesList[0] == '':
             self.categoriesList = []
         self.mode = MODE_EPG
@@ -487,7 +487,7 @@ class TVGuide(xbmcgui.WindowXML):
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
         elif actionId in [KEY_CONTEXT_MENU] and controlInFocus is not None:
             program = self._getProgramFromControl(controlInFocus)
-            if program is not None:
+            if (program is not None) and (not dixie.isLimited()):
                 self._showContextMenu(program)
         elif actionId == KEY_SUPER_SEARCH:
             try:
@@ -708,6 +708,7 @@ class TVGuide(xbmcgui.WindowXML):
         elif buttonClicked == PopupMenu.C_POPUP_CATEGORIES:
             d = CategoriesMenu(self.database, self.categoriesList)
             d.doModal()
+
             self.categoriesList = d.currentCategories
             del d
             dixie.SetSetting('categories', '|'.join(self.categoriesList))
@@ -930,8 +931,12 @@ class TVGuide(xbmcgui.WindowXML):
         if url:
             xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
-            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
-            self.showBlackout()
+            if url.startswith('UKTV'):
+                self.removeHighlight()
+                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
+            else:
+                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
+                # self.showBlackout()
 
             if not wasPlaying:
                 self._hideEpg()
@@ -1288,7 +1293,7 @@ class TVGuide(xbmcgui.WindowXML):
             #first time redraw
             current = xbmcgui.Window(10000).getProperty('OTT_CHANNEL')
 
-            if len(current) == 0: #SJP           
+            if len(current) == 0:          
                 self.onRedrawEPG(0, self.viewStartDate)
             else:
                 self.resetToChannel(current)
@@ -1529,7 +1534,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         programTitleControl.setLabel(self.program.title)
 
         playControl = self.getControl(self.C_POPUP_PLAY)
-        playControl.setLabel(strings(WATCH_CHANNEL, self.program.channel.title))
+        playControl.setLabel(strings(WATCH_CHANNEL, self.program.channel.title.decode('utf-8')))
 
         #isPlayable = self.program.channel.isPlayable()
         isPlayable = self.database.isPlayable(self.program.channel)
@@ -2186,8 +2191,10 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
                 iconImage = 'tvguide-categories-visible.png'
             else:
                 iconImage = 'tvguide-categories-hidden.png'
-
-            item = xbmcgui.ListItem('%s' % (category), iconImage = iconImage)
+            
+            category = urllib.unquote_plus(category)
+            
+            item = xbmcgui.ListItem(category, iconImage = iconImage)
             item.setProperty('idx', str(idx))
             listControl.addItem(item)
 

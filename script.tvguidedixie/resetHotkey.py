@@ -35,7 +35,7 @@ def deleteFiles():
     try:
         sfile.remove(hotkey)
                 
-        dixie.DialogOK('On-Tapp.TV Hot Key successfully reset.', '', '')
+        dixie.DialogOK('On-Tapp.TV Hot Key successfully reset.', 'Please restart Kodi for this to take affect.', 'Thank you.')
         
     except Exception, e:
         error = str(e)

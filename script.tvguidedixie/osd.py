@@ -489,7 +489,7 @@ class OSD(xbmcgui.WindowXMLDialog):
         if self.channel == '':
             self.channel = str(len(self.list))
 
-        ch = int(self.channel) - 1        
+        ch = int(self.channel) - 1
 
         if ch == 0:
             ch = len(self.list)
@@ -498,7 +498,7 @@ class OSD(xbmcgui.WindowXMLDialog):
         self.setChannel(self.channel)
 
 
-    def getChannelFromFile(self, id):        
+    def getChannelFromFile(self, id):
         path = os.path.join(OTT_CHANNELS, id)
 
         if not sfile.exists(path):
@@ -520,12 +520,17 @@ class OSD(xbmcgui.WindowXMLDialog):
         for file in files:
             channels.append(file)
 
+        isProtected = dixie.isProtected()
+
         sorted = []
 
         for id in channels:
             channel = self.getChannelFromFile(id)
 
             if not channel.visible:
+                continue
+
+            if not isProtected and channel.isProtected():
                 continue
 
             sorter  = channel.title.lower() if alphaSort else channel.weight

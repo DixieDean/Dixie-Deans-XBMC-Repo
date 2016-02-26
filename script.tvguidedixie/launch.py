@@ -144,7 +144,7 @@ def CheckDSF():
         if not dixie.isDSF():
             return
 
-        dsf  = xbmcaddon.Addon(id = 'plugin.video.gvax')
+        dsf  = dixie.DSF
         path = dsf.getAddonInfo('path')
 
         sys.path.insert(0, path)
@@ -163,7 +163,7 @@ def CheckDSF():
         f = file(filename, 'w')
         f.write(xml)
         f.close()
-
+        
     except:
         pass
 
@@ -209,6 +209,8 @@ def RemoveKeymap():
 
 
 def main(doLogin=True):
+    dixie.migrateDSF()
+
     import message
     dixie.CheckUsername()
     dixie.ShowBusy()
@@ -224,7 +226,7 @@ def main(doLogin=True):
         CheckIniVersion()
         CheckFilmOn()
         CheckForUpdate()
-        # CheckDSF()
+        CheckDSF()
         CheckForChannels()
 
         dixie.log('****** On-Tapp.EPG - All OK *******')

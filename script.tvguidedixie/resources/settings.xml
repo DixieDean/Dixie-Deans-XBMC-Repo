@@ -52,7 +52,7 @@
         <setting id="ignore.stream"         label="Always Offer To Choose Stream"         type="bool"   default="false" visible="true"/>
 		<setting id="playlist.type"         label="IPTV Playlist"                         type="enum"   default="URL" values="URL|File" visible="true"/>
 		<setting id="playlist.file"         label="File"                                  type="file"   visible="eq(-1,1)" />
-		<setting id="playlist.url"          label="URL"                                   type="text"   default="http://gaslists.github.io/lists/kodi.txt" visible="eq(-2,0)"/>
+		<setting id="playlist.url"          label="URL"                                   type="text"   default="https://raw.githubusercontent.com/wajahtumho/wajahtumho/master/lists/kodi.txt" visible="eq(-2,0)"/>
         <setting id="ftv.ini"               label="Choose Film-On UK TV Links"            type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="true" />
 		<setting id="local.ini"             label="Allow Enhanced Add-on Linking"         type="bool"   default="true" visible="false"/>
         <setting id="enable.osd"            label="30118"                                 type="bool"   default="true" enable="eq(2,false)" visible="false"/>

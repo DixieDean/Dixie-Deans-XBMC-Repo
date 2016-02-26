@@ -252,25 +252,25 @@ class Database(object):
         prevLogoFolder = dixie.GetSetting('PREVLOGO')
         currLogoFolder = logoFolder
 
-        #if currLogoFolder == prevLogoFolder:
-        #    return True
+        if currLogoFolder == prevLogoFolder:
+           return True
 
         dixie.SetSetting('PREVLOGO', currLogoFolder)
         
         for ch in channels:
             channel  = self.getChannelFromFile(ch)
             chtitle = channel.title
-#             if DSF:
-#                 chtitle = urllib.quote_plus(channel.title)
-            
+            if DSF:
+                chtitle = urllib.quote_plus(channel.title)
+
             if channel == None:
                 continue
-            
+
             logoFile = os.path.join(logoPath, logoFolder, chtitle + '.png')
-            
+
             if channel.logo <> logoFile:
-                channel.logo = logoFile    
-                self.replaceChannel(channel)                       
+                channel.logo = logoFile
+                self.replaceChannel(channel)
 
         return True
 
@@ -680,15 +680,22 @@ class Database(object):
 
         self._updateChannelAndProgramListCaches(date, progress_callback, clearExistingProgramList)
         
-        channels = self._getChannelList(onlyVisible = True, categories = categories)
+        channels  = []
+        _channels = self._getChannelList(onlyVisible = True, categories = categories)
+
+        isProtected = dixie.isProtected()
+
+        for channel in _channels:
+            if isProtected or (dixie.ADULT not in channel.categories):
+                channels.append(channel)
 
         if channelStart < 0:
             channelStart = len(channels) - 1
         elif channelStart > len(channels) - 1:
             channelStart = 0
         channelEnd = channelStart + nmrChannels
-        channelsOnPage = channels[channelStart : channelEnd]
 
+        channelsOnPage = channels[channelStart:channelEnd]
         programs = self._getProgramList(channelsOnPage, date)
 
         return [channelStart, channelsOnPage, programs]
@@ -829,6 +836,12 @@ class Database(object):
                     categoriesList.append(category)       
 
         categoriesList.sort()
+
+        try:
+            if not dixie.isProtected():
+                categoriesList.remove(dixie.ADULT)
+        except:
+            pass
 
         return categoriesList
 

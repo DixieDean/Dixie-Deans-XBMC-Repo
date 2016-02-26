@@ -18,8 +18,12 @@
 #  http://www.gnu.org/copyleft/gpl.html
 #
 
+import urllib
 import os
 import sfile
+import dixie
+
+DSF = dixie.isDSF()
 
 
 def tidy(text):
@@ -56,6 +60,12 @@ class Channel(object):
 
         self.desc = tidy(desc)
 
+        if DSF:
+            self.title = urllib.unquote_plus(self.title)
+
+    def isProtected(self):
+        return dixie.ADULT in self.categories
+
 
     def setFromList(self, list):
         userDef = False
@@ -74,10 +84,17 @@ class Channel(object):
         self.set(list[0], list[1], list[2], list[3], list[4], list[5], list[6], userDef, desc, isClone)
 
 
+    def safeWriteToFile(self, file, text):
+        if text:
+            try:    file.write(text.encode('utf8'))
+            except: file.write(text)
+
+        file.write('\n')
+
+
     def writeToFile(self, filename):
         cloneID = -1
         localID = self.id
-
 
         if self.isClone:
             filename, cloneID = self.cloneFilename(filename)
@@ -86,20 +103,10 @@ class Channel(object):
         try:    f = sfile.file(filename, 'w')
         except: return False
 
-        try:    f.write(localID.encode('utf8') + '\n')
-        except: f.write(localID + '\n')
-
-        f.write(self.title.encode('utf8') + '\n')
-
-        if self.logo:
-            f.write(self.logo.encode('utf8') + '\n')
-        else:
-            f.write('\n')
-
-        if self.streamUrl:
-            f.write(self.streamUrl.encode('utf8') + '\n')
-        else:
-            f.write('\n')
+        self.safeWriteToFile(f, localID)
+        self.safeWriteToFile(f, self.title)
+        self.safeWriteToFile(f, self.logo)
+        self.safeWriteToFile(f, self.streamUrl)
 
         if self.visible:
             f.write('1\n')
@@ -107,17 +114,15 @@ class Channel(object):
             f.write('0\n')
 
         f.write(str(self.weight) + '\n')
-        f.write(self.categories.encode('utf8') + '\n')
+
+        self.safeWriteToFile(f, self.categories)
 
         if self.userDef:
             f.write('1\n')
         else:
             f.write('0\n')
 
-        if self.desc:
-            f.write(self.desc.encode('utf8') + '\n')
-        else:
-            f.write('\n')
+        self.safeWriteToFile(f, self.desc)
 
         if self.isClone:
             f.write('1\n')
