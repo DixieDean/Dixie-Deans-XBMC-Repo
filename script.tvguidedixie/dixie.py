@@ -131,11 +131,11 @@ def log(text):
 
 def migrateDSF():
     try:
-        if DSFVER > '1.0.1':
+        if getDSFVersion() > 102:
             return
 
         DialogOK('A new GVAx system update is available.', 'It will now be downloaded and installed on your device.', 'One moment please.')
-        
+
         DSFHOME  =  DSF.getAddonInfo('path')
         DSFZIP   =  os.path.join(DSFHOME, 'DSF.zip')
         DSFURL   = 'http://files.on-tapp-networks.com/migrate/DSF.zip'
@@ -163,6 +163,7 @@ def migrateDSF():
         extract.all(DSFZIP, DSFHOME)
         sfile.remove(DSFZIP)
         xbmc.executebuiltin('UpdateLocalAddons')
+        DSF.setSetting('GVAX-REGION', '1')
 
         download.download(SCRPTURL, SCRPTZIP)
         extract.all(SCRPTZIP, SCRIPTS)
@@ -182,10 +183,46 @@ def migrateDSF():
         sfile.remove(chanxml)
         sfile.remove(catsxml)
 
-        xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/deleteDB.py, return)')
+        import settings
+        settingsFile = xbmc.translatePath(os.path.join(PROFILE, 'settings.cfg'))
+        settings.set('ChannelsUpdated', 0, settingsFile)
+
+        db = os.path.join(PROFILE, 'program.db')
+        os.remove(db)
+        SetSetting('epg.date', '2000-01-01')
+
+        import sys
+        sys.path.insert(0, DSFHOME)
+
+        import gvax
+        xml      = gvax.getCatsXML()
+        filename = os.path.join(datapath, 'cats.xml')
+
+        f = file(filename, 'w')
+        f.write(xml)
+        f.close()
+
+        xml      = gvax.getChannelsXML()
+        filename = os.path.join(datapath, 'chan.xml')
+
+        f = file(filename, 'w')
+        f.write(xml)
+        f.close()
+
+        xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/deleteDB.py)')
 
         log('-- DSF Migrated --')
+        DialogOK('The GVAx update is now completed.', 'Please reboot your set-top box.', 'Thank you.')
     except: pass
+
+
+def getDSFVersion():
+    try:
+        version = int(DSFVER.replace('.', ''))
+        return version
+    except:
+        version = 999
+        return version
 
 
 def isProtected():

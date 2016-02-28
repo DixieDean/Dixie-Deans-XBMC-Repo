@@ -22,6 +22,8 @@ import xbmcgui
 import os
 import dixie
 
+dixie.migrateDSF()
+
 def main():
     windowID = xbmcgui.Window(10000).getProperty('OTT_WINDOW')
     try:

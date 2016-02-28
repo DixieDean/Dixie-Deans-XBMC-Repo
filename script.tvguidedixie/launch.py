@@ -209,8 +209,6 @@ def RemoveKeymap():
 
 
 def main(doLogin=True):
-    dixie.migrateDSF()
-
     import message
     dixie.CheckUsername()
     dixie.ShowBusy()
