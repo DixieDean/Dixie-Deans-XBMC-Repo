@@ -4,7 +4,7 @@
         <setting id="VERSION"    type="text"      label="Version"           default="0.0.0" visible="false"/>
         <setting id="OTTSKIN"    type="text"      label="OTTSKINVersion"    default="2.0"   visible="false"/>
         <setting id="EPGSKIN"    type="text"      label="EPGSKINVersion"    default="2.4"   visible="false"/>
-        <setting id="LOGOCOLOUR" type="text"      label="LogoColourVersion" default="1.5"   visible="false"/>
+        <setting id="LOGOCOLOUR" type="text"      label="LogoColourVersion" default="1.6"   visible="false"/>
         <setting id="LOGOWHITE"  type="text"      label="LogoWhiteVersion"  default="1.3"   visible="false"/>
         <setting id="OTTUPDATE"  type="text"      label="OTTPythonVersion"  default="1.6"   visible="false"/>
         <setting id="EPGUPDATE"  type="text"      label="EPGPythonVersion"  default="1.6"   visible="false"/>
@@ -22,10 +22,8 @@
 		<setting id="MIGRATED"   type="bool"      label="MIGRATED" default="false" visible="false" />
         <setting id="ottv.url"   type="labelenum" label="OTT URL"  default="kodi"  values="kodi|other"  visible="false" />
         
-        <setting id="dummy"      type="action" label="Click to - Open Main Settings" action="XBMC.RunScript(special://home/addons/script.on-tapp.tv/openSettings.py)" option="close" />
+        <setting id="dummy"      type="action" label="Click to - [COLOR orange][B]Open Main Settings[/B][/COLOR]" action="XBMC.RunScript(special://home/addons/script.on-tapp.tv/openSettings.py)" option="close" />
         <setting id="SKIN"       type="select" label="31004" source="../../userdata/addon_data/script.on-tapp.tv/skins/" mask="/" default="FXB78"/>	
-        <setting id="HOTKEY"     type="action" label="[COLOR orange][B]Click to program Mini-Guide Hot Key[/B][/COLOR]" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)"/>
-        <setting id="dummy"      type="action" label="[COLOR orange][B]Click to reset Mini-Guide Hot Key[/B][/COLOR]"              action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetHotkey.py)" />
         
 		<setting id="autoStart"  type="bool"   label="Start Automatically (requires reboot)"     default="false" visible="true"/>
         <setting id="KodiLib"    type="bool"   label="Override Kodi Movie/TV Libraries"          default="false" visible="true"/>
@@ -36,18 +34,30 @@
         <!-- <setting                 type="lsep"   label=""      visible="true" /> -->
         <setting id="KIOSKMODE"  type="bool"   label="Kiosk Mode" default="false" visible="true"/>
         <setting id="NOHOME"     type="bool"   label="31005" default="false" visible="true"/>
-        <setting id="PLAYBACK"   type="enum"   label="31001" lvalues="31002|31003" default="1"/>
+        <setting id="PLAYBACK"   type="enum"   label="31001" lvalues="31002|31003" default="1" visible="false"/>
     </category>
+
+    <category label="More Features">
+        <setting id="HOTKEY"            label="Click to - [COLOR orange][B]Set Mini-Guide Hot Key[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)"/>
+		<setting id="hot_key"           type="text" label="Programmed HotKey"    default="" visible="false"/>
+        <setting id="dummy"             label="Click to - [COLOR orange][B]Reset Mini-Guide Hot Key[/B][/COLOR]"   type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetHotkey.py)" />
+
+        <setting label=""               type="lsep" visible="true" />
+
+        <setting id="FSHOTKEY"          label="Click to - [COLOR orange][B]Set Full-Screen Hot Key[/B][/COLOR] (picture-in-picture)" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/FSkeyProgrammer.py)"/>
+        <setting id="dummy"             label="Click to - [COLOR orange][B]Reset Full-Screen Hot Key[/B][/COLOR]"                        type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetFSHotkey.py)" />
+    </category>
+
     <category label="Maintenance">
  		<setting id="DEBUG" label="[B]Enable OTT Debug Mode[/B]" type="bool" default="true"/>
- 		<setting id="dummy" label="[COLOR orange][B]Click to upload log[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)" option="close" />
+ 		<setting id="dummy" label="Click to - [COLOR orange][B]Upload log[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)" option="close" />
  		<setting type="lsep" label="Add an email to receive a link to your log"/>
  		<setting id="email" type="text" label="Email address"/>
 	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true" visible="false"/>
         <setting id="dummy" label="Click to - Restore Channels." type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/restoreChannels.py)" />
         <setting id="dummy" label="Click to - Reset Programme Listings." type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/deleteDB.py)" />
         <setting id="dummy" label="Click to - Reset your channels. Some custom settings may be lost." type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetChannels.py)" />
-        <setting id="dummy" label="Click to - Fully Reset On-Tapp.TV. ALL settings will be lost inc. user/pass." type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetAddon.py)" />
+        <setting id="dummy" label="Click to - Fully Reset On-Tapp.TV." type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetAddon.py)" />
     </category>
 	
 </settings>

@@ -797,7 +797,8 @@ class TVGuide(xbmcgui.WindowXML):
         if program.channel.logo is not None:
             self.setControlImage(self.C_MAIN_LOGO, program.channel.logo)
         if program.imageSmall is not None:
-            self.setControlImage(self.C_MAIN_IMAGE, program.imageSmall)
+            if not self.touch:
+                self.setControlImage(self.C_MAIN_IMAGE, program.imageSmall)
 
         if ADDON.getSetting('program.background.enabled') == 'true' and program.imageLarge is not None:
             self.setControlImage(self.C_MAIN_BACKGROUND, program.imageLarge)
@@ -1265,19 +1266,18 @@ class TVGuide(xbmcgui.WindowXML):
 
     def onEPGLoadError(self):
         dixie.log('Delete DB OnTapp.TV - onEPGLoadError')
-        deleteDB.deleteDB()
-        self.redrawingEPG = False
-        self._hideControl(self.C_MAIN_LOADING)
         xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(LOAD_ERROR_LINE2), strings(LOAD_ERROR_LINE3))
-        dixie.log('****** OnTapp.TV. Possible unicode text error. *******')
         self.close()
+        xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/deleteDB.py)')
+        dixie.log('****** Delete DB complete *******')
 
 
     def onSourceNotConfigured(self):
-        self.redrawingEPG = False
-        self._hideControl(self.C_MAIN_LOADING)
+        dixie.log('Delete DB OnTapp.TV - onSourceNotConfigured')
         xbmcgui.Dialog().ok(strings(LOAD_ERROR_TITLE), strings(LOAD_ERROR_LINE1), strings(CONFIGURATION_ERROR_LINE2))
         self.close()
+        xbmc.executebuiltin('XBMC.RunScript(special://home/addons/script.tvguidedixie/deleteDB.py)')
+        dixie.log('****** Delete DB complete *******')
 
     def isSourceInitializationCancelled(self):
         return xbmc.abortRequested or self.isClosing
@@ -1858,21 +1858,8 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
     def onInit(self):
         self.getControl(self.C_STREAM_VISIBILITY_MARKER).setLabel(self.VISIBLE_STRM)
 
-        import pvr
-        kodipvr    = pvr.getPVRChannels()
         favourites = self.streamingService.loadFavourites()
-
         items  = list()  
-
-        try:
-            for label, value in kodipvr:
-                label = '[COLOR orange]PVR: [/COLOR]' + label
-                item  = xbmcgui.ListItem(label)
-                item.setProperty('stream', value)
-                items.append(item)
-        except Exception:
-            pass
-        
         for label, value in favourites:
             item = xbmcgui.ListItem(label)
             item.setProperty('stream', value)
@@ -1881,13 +1868,15 @@ class StreamSetupDialog(xbmcgui.WindowXMLDialog):
         listControl = self.getControl(StreamSetupDialog.C_STREAM_FAVOURITES)
         listControl.addItems(items)
 
-
-        items = list()            
+        items = list()
         for id in self.streamingService.getAddons():
             try:
                 addon = xbmcaddon.Addon(id) # raises Exception if addon is not installed
                 item = xbmcgui.ListItem(addon.getAddonInfo('name'), iconImage=addon.getAddonInfo('icon'))
                 item.setProperty('addon_id', id)
+                if id == 'script.on-tapp.tv':
+                    item = xbmcgui.ListItem('Kodi PVR', iconImage=os.path.join(dixie.RESOURCES, 'kodi-pvr.png'))
+                    item.setProperty('addon_id', id)
                 items.append(item)
             except Exception:
                 pass

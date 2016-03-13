@@ -55,6 +55,8 @@ ACTION_DOWN      = 4
 ACTION_PAGE_UP   = 5
 ACTION_PAGE_DOWN = 6
 
+CHANNELS_PER_PAGE = 10
+
 ACTION_BACK  = 92
 ACTION_STOP  = 122
 
@@ -64,6 +66,7 @@ ACTION_PARENT_DIR = 9
 ACTION_PLAY   = 79
 ACTION_SELECT = 7
 
+ACTION_HOTKEY = dixie.GetSetting('hot_key')
 
 ACTION_SHOW_INFO = -1 #currently not used
 
@@ -119,7 +122,7 @@ class OSD(xbmcgui.WindowXMLDialog):
         self.streamingService = streaming.StreamsService()
 
         
-    def close(self):         
+    def close(self):
         if self.closeTimer != None:
             self.closeTimer.cancel()
 
@@ -127,7 +130,12 @@ class OSD(xbmcgui.WindowXMLDialog):
         if channel:
             xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
 
-        xbmcgui.WindowXMLDialog.close(self) 
+        Timer(1, self.onClose).start()
+
+
+    def onClose(self):
+        xbmcgui.Window(10000).clearProperty('OTT_OSD_RUNNING')
+        xbmcgui.WindowXMLDialog.close(self)
 
 
     def resetCloseTimer(self):
@@ -368,19 +376,19 @@ class OSD(xbmcgui.WindowXMLDialog):
              self.osdY = self.getControl(OSD_MINIGUIDE).getPosition()[1]
         except:
             pass
-        
-        try:    
+
+        try:
             self.populateChannels()
 
             if self.channel == 'PREV':
                 self.channel = '' 
                 if self.playPrevious():
                     self.close()
-                    return           
+                    return
 
             if len(self.channel) < 0:
                 self.channel = 1
-        
+
             self.setChannel(self.channel)
             self.resetCloseTimer()
  
@@ -397,31 +405,37 @@ class OSD(xbmcgui.WindowXMLDialog):
     def onAction(self, action):
         try:
             actionId = action.getId()
-            buttonId = action.getButtonCode()         
+            buttonId = action.getButtonCode()
 
             if actionId != 107:
                 dixie.log(str(actionId))
                 dixie.log(str(buttonId))
 
-            self.resetCloseTimer()        
+            self.resetCloseTimer()
+
+            if actionId == ACTION_HOTKEY:
+                self.close()
+                return
 
             if actionId == KEY_ESC_ID and buttonId == KEY_ESC_CODE:
                 self.close()
                 return
 
             if actionId == ACTION_BACK: 
-                if self.channel == '':
-                    self.close()
-                    return
+                self.close()
+                return
 
-                self.channel = self.channel[:-1]
-                self.setChannel(self.channel)
-
-            if actionId in [ACTION_UP, ACTION_PAGE_UP]:
+            if actionId in [ACTION_UP]:
                 self.ChannelUp()
 
-            if actionId in [ACTION_DOWN, ACTION_PAGE_DOWN]:
-                self.ChannelDown();
+            if actionId in [ACTION_PAGE_UP]:
+                self.PageUp(CHANNELS_PER_PAGE)
+
+            if actionId in [ACTION_DOWN]:
+                self.ChannelDown()
+
+            if actionId in [ACTION_PAGE_DOWN]:
+                self.PageDown(CHANNELS_PER_PAGE)
 
             if actionId == ACTION_LEFT:
                 self.previousProgram()
@@ -443,7 +457,7 @@ class OSD(xbmcgui.WindowXMLDialog):
 
             if actionId == ACTION_PLAY:
                 self.playChannel(self.channel)
-                return                   
+                return
 
             if actionId >= ACTION_0 and actionId <= ACTION_9:
                 self.channel = str(self.verifyChannel(self.channel, actionId - ACTION_0))
@@ -452,7 +466,7 @@ class OSD(xbmcgui.WindowXMLDialog):
             if actionId == ACTION_SHOW_INFO:
                 self.toggleInfo()
 
-          
+
         except Exception:
             raise
 
@@ -471,12 +485,25 @@ class OSD(xbmcgui.WindowXMLDialog):
 
         return oldChannel
 
-        
+
     def ChannelUp(self):
         if self.channel == '':
             self.channel = '1'
 
         ch = int(self.channel) + 1
+
+        if ch > len(self.list):
+            ch = 1
+
+        self.channel = str(ch)
+        self.setChannel(self.channel)
+
+
+    def PageUp(self, count = 1):
+        if self.channel == '':
+            self.channel = '1'
+
+        ch = int(self.channel) + count
 
         if ch > len(self.list):
             ch = 1
@@ -493,6 +520,19 @@ class OSD(xbmcgui.WindowXMLDialog):
 
         if ch == 0:
             ch = len(self.list)
+
+        self.channel = str(ch)
+        self.setChannel(self.channel)
+
+
+    def PageDown(self, count = 1):
+        if self.channel == '':
+            self.channel = '1'
+
+        ch = int(self.channel) - count
+
+        if ch > len(self.list):
+            ch = 1
 
         self.channel = str(ch)
         self.setChannel(self.channel)
@@ -516,7 +556,7 @@ class OSD(xbmcgui.WindowXMLDialog):
             current, dirs, files = sfile.walk(OTT_CHANNELS)
         except Exception, e:
             return channels
-    
+
         for file in files:
             channels.append(file)
 
@@ -555,10 +595,10 @@ class OSD(xbmcgui.WindowXMLDialog):
 
         index = 0
         for channel in self.list:
-            index += 1            
+            index += 1
             if channel.id == current:
-                self.channel = str(index)                
-                self.setChannel(self.channel)     
+                self.channel = str(index)
+                self.setChannel(self.channel)
                 xbmcgui.Window(10000).setProperty('OTT_CURR_INDEX', self.channel)
                 return
 
@@ -567,9 +607,9 @@ class OSD(xbmcgui.WindowXMLDialog):
         path = os.path.join(OTT_CHANNELS, id)
         if sfile.exists(path):
             try:    sfile.remove(path)
-            except: pass            
-    
-    
+            except: pass
+
+
     def addCleanChannel(self, channel, id):
         path = os.path.join(OTT_CHANNELS, id) 
 
@@ -585,9 +625,10 @@ class OSD(xbmcgui.WindowXMLDialog):
 
         self.removeCleanChannel(id)
         self.addCleanChannel(channel, id)
-           
-    
+
+
 if __name__ == '__main__':
+    xbmcgui.Window(10000).setProperty('OTT_OSD_RUNNING', 'TRUE')
     channel = OSD(osdMode=True)
-    channel.doModal()     
+    channel.doModal()
     del channel

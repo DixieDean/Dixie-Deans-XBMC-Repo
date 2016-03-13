@@ -306,21 +306,53 @@ def patchSkins():
 
 
 def WriteKeymap(start, end):
-    dest = os.path.join('special://profile/keymaps', KEYMAP_HOT)
-    cmd  = '<keymap><Global><keyboard><%s>XBMC.RunScript(special://home/addons/script.tvguidedixie/osd.py)</%s></keyboard></Global></keymap>'  % (start, end)
-    
-    f = sfile.file(dest, 'w')
-    f.write(cmd)
-    f.close()
-    xbmc.sleep(1000)
+    filename = os.path.join('special://profile/keymaps', 'zOTT_hotkey.xml')
+    theFile  = sfile.file(filename, 'w')
+    cmd      = '\t\t\t<%s>XBMC.RunScript(special://home/addons/script.tvguidedixie/hotkey.py)</%s>\n'  % (start, end)
 
-    tries = 4
-    while not sfile.exists(dest) and tries > 0:
-        tries -= 1
-        f = sfile.file(dest, 'w')
-        f.write(cmd)
-        f.close()
-        xbmc.sleep(1000)
+    theFile.write('<keymap>\n')
+    theFile.write('\t<global>\n')
+    theFile.write('\t\t<keyboard>\n')
+
+    theFile.write(cmd)
+
+    theFile.write('\t\t</keyboard>\n')
+    theFile.write('\n')
+    theFile.write('\t\t<remote>\n')
+
+    theFile.write(cmd)
+
+    theFile.write('\t\t</remote>\n')
+    theFile.write('\t</global>\n')
+    theFile.write('</keymap>\n')
+
+    theFile.close()
+
+    return True
+
+
+def WriteFSKeymap(start, end):
+    filename = os.path.join('special://profile/keymaps', 'zOTT_toggle.xml')
+    theFile  = sfile.file(filename, 'w')
+    cmd      = '\t\t\t<%s>fullscreen</%s>\n'  % (start, end)
+
+    theFile.write('<keymap>\n')
+    theFile.write('\t<global>\n')
+    theFile.write('\t\t<keyboard>\n')
+
+    theFile.write(cmd)
+
+    theFile.write('\t\t</keyboard>\n')
+    theFile.write('\n')
+    theFile.write('\t\t<remote>\n')
+
+    theFile.write(cmd)
+
+    theFile.write('\t\t</remote>\n')
+    theFile.write('\t</global>\n')
+    theFile.write('</keymap>\n')
+
+    theFile.close()
 
     return True
 
@@ -564,10 +596,10 @@ def doLogin(silent=False):
         if okay:
             message = 'Logged into On-Tapp.TV'
             log(message)
-            if not silent:
-                notify(message)
+            # if not silent:
+            #     notify(message)
             return True
-            
+
         try:
             error = re.compile('<div id="login_error">(.+?)<br />').search(response).groups(1)[0]
             error = error.replace('<strong>',  '')

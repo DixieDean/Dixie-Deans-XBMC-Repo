@@ -31,10 +31,10 @@ current_ini = os.path.join(datapath, 'addons.ini')
 def getIni():
     import extract
     import download
-    
+
     if dixie.isDSF():
         return
-    
+
     if not os.path.exists(inipath):
         os.makedirs(inipath)
     
@@ -45,6 +45,17 @@ def getIni():
         urllib.urlretrieve(iniurl, inizip)
         extract.all(inizip, inipath)
         os.remove(inizip)
+    except: pass
+
+    try:
+        import pvr
+        pvr.createPVRINI()
+    except: pass
+
+    try:
+        import hdhr
+        hdhr.createHDHRINI()
+        hdhr.getPlaylist()
     except: pass
 
 
@@ -63,7 +74,7 @@ def ftvIni():
         urllib.urlretrieve(url, path)
     except:
         pass
-    
+
     AVAILABLE = False
     if not AVAILABLE:
         try:
@@ -77,7 +88,7 @@ def ftvIni():
         except:
             AVAILABLE = False
 
-    
+
 
 if __name__ == '__main__':
     getIni()

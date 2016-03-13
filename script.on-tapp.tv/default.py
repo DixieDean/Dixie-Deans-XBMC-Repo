@@ -27,7 +27,6 @@ NOHOME = utils.getSetting('NOHOME') == 'true'
 update.checkUpdate()
 
 if __name__ == '__main__':
-    
     if NOHOME:
         xbmc.executebuiltin('RunScript(script.tvguidedixie)')
 
@@ -39,4 +38,3 @@ if __name__ == '__main__':
 
         xbmc.executebuiltin('Dialog.Close(busydialog)')
         utils.Launch(param)
-        

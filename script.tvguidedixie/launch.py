@@ -71,8 +71,9 @@ def CheckVersion():
 
     dixie.SetSetting('VERSION', curr)
 
-    dixie.DialogOK('Welcome to On-Tapp.TV 3.0', 'For online support, please register at our new forum:', 'www.on-tapp-networks.com/forum')
-    showChangelog()
+    if not dixie.isDSF():
+        dixie.DialogOK('Welcome to On-Tapp.TV 3.0', 'For online support, please register at our new forum:', 'www.on-tapp-networks.com/forum')
+        showChangelog()
 
 
 def showChangelog(addonID=None):

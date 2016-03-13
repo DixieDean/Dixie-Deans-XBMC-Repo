@@ -30,57 +30,43 @@ from osd import OSD
 
 
 def action(key):
-    # if xbmcgui.Window(10000).getProperty('OTT_RUNNING') != 'True':
-    #     dixie.log('OTT not running')
-    #     return
-
-    dixie.log('Key pressed %s' % key)    
+    dixie.log('Key pressed %s' % key)
 
     if not key in ['SELECT', 'PGUP', 'PGDOWN', 'UP', 'DOWN', 'LEFT', 'RIGHT', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'G']:
-        dixie.log('Input not recognised')    
+        dixie.log('Input not recognised')
         return
 
     xbmcgui.Window(10000).setProperty('OTT_CHANGE_SCRIPT', 'TRUE')
 
     if key in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
         channel = OSD(key)
-        channel.doModal()     
+        channel.doModal()
         del channel
         return
 
 
     if key == 'LEFT':
         channel = OSD('PREV')
-        channel.doModal()     
+        channel.doModal()
         del channel
         return
 
     if key in ['RIGHT', 'G']:
         channel = OSD()
-        channel.doModal()     
+        channel.doModal()
         del channel
         return
 
     if key == 'SELECT':
         channel = OSD()
-        channel.doModal()     
+        channel.doModal()
         del channel
         return
 
     channel = OSD()
-    channel.doModal()     
+    channel.doModal()
     del channel
     return
-    
-    #if key == "PGUP":
-    #    index = index + 1
-    #if key == "PGDOWN":
-    #    index = index - 1
-
-    #if index < 0:
-    #    index = maxChannel 
-    #if index > maxChannel:
-    #    index = 0
 
 
 if xbmcgui.Window(10000).getProperty('OTT_CHANGE_SCRIPT') == 'TRUE':

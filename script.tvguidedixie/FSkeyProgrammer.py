@@ -45,7 +45,7 @@ class KeyListener(xbmcgui.WindowXMLDialog):
 
     def onInit(self):
         timeout = 'Timeout in %d seconds...' % TIMEOUT
-        label   = 'Press a key to assign it to the Mini-Guide now'
+        label   = 'Press a key to assign it to Toggle Full Screen now'
 
         self.getControl(401).addLabel(label)
         self.getControl(402).addLabel(timeout)
@@ -81,9 +81,8 @@ def main():
     start = 'key id="%d"' % key
     end   = 'key'
 
-    if dixie.WriteKeymap(start, end):
+    if dixie.WriteFSKeymap(start, end):
         dixie.log('OTTV HotKey assigned: %s' % key)
-        dixie.SetSetting('hot_key', key)
         dixie.DialogOK('On-Tapp.TV Hot Key successfully set up.', '', 'Thank you.')
         xbmc.sleep(1000)
         xbmc.executebuiltin('Action(reloadkeymaps)')

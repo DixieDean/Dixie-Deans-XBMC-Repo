@@ -174,6 +174,7 @@ def playSF(url):
 
 
 def play(url, windowed, name=None):
+    dixie.SetSetting('streamURL', url)
     handled = False
     
     getIdle = int(ADDON.getSetting('idle').replace('Never', '0'))
@@ -186,11 +187,18 @@ def play(url, windowed, name=None):
         import hdtv
         delay  = 5
         stream = hdtv.getURL(url)
-        
+
         if not playAndWait(stream, windowed, maxIdle, delay=delay):
             dixie.SetSetting('LOGIN_HDTV', '2001-01-01 00:00:00')
             stream = hdtv.getURL(url)
             playAndWait(stream, windowed, maxIdle, delay=delay)
+        return
+
+    if url.startswith('IPLAYD'):
+        import iplayer
+        stream = iplayer.getURL(url)
+        dixie.log(stream)
+        xbmc.executebuiltin('XBMC.RunPlugin(%s)' % stream)
         return
 
     if url.startswith('IPLAY'):
@@ -199,7 +207,7 @@ def play(url, windowed, name=None):
         playAndWait(stream, windowed, maxIdle)
         return
 
-    if url.startswith('IPTV:'):
+    if url.startswith('IPTV'):
         import iptv
         url = iptv.getURL(url)
         dixie.log(url)
@@ -211,8 +219,9 @@ def play(url, windowed, name=None):
         stream = uktv.getURL(url)
         dixie.log(stream)
         playAndWait(stream, windowed, maxIdle)
+        print '++++++++___________++++++++++++++', stream
         return
- 
+
     if url.isdigit():
         command = ('{"jsonrpc": "2.0", "id":"1", "method": "Player.Open","params":{"item":{"channelid":%s}}}' % url)
         xbmc.executeJSONRPC(command)
@@ -226,7 +235,7 @@ def play(url, windowed, name=None):
     if url.lower().startswith('dsf'):
         if playDSF(url, windowed):
             wait(maxIdle)
-        return
+            return
 
     dixie.SetSetting('streamURL', url)
  
@@ -278,34 +287,31 @@ def checkForAlternateStreaming(url):
 
     if 'plugin.video.notfilmon' in url:
         return alternateStream(url)
-        
-    if 'plugin.video.itv' in url:        
-        return alternateStream(url)
+
+    # if 'plugin.video.itv' in url:
+    #     return alternateStream(url)
         
     if 'plugin.video.iplayerwww' in url:
         return alternateStream(url)
-        
-    # if 'plugin.video.uktvfrance' in url:
-    #     return alternateStream(url)
-        
+
     if 'plugin.video.muzu.tv' in url:        
         return alternateStream(url)
-        
+
     if 'plugin.audio.ramfm' in url:        
         return alternateStream(url)
-        
+
     if 'plugin.video.movie25' in url:
         return alternateStream(url)
-        
+
     if 'plugin.video.irishtv' in url:
         return alternateStream(url)
-        
+
     if 'plugin.video.F.T.V' in url:        
         return alternateStream(url)
 
     if 'plugin.video.sportsaholic' in url:        
         return alternateStream(url)
-        
+
     if 'plugin.video.navi-x' in url:        
         return alternateStream(url)
 
@@ -324,8 +330,8 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.stalker' in url:
         return alternateStream(url)
 
-    if 'plugin.video.stealthplus' in url:
-        return alternateStream(url)
+    # if 'plugin.video.iptvsubs' in url:
+    #     return alternateStream(url)
 
     return False
 

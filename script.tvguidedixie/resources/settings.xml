@@ -5,13 +5,8 @@
         <setting id="streamURL"         label="streamURL"     type="text"   default="" visible="false" />
 		<setting id="username"          label="Username"      type="text"   default="" visible="true" />
 		<setting id="password"          label="Password"      type="text"   default="" visible="true" />
-        <setting id="dummy"             label="[COLOR orange][B]Click to verify your login details[/B][/COLOR]"    type="action"    option="close"    action="XBMC.RunScript(special://home/addons/script.tvguidedixie/verify.py)"/>
+        <setting id="dummy"             label="Click to - [COLOR orange][B]Verify your login details[/B][/COLOR]"    type="action"    option="close"    action="XBMC.RunScript(special://home/addons/script.tvguidedixie/verify.py)"/>
         <setting id="dixie.url"         label="30117" type="labelenum" values="All Channels|Other" default="All Channels" visible="false" />
-
-        <setting id="HOTKEY"            label="[COLOR orange][B]Click to program Mini-Guide Hot Key[/B][/COLOR]" type="action"       action="XBMC.RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)"/>
-        <setting id="dummy"             label="[COLOR orange][B]Click to reset Mini-Guide Hot Key[/B][/COLOR]"              type="action"       action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetHotkey.py)" />
-		
-        <setting label="" type="lsep" visible="false" />
 
  		<setting id="gmtfrom"           label="30124" type="labelenum"     default="GMT" values="GMT-12|GMT-11|GMT-10|GMT-9|GMT-8|GMT-7|GMT-6|GMT-5|GMT-4|GMT-3|GMT-2|GMT-1|GMT|GMT+1|GMT+2|GMT+3|GMT+4|GMT+5|GMT+6|GMT+7|GMT+8|GMT+9|GMT+10|GMT+11|GMT+12" visible="false" />
 		<setting id="dummy"             label="Download Default Logo Pack" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/logoDownloader.py)" visible="false" />
@@ -52,7 +47,7 @@
         <setting id="ignore.stream"         label="Always Offer To Choose Stream"         type="bool"   default="false" visible="true"/>
 		<setting id="playlist.type"         label="IPTV Playlist"                         type="enum"   default="URL" values="URL|File" visible="true"/>
 		<setting id="playlist.file"         label="File"                                  type="file"   visible="eq(-1,1)" />
-		<setting id="playlist.url"          label="URL"                                   type="text"   default="https://raw.githubusercontent.com/wajahtumho/wajahtumho/master/lists/kodi.txt" visible="eq(-2,0)"/>
+		<setting id="playlist.url"          label="URL"                                   type="text"   default="" visible="eq(-2,0)"/>
         <setting id="ftv.ini"               label="Choose Film-On UK TV Links"            type="labelenum" values="UK Links|Non-Geolocked UK Links" default="UK Links" visible="true" />
 		<setting id="local.ini"             label="Allow Enhanced Add-on Linking"         type="bool"   default="true" visible="false"/>
         <setting id="enable.osd"            label="30118"                                 type="bool"   default="true" enable="eq(2,false)" visible="false"/>
@@ -67,6 +62,17 @@
         <setting id="ustv.addon"            label="Choose USTV Catch Up Add-on"           type="labelenum" values="Hulu|Hulu-Beta|USTV VoD" default="USTV VoD" visible="false" />
     </category>
 
+    <category label="More Features">
+        <setting id="HOTKEY"            label="Click to - [COLOR orange][B]Set Mini-Guide Hot Key[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)"/>
+		<setting id="hot_key"           type="text" label="Programmed HotKey"    default="" visible="false"/>
+        <setting id="dummy"             label="Click to - [COLOR orange][B]Reset Mini-Guide Hot Key[/B][/COLOR]"   type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetHotkey.py)" />
+
+        <setting label=""               type="lsep" visible="true" />
+
+        <setting id="FSHOTKEY"          label="Click to - [COLOR orange][B]Set Full-Screen Hot Key[/B][/COLOR] (picture-in-picture)" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/FSkeyProgrammer.py)"/>
+        <setting id="dummy"             label="Click to - [COLOR orange][B]Reset Full-Screen Hot Key[/B][/COLOR]"                        type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/resetFSHotkey.py)" />
+    </category>
+
     <category label="30122">
         <setting id="dummy" label="30129" type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/backup.py)"  visible="true"/>
         <setting id="dummy" label="30130" type="action" option="close" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/restore.py)" visible="true"/>
@@ -74,7 +80,7 @@
 
     <category label="30125">
  		<setting id="DEBUG" label="[B]Enable OTT Debug Mode[/B]" type="bool" default="true"/>
- 		<setting id="dummy" label="[COLOR orange][B]Click to upload log[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)" option="close" />
+ 		<setting id="dummy" label="Click to - [COLOR orange][B]Upload log[/B][/COLOR]" type="action" action="XBMC.RunScript(special://home/addons/script.tvguidedixie/uploadLog.py)" option="close" />
  		<setting type="lsep" label="Add an email to receive a link to your log"/>
  		<setting id="email" type="text" label="Email address"/>
 	    <setting id="skip_oldlog" type="bool" label="Always skip Kodi.old.log (log from previous run)" default="true" visible="true"/>

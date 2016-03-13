@@ -91,9 +91,9 @@ class StreamAddonDialog(xbmcgui.WindowXMLDialog):
                     icon = os.path.join(dixie.RESOURCES, 'iptv-playlist.png')
                     name = ''
 
-                elif id == 'xbmc.pvr':
+                elif id == 'script.on-tapp.tv':
                     icon = os.path.join(dixie.RESOURCES, 'kodi-pvr.png')
-                    name = 'PVR'
+                    name = ''
 
                 else:
                     addon = xbmcaddon.Addon(id)

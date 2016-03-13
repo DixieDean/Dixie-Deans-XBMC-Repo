@@ -109,17 +109,19 @@ class StreamsService(object):
                 
         if iptv_type == IPTV_FILE:
             path = os.path.join(dixie.GetSetting('playlist.file'))
-
         else:
             url  = dixie.GetSetting('playlist.url')
             path = os.path.join(datapath, 'playlist.m3u')
-            
+
             try:
-                request  = requests.get(url)
-                playlist = request.content
-            
-                with open(path, 'wb') as f:
-                    f.write(playlist)
+                if url == '':
+                    path = os.path.join(datapath, 'playlist.m3u')
+                else:
+                    request  = requests.get(url)
+                    playlist = request.content
+
+                    with open(path, 'wb') as f:
+                        f.write(playlist)
             except: pass
 
         if os.path.exists(path):
@@ -133,10 +135,11 @@ class StreamsService(object):
         
                 elif line.startswith('rtmp') or line.startswith('rtmpe') or line.startswith('rtsp') or line.startswith('http'):
                     value = line.replace('rtmp://$OPT:rtmp-raw=', '').replace('\n', '')
-        
+
                     entries.append((label, value))
 
-        return entries
+            entries.sort()
+            return entries
 
 
     def locateSuperFavourites(self, title):
@@ -259,21 +262,6 @@ class StreamsService(object):
                 if (channel.title in label) or (label in channel.title):
                     matches.append((id, label, stream))
 
-
-        # Get entries from PVRchannels with channel name    
-        import pvr
-        PVRchannels = pvr.getPVRChannels()
-        
-        if PVRchannels:
-            id = 'xbmc.pvr'
-            
-            for (label, stream) in PVRchannels:
-                label = label.upper()
-                channel.title = channel.title.upper()
-
-                if (channel.title in label) or (label in channel.title):
-                    matches.append((id, label, stream))
-        
 
         if len(matches) == 1:
             return matches[0][2]

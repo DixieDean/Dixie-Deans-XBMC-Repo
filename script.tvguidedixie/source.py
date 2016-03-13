@@ -1244,7 +1244,7 @@ class DIXIESource(Source):
         return
 
 
-    def getCategories(self):        
+    def getCategories(self):
         cat  = dict()
         path = os.path.join(datapath, 'cats.xml')
         try:

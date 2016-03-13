@@ -23,20 +23,20 @@ import os
 
 import sfile
 import dixie
+import settings
 
 ottv     = xbmcaddon.Addon('script.on-tapp.tv')
 ottdata  = xbmc.translatePath(ottv.getAddonInfo('profile'))
 epgdata  = dixie.PROFILE
-settings = xbmc.translatePath('special://profile/settings.bak')
 hotkey   = xbmc.translatePath('special://profile/keymaps/ottv_hot.xml')
 
+settingsFile = xbmc.translatePath(os.path.join(dixie.PROFILE, 'settings.cfg'))
 
 def resetAddon():
     deleteFiles()
     dixie.SetSetting('epg.date', '2000-01-01')
-    dixie.SetSetting('logo.type', '0')
-    dixie.SetSetting('dixie.logo.folder', 'None')
-    
+    settings.set('ChannelsUpdated', 0, settingsFile)
+
     if dixie.isDSF():
         ottv.setSetting('SKIN', 'OTT-Skin')
         dixie.SetSetting('dixie.skin', 'EPG-Skin')
@@ -49,11 +49,10 @@ def deleteFiles():
     try:
         sfile.rmtree(ottdata)
         sfile.rmtree(epgdata)
-        sfile.remove(settings)
         sfile.remove(hotkey)
-                
+
         dixie.DialogOK('On-Tapp.TV successfully reset.', 'It will be recreated next time', 'you start the guide.')
-        
+
     except Exception, e:
         error = str(e)
         dixie.log('%s :: Error resetting OTTV' % error)

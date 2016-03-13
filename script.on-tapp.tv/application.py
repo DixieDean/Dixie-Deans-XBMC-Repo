@@ -113,9 +113,11 @@ class Application(xbmcgui.WindowXML):
 
     def onInit(self):
         if (not self.rss) and (DSF) and (utils.DSFVER > '1.0.3'):
-            winID    = xbmcgui.getCurrentWindowId()
-            self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
-            self.updateDisplay()
+            try:
+                winID    = xbmcgui.getCurrentWindowId()
+                self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
+                self.updateDisplay()
+            except: pass
 
         self.clearList()
 
@@ -288,10 +290,11 @@ class Application(xbmcgui.WindowXML):
             pass
 
     def updateDisplay(self):
-        self.rss.update()
         self.updateVPN()
         self.updateAdult()
-        
+        try:
+            self.rss.update()
+        except: pass
 
     def openSettings(self, addonID):
         functionality.ShowSettings(addonID)

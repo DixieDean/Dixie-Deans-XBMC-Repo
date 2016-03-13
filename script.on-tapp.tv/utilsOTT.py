@@ -310,6 +310,8 @@ def doBackup():
 
 
 def downloadDefaults(url):
+    DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now install some needed files.', 'This may take a few minutes, so please be patient.')
+
     import download
     import extract
 
@@ -350,12 +352,12 @@ def downloadDefaults(url):
     
     Addon.setSetting('dixie.skin', 'FXB v4.0')
     setSetting('SKIN', 'FXB78')
-    
-    if DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
-        xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py)')
-    
+
     installSFPlugin()
-    
+
+    # if DialogYesNo('Would you like to assign a button ', 'on your remote control or keybord', 'to activate the On-Tapp.TV Mini-Guide?'):
+    #     xbmc.executebuiltin('RunScript(special://home/addons/script.tvguidedixie/keyProgrammer.py), True')
+
     setSetting('FIRSTRUN', 'true')
 
 

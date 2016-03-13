@@ -187,13 +187,13 @@ msgid "Click to - Restore Channels."
 msgstr ""
 
 msgctxt "#30132"
-msgid "Click to - Fully Reset On-Tapp.TV. ALL settings will be lost inc. user/pass."
+msgid "Click to - Fully Reset On-Tapp.TV."
 msgstr ""
 
 #empty strings from id 30133 to 30149
 
 msgctxt "#30150"
-msgid "ERROR -  Possible unicode text error."
+msgid "ERROR - Loading TV listings"
 msgstr ""
 
 msgctxt "#30151"
@@ -201,7 +201,7 @@ msgid "There was a problem loading the listings."
 msgstr ""
 
 msgctxt "#30152"
-msgid "Please contact support."
+msgid "On-Tapp.TV will now close while we try to fix the error."
 msgstr ""
 
 msgctxt "#30153"
@@ -217,7 +217,7 @@ msgid "version of the TV Guide skin that is not up-to-date."
 msgstr ""
 
 msgctxt "#30156"
-msgid "Please try with a different skin..."
+msgid "Please try with a different On-Tapp skin..."
 msgstr ""
 
 msgctxt "#30157"
@@ -233,7 +233,7 @@ msgid "Channel configuration, etc. is unfortunately lost."
 msgstr ""
 
 msgctxt "#30160"
-msgid "Please check your account or the Add-on settings."
+msgid "If this error repeats, contact our forum for support."
 msgstr ""
 
 #empty strings from id 30160 to 30199
@@ -398,7 +398,7 @@ msgid "Browse..."
 msgstr ""
 
 msgctxt "#30611"
-msgid "Click Browse... below and navigate to your stream file. When you have chosen your file you can preview the stream to test if it works in XBMC."
+msgid "Click Browse... below and navigate to your stream file."
 msgstr ""
 
 #empty strings from id 30612 to 30619
@@ -413,13 +413,13 @@ msgstr ""
 
 
 msgctxt "#30622"
-msgid "Click Browse... below and navigate to your Super Favourite. When you have chosen it you can preview the stream to test if it works in On-Tapp."
+msgid "Click Browse... below and navigate to your Super Favourite."
 msgstr ""
 
 #empty strings from id 30623 to 30699
 
 msgctxt "#30700"
-msgid "Multiple addons provide this channels.[CR]Choose one to watch the stream."
+msgid "Multiple sources provide this channels.[CR]Choose one to watch the stream."
 msgstr ""
 
 #empty strings from id 30701 to 30799

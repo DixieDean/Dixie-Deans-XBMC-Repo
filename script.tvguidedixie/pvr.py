@@ -2,92 +2,104 @@
 
 import sys
 
-l1lll11ll = sys.version_info [0] == 2
-l11ll1l1 = 2048
-l1111111 = 7
+l1l1ll1 = sys.version_info [0] == 2
+l1ll1 = 2048
+l11l = 7
 
-def l1ll11 (l1l1l1l):
-	global l11ll1ll
+def l11111 (ll):
+	global l1ll1l
 	
-	l111lll1 = ord (l1l1l1l [-1])
-	l1lll1lll = l1l1l1l [:-1]
+	l111ll = ord (ll [-1])
+	l1llll = ll [:-1]
 	
-	l1l1ll1l = l111lll1 % len (l1lll1lll)
-	l1l1111 = l1lll1lll [:l1l1ll1l] + l1lll1lll [l1l1ll1l:]
+	l1 = l111ll % len (l1llll)
+	l1111ll = l1llll [:l1] + l1llll [l1:]
 		
-	if l1lll11ll:
-		l11l1l = unicode () .join ([unichr (ord (char) - l11ll1l1 - (l1lll1 + l111lll1) % l1111111) for l1lll1, char in enumerate (l1l1111)])
+	if l1l1ll1:
+		l1l1ll = unicode () .join ([unichr (ord (char) - l1ll1 - (l11ll + l111ll) % l11l) for l11ll, char in enumerate (l1111ll)])
 	else:
-		l11l1l = str () .join ([chr (ord (char) - l11ll1l1 - (l1lll1 + l111lll1) % l1111111) for l1lll1, char in enumerate (l1l1111)])
+		l1l1ll = str () .join ([chr (ord (char) - l1ll1 - (l11ll + l111ll) % l11l) for l11ll, char in enumerate (l1111ll)])
 		
-	return eval (l11l1l)
+	return eval (l1l1ll)
 
 
 
 
 import xbmc
 import json
+import os
+
 import dixie
 
-def getPVRChannels():
+
+def createPVRINI():
     if not dixie.PVRACTIVE:
         return
+
+    l1ll = dixie.PROFILE
+    path = os.path.join(l1ll, l11111 (u"࠭ࡩ࡯࡫ࠪࢀ"))
+    l11  = os.path.join(path, l11111 (u"ࠧࡱࡸࡵ࠲࡮ࡴࡩࠨࢁ"))
+
+    l1l1l1ll1  = _getPVRChannels(l11111 (u"ࠨࠤࡷࡺࠧ࠭ࢂ"))
+    l1l1ll111 = l1l1l1ll1[l11111 (u"ࠩࡵࡩࡸࡻ࡬ࡵࠩࢃ")]
+
+    l1l1ll11l  = _getPVRChannels(l11111 (u"ࠪࠦࡷࡧࡤࡪࡱࠥࠫࢄ"))
+    l1l1l1l1l = l1l1ll11l[l11111 (u"ࠫࡷ࡫ࡳࡶ࡮ࡷࠫࢅ")]
+
+    l1l1ll1l1  = l1l1ll111[l11111 (u"ࠬࡩࡨࡢࡰࡱࡩࡱࡹࠧࢆ")]
+    l1l1lll11  = l1l1l1l1l[l11111 (u"࠭ࡣࡩࡣࡱࡲࡪࡲࡳࠨࢇ")]
+
+    l11ll1  = file(l11, l11111 (u"ࠧࡸࠩ࢈"))
     
-    l1lll1l11l = list()
-    try:
-        l1lll1l111  = _1lll1lll1(l1ll11 (u"ࠫࠧࡺࡶࠣࠩࣼ"))
-        l1lll1l1l1 = l1lll1l111[l1ll11 (u"ࠬࡸࡥࡴࡷ࡯ࡸࠬࣽ")]
+    l11ll1.write(l11111 (u"ࠨ࡝ࡶࡧࡷ࡯ࡰࡵ࠰ࡲࡲ࠲ࡺࡡࡱࡲ࠱ࡸࡻࡣ࡜࡯ࠩࢉ"))
 
-        l1lll1ll11  = l1lll1l1l1[l1ll11 (u"࠭ࡣࡩࡣࡱࡲࡪࡲࡳࠨࣾ")]
+    for l11llll in l1l1ll1l1:
+        l1l11  = l11llll[l11111 (u"ࠩ࡯ࡥࡧ࡫࡬ࠨࢊ")]
+        stream = l11111 (u"ࠪࠩࡸ࠭ࢋ") % l11llll[l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡮ࡪࠧࢌ")]
 
-        for l1l1l1ll1 in l1lll1ll11:
-            l1l1l1lll  = l1l1l1ll1[l1ll11 (u"ࠧ࡭ࡣࡥࡩࡱ࠭ࣿ")]
-            stream = l1ll11 (u"ࠨࠧࡶࠫऀ") % l1l1l1ll1[l1ll11 (u"ࠩࡦ࡬ࡦࡴ࡮ࡦ࡮࡬ࡨࠬँ")]
+        l11ll1.write(l11111 (u"ࠬࠫࡳࠨࢍ") % l1l11)
+        l11ll1.write(l11111 (u"࠭࠽ࠨࢎ"))
+        l11ll1.write(l11111 (u"ࠧࠦࡵࠪ࢏") % stream)
+        l11ll1.write(l11111 (u"ࠨ࡞ࡱࠫ࢐"))
 
-            l1lll1l11l.append((l1l1l1lll, stream))
-    except: pass
+    for l11llll in l1l1lll11:
+        l1l11  = l11llll[l11111 (u"ࠩ࡯ࡥࡧ࡫࡬ࠨ࢑")]
+        stream = l11111 (u"ࠪࠩࡸ࠭࢒") % l11llll[l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡮ࡪࠧ࢓")]
 
-    try:
-        l1lll1l1ll  = _1lll1lll1(l1ll11 (u"ࠪࠦࡷࡧࡤࡪࡱࠥࠫं"))
-        l1lll11lll = l1lll1l1ll[l1ll11 (u"ࠫࡷ࡫ࡳࡶ࡮ࡷࠫः")]
+        l11ll1.write(l11111 (u"ࠬࠫࡳࠨ࢔") % l1l11)
+        l11ll1.write(l11111 (u"࠭࠽ࠨ࢕"))
+        l11ll1.write(l11111 (u"ࠧࠦࡵࠪ࢖") % stream)
+        l11ll1.write(l11111 (u"ࠨ࡞ࡱࠫࢗ"))
 
-        l1llll1111  = l1lll11lll[l1ll11 (u"ࠬࡩࡨࡢࡰࡱࡩࡱࡹࠧऄ")]
-
-        for l1l1l1ll1 in l1llll1111:
-            l1l1l1lll  = l1l1l1ll1[l1ll11 (u"࠭࡬ࡢࡤࡨࡰࠬअ")]
-            stream = l1ll11 (u"ࠧࠦࡵࠪआ") % l1l1l1ll1[l1ll11 (u"ࠨࡥ࡫ࡥࡳࡴࡥ࡭࡫ࡧࠫइ")]
-            
-            l1lll1l11l.append((l1l1l1lll, stream))
-    except: pass
-
-    return l1lll1l11l
+    l11ll1.write(l11111 (u"ࠩ࡟ࡲࠬ࢘"))
+    l11ll1.close()
 
 
-def _1lll1lll1(group):
-    method   = l1ll11 (u"ࠩࡓ࡚ࡗ࠴ࡇࡦࡶࡆ࡬ࡦࡴ࡮ࡦ࡮ࡶࠫई")
-    params   = l1ll11 (u"ࠪࡧ࡭ࡧ࡮࡯ࡧ࡯࡫ࡷࡵࡵࡱ࡫ࡧࠫउ")
-    l1lll1ll1l  =  l1lll1llll(group)
-    l1l111ll =  l1llll111l(method, params, l1lll1ll1l)
+def _getPVRChannels(group):
+    method   = l11111 (u"ࠪࡔ࡛ࡘ࠮ࡈࡧࡷࡇ࡭ࡧ࡮࡯ࡧ࡯ࡷ࢙ࠬ")
+    params   = l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡬ࡸ࡯ࡶࡲ࡬ࡨ࢚ࠬ")
+    l1l1ll1ll  =  getGroupID(group)
+    l1l11l =  sendJSON(method, params, l1l1ll1ll)
     
-    return l1l111ll
-        
-    
-def l1lll1llll(group):
-    method   = l1ll11 (u"ࠫࡕ࡜ࡒ࠯ࡉࡨࡸࡈ࡮ࡡ࡯ࡰࡨࡰࡌࡸ࡯ࡶࡲࡶࠫऊ")
-    params   = l1ll11 (u"ࠬࡩࡨࡢࡰࡱࡩࡱࡺࡹࡱࡧࠪऋ")
-    l1l111ll =  l1llll111l(method, params, group)
-    result   =  l1l111ll[l1ll11 (u"࠭ࡲࡦࡵࡸࡰࡹ࠭ऌ")]
-    groups   =  result[l1ll11 (u"ࠧࡤࡪࡤࡲࡳ࡫࡬ࡨࡴࡲࡹࡵࡹࠧऍ")]
+    return l1l11l
+
+
+def getGroupID(group):
+    method   = l11111 (u"ࠬࡖࡖࡓ࠰ࡊࡩࡹࡉࡨࡢࡰࡱࡩࡱࡍࡲࡰࡷࡳࡷ࢛ࠬ")
+    params   = l11111 (u"࠭ࡣࡩࡣࡱࡲࡪࡲࡴࡺࡲࡨࠫ࢜")
+    l1l11l =  sendJSON(method, params, group)
+    result   =  l1l11l[l11111 (u"ࠧࡳࡧࡶࡹࡱࡺࠧ࢝")]
+    groups   =  result[l11111 (u"ࠨࡥ࡫ࡥࡳࡴࡥ࡭ࡩࡵࡳࡺࡶࡳࠨ࢞")]
 
     for group in groups:
-        l1l1l1lll = group[l1ll11 (u"ࠨ࡮ࡤࡦࡪࡲࠧऎ")]
-        
-        if l1l1l1lll == l1ll11 (u"ࠩࡄࡰࡱࠦࡣࡩࡣࡱࡲࡪࡲࡳࠨए"):
-            return group[l1ll11 (u"ࠪࡧ࡭ࡧ࡮࡯ࡧ࡯࡫ࡷࡵࡵࡱ࡫ࡧࠫऐ")]
-    
-    
-def l1llll111l(method, params, value):
-    l1l1ll1ll  = (l1ll11 (u"ࠫࢀࠨࡪࡴࡱࡱࡶࡵࡩࠢ࠻ࠤ࠵࠲࠵ࠨࠬࠣ࡯ࡨࡸ࡭ࡵࡤࠣ࠼ࠥࠩࡸࠨࠬࠣࡲࡤࡶࡦࡳࡳࠣ࠼ࡾࠦࠪࡹࠢ࠻ࠧࡶࢁ࠱ࠦࠢࡪࡦࠥ࠾࠶ࢃࠧऑ") % (method, params, value))
-    l1l111ll = xbmc.executeJSONRPC(l1l1ll1ll)
-    
-    return json.loads(l1ll11 (u"ࡺࠨࠢऒ") + (l1l111ll.decode(l1ll11 (u"࠭ࡵࡵࡨ࠰࠼ࠬओ"), l1ll11 (u"ࠧࡪࡩࡱࡳࡷ࡫ࠧऔ"))))
+        l1l11 = group[l11111 (u"ࠩ࡯ࡥࡧ࡫࡬ࠨ࢟")]
+
+        if l1l11 == l11111 (u"ࠪࡅࡱࡲࠠࡤࡪࡤࡲࡳ࡫࡬ࡴࠩࢠ"):
+            return group[l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡬ࡸ࡯ࡶࡲ࡬ࡨࠬࢡ")]
+
+
+def sendJSON(method, params, value):
+    l1l1lll1l  = (l11111 (u"ࠬࢁࠢ࡫ࡵࡲࡲࡷࡶࡣࠣ࠼ࠥ࠶࠳࠶ࠢ࠭ࠤࡰࡩࡹ࡮࡯ࡥࠤ࠽ࠦࠪࡹࠢ࠭ࠤࡳࡥࡷࡧ࡭ࡴࠤ࠽ࡿࠧࠫࡳࠣ࠼ࠨࡷࢂ࠲ࠠࠣ࡫ࡧࠦ࠿࠷ࡽࠨࢢ") % (method, params, value))
+    l1l11l = xbmc.executeJSONRPC(l1l1lll1l)
+
+    return json.loads(l1l11l.decode(l11111 (u"࠭ࡵࡵࡨ࠰࠼ࠬࢣ"), l11111 (u"ࠧࡪࡩࡱࡳࡷ࡫ࠧࢤ")))

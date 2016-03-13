@@ -35,11 +35,11 @@ HOME    = utils.HOME
 PROFILE = utils.PROFILE
 
 AddonID = utils.AddonID
-Addon   = utils.Addon  
+Addon   = utils.Addon
 epghome = utils.epghome
 epgpath = utils.epgpath
-extras  = utils.extras 
-logos   = utils.logos  
+extras  = utils.extras
+logos   = utils.logos
 
 URL      = utils.getBaseURL() + 'ott-update.txt'
 FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
@@ -53,11 +53,10 @@ def checkUpdate():
     
     if not FIRSTRUN:
         BASEURL = utils.getBaseURL()
-        utils.DialogOK('Welcome to On-Tapp.TV 3.0', 'We will now install some needed files.', 'This may take a few minutes, so please be patient.')
         utils.doBackup()
         utils.downloadDefaults(BASEURL)
         return
-    
+
     response   = getResponse()
     ottskin    = response['OTTSkin']
     epgskin    = response['EPGSkin']
@@ -105,10 +104,10 @@ def checkUpdate():
         url     = utils.getBaseURL() + response['Logo Colour']
         path    = os.path.join(logos, 'Colour Logo Pack')
         zipfile = os.path.join(path,  'logo-colour-update.zip')
-        
+
         if not sfile.exists(path):
             sfile.makedirs(path)
-        
+
         utils.downloadLogos(url, path, zipfile)
         utils.setSetting('LOGOCOLOUR', curr)
 

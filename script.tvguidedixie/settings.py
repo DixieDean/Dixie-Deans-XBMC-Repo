@@ -47,10 +47,9 @@ def checkSettings():
 
 
 def backupSettings():
-    udata = xbmc.translatePath('special://profile/')
     path  = dixie.PROFILE
-    src   = os.path.join(path,  ORIGINAL)
-    dst   = os.path.join(udata, BACKUP)
+    src   = os.path.join(path, ORIGINAL)
+    dst   = os.path.join(path, BACKUP)
 
     try:
         sfile.remove(dst)
@@ -61,10 +60,9 @@ def backupSettings():
 
 
 def restoreSettings():
-    udata = xbmc.translatePath('special://profile/')
     path  = dixie.PROFILE
-    dst   = os.path.join(path,  ORIGINAL)
-    src   = os.path.join(udata, BACKUP)
+    dst   = os.path.join(path, ORIGINAL)
+    src   = os.path.join(path, BACKUP)
 
     if not sfile.exists(src):
         return backupSettings()

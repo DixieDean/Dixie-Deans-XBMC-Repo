@@ -156,14 +156,14 @@ def checkForUpdate(silent = 1):
     return True
 
 
-def allDone(silent, mins = 1 * 60 * 24): #24 hours
+def allDone(silent, mins = 1 * 60 * 48): #48 hours
     try:    setAlarm(mins)
     except: pass
 
     xbmcgui.Window(10000).clearProperty('OTT_UPDATING')
 
     # if not silent:
-    #     ADDON.openSettings() 
+    #     ADDON.openSettings()
 
 
 def setAlarm(mins):

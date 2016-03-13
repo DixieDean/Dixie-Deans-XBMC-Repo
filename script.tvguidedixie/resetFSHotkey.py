@@ -23,7 +23,7 @@ import os
 import dixie
 import sfile
 
-hotkey = xbmc.translatePath('special://profile/keymaps/zOTT_hotkey.xml')
+hotkey = xbmc.translatePath('special://profile/keymaps/zOTT_toggle.xml')
 
 
 def resetHotkey():
