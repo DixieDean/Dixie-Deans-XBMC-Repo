@@ -219,7 +219,6 @@ def play(url, windowed, name=None):
         stream = uktv.getURL(url)
         dixie.log(stream)
         playAndWait(stream, windowed, maxIdle)
-        print '++++++++___________++++++++++++++', stream
         return
 
     if url.isdigit():
@@ -235,10 +234,8 @@ def play(url, windowed, name=None):
     if url.lower().startswith('dsf'):
         if playDSF(url, windowed):
             wait(maxIdle)
-            return
+        return
 
-    dixie.SetSetting('streamURL', url)
- 
     if not checkForAlternateStreaming(url):
         playAndWait(url, windowed, maxIdle)
 
