@@ -932,12 +932,7 @@ class TVGuide(xbmcgui.WindowXML):
         if url:
             xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
             path = os.path.join(ADDON.getAddonInfo('path'), 'player.py')
-            if url.startswith('UKTV'):
-                self.removeHighlight()
-                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
-            else:
-                xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
-                # self.showBlackout()
+            xbmc.executebuiltin('XBMC.RunScript(%s,%s,%d,%s)' % (path, url, False, self.osdEnabled))
 
             if not wasPlaying:
                 self._hideEpg()
@@ -949,9 +944,9 @@ class TVGuide(xbmcgui.WindowXML):
 
 
     def record(self, program):
-        dixie.ShowBusy()                
+        dixie.ShowBusy()
         record = filmon.record(program.title, program.startDate, program.endDate, program.channel.streamUrl)
-        dixie.CloseBusy()                
+        dixie.CloseBusy()
         return record <> False
 
 

@@ -48,6 +48,14 @@ def getIni():
     except: pass
 
     try:
+        oldini = os.path.join(inipath, 'uktv.ini')
+        if os.path.exists(oldini):
+            os.remove(oldini)
+        import uktv
+        uktv.checkAddons()
+    except: pass
+
+    try:
         import pvr
         pvr.createPVRINI()
     except: pass
@@ -92,6 +100,5 @@ def ftvIni():
 
 if __name__ == '__main__':
     getIni()
-    dixie.DialogOK('Built-in Addon links updated.', 'Always manually update your channel links', 'via "Choose Stream" if they are not working.')
     ftvIni()
 

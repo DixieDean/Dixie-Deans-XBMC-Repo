@@ -122,14 +122,6 @@ def CheckForChannels():
         dixie.BackupChannels()
 
 
-def CheckIniVersion():
-    getIni.getIni()
-
-
-def CheckFilmOn():
-    getIni.ftvIni()
-
-
 def CheckForUpdate():
     if xbmcgui.Window(10000).getProperty('OTT_UPDATING') != 'True':
         import update
@@ -222,8 +214,6 @@ def main(doLogin=True):
             return
             
         CheckVersion()
-        CheckIniVersion()
-        CheckFilmOn()
         CheckForUpdate()
         CheckDSF()
         CheckForChannels()
@@ -264,7 +254,6 @@ xbmcgui.Window(10000).setProperty('OTT_NEXT_TIME',   '')
 
 #Initialise the window ID that was used to launch OTT (needed for SF functionality)
 xbmcgui.Window(10000).setProperty('OTT_LAUNCH_ID', str(xbmcgui.getCurrentWindowId()))
-
 
 main(kodi)
 

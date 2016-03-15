@@ -2,25 +2,25 @@
 
 import sys
 
-l1lllll11 = sys.version_info [0] == 2
-l1l11ll1l = 2048
-l111l11l = 7
+l1l1111l = sys.version_info [0] == 2
+l1llllll = 2048
+l1l1l111 = 7
 
-def l1l111lll (l1ll111):
-	global l1l111ll
+def l1l1l (l1l111):
+	global l11111l
 	
-	l11l1ll1 = ord (l1ll111 [-1])
-	l1111111 = l1ll111 [:-1]
+	l1ll1l1l = ord (l1l111 [-1])
+	l1l111l1 = l1l111 [:-1]
 	
-	l1ll11ll = l11l1ll1 % len (l1111111)
-	l1l11ll = l1111111 [:l1ll11ll] + l1111111 [l1ll11ll:]
+	l11lll1 = l1ll1l1l % len (l1l111l1)
+	l11l11 = l1l111l1 [:l11lll1] + l1l111l1 [l11lll1:]
 		
-	if l1lllll11:
-		l11ll1ll1 = unicode () .join ([unichr (ord (char) - l1l11ll1l - (l1l11111l + l11l1ll1) % l111l11l) for l1l11111l, char in enumerate (l1l11ll)])
+	if l1l1111l:
+		l1llll = unicode () .join ([unichr (ord (char) - l1llllll - (l1ll1 + l1ll1l1l) % l1l1l111) for l1ll1, char in enumerate (l11l11)])
 	else:
-		l11ll1ll1 = str () .join ([chr (ord (char) - l1l11ll1l - (l1l11111l + l11l1ll1) % l111l11l) for l1l11111l, char in enumerate (l1l11ll)])
+		l1llll = str () .join ([chr (ord (char) - l1llllll - (l1ll1 + l1ll1l1l) % l1l1l111) for l1ll1, char in enumerate (l11l11)])
 		
-	return eval (l11ll1ll1)
+	return eval (l1llll)
 
 
 
@@ -29,116 +29,145 @@ import xbmc
 import xbmcaddon
 import json
 import urllib
-import time
-import datetime
 import os
 
 import dixie
 
-PATH    = os.path.join(dixie.PROFILE, l1l111lll (u"ࠫࡺࡱࡴࡷࡡࡦ࡬ࡦࡴ࡮ࡦ࡮ࡶࠫू"))
-SETTING = l1l111lll (u"ࠬࡒࡏࡈࡋࡑࡣ࡚ࡑࡔࡗࠩृ")
+l1111l1l   = l1l1l (u"ࠧࡱ࡮ࡸ࡫࡮ࡴ࠮ࡷ࡫ࡧࡩࡴ࠴ࡵ࡬ࡶࡹࡪࡷࡧ࡮ࡤࡧࠪࡉ")
+l1lllll11   = l1l1l (u"ࠨࡲ࡯ࡹ࡬࡯࡮࠯ࡸ࡬ࡨࡪࡵ࠮ࡹࡶࡵࡩࡦࡳ࠭ࡤࡱࡧࡩࡸ࠭ࡊ")
+l11111ll = l1l1l (u"ࠩࡳࡰࡺ࡭ࡩ࡯࠰ࡹ࡭ࡩ࡫࡯࠯࡫ࡳࡸࡻࡹࡵࡣࡵࠪࡋ")
+l111l11l   = l1l1l (u"ࠪࡴࡱࡻࡧࡪࡰ࠱ࡺ࡮ࡪࡥࡰ࠰ࡧࡩࡽ࠭ࡌ")
+
+l1lll1111   =  [l1111l1l, l1lllll11, l11111ll, l111l11l]
 
 
-def getURL(url):
-    if dixie.validTime(SETTING, 60 * 60 * 24): 
-        l1l1l1l1 = json.load(open(PATH))
-        message = l1l111lll (u"࠭ࡌࡰࡩࡪ࡭ࡳ࡭ࠠࡪࡰࡷࡳࠥࡹࡥࡳࡸࡨࡶ࠳ࠦࡏ࡯ࡧࠣࡱࡴࡳࡥ࡯ࡶࠣࡴࡱ࡫ࡡࡴࡧ࠱ࠫॄ")
-        dixie.notify(message)
-    else:
-        l1l1l1l1 = l1ll111lll(url)
-        l1l1l1ll1(SETTING)
+def checkAddons():
+    for l1lll1ll1 in l1lll1111:
+        if l1llllll1(l1lll1ll1):
+            l1111111(l1lll1ll1)
 
-    stream = url.split(l1l111lll (u"ࠧ࠻ࠩॅ"), 1)[-1].lower()
+
+def l1llllll1(l1lll1ll1):
+    if xbmc.getCondVisibility(l1l1l (u"ࠫࡘࡿࡳࡵࡧࡰ࠲ࡍࡧࡳࡂࡦࡧࡳࡳ࠮ࠥࡴࠫࠪࡍ") % l1lll1ll1) == 1:
+        return True
+    return False
+
+
+def l1111111(l1lll1ll1):
+    l111ll11 = dixie.PROFILE
+    PATH = os.path.join(l111ll11, l1l1l (u"ࠬ࡯࡮ࡪࠩࡎ"))
+    l111ll1l = l11111l1(l1lll1ll1) + l1l1l (u"࠭࠮ࡪࡰ࡬ࠫࡏ")
+    l1lll11l1  = os.path.join(PATH, l111ll1l)
+
+    l1llll111 = l11l11l1(l1lll1ll1)
+    result   = l1llll111[l1l1l (u"ࠧࡳࡧࡶࡹࡱࡺࠧࡐ")]
+    l1lll1l1l = result[l1l1l (u"ࠨࡨ࡬ࡰࡪࡹࠧࡑ")]
     
+    l111llll  = file(l1lll11l1, l1l1l (u"ࠩࡺࠫࡒ"))
+
+    l111llll.write(l1l1l (u"ࠪ࡟ࠬࡓ"))
+    l111llll.write(l1lll1ll1)
+    l111llll.write(l1l1l (u"ࠫࡢ࠭ࡔ"))
+    l111llll.write(l1l1l (u"ࠬࡢ࡮ࠨࡕ"))
+
+    for l1lllllll in l1lll1l1l:
+        l111l1ll   = l1lllllll[l1l1l (u"࠭࡬ࡢࡤࡨࡰࠬࡖ")]
+        stream  = l1lllllll[l1l1l (u"ࠧࡧ࡫࡯ࡩࠬࡗ")]
+
+        l1llll1ll  = l111111l(l1lll1ll1, l111l1ll)
+        l1lllllll = l1llll11l(l1lll1ll1, l1llll1ll)
+
+        l111llll.write(l1l1l (u"ࠨࠧࡶࠫࡘ") % l1lllllll)
+        l111llll.write(l1l1l (u"ࠩࡀ࡙ࠫ"))
+        l111llll.write(l1l1l (u"ࠪࠩࡸ࡚࠭") % stream)
+        l111llll.write(l1l1l (u"ࠫࡡࡴ࡛ࠧ"))
+
+    l111llll.write(l1l1l (u"ࠬࡢ࡮ࠨ࡜"))
+    l111llll.close()
+
+
+def l11111l1(l1lll1ll1):
+    if l1lll1ll1 == l1111l1l:
+        return l1l1l (u"࠭ࡵ࡬ࡶࡹࡪࡷࡧ࡮ࡤࡧࠪ࡝")
+
+    if l1lll1ll1 == l1lllll11:
+        return l1l1l (u"ࠧࡹࡶࡵࡩࡦࡳ࠭ࡤࡱࡧࡩࡸ࠭࡞")
+
+    if l1lll1ll1 == l11111ll:
+        return l1l1l (u"ࠨ࡫ࡳࡸࡻࡹࡵࡣࡵࠪ࡟")
+
+    if l1lll1ll1 == l111l11l:
+        return l1l1l (u"ࠩࡧࡩࡽ࠭ࡠ")
+
+
+def l11l11l1(l1lll1ll1):
+    Addon    =  xbmcaddon.Addon(l1lll1ll1)
+    l1lllll1l =  Addon.getSetting(l1l1l (u"ࠪ࡯ࡦࡹࡵࡵࡣ࡭ࡥࡳ࡯࡭ࡪࠩࡡ"))
+    password =  Addon.getSetting(l1l1l (u"ࠫࡸࡧ࡬ࡢࡵࡲࡲࡦ࠭ࡢ"))
+
+    l1lll11ll   = l1l1l (u"ࠬࡶ࡬ࡶࡩ࡬ࡲ࠿࠵࠯ࠨࡣ") + l1lll1ll1
+    l1lll1l11     = l1l1l (u"࠭࠯ࡀࡣࡦࡸ࡮ࡵ࡮࠾ࡵࡷࡶࡪࡧ࡭ࡠࡸ࡬ࡨࡪࡵࠦࡦࡺࡷࡶࡦࠬࡰࡢࡩࡨࠪࡵࡲ࡯ࡵࠨࡷ࡬ࡺࡳࡢ࡯ࡣ࡬ࡰࡂࠬࡴࡪࡶ࡯ࡩࡂࡇ࡬࡭ࠨࡸࡶࡱࡃࠧࡤ")
+    l1111l11  =  l11l111l(l1lll1ll1)
+
+    l1llll1l1  =  l1lll11ll + l1lll1l11 + l1111l11
+
+    l11l1111 = l1l1l (u"ࠧࡶࡵࡨࡶࡳࡧ࡭ࡦ࠿ࠪࡥ") + l1lllll1l + l1l1l (u"ࠨࠨࡳࡥࡸࡹࡷࡰࡴࡧࡁࠬࡦ") + password + l1l1l (u"ࠩࠩࡸࡾࡶࡥ࠾ࡩࡨࡸࡤࡲࡩࡷࡧࡢࡷࡹࡸࡥࡢ࡯ࡶࠪࡨࡧࡴࡠ࡫ࡧࡁ࠵࠭ࡧ")
+
+    l1lll111l = l1lll11ll  + l1l1l (u"ࠪ࠳ࡄࡧࡣࡵ࡫ࡲࡲࡂࡹࡥࡤࡷࡵ࡭ࡹࡿ࡟ࡤࡪࡨࡧࡰࠬࡥࡹࡶࡵࡥࠫࡶࡡࡨࡧࠩࡴࡱࡵࡴࠧࡶ࡫ࡹࡲࡨ࡮ࡢ࡫࡯ࠪࡹ࡯ࡴ࡭ࡧࡀࡐ࡮ࡼࡥࠦ࠴࠳ࡘ࡛ࠬࡵࡳ࡮ࠪࡨ")
+    query = l1llll1l1 +  urllib.quote_plus(l11l1111)
+
+    l111l1l1 = (l1l1l (u"ࠫࢀࠨࡪࡴࡱࡱࡶࡵࡩࠢ࠻ࠤ࠵࠲࠵ࠨࠬࠡࠤࡰࡩࡹ࡮࡯ࡥࠤ࠽ࠦࡋ࡯࡬ࡦࡵ࠱ࡋࡪࡺࡄࡪࡴࡨࡧࡹࡵࡲࡺࠤ࠯ࠤࠧࡶࡡࡳࡣࡰࡷࠧࡀࡻࠣࡦ࡬ࡶࡪࡩࡴࡰࡴࡼࠦ࠿ࠨࠥࡴࠤࢀ࠰ࠥࠨࡩࡥࠤ࠽ࠤ࠶ࢃࠧࡩ") % l1lll111l)
+    l111lll1 = (l1l1l (u"ࠬࢁࠢ࡫ࡵࡲࡲࡷࡶࡣࠣ࠼ࠥ࠶࠳࠶ࠢ࠭ࠢࠥࡱࡪࡺࡨࡰࡦࠥ࠾ࠧࡌࡩ࡭ࡧࡶ࠲ࡌ࡫ࡴࡅ࡫ࡵࡩࡨࡺ࡯ࡳࡻࠥ࠰ࠥࠨࡰࡢࡴࡤࡱࡸࠨ࠺ࡼࠤࡧ࡭ࡷ࡫ࡣࡵࡱࡵࡽࠧࡀࠢࠦࡵࠥࢁ࠱ࠦࠢࡪࡦࠥ࠾ࠥ࠷ࡽࠨࡪ") % query)
+
+
     try:
-        result = l1l1l1l1[l1l111lll (u"ࠨࡴࡨࡷࡺࡲࡴࠨॆ")]
-        l11l11l1  = result[l1l111lll (u"ࠩࡩ࡭ࡱ࡫ࡳࠨे")]
-    except Exception as e:
-        l1l1ll111(e)
-        return None
-
-    for file in l11l11l1:
-        l1l11llll   = file[l1l111lll (u"ࠪࡰࡦࡨࡥ࡭ࠩै")]
-        l1l11llll   = l1l11llll.replace(l1l111lll (u"ࠫࠥࠦࠧॉ"), l1l111lll (u"ࠬࠦࠧॊ")).replace(l1l111lll (u"࠭ࠠ࡜࠱ࡆࡓࡑࡕࡒ࡞ࠩो"), l1l111lll (u"ࠧ࡜࠱ࡆࡓࡑࡕࡒ࡞ࠩौ"))
-        l1l1l1l1l = l1l11llll.rsplit(l1l111lll (u"ࠨ࡝࠲ࡇࡔࡒࡏࡓ࡟्ࠪ"), 1)[0].split(l1l111lll (u"ࠩ࡞ࡇࡔࡒࡏࡓࠢࡺ࡬࡮ࡺࡥ࡞ࠩॎ"), 1)[-1]
-
-        if stream == l1l1l1l1l.lower():
-            return file[l1l111lll (u"ࠪࡪ࡮ࡲࡥࠨॏ")]
-
-    return None
-
-
-def l1ll111lll(url):
-    l1l1ll11l = l1l1l1lll(url)
-    Addon   = xbmcaddon.Addon(l1l1ll11l)
-
-    username =  Addon.getSetting('kasutajanimi')
-    password =  Addon.getSetting('salasona')
-
-    l1ll111l1l   = l1l111lll (u"࠭ࡰ࡭ࡷࡪ࡭ࡳࡀ࠯࠰॒ࠩ") + l1l1ll11l
-    l1ll11111l     = l1l111lll (u"ࠧ࠰ࡁࡤࡧࡹ࡯࡯࡯࠿ࡶࡸࡷ࡫ࡡ࡮ࡡࡹ࡭ࡩ࡫࡯ࠧࡧࡻࡸࡷࡧࠦࡱࡣࡪࡩࠫࡶ࡬ࡰࡶࠩࡸ࡭ࡻ࡭ࡣࡰࡤ࡭ࡱࡃࠦࡵ࡫ࡷࡰࡪࡃࡁ࡭࡮ࠩࡹࡷࡲ࠽ࠨ॓")
-    l1ll111l11  =  l1ll11l111(url)
-
-    l1l11111  =  l1ll111l1l + l1ll11111l + l1ll111l11
-
-    l1ll111ll1 = l1l111lll (u"ࠨࡷࡶࡩࡷࡴࡡ࡮ࡧࡀࠫ॔") + username + l1l111lll (u"ࠩࠩࡴࡦࡹࡳࡸࡱࡵࡨࡂ࠭ॕ") + password + l1l111lll (u"ࠪࠪࡹࡿࡰࡦ࠿ࡪࡩࡹࡥ࡬ࡪࡸࡨࡣࡸࡺࡲࡦࡣࡰࡷࠫࡩࡡࡵࡡ࡬ࡨࡂ࠶ࠧॖ")
-
-    l1lll1l1 = l1ll111l1l  + l1l111lll (u"ࠫ࠴ࡅࡡࡤࡶ࡬ࡳࡳࡃࡳࡦࡥࡸࡶ࡮ࡺࡹࡠࡥ࡫ࡩࡨࡱࠦࡦࡺࡷࡶࡦࠬࡰࡢࡩࡨࠪࡵࡲ࡯ࡵࠨࡷ࡬ࡺࡳࡢ࡯ࡣ࡬ࡰࠫࡺࡩࡵ࡮ࡨࡁࡑ࡯ࡶࡦࠧ࠵࠴࡙࡜ࠦࡶࡴ࡯ࠫॗ")
-    query = l1l11111 +  urllib.quote_plus(l1ll111ll1)
-
-    l1ll1111l1 = (l1l111lll (u"ࠬࢁࠢ࡫ࡵࡲࡲࡷࡶࡣࠣ࠼ࠥ࠶࠳࠶ࠢ࠭ࠢࠥࡱࡪࡺࡨࡰࡦࠥ࠾ࠧࡌࡩ࡭ࡧࡶ࠲ࡌ࡫ࡴࡅ࡫ࡵࡩࡨࡺ࡯ࡳࡻࠥ࠰ࠥࠨࡰࡢࡴࡤࡱࡸࠨ࠺ࡼࠤࡧ࡭ࡷ࡫ࡣࡵࡱࡵࡽࠧࡀࠢࠦࡵࠥࢁ࠱ࠦࠢࡪࡦࠥ࠾ࠥ࠷ࡽࠨक़") % l1lll1l1)
-    l1ll1111ll = (l1l111lll (u"࠭ࡻࠣ࡬ࡶࡳࡳࡸࡰࡤࠤ࠽ࠦ࠷࠴࠰ࠣ࠮ࠣࠦࡲ࡫ࡴࡩࡱࡧࠦ࠿ࠨࡆࡪ࡮ࡨࡷ࠳ࡍࡥࡵࡆ࡬ࡶࡪࡩࡴࡰࡴࡼࠦ࠱ࠦࠢࡱࡣࡵࡥࡲࡹࠢ࠻ࡽࠥࡨ࡮ࡸࡥࡤࡶࡲࡶࡾࠨ࠺ࠣࠧࡶࠦࢂ࠲ࠠࠣ࡫ࡧࠦ࠿ࠦ࠱ࡾࠩख़") % query)
-
-
-    try:
-        message = l1l111lll (u"ࠧࡍࡱࡪ࡫࡮ࡴࡧࠡ࡫ࡱࡸࡴࠦࡳࡦࡴࡹࡩࡷ࠴ࠠࡐࡰࡨࠤࡲࡵ࡭ࡦࡰࡷࠤࡵࡲࡥࡢࡵࡨ࠲ࠬग़")
-        dixie.notify(message)
-        dixie.ShowBusy()
-        xbmc.executeJSONRPC(l1ll1111l1)
-        l1l1l1l1 = xbmc.executeJSONRPC(l1ll1111ll)
-
-        dixie.CloseBusy()
-
-        content = json.loads(l1l1l1l1)
-
-        json.dump(content, open(PATH,l1l111lll (u"ࠨࡹࠪज़")))
+        xbmc.executeJSONRPC(l111l1l1)
+        l1llll111 = xbmc.executeJSONRPC(l111lll1)
+        content = json.loads(l1llll111.decode(l1l1l (u"࠭ࡵࡵࡨ࠰࠼ࠬ࡫"), l1l1l (u"ࠧࡪࡩࡱࡳࡷ࡫ࠧ࡬")))
 
         return content
 
     except Exception as e:
-        l1l1ll111(e)
-        return {l1l111lll (u"ࠩࡈࡶࡷࡵࡲࠨड़") : l1l111lll (u"ࠪࡔࡱࡻࡧࡪࡰࠣࡉࡷࡸ࡯ࡳࠩढ़")}
+        l1lll1lll(e)
+        return {l1l1l (u"ࠨࡇࡵࡶࡴࡸࠧ࡭") : l1l1l (u"ࠩࡓࡰࡺ࡭ࡩ࡯ࠢࡈࡶࡷࡵࡲࠨ࡮")}
 
 
-def l1l1l1lll(url):
-    if url.startswith(l1l111lll (u"࡚ࠫࡑࡔࡗ࠼ࠪफ़")):
-        return l1l111lll (u"ࠬࡶ࡬ࡶࡩ࡬ࡲ࠳ࡼࡩࡥࡧࡲ࠲ࡺࡱࡴࡷࡨࡵࡥࡳࡩࡥࠨय़")
+def l111111l(l1lll1ll1, l111l1ll):
+    if (l1lll1ll1 == l1111l1l) or (l1lll1ll1 == l1lllll11) or (l1lll1ll1 == l11111ll):
+        l111l1ll = l111l1ll.replace(l1l1l (u"ࠪࠤࠥ࠭࡯"), l1l1l (u"ࠫࠥ࠭ࡰ")).replace(l1l1l (u"࡛ࠬࠦ࠰ࡅࡒࡐࡔࡘ࡝ࠨࡱ"), l1l1l (u"࡛࠭࠰ࡅࡒࡐࡔࡘ࡝ࠨࡲ"))
+        return l111l1ll
 
-    if url.startswith(l1l111lll (u"࠭ࡕࡌࡖ࡙࠶࠿࠭ॠ")):
-        return l1l111lll (u"ࠧࡱ࡮ࡸ࡫࡮ࡴ࠮ࡷ࡫ࡧࡩࡴ࠴ࡸࡵࡴࡨࡥࡲ࠳ࡣࡰࡦࡨࡷࠬॡ")
-
-    if url.startswith(l1l111lll (u"ࠨࡗࡎࡘ࡛࠹࠺ࠨॢ")):
-        return l1l111lll (u"ࠩࡳࡰࡺ࡭ࡩ࡯࠰ࡹ࡭ࡩ࡫࡯࠯࡫ࡳࡸࡻࡹࡵࡣࡵࠪॣ")
-
-
-def l1ll11l111(url):
-    if (url.startswith(l1l111lll (u"࡙ࠪࡐ࡚ࡖ࠻ࠩ।"))) or (url.startswith(l1l111lll (u"࡚ࠫࡑࡔࡗ࠴࠽ࠫ॥"))):
-        return l1l111lll (u"ࠬ࡮ࡴࡵࡲ࠽࠳࠴࠹࠷࠯࠳࠻࠻࠳࠷࠳࠺࠰࠴࠹࠺ࡀ࠸࠱࠲࠳࠳ࡪࡴࡩࡨ࡯ࡤ࠶࠳ࡶࡨࡱࡁࠪ०")
-    
-    if url.startswith(l1l111lll (u"࠭ࡕࡌࡖ࡙࠷࠿࠭१")):
-        return 'http://2.welcm.tv:8000/enigma2.php?'
+    if l1lll1ll1 == l111l11l:
+        l111l1ll = l111l1ll.replace(l1l1l (u"ࠧࠡࠢࠪࡳ"), l1l1l (u"ࠨࠢࠪࡴ")).replace(l1l1l (u"ࠩࠣ࡟࠴ࡈ࡝ࠨࡵ"), l1l1l (u"ࠪ࡟࠴ࡈ࡝ࠨࡶ"))
+        return l111l1ll
 
 
-def l1l1l1ll1(l11lll11l):
-    now = datetime.datetime.today()
-    dixie.SetSetting(l11lll11l, str(now))
+def l1llll11l(l1lll1ll1, l1llll1ll):
+    if (l1lll1ll1 == l1111l1l) or (l1lll1ll1 == l1lllll11) or (l1lll1ll1 == l11111ll):
+        l1lllllll = l1llll1ll.rsplit(l1l1l (u"ࠫࡠ࠵ࡃࡐࡎࡒࡖࡢ࠭ࡷ"), 1)[0].split(l1l1l (u"ࠬࡡࡃࡐࡎࡒࡖࠥࡽࡨࡪࡶࡨࡡࠬࡸ"), 1)[-1]
+        return l1lllllll
+
+    if l1lll1ll1 == l111l11l:
+        l1lllllll = l1llll1ll.rsplit(l1l1l (u"࡛࠭࠰ࡄࡠࠫࡹ"), 1)[0].split(l1l1l (u"ࠧ࡜ࡄࡠࠫࡺ"), 1)[-1]
+        return l1lllllll
 
 
-def l1l1ll111(e):
-    l1l1l111l = l1l111lll (u"ࠨࡕࡲࡶࡷࡿࠬࠡࡣࡱࠤࡪࡸࡲࡰࡴࠣࡳࡨࡩࡵࡳࡧࡧ࠾ࠥࡐࡓࡐࡐࠣࡉࡷࡸ࡯ࡳ࠼ࠣࠩࡸ࠭३")  %e
-    l11lll1ll = l1l111lll (u"ࠩࡓࡰࡪࡧࡳࡦࠢࡵࡩ࠲ࡲࡩ࡯࡭ࠣࡸ࡭࡯ࡳࠡࡥ࡫ࡥࡳࡴࡥ࡭ࠢࡤࡲࡩࠦࡴࡳࡻࠣࡥ࡬ࡧࡩ࡯࠰ࠪ४")
-    l1111l11 = l1l111lll (u"࡙ࠪࡸ࡫࠺ࠡࡅࡲࡲࡹ࡫ࡸࡵࠢࡐࡩࡳࡻࠠ࠾ࡀࠣࡖࡪࡳ࡯ࡷࡧࠣࡗࡹࡸࡥࡢ࡯ࠪ५")
+def l11l111l(l1lll1ll1):
+    if (l1lll1ll1 == l1111l1l) or (l1lll1ll1 == l1lllll11):
+        return l1l1l (u"ࠨࡪࡷࡸࡵࡀ࠯࠰࠵࠺࠲࠶࠾࠷࠯࠳࠶࠽࠳࠷࠵࠶࠼࠻࠴࠵࠶࠯ࡦࡰ࡬࡫ࡲࡧ࠲࠯ࡲ࡫ࡴࡄ࠭ࡻ")
+
+    if l1lll1ll1 == l11111ll:
+        return l1l1l (u"ࠩ࡫ࡸࡹࡶ࠺࠰࠱࠵࠲ࡼ࡫࡬ࡤ࡯࠱ࡸࡻࡀ࠸࠱࠲࠳࠳ࡪࡴࡩࡨ࡯ࡤ࠶࠳ࡶࡨࡱࡁࠪࡼ")
+
+    if l1lll1ll1 == l111l11l:
+        return l1l1l (u"ࠪ࡬ࡹࡺࡰ࠻࠱࠲࠵࠽࠻࠮࠲࠳࠸࠲࠸࠸࠮࠲࠴࠽࠼࠵࠶࠰࠰ࡧࡱ࡭࡬ࡳࡡ࠳࠰ࡳ࡬ࡵࡅࠧࡽ")
+
+
+def l1lll1lll(e):
+    l1111ll1 = l1l1l (u"ࠫࡘࡵࡲࡳࡻ࠯ࠤࡦࡴࠠࡦࡴࡵࡳࡷࠦ࡯ࡤࡥࡸࡶࡪࡪ࠺ࠡࡌࡖࡓࡓࠦࡅࡳࡴࡲࡶ࠿ࠦࠥࡴࠩࡾ")  %e
+    l1111lll = l1l1l (u"ࠬࡖ࡬ࡦࡣࡶࡩࠥࡩ࡯࡯ࡶࡤࡧࡹࠦࡵࡴࠢࡲࡲࠥࡺࡨࡦࠢࡩࡳࡷࡻ࡭࠯ࠩࡿ")
+    l111l111 = l1l1l (u"࠭ࡕࡱ࡮ࡲࡥࡩࠦࡡࠡ࡮ࡲ࡫ࠥࡼࡩࡢࠢࡷ࡬ࡪࠦࡡࡥࡦࡲࡲࠥࡹࡥࡵࡶ࡬ࡲ࡬ࡹࠠࡢࡰࡧࠤࡵࡵࡳࡵࠢࡷ࡬ࡪࠦ࡬ࡪࡰ࡮࠲ࠬࢀ")
 
     dixie.log(e)
-    dixie.DialogOK(l1l1l111l, l11lll1ll, l1111l11)    
-    dixie.SetSetting(SETTING, l1l111lll (u"ࠫࠬ६"))
+    dixie.DialogOK(l1111ll1, l1111lll, l111l111)    
+    dixie.SetSetting(SETTING, l1l1l (u"ࠧࠨࢁ"))

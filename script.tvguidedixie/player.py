@@ -64,6 +64,7 @@ def playDSF(url, windowed):
         import urllib
         channel = urllib.quote_plus(url.split(':', 1)[-1])
         url = 'plugin://%s/?channel=%s' % (dixie.DSFID, channel)
+        dixie.log('++++++++++++++++++++ playDSF ++++++++++++++++++++')
         dixie.log(url)
         playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
         playlist.clear()
@@ -214,13 +215,6 @@ def play(url, windowed, name=None):
         xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
         return
 
-    if url.startswith('UKTV'):
-        import uktv
-        stream = uktv.getURL(url)
-        dixie.log(stream)
-        playAndWait(stream, windowed, maxIdle)
-        return
-
     if url.isdigit():
         command = ('{"jsonrpc": "2.0", "id":"1", "method": "Player.Open","params":{"item":{"channelid":%s}}}' % url)
         xbmc.executeJSONRPC(command)
@@ -235,7 +229,7 @@ def play(url, windowed, name=None):
         if playDSF(url, windowed):
             wait(maxIdle)
         return
-
+ 
     if not checkForAlternateStreaming(url):
         playAndWait(url, windowed, maxIdle)
 
