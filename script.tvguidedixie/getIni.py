@@ -56,6 +56,11 @@ def getIni():
     except: pass
 
     try:
+        import livetv
+        livetv.checkAddons()
+    except: pass
+
+    try:
         import pvr
         pvr.createPVRINI()
     except: pass

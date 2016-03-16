@@ -35,7 +35,7 @@ def CheckIdle(maxIdle):
         if count > 1:
             dp.update(perc,"Streaming will automatically quit in %d seconds" % count, "Press Cancel to contine viewing")
         else:
-            dp.update(perc,"Streaming will automatically quit in %d second" % count, "Press Cancel to contine viewing")            
+            dp.update(perc,"Streaming will automatically quit in %d second" % count, "Press Cancel to contine viewing")
 
     if not dp.iscanceled():
         xbmc.Player().stop()
@@ -182,7 +182,6 @@ def play(url, windowed, name=None):
     maxIdle = getIdle * 60 * 60
 
     dixie.loadKepmap()
-    # dixie.ShowBusy()
     
     if url.startswith('HDTV'):
         import hdtv
@@ -205,6 +204,13 @@ def play(url, windowed, name=None):
     if url.startswith('IPLAY'):
         import iplayer
         stream = iplayer.getURL(url)
+        playAndWait(stream, windowed, maxIdle)
+        return
+
+    if url.startswith('LIVETV'):
+        import livetv
+        stream = livetv.getLIVETV(url)
+        dixie.log(stream)
         playAndWait(stream, windowed, maxIdle)
         return
 
@@ -235,7 +241,6 @@ def play(url, windowed, name=None):
 
         xbmc.sleep(3000)
         if not xbmc.Player().isPlaying():
-            # dixie.CloseBusy()
             xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
             wait(maxIdle)
 
@@ -279,9 +284,6 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.notfilmon' in url:
         return alternateStream(url)
 
-    # if 'plugin.video.itv' in url:
-    #     return alternateStream(url)
-        
     if 'plugin.video.iplayerwww' in url:
         return alternateStream(url)
 
@@ -321,13 +323,9 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.stalker' in url:
         return alternateStream(url)
 
-    # if 'plugin.video.iptvsubs' in url:
-    #     return alternateStream(url)
-
     return False
 
 def alternateStream(url):
-    # dixie.CloseBusy()
     xbmc.executebuiltin('XBMC.RunPlugin(%s)' % url)
     print '***** ottv alternateStream *****', url
     
