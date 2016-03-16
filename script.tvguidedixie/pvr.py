@@ -2,25 +2,25 @@
 
 import sys
 
-l1l1ll1 = sys.version_info [0] == 2
-l1ll1 = 2048
-l11l = 7
+l1 = sys.version_info [0] == 2
+l1l1l1 = 2048
+l1ll1 = 7
 
-def l11111 (ll):
-	global l1ll1l
+def l1ll1l (ll):
+	global l1l1ll
 	
-	l111ll = ord (ll [-1])
-	l1llll = ll [:-1]
+	l111l1 = ord (ll [-1])
+	l111l = ll [:-1]
 	
-	l1 = l111ll % len (l1llll)
-	l1111ll = l1llll [:l1] + l1llll [l1:]
+	l1ll = l111l1 % len (l111l)
+	l11ll1 = l111l [:l1ll] + l111l [l1ll:]
 		
-	if l1l1ll1:
-		l1l1ll = unicode () .join ([unichr (ord (char) - l1ll1 - (l11ll + l111ll) % l11l) for l11ll, char in enumerate (l1111ll)])
+	if l1:
+		l1l11l = unicode () .join ([unichr (ord (char) - l1l1l1 - (l11ll + l111l1) % l1ll1) for l11ll, char in enumerate (l11ll1)])
 	else:
-		l1l1ll = str () .join ([chr (ord (char) - l1ll1 - (l11ll + l111ll) % l11l) for l11ll, char in enumerate (l1111ll)])
+		l1l11l = str () .join ([chr (ord (char) - l1l1l1 - (l11ll + l111l1) % l1ll1) for l11ll, char in enumerate (l11ll1)])
 		
-	return eval (l1l1ll)
+	return eval (l1l11l)
 
 
 
@@ -36,70 +36,80 @@ def createPVRINI():
     if not dixie.PVRACTIVE:
         return
 
-    l1ll = dixie.PROFILE
-    path = os.path.join(l1ll, l11111 (u"࠭ࡩ࡯࡫ࠪࢀ"))
-    l11  = os.path.join(path, l11111 (u"ࠧࡱࡸࡵ࠲࡮ࡴࡩࠨࢁ"))
+    l1lll1lll = dixie.PROFILE
+    path = os.path.join(l1lll1lll, l1ll1l (u"ࠧࡪࡰ࡬ࠫࡺ"))
+    l1llll11l  = os.path.join(path, l1ll1l (u"ࠨࡲࡹࡶ࠳࡯࡮ࡪࠩࡻ"))
 
-    l1l1l1ll1  = _getPVRChannels(l11111 (u"ࠨࠤࡷࡺࠧ࠭ࢂ"))
-    l1l1ll111 = l1l1l1ll1[l11111 (u"ࠩࡵࡩࡸࡻ࡬ࡵࠩࢃ")]
+    try:
+        l1lll1ll1  = _getPVRChannels(l1ll1l (u"ࠩࠥࡸࡻࠨࠧࡼ"))
+        l1lll1l11 = l1lll1ll1[l1ll1l (u"ࠪࡶࡪࡹࡵ࡭ࡶࠪࡽ")]
+    except: pass
 
-    l1l1ll11l  = _getPVRChannels(l11111 (u"ࠪࠦࡷࡧࡤࡪࡱࠥࠫࢄ"))
-    l1l1l1l1l = l1l1ll11l[l11111 (u"ࠫࡷ࡫ࡳࡶ࡮ࡷࠫࢅ")]
+    try:
+        l1llll1l1  = _getPVRChannels(l1ll1l (u"ࠫࠧࡸࡡࡥ࡫ࡲࠦࠬࡾ"))
+        l1lll1l1l = l1llll1l1[l1ll1l (u"ࠬࡸࡥࡴࡷ࡯ࡸࠬࡿ")]
+    except: pass
 
-    l1l1ll1l1  = l1l1ll111[l11111 (u"ࠬࡩࡨࡢࡰࡱࡩࡱࡹࠧࢆ")]
-    l1l1lll11  = l1l1l1l1l[l11111 (u"࠭ࡣࡩࡣࡱࡲࡪࡲࡳࠨࢇ")]
+    try:
+        l1llll1ll  = l1lll1l11[l1ll1l (u"࠭ࡣࡩࡣࡱࡲࡪࡲࡳࠨࢀ")]
+        l1lllll1l  = l1lll1l1l[l1ll1l (u"ࠧࡤࡪࡤࡲࡳ࡫࡬ࡴࠩࢁ")]
+    except: pass
 
-    l11ll1  = file(l11, l11111 (u"ࠧࡸࠩ࢈"))
+    l11l1l  = file(l1llll11l, l1ll1l (u"ࠨࡹࠪࢂ"))
     
-    l11ll1.write(l11111 (u"ࠨ࡝ࡶࡧࡷ࡯ࡰࡵ࠰ࡲࡲ࠲ࡺࡡࡱࡲ࠱ࡸࡻࡣ࡜࡯ࠩࢉ"))
+    l11l1l.write(l1ll1l (u"ࠩ࡞ࡷࡨࡸࡩࡱࡶ࠱ࡳࡳ࠳ࡴࡢࡲࡳ࠲ࡹࡼ࡝࡝ࡰࠪࢃ"))
 
-    for l11llll in l1l1ll1l1:
-        l1l11  = l11llll[l11111 (u"ࠩ࡯ࡥࡧ࡫࡬ࠨࢊ")]
-        stream = l11111 (u"ࠪࠩࡸ࠭ࢋ") % l11llll[l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡮ࡪࠧࢌ")]
+    try:
+        for l1lll1 in l1llll1ll:
+            l1l11  = l1lll1[l1ll1l (u"ࠪࡰࡦࡨࡥ࡭ࠩࢄ")]
+            stream = l1ll1l (u"ࠫࠪࡹࠧࢅ") % l1lll1[l1ll1l (u"ࠬࡩࡨࡢࡰࡱࡩࡱ࡯ࡤࠨࢆ")]
 
-        l11ll1.write(l11111 (u"ࠬࠫࡳࠨࢍ") % l1l11)
-        l11ll1.write(l11111 (u"࠭࠽ࠨࢎ"))
-        l11ll1.write(l11111 (u"ࠧࠦࡵࠪ࢏") % stream)
-        l11ll1.write(l11111 (u"ࠨ࡞ࡱࠫ࢐"))
+            l11l1l.write(l1ll1l (u"࠭ࠥࡴࠩࢇ") % l1l11)
+            l11l1l.write(l1ll1l (u"ࠧ࠾ࠩ࢈"))
+            l11l1l.write(l1ll1l (u"ࠨࠧࡶࠫࢉ") % stream)
+            l11l1l.write(l1ll1l (u"ࠩ࡟ࡲࠬࢊ"))
+    except: pass
 
-    for l11llll in l1l1lll11:
-        l1l11  = l11llll[l11111 (u"ࠩ࡯ࡥࡧ࡫࡬ࠨ࢑")]
-        stream = l11111 (u"ࠪࠩࡸ࠭࢒") % l11llll[l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡮ࡪࠧ࢓")]
+    try:
+        for l1lll1 in l1lllll1l:
+            l1l11  = l1lll1[l1ll1l (u"ࠪࡰࡦࡨࡥ࡭ࠩࢋ")]
+            stream = l1ll1l (u"ࠫࠪࡹࠧࢌ") % l1lll1[l1ll1l (u"ࠬࡩࡨࡢࡰࡱࡩࡱ࡯ࡤࠨࢍ")]
 
-        l11ll1.write(l11111 (u"ࠬࠫࡳࠨ࢔") % l1l11)
-        l11ll1.write(l11111 (u"࠭࠽ࠨ࢕"))
-        l11ll1.write(l11111 (u"ࠧࠦࡵࠪ࢖") % stream)
-        l11ll1.write(l11111 (u"ࠨ࡞ࡱࠫࢗ"))
+            l11l1l.write(l1ll1l (u"࠭ࠥࡴࠩࢎ") % l1l11)
+            l11l1l.write(l1ll1l (u"ࠧ࠾ࠩ࢏"))
+            l11l1l.write(l1ll1l (u"ࠨࠧࡶࠫ࢐") % stream)
+            l11l1l.write(l1ll1l (u"ࠩ࡟ࡲࠬ࢑"))
+    except: pass
 
-    l11ll1.write(l11111 (u"ࠩ࡟ࡲࠬ࢘"))
-    l11ll1.close()
+    l11l1l.write(l1ll1l (u"ࠪࡠࡳ࠭࢒"))
+    l11l1l.close()
 
 
 def _getPVRChannels(group):
-    method   = l11111 (u"ࠪࡔ࡛ࡘ࠮ࡈࡧࡷࡇ࡭ࡧ࡮࡯ࡧ࡯ࡷ࢙ࠬ")
-    params   = l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡬ࡸ࡯ࡶࡲ࡬ࡨ࢚ࠬ")
-    l1l1ll1ll  =  getGroupID(group)
-    l1l11l =  sendJSON(method, params, l1l1ll1ll)
+    method   = l1ll1l (u"ࠫࡕ࡜ࡒ࠯ࡉࡨࡸࡈ࡮ࡡ࡯ࡰࡨࡰࡸ࠭࢓")
+    params   = l1ll1l (u"ࠬࡩࡨࡢࡰࡱࡩࡱ࡭ࡲࡰࡷࡳ࡭ࡩ࠭࢔")
+    l1lllll11  =  getGroupID(group)
+    l1llll111 =  sendJSON(method, params, l1lllll11)
     
-    return l1l11l
+    return l1llll111
 
 
 def getGroupID(group):
-    method   = l11111 (u"ࠬࡖࡖࡓ࠰ࡊࡩࡹࡉࡨࡢࡰࡱࡩࡱࡍࡲࡰࡷࡳࡷ࢛ࠬ")
-    params   = l11111 (u"࠭ࡣࡩࡣࡱࡲࡪࡲࡴࡺࡲࡨࠫ࢜")
-    l1l11l =  sendJSON(method, params, group)
-    result   =  l1l11l[l11111 (u"ࠧࡳࡧࡶࡹࡱࡺࠧ࢝")]
-    groups   =  result[l11111 (u"ࠨࡥ࡫ࡥࡳࡴࡥ࡭ࡩࡵࡳࡺࡶࡳࠨ࢞")]
+    method   = l1ll1l (u"࠭ࡐࡗࡔ࠱ࡋࡪࡺࡃࡩࡣࡱࡲࡪࡲࡇࡳࡱࡸࡴࡸ࠭࢕")
+    params   = l1ll1l (u"ࠧࡤࡪࡤࡲࡳ࡫࡬ࡵࡻࡳࡩࠬ࢖")
+    l1llll111 =  sendJSON(method, params, group)
+    result   =  l1llll111[l1ll1l (u"ࠨࡴࡨࡷࡺࡲࡴࠨࢗ")]
+    groups   =  result[l1ll1l (u"ࠩࡦ࡬ࡦࡴ࡮ࡦ࡮ࡪࡶࡴࡻࡰࡴࠩ࢘")]
 
     for group in groups:
-        l1l11 = group[l11111 (u"ࠩ࡯ࡥࡧ࡫࡬ࠨ࢟")]
+        l1l11 = group[l1ll1l (u"ࠪࡰࡦࡨࡥ࡭࢙ࠩ")]
 
-        if l1l11 == l11111 (u"ࠪࡅࡱࡲࠠࡤࡪࡤࡲࡳ࡫࡬ࡴࠩࢠ"):
-            return group[l11111 (u"ࠫࡨ࡮ࡡ࡯ࡰࡨࡰ࡬ࡸ࡯ࡶࡲ࡬ࡨࠬࢡ")]
+        if l1l11 == l1ll1l (u"ࠫࡆࡲ࡬ࠡࡥ࡫ࡥࡳࡴࡥ࡭ࡵ࢚ࠪ"):
+            return group[l1ll1l (u"ࠬࡩࡨࡢࡰࡱࡩࡱ࡭ࡲࡰࡷࡳ࡭ࡩ࢛࠭")]
 
 
 def sendJSON(method, params, value):
-    l1l1lll1l  = (l11111 (u"ࠬࢁࠢ࡫ࡵࡲࡲࡷࡶࡣࠣ࠼ࠥ࠶࠳࠶ࠢ࠭ࠤࡰࡩࡹ࡮࡯ࡥࠤ࠽ࠦࠪࡹࠢ࠭ࠤࡳࡥࡷࡧ࡭ࡴࠤ࠽ࡿࠧࠫࡳࠣ࠼ࠨࡷࢂ࠲ࠠࠣ࡫ࡧࠦ࠿࠷ࡽࠨࢢ") % (method, params, value))
-    l1l11l = xbmc.executeJSONRPC(l1l1lll1l)
+    l1llllll1  = (l1ll1l (u"࠭ࡻࠣ࡬ࡶࡳࡳࡸࡰࡤࠤ࠽ࠦ࠷࠴࠰ࠣ࠮ࠥࡱࡪࡺࡨࡰࡦࠥ࠾ࠧࠫࡳࠣ࠮ࠥࡴࡦࡸࡡ࡮ࡵࠥ࠾ࢀࠨࠥࡴࠤ࠽ࠩࡸࢃࠬࠡࠤ࡬ࡨࠧࡀ࠱ࡾࠩ࢜") % (method, params, value))
+    l1llll111 = xbmc.executeJSONRPC(l1llllll1)
 
-    return json.loads(l1l11l.decode(l11111 (u"࠭ࡵࡵࡨ࠰࠼ࠬࢣ"), l11111 (u"ࠧࡪࡩࡱࡳࡷ࡫ࠧࢤ")))
+    return json.loads(l1llll111.decode(l1ll1l (u"ࠧࡶࡶࡩ࠱࠽࠭࢝"), l1ll1l (u"ࠨ࡫ࡪࡲࡴࡸࡥࠨ࢞")))
