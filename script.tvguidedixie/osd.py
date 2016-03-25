@@ -118,6 +118,13 @@ class OSD(xbmcgui.WindowXMLDialog):
         self.now         = None
         self.next        = None
         self.other       = None
+        self.protected   = dixie.isProtected()
+        self.categories  = []
+
+        cats = dixie.getCategories()
+        for cat in cats:
+            if len(cat) > 0:
+                self.categories.append(cat)
 
         self.streamingService = streaming.StreamsService()
 
@@ -185,10 +192,10 @@ class OSD(xbmcgui.WindowXMLDialog):
 
         channel = self.getChannel(text)
 
-        if not channel:           
+        if not channel:
             xbmcgui.Window(10000).setProperty('OTT_CH_LOGO',   '')
-            xbmcgui.Window(10000).setProperty('OTT_CH_TITLE',  '')       
-            xbmcgui.Window(10000).setProperty('OTT_CH_NUMBER', '')       
+            xbmcgui.Window(10000).setProperty('OTT_CH_TITLE',  '')
+            xbmcgui.Window(10000).setProperty('OTT_CH_NUMBER', '')
             self.channel = ''
         else:
             xbmcgui.Window(10000).setProperty('OTT_CH_LOGO',   channel.logo)
@@ -259,9 +266,9 @@ class OSD(xbmcgui.WindowXMLDialog):
             xbmcgui.Window(10000).setProperty('OTT_NEXT_TIME',   self.next.startDate.strftime('%H:%M'))
 
         if not self.now:
-            xbmcgui.Window(10000).setProperty('OTT_NOW_TITLE',  '')
+            xbmcgui.Window(10000).setProperty('OTT_NOW_TITLE',  'No listings available for this channel')
             xbmcgui.Window(10000).setProperty('OTT_NOW_TIME',   '')
-            xbmcgui.Window(10000).setProperty('OTT_PROG_DESC',  '')
+            xbmcgui.Window(10000).setProperty('OTT_PROG_DESC',  'No listings available for this channel')
 
         if (not self.next) and (not self.other):
             xbmcgui.Window(10000).setProperty('OTT_NEXT_TEXT',   '')
@@ -325,7 +332,7 @@ class OSD(xbmcgui.WindowXMLDialog):
             self.setCustomStreamUrl(channel, d.stream)
         
         return d.stream
-    
+
 
     def playPrevious(self):
         prevChan = xbmcgui.Window(10000).getProperty('OTT_PREV_INDEX')
@@ -339,14 +346,34 @@ class OSD(xbmcgui.WindowXMLDialog):
         
     
     def getChannel(self, channel):
-        try:            
+        try:
             index = int(channel) - 1
             if index < 0:
                 return None
 
             return self.list[index]
         except:
-            return None
+            pass
+
+        return None
+
+
+    def validChannel(self, channel):
+        if not channel.visible:
+            return False
+
+        if not self.protected and channel.isProtected():
+            return False
+
+        if len(self.categories) == 0:
+            return True
+
+        cats = channel.categories.split('|')
+        for cat in cats:
+            if cat in self.categories:
+                return True
+
+        return False
 
 
     def onInit(self):
@@ -381,7 +408,7 @@ class OSD(xbmcgui.WindowXMLDialog):
             self.populateChannels()
 
             if self.channel == 'PREV':
-                self.channel = '' 
+                self.channel = ''
                 if self.playPrevious():
                     self.close()
                     return
@@ -438,7 +465,7 @@ class OSD(xbmcgui.WindowXMLDialog):
                 self.PageDown(CHANNELS_PER_PAGE)
 
             if actionId == ACTION_LEFT:
-                self.previousProgram()
+                self.playPrevious()
                 return
 
             if actionId == ACTION_RIGHT:
@@ -560,20 +587,15 @@ class OSD(xbmcgui.WindowXMLDialog):
         for file in files:
             channels.append(file)
 
-        isProtected = dixie.isProtected()
-
         sorted = []
 
         for id in channels:
             channel = self.getChannelFromFile(id)
 
-            if not channel.visible:
+            if not self.validChannel(channel):
                 continue
 
-            if not isProtected and channel.isProtected():
-                continue
-
-            sorter  = channel.title.lower() if alphaSort else channel.weight
+            sorter = channel.title.lower() if alphaSort else channel.weight
 
             sorted.append([sorter, id, channel])
 
@@ -582,6 +604,13 @@ class OSD(xbmcgui.WindowXMLDialog):
         self.list = []
         for channel in sorted:
             self.list.append(channel[2])
+
+        try:
+            if int(self.channel) >= len(self.list):
+                self.channel = '1'
+        except Exception, e:
+            self.channel = ''
+            pass
 
         current = xbmcgui.Window(10000).getProperty('OTT_CHANNEL')
         #xbmcgui.Window(10000).clearProperty('OTT_CHANNEL')
@@ -601,6 +630,9 @@ class OSD(xbmcgui.WindowXMLDialog):
                 self.setChannel(self.channel)
                 xbmcgui.Window(10000).setProperty('OTT_CURR_INDEX', self.channel)
                 return
+
+        #not found so set to start
+        self.channel = '1'
 
 
     def removeCleanChannel(self, id):

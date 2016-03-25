@@ -309,7 +309,7 @@ msgid "iPlayer"
 msgstr ""
 
 msgctxt "#30315"
-msgid "Super Search"
+msgid "iSearch"
 msgstr ""
 
 msgctxt "#30316"

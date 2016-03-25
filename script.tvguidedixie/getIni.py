@@ -61,6 +61,11 @@ def getIni():
     except: pass
 
     try:
+        import plugins
+        plugins.checkAddons()
+    except: pass
+
+    try:
         import pvr
         pvr.createPVRINI()
     except: pass

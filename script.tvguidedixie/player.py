@@ -235,7 +235,11 @@ def play(url, windowed, name=None):
         if playDSF(url, windowed):
             wait(maxIdle)
         return
- 
+
+    # if url.lower().startswith('upnp:'):
+    #     playAndWait(url, windowed, maxIdle)
+    #     return
+
     if not checkForAlternateStreaming(url):
         playAndWait(url, windowed, maxIdle)
 
@@ -287,7 +291,7 @@ def checkForAlternateStreaming(url):
     if 'plugin.video.iplayerwww' in url:
         return alternateStream(url)
 
-    if 'plugin.video.muzu.tv' in url:        
+    if 'plugin.video.SportsDonkey' in url:        
         return alternateStream(url)
 
     if 'plugin.audio.ramfm' in url:        
@@ -321,6 +325,9 @@ def checkForAlternateStreaming(url):
         return alternateStream(url)
 
     if 'plugin.video.stalker' in url:
+        return alternateStream(url)
+
+    if 'plugin.video.dex' in url:
         return alternateStream(url)
 
     return False

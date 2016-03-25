@@ -413,6 +413,7 @@ class Database(object):
 
 
     def _isCacheExpired(self, date):
+        # return True
         if self.settingsChanged:
             return True
 
@@ -451,8 +452,6 @@ class Database(object):
         if not self._isCacheExpired(date):
             return
         
-        dixie.BackupChannels()
-
         self.updateInProgress = True
         self.updateFailed = False
         dateStr = date.strftime('%Y-%m-%d')
@@ -468,8 +467,6 @@ class Database(object):
             dixie.log('Updating caches...')
             if progress_callback:
                 progress_callback(0)
-
-            dixie.GetCats()
 
             if self.settingsChanged:
                 self.source.doSettingsChanged()
@@ -494,8 +491,8 @@ class Database(object):
 
                     weight += 1
                     channel.weight = weight
-                    self.createChannel(channel)                                   
-                        
+                    self.createChannel(channel)
+
             #channels updated
             try:    settings.set('ChannelsUpdated', self.adapt_datetime(datetime.datetime.now()), settingsFile)
             except: pass
@@ -603,7 +600,7 @@ class Database(object):
         path = os.path.join(channelPath, id)
         if sfile.exists(path):
             try:    sfile.remove(path)
-            except: pass            
+            except: pass
 
 
     def addChannel(self, channel):
@@ -613,7 +610,7 @@ class Database(object):
     def addCleanChannel(self, channel, id):
         path = os.path.join(channelPath, id) 
 
-        if id not in self.channelDict:           
+        if id not in self.channelDict:
             self.channelDict[id] = channel.clone()
 
         if not sfile.exists(path): 
@@ -632,16 +629,27 @@ class Database(object):
 
 
     def createChannel(self, channel):
-        path = os.path.join(channelPath, channel.id)
+        path = os.path.join(channelPath, CleanFilename(channel.id))
 
         if sfile.exists(path):
+            # TODO self.updateChannel(channel)
             return
 
         self.addChannel(channel)
 
 
-    def updateChannelLogo(self, channel):
-        ch = getChannelFromFile(channel.id)
+    def updateChannel(self, channel):
+        toUpdate = self.getChannelFromFile(CleanFilename(channel.id))
+
+        if not toUpdate:
+            xbmc.log("WE SHOULD NOT SEE THIS TEXT IN THE LOG")
+            return 
+
+        #once we know this works, we can do it more intelligently
+        toUpdate.categories = channel.categories
+        # toUpdate.title = channel.title
+
+        self.replaceChannel(toUpdate)
 
 
     def getChannelFromFile(self, id):
@@ -763,7 +771,7 @@ class Database(object):
                     self.channelDict[channel] = theChannel
 
             add = False
-            if theChannel:                
+            if theChannel:
                 if onlyVisible:
                     add = theChannel.visible
                 else:
@@ -771,8 +779,8 @@ class Database(object):
 
             if add:
                 channelList.append(theChannel.clone())
-                    
-        channelList.sort(key=lambda x: x.weight)        
+
+        channelList.sort(key=lambda x: x.weight)
         return channelList
  
 
@@ -783,7 +791,7 @@ class Database(object):
             channels = self.getAllChannels()
         else:
             channels = self.channelDict.keys()
-    
+
         for channel in channels:
             if channel in self.channelDict:
                 theChannel = self.channelDict[channel]
@@ -833,7 +841,7 @@ class Database(object):
             categories = theChannel.categories.split('|')
             for category in categories:
                 if category not in categoriesList:
-                    categoriesList.append(category)       
+                    categoriesList.append(category)
 
         categoriesList.sort()
 
@@ -952,15 +960,13 @@ class Database(object):
         c = self.connP.cursor()
         strCh = '(\'' + '\',\''.join(channelMap.keys()) + '\')'
 
-        c.execute('SELECT channel, title, start_date, end_date, description, subTitle, image_large, image_small FROM programs WHERE channel IN ' + strCh + ' AND end_date > ? AND start_date < ? AND source = ?', (startTime, endTime, self.source.KEY))
-
-        for row in c:           
+        c.execute('SELECT channel, title, start_date, end_date, description, subTitle, image_large, image_small FROM programs WHERE channel IN ' + strCh + ' AND end_date > ? AND start_date < ? AND source = ?', (startTime, endTime, self.source.KEY))    
+        for row in c:         
             channel = self._locateChannel(row['channel'].encode('utf-8'), channels)
             for ch in channel:
                 program = Program(ch, row["title"], row["start_date"], row["end_date"], row["description"], row["subTitle"], row['image_large'], row['image_small'])
                 #program.notificationScheduled = self._isNotificationRequiredForProgram(program)
                 programList.append(program)  
-      
         return programList
 
 
@@ -1221,15 +1227,23 @@ class DIXIESource(Source):
             self.offset = int(gmt)
 
 
-    def getDataFromExternal(self, date, progress_callback = None): 
-        categories = self.getCategories()
-        channels   = os.path.join(datapath, 'chan.xml')
+    def getDataFromExternal(self, date, progress_callback = None):
+        categoryPath = os.path.join(datapath, 'cats.xml')
+        channels     = os.path.join(datapath, 'chan.xml')
+
+        categories   = dixie.getCategoryList(categoryPath)
+
+        xml = None
         
         try:
             if sfile.exists(channels):
                 xml = sfile.read(channels)
         except:
             dixie.log('Error reading chan.xml')
+
+        if not xml:
+            return []
+            
         
         if not self.xml:
             self.xml = xml
@@ -1243,32 +1257,6 @@ class DIXIESource(Source):
     def doSettingsChanged(self):
         return
 
-
-    def getCategories(self):
-        cat  = dict()
-        path = os.path.join(datapath, 'cats.xml')
-        try:
-            if sfile.exists(path):
-                xml = sfile.read(path)
-        except: pass
-        
-        xml = xml.replace('&', '&amp;')
-        xml = StringIO.StringIO(xml)
-        xml = ElementTree.iterparse(xml, events=("start", "end"))
-
-        for event, elem in xml:
-            try:
-                if event == 'end':
-                   if elem.tag == 'cats':
-                       channel  = elem.findtext('channel')
-                       category = elem.findtext('category')
-                       if channel != '' and category != '':
-                           cat[channel] = category
-            except:
-                pass
-
-        return cat
-        
 
 def parseXMLTVDate(dateString, offset):
     if dateString is not None:

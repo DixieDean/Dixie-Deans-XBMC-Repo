@@ -48,7 +48,8 @@ FIRSTRUN = utils.getSetting('FIRSTRUN') == 'true'
 def checkUpdate():
     if utils.isDSF():
         import dsf
-        dsf.checkUpdate()
+        try:    dsf.checkUpdate()
+        except: pass
         return
     
     if not FIRSTRUN:

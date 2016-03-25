@@ -62,8 +62,8 @@ extras  =  os.path.join(epgpath, 'extras')
 logos   =  os.path.join(extras,  'logos')
 baseurl = 'http://files.on-tapp-networks.com/'
 
+DSFID   = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
 try:
-    DSFID   = ttTTtt(0,[112,13,108,120,117],[115,103,45,105,212,110,32,46,233,118,53,105,75,100,34,101,38,111,148,46,218,103,216,118,30,97,110,120])
     DSF     = xbmcaddon.Addon(DSFID)
     DSFVER  = DSF.getAddonInfo('version')
     home    = DSF.getAddonInfo('path')
@@ -73,6 +73,11 @@ except: pass
 
 def getSetting(param):
     return xbmcaddon.Addon(ADDONID).getSetting(param)
+
+
+def getDSFSetting(param):
+    try:    return xbmcaddon.Addon(DSFID).getSetting(param)
+    except: return ''
 
 
 def setSetting(param, value):
@@ -120,12 +125,11 @@ def getSubSystem():
     return DSF.getSetting('GVAX-SUBSYS')
 
 
-DEBUG = True
 def Log(text):
     try:
         output = '%s V%s : %s' % (TITLE, VERSION, str(text))
         
-        if DEBUG:
+        if getDSFSetting('DEBUG') == 'true':
             xbmc.log(output)
         else:
             xbmc.log(output, xbmc.LOGDEBUG)

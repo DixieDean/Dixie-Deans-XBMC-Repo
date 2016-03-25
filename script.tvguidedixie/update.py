@@ -281,6 +281,8 @@ def getUpdate(response, silent):
         #    deleteFile(path) 
         #    return False
 
+        dixie.BackupCats()
+
         import dxmnew
         dxmnew.unzipAndMove(path, profile, None)
 

@@ -29,7 +29,6 @@
             <left>XBMC.RunScript(special://home/addons/script.tvguidedixie/change.py, Left)</left>
             <right>XBMC.RunScript(special://home/addons/script.tvguidedixie/change.py, Right)</right>
             <zero>XBMC.RunScript(special://home/addons/script.tvguidedixie/change.py, 0)</zero>
-        
             <one>XBMC.RunScript(special://home/addons/script.tvguidedixie/change.py, 1)</one>
             <two>XBMC.RunScript(special://home/addons/script.tvguidedixie/change.py, 2)</two>
             <three>XBMC.RunScript(special://home/addons/script.tvguidedixie/change.py, 3)</three>

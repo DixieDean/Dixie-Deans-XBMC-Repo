@@ -149,6 +149,9 @@ class ControlAndProgram(object):
         self.control = control
         self.program = program
 
+C_CATEGORIES_CTRL = 9000
+C_CATEGORIES_LIST = 9001
+
 class TVGuide(xbmcgui.WindowXML):
     C_MAIN_DATE = 4000
     C_MAIN_TITLE = 4020
@@ -191,7 +194,7 @@ class TVGuide(xbmcgui.WindowXML):
         self.timebarVisible = False
         self.isClosing = False
         self.controlAndProgramList = list()
-        self.ignoreMissingControlIds = list()
+        self.ignoreMissingControlIds = [C_CATEGORIES_CTRL, C_CATEGORIES_LIST]
         self.channelIdx = 0
         self.focusPoint = Point()
         self.epgView = EPGView()
@@ -343,6 +346,7 @@ class TVGuide(xbmcgui.WindowXML):
 
         try:
             self.database = src.Database(CHANNELS_PER_PAGE)
+            self.cats = CategoriesMenu1(self.database, self.categoriesList, self)
         except src.SourceNotConfiguredException:
             self.onSourceNotConfigured()
             self.close()
@@ -444,15 +448,20 @@ class TVGuide(xbmcgui.WindowXML):
                 self._hideEpg()
 
         controlInFocus = None
-        currentFocus = self.focusPoint
+        currentFocus   = self.focusPoint
         try:
+            if self.cats.onAction(action):
+                return    
+
             controlInFocus = self.getFocus()
+
             if controlInFocus in [elem.control for elem in self.controlAndProgramList]:
                 (left, top) = controlInFocus.getPosition()
                 currentFocus = Point()
                 currentFocus.x = left + (controlInFocus.getWidth() / 2)
                 currentFocus.y = top + (controlInFocus.getHeight() / 2)
         except Exception, e:
+            xbmc.log(str(e))
             control = self._findControlAt(self.focusPoint)
             if control is None and len(self.controlAndProgramList) > 0:
                 control = self.controlAndProgramList[0].control
@@ -598,6 +607,9 @@ class TVGuide(xbmcgui.WindowXML):
         if self.isClosing:
             return
 
+        if self.cats.onClick(controlId):
+            return
+
         if controlId == self.C_MAIN_MOUSE_HOME:
             self.viewStartDate = datetime.datetime.today()
             self.viewStartDate -= datetime.timedelta(minutes = self.viewStartDate.minute % 30, seconds = self.viewStartDate.second)
@@ -666,6 +678,8 @@ class TVGuide(xbmcgui.WindowXML):
                     self.database.deleteCustomStreamUrl(program.channel)
 
     def _showContextMenu(self, program):
+        self.cats.hide()
+
         self._hideControl(self.C_MAIN_MOUSE_CONTROLS)
         d = PopupMenu(self.database, program, not program.notificationScheduled, self.touch)
         d.doModal()
@@ -711,6 +725,7 @@ class TVGuide(xbmcgui.WindowXML):
 
             self.categoriesList = d.currentCategories
             del d
+            self.cats.updateCategories(self.categoriesList)
             dixie.SetSetting('categories', '|'.join(self.categoriesList))
             self.onRedrawEPG(self.channelIdx, self.viewStartDate)
 
@@ -748,6 +763,8 @@ class TVGuide(xbmcgui.WindowXML):
 
         elif buttonClicked == PopupMenu.C_POPUP_SUPER_SEARCH:
             xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d&keyword=%s",return)' % (10025,'plugin.program.super.favourites', 0, urllib.quote_plus(program.title)))
+
+        self.cats.show()
 
 
     def setFocusId(self, controlId):
@@ -834,11 +851,14 @@ class TVGuide(xbmcgui.WindowXML):
         if control is not None:
             self.setFocus(control)
         elif control is None:
-            self.focusPoint.y = self.epgView.bottom
-            newIndex = self.channelIdx - CHANNELS_PER_PAGE
-            if newIndex < 0 and self.channelIdx > 0:
-                newIndex = 0
-            self.onRedrawEPG(newIndex, self.viewStartDate, focusFunction=self._findControlAbove)
+            self.cats.setFocus()
+            
+    def _moveToBottom(self):
+        self.focusPoint.y = self.epgView.bottom
+        newIndex = self.channelIdx - CHANNELS_PER_PAGE
+        if newIndex < 0 and self.channelIdx > 0:
+            newIndex = 0
+        self.onRedrawEPG(newIndex, self.viewStartDate, focusFunction=self._findControlAbove)
 
     def _down(self, currentFocus):
         currentFocus.x = self.focusPoint.x
@@ -1529,7 +1549,7 @@ class PopupMenu(xbmcgui.WindowXMLDialog):
         programTitleControl.setLabel(self.program.title)
 
         playControl = self.getControl(self.C_POPUP_PLAY)
-        playControl.setLabel(strings(WATCH_CHANNEL, self.program.channel.title.decode('utf-8')))
+        playControl.setLabel('Watch Channel')
 
         #isPlayable = self.program.channel.isPlayable()
         isPlayable = self.database.isPlayable(self.program.channel)
@@ -2183,3 +2203,210 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
             listControl.addItem(item)
 
 
+class CategoriesMenu(xbmcgui.WindowXMLDialog):
+    C_CATEGORIES_LIST = 7000
+    C_CATEGORIES_SELECTION = 7001
+    C_CATEGORIES_SAVE = 7002
+    C_CATEGORIES_CANCEL = 7003
+
+    def __new__(cls, database, categoriesList):
+        xml_file = os.path.join('script-tvguide-categories.xml')
+        if os.path.join(SKIN, 'extras', 'skins', 'Default', '720p', xml_file):
+            XML = xml_file
+
+        return super(CategoriesMenu, cls).__new__(cls, XML, PATH)
+
+
+    def __init__(self, database, categoriesList):
+        """
+
+        @type database: source.Database
+        """
+        super(CategoriesMenu, self).__init__()
+        self.database = database
+
+        self.allCategories = database.getCategoriesList()
+        if categoriesList:
+            self.currentCategories = list(categoriesList)
+        else:
+            self.currentCategories = list()
+
+        self.workingCategories = list(self.currentCategories)
+
+        self.swapInProgress = False
+
+        xbmc.log(str(categoriesList)) 
+        xbmc.log(str(self.currentCategories))
+
+
+    def onInit(self):
+        self.updateCategoriesList()
+        self.setFocusId(self.C_CATEGORIES_LIST)
+
+
+    def onAction(self, action):
+        if action.getId() in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK, KEY_CONTEXT_MENU]:
+            self.close()
+            return
+
+    def onClick(self, controlId):
+        if controlId == self.C_CATEGORIES_LIST:
+            listControl = self.getControl(self.C_CATEGORIES_LIST)
+            item        = listControl.getSelectedItem()
+            category    = self.allCategories[int(item.getProperty('idx'))]
+            if category in self.workingCategories:
+                self.workingCategories.remove(category)
+            else:
+                self.workingCategories.append(category)
+
+            if category in self.workingCategories:
+                iconImage = 'tvguide-categories-visible.png'
+            else:
+                iconImage = 'tvguide-categories-hidden.png'
+            item.setIconImage(iconImage)
+
+        elif controlId == self.C_CATEGORIES_SAVE:
+            self.currentCategories = self.workingCategories
+            self.close()
+
+        elif controlId == self.C_CATEGORIES_CANCEL:
+            self.close()
+
+
+    def onFocus(self, controlId):
+        pass
+
+
+    def updateCategoriesList(self):
+        listControl = self.getControl(self.C_CATEGORIES_LIST)
+        listControl.reset()
+        for idx, category in enumerate(self.allCategories):
+            if category in self.workingCategories:
+                iconImage = 'tvguide-categories-visible.png'
+            else:
+                iconImage = 'tvguide-categories-hidden.png'
+            
+            category = urllib.unquote_plus(category)
+            
+            item = xbmcgui.ListItem(category, iconImage = iconImage)
+            item.setProperty('idx', str(idx))
+            listControl.addItem(item)
+
+class CategoriesMenu1(object):
+    def __init__(self, database, categories, parent):
+        self.database = database
+        self.parent   = parent
+
+        self.isVisible     = False
+        self.allCategories = database.getCategoriesList()
+
+        try:
+            self.updateCategories(categories)
+            self.show()
+        except:
+            pass        
+            
+    def show(self):
+        try:
+            if dixie.isLimited():
+                return self.hide()
+
+            self.isVisible = True
+            self.parent.getControl(C_CATEGORIES_CTRL).setVisible(self.isVisible)
+        except:
+            self.hide()
+
+    def hide(self):
+        try:
+            self.isVisible = False
+            self.parent.getControl(C_CATEGORIES_CTRL).setVisible(self.isVisible)
+        except:
+            pass
+        
+
+    def onAction(self, action):
+        controlInFocus = self.parent.getFocus()
+        if controlInFocus <> self.parent.getControl(C_CATEGORIES_LIST):
+            return False
+
+        actionId = action.getId()
+
+        if actionId in [ACTION_UP]:
+            self.parent._moveToBottom()
+
+        if actionId in [ACTION_DOWN]:
+            self.parent._down(Point())
+            
+        if actionId in [ACTION_PARENT_DIR, ACTION_PREVIOUS_MENU, KEY_NAV_BACK]:
+            self.parent.close()
+
+        return True
+
+    def onClick(self, controlId):
+        if controlId <> C_CATEGORIES_LIST:
+            return False
+
+        listControl = self.parent.getControl(C_CATEGORIES_LIST)
+        item        = listControl.getSelectedItem()
+        category    = self.allCategories[int(item.getProperty('idx'))]
+
+        if category in self.categories:
+            self.categories.remove(category)
+        else:
+            self.categories.append(category)
+
+        if category in self.categories:
+            iconImage = 'ontapp-category-visible.png'
+        else:
+            iconImage = 'ontapp-category-hidden.png'
+
+        item.setIconImage(iconImage)
+
+        self.parent.categoriesList = self.categories
+        dixie.SetSetting('categories', '|'.join(self.parent.categoriesList))
+        self.onRedrawEPG()
+
+        return True
+
+
+    def updateCategories(self, categories):
+        if categories:
+            self.categories = list(categories)
+        else:
+            self.categories = list()
+
+        self.updateCategoriesList()
+
+
+    def updateCategoriesList(self):
+        try:
+            listControl = self.parent.getControl(C_CATEGORIES_LIST)
+            listControl.reset()
+
+            for idx, category in enumerate(self.allCategories):
+                if category in self.categories:
+                    iconImage = 'ontapp-category-visible.png'
+                else:
+                    iconImage = 'ontapp-category-hidden.png'
+
+                category = urllib.unquote_plus(category)
+
+                item = xbmcgui.ListItem(category, iconImage = iconImage)
+                item.setProperty('idx', str(idx))
+                listControl.addItem(item)
+        except:
+            self.isVisible = False
+
+
+    def setFocus(self):
+        if not self.isVisible:
+            return self.parent._moveToBottom()
+
+        ctrl = self.parent.getControl(C_CATEGORIES_LIST)
+        if ctrl:
+            self.parent.setFocus(ctrl)
+
+
+    def onRedrawEPG(self):       
+        self.parent.onRedrawEPG(self.parent.channelIdx, self.parent.viewStartDate)
+        self.setFocus()

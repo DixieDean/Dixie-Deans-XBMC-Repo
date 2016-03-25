@@ -1,5 +1,5 @@
 
-#       Copyright (C) 2013-2014
+#       Copyright (C) 2013-
 #       Sean Poyser (seanpoyser@gmail.com)
 #
 #  This Program is free software; you can redistribute it and/or modify
@@ -46,7 +46,9 @@ FANART     = utils.FANART
 
 SUPERFAVES   = 'plugin.program.super.favourites'
 SF_INSTALLED = xbmc.getCondVisibility('System.HasAddon(%s)' % SUPERFAVES) == 1
-SFFILE       = ''
+SFFILE       = None
+SFMOV        = None
+SFTV         = None
 
 TOOLS = 'script.tvguidedixie.tools'
 
@@ -60,8 +62,14 @@ try:
     import favourite
 
     SFFILE = os.path.join(PROFILE, 'favourites.xml')
+    SFMOV  = os.path.join(PROFILE, 'movie.xml')
+    SFTV   = os.path.join(PROFILE, 'tv.xml')
+
+    LABEL_NUMERIC = sfAddon.getSetting('LABEL_NUMERIC') == 'true'
+
 except:
-    SF_INSTALLED = False
+    SF_INSTALLED  = False
+    LABEL_NUMERIC = False
 
 
 IMAGES = os.path.join(HOME, 'resources', 'images')
@@ -69,28 +77,46 @@ IMAGES = os.path.join(HOME, 'resources', 'images')
 AUTOSTREAM = utils.getSetting('AUTOSTREAM') == 'true'
 KIOSKMODE  = utils.getSetting('KIOSKMODE')  == 'true'
 
+KODILIB = utils.getSetting('UseKodiLib')
+MOVIES  = utils.getSetting('MOVIE')
+TV      = utils.getSetting('TV')
+
+utils.Log('LIBRARY SETTING:\t%s' % KODILIB)
+utils.Log('MOVIE SETTING:\t%s'   % MOVIES)
+utils.Log('TV SETTING:\t%s'      % TV)
+
 GETTEXT = utils.GETTEXT
 
 
 global APPLICATION
 
 
-_SCRIPT          = 100
-_ADDON           = 200
-_SETTINGS        = 300
-_YOUTUBE         = 400
-_CATCHUP         = 500
-_TVSHOWS         = 600
-_MOVIES          = 700
-_SHOWSHORTCUTS   = 800
-_ADDSHORTCUT     = 900
-_VPNICITY        = 1000
-_SUPERSEARCH     = 1100
-_REMOVESHORTCUT  = 1200
-_TOOLS          = 1300
-_LIBRARY         = 1400
-_SUPERFAVE       = 1500
-_REMOVESUPERFAVE = 1600
+_SCRIPT            = 100
+_ADDON             = 200
+_SETTINGS          = 300
+_YOUTUBE           = 400
+_CATCHUP           = 500
+_TV                = 600
+_TVLIB             = 601
+_TVADDON           = 602
+_TVOPTIONS         = 603
+_MOVIE             = 700
+_MOVIELIB          = 701
+_MOVIEADDON        = 702
+_MOVIEOPTIONS      = 703
+_SHOWSHORTCUTS     = 800
+_ADDSHORTCUT       = 900
+_VPNICITY          = 1000
+_SUPERSEARCH       = 1100
+_REMOVESHORTCUT    = 1200
+_TOOLS             = 1300
+_LIBRARY           = 1400
+_SUPERFAVE         = 1500
+_REMOVESUPERFAVE   = 1600
+_REMOVESFMOVIE     = 1601
+_REMOVESFTV        = 1602
+_REMOVEMOVIE       = 1700
+_REMOVETV          = 1800
 
 _CATEGORIES = 2000
 _SETTINS    = 2001
@@ -107,6 +133,21 @@ WINDOWID = 10005 #music
 categoriesList = categories.getSetting('categories').split('|')
 if categoriesList[0] == '':
     categoriesList = []
+
+
+def removeNumeric(text):
+    NUMBER_SEP = ' | '
+
+    if not LABEL_NUMERIC:
+        return text
+
+    root = text.split(NUMBER_SEP, 1)[0]
+    if root.startswith('['):
+        root = root.rsplit(']', 1)[0] + ']'
+    else:
+        root = ''
+        
+    return root + text.split(NUMBER_SEP, 1)[-1]
 
 
 def Capitalize(text):
@@ -128,22 +169,55 @@ def Main():
 
     AddAddon('TV Guide',   'script.tvguidedixie', _SCRIPT,  icon=os.path.join(IMAGES, 'OTTV-TV_Guide.png'))
 
-    AddLibrary('Movies',   '',  _MOVIES,    icon=os.path.join(IMAGES, 'OTTV-Movies.png'))
-    AddLibrary('TV Shows', '',  _TVSHOWS,   icon=os.path.join(IMAGES, 'OTTV-TV_Shows.png'))
+    ShowMovie()
+    ShowTV()
 
     AddSubFolder('TV Catch Up', _CATCHUP,   icon=os.path.join(IMAGES, 'OTTV-TV_Catchup.png'), desc='Catch up on shows you have missed')
 
     AddAddon('Search',          SUPERFAVES, _SUPERSEARCH, icon=os.path.join(IMAGES, 'OTTV-Search.png'), desc='Search all your favourite addons all from one place')
     AddAddon('Favourites',      SUPERFAVES, _ADDON,       icon=os.path.join(IMAGES, 'OTTV-Favourites.png'))
 
-    AddSubFolder('Tools', _TOOLS, icon=os.path.join(IMAGES, 'OTTV-Tools.png'),  desc='Settings and Tools')
+    AddSubFolder('Tools',       _TOOLS,     icon=os.path.join(IMAGES, 'OTTV-Tools.png'),  desc='Settings and Tools')
 
     if not KIOSKMODE:
         ShowShortcuts()
-        ShowSFShortcuts()
+        ShowSFShortcuts(SFFILE, _REMOVESUPERFAVE)
         icon = os.path.join(IMAGES, 'OTTV-Shortcuts.png')
         AddDir('Add more...', '', _ADDSHORTCUT, iconimage=icon, description='Browse and select other shortcuts', isFolder=False, isPlayable=False)
 
+
+def ShowMovie():
+    sfave = favourite.getFavourites(SFMOV) if SFMOV else []
+    addon = utils.getSetting('MOVIE')
+
+    if utils.getSetting('UseKodiLib') == 'true':
+        AddLibrary('Movies', '', _MOVIE, icon=os.path.join(IMAGES, 'OTTV-Movies.png'))
+
+    elif (len(sfave) == 0) and (addon == ''):
+        AddLibrary('Movies', '', _MOVIEOPTIONS, icon=os.path.join(IMAGES, 'OTTV-Movies.png'))
+
+    elif not addon == '':
+        AddMovieLibrary('Movies', '', _MOVIEADDON, icon=os.path.join(IMAGES, 'OTTV-Movies.png'))
+    
+    else:
+        ShowSFShortcuts(SFMOV, _REMOVESFMOVIE)
+
+
+def ShowTV():
+    sfave = favourite.getFavourites(SFTV) if SFTV else []
+    addon = utils.getSetting('TV')
+
+    if utils.getSetting('UseKodiLib') == 'true':
+        AddLibrary('TV Shows', '', _TV, icon=os.path.join(IMAGES, 'OTTV-TV_Shows.png'))
+
+    elif (len(sfave) == 0) and (addon == ''):
+        AddLibrary('TV Shows', '', _TVOPTIONS, icon=os.path.join(IMAGES, 'OTTV-TV_Shows.png'))
+
+    elif not addon == '':
+        AddTVLibrary('TV Shows', '', _TVADDON, icon=os.path.join(IMAGES, 'OTTV-TV_Shows.png'))
+    
+    else:
+        ShowSFShortcuts(SFTV, _REMOVESFTV)
 
 
 def ShowCatchup():
@@ -176,11 +250,11 @@ def SelectSuperSearch(addonID):
     xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d")' % (WINDOWID, addonID, 25))
 
 
-def ShowSFShortcuts():
+def ShowSFShortcuts(file, removeMode):
     if not SF_INSTALLED:
         return
 
-    faves        = favourite.getFavourites(SFFILE)
+    faves        = favourite.getFavourites(file)
     mode         = _SUPERFAVE
     isFolder     = False
     isPlayable   = False
@@ -196,7 +270,7 @@ def ShowSFShortcuts():
         desc   = favourite.getOption(path, 'desc')
 
         menu = []
-        menu.append(('Remove %s Super Favourite' % (name), '?mode=%d&url=%s' % (_REMOVESUPERFAVE, urllib.quote_plus(path))))
+        menu.append(('Remove %s Super Favourite' % (name), '?mode=%d&url=%s' % (removeMode, urllib.quote_plus(path))))
 
         AddDir(name, path, mode, icon, desc, isFolder, isPlayable, fanart=fanart, contextMenu=menu, replaceItems=False)
 
@@ -223,15 +297,15 @@ def ShowShortcuts():
             menu.append(('Remove %s shortcut' % Capitalize(name), '?mode=%d&url=%s' % (_REMOVESHORTCUT, urllib.quote_plus(url))))
 
             if url.startswith('script'):
-                AddAddon(name, url, _SCRIPT, contextMenu=menu)
+                AddA_scrddon(name, url, _SCRIPT, contextMenu=menu)
             else:
                 AddAddon(name, url, _ADDON, contextMenu=menu)
         except:
             pass
 
 
-def RemoveSFShortcut(url):
-    return favourite.removeFave(SFFILE, url)  
+def RemoveSFShortcut(file, url):
+    return favourite.removeFave(file, url)  
 
 
 def RemoveShortcut(url):
@@ -261,55 +335,35 @@ def AddShortcut():
     if ADDMORE == 2 and utils.DialogYesNo(GETTEXT(30313), GETTEXT(30314), '', GETTEXT(30315), GETTEXT(30316)):
         return AddAddonShortcut()
 
-    return AddSFShortcut()
+    return AddSFShortcut(SFFILE)
 
 
-def AddSFShortcut():
-    if not chooser.GetFave('OTT3'):
+def AddSFShortcut(file):
+    if not chooser.GetFave('OTT'):
         return False
 
-    path   = xbmc.getInfoLabel('Skin.String(OTT3.Path)')
-    label  = xbmc.getInfoLabel('Skin.String(OTT3.Label)')
-    icon   = xbmc.getInfoLabel('Skin.String(OTT3.Icon)')
-    folder = xbmc.getInfoLabel('Skin.String(OTT3.IsFolder)') == 'true'
+    path   = xbmc.getInfoLabel('Skin.String(OTT.Path)')
+    label  = xbmc.getInfoLabel('Skin.String(OTT.Label)')
+    icon   = xbmc.getInfoLabel('Skin.String(OTT.Icon)')
+    folder = xbmc.getInfoLabel('Skin.String(OTT.IsFolder)') == 'true'
 
     if len(path) == 0 or path == 'noop':
         return False
 
-    fave = [label, icon, path] 
-    favourite.copyFave(SFFILE, fave)
+    fave = [removeNumeric(label), icon, path] 
+    favourite.copyFave(file, fave)
 
     return True
 
 
 def AddAddonShortcut():
-    import glob
-
-    path      = xbmc.translatePath(os.path.join('special://home' , 'addons', '*.*'))
     shortcuts = utils.getSetting('ADDONS').split('|')
 
     #don't allow sortcut to self
     shortcuts.append(ADDONID)
 
-    names = []
-
-    for addon in glob.glob(path):
-        try:
-            name = addon.lower().rsplit(os.path.sep, 1)[-1]
-            if name not in shortcuts:
-                realname = xbmcaddon.Addon(name).getAddonInfo('name')
-                names.append([Capitalize(realname), name])
-        except:
-            pass
-
-    if len(names) < 1:
-        return
-
-    names.sort()
-
-    addons = []
-    for name in names:
-        addons.append(name[0])
+    names  = getNames()
+    addons = getAddons(names)
 
     option = xbmcgui.Dialog().select('Select addon', addons)
 
@@ -395,6 +449,88 @@ def GetAddon(addonID):
     return [addon, home, profile, title, version, summary, desc, icon, fanart]
 
 
+def RemoveVideo(url, setting):
+    shortcut = utils.getSetting(setting)
+
+    if url not in shortcut:
+        return False
+
+    update = shortcut.replace(url,  '')
+
+    utils.setSetting(setting, update)
+
+    return True
+
+
+def AddVideoOptions(setting, file):
+    if not SF_INSTALLED or utils.DialogYesNo(GETTEXT(30313), GETTEXT(30314), '', GETTEXT(30315), GETTEXT(30316)):
+        return AddVideo(setting)
+
+    return AddSFShortcut(file)
+
+
+def AddVideo(setting):
+    item = utils.getSetting(setting)
+
+    if not item == '':
+        xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/",return)' % (WINDOWID, item))
+        return False
+
+    return _AddVideoShortcut(setting)
+
+
+def _AddVideoShortcut(setting):
+    names  = getNames()
+    addons = getAddons(names)
+
+    option = xbmcgui.Dialog().select('Select addon', addons)
+
+    if option < 0:
+        return False
+
+    update = names[option][1]
+
+    utils.setSetting(setting, update)
+
+    return True
+
+
+def getAddons(names):
+    addons = []
+
+    for name in names:
+        addons.append(name[0])
+
+    if addons < 0:
+        return False
+
+    return addons
+
+
+def getNames():
+    import glob
+    path  = xbmc.translatePath(os.path.join('special://home' , 'addons', '*.*'))
+    names = []
+
+    for addon in glob.glob(path):
+        try:
+            name     = addon.lower().rsplit(os.path.sep, 1)[-1]
+            realname = xbmcaddon.Addon(name).getAddonInfo('name')
+            provides = xbmcaddon.Addon(name).getAddonInfo('type')
+
+            if (provides == 'xbmc.python.pluginsource') or (provides == 'xbmc.python.script'):
+                names.append([Capitalize(realname), name])
+        except:
+            pass
+
+    if len(names) < 1:
+        return
+
+    names.sort()
+
+    return names
+
+
 def AddAddon(name, addonID, mode, icon=None, fanart=None, desc=None, contextMenu=[], replaceItems=False):
     try:    properties = GetAddon(addonID)
     except: return
@@ -421,14 +557,70 @@ def AddSubFolder(name, mode, icon=None, fanart=None, desc=''):
     AddDir(name, '', mode, icon, desc, True, False, fanart)
 
 
-def AddLibrary(name, windowID, mode, icon=None, fanart=None, desc=''):
+def AddLibrary(name, windowID, mode, icon=None, fanart=None, desc='', contextMenu=''):
     if icon == None:
         icon = ICON
-    
+
     if fanart == None:
         fanart = FANART
+
+    AddDir(name, '', mode, icon, '', '', '', fanart, contextMenu='')
+
+
+def AddMovieLibrary(name, windowID, mode, icon=None, fanart=None, desc='', contextMenu=''):
+    addon = utils.getSetting('MOVIE')
     
-    AddDir(name, '', mode, icon, '', '', '', fanart)
+    if addon == '':
+        if icon == None:
+            icon = ICON
+
+        if fanart == None:
+            fanart = FANART
+
+        AddDir(name, '', mode, icon, '', '', '', fanart, contextMenu='')
+
+    try:    properties = GetAddon(addon)
+    except: return
+
+    if not addon == '':
+        icon = properties[7]
+
+    if not addon == '':
+        fanart = properties[8]
+
+    # name = xbmcaddon.Addon(addon).getAddonInfo('name')
+    menu = []
+    menu.append(('Remove %s shortcut' % Capitalize(name),'?mode=%d&url=%s' % (_REMOVEMOVIE, urllib.quote_plus(addon))))
+
+    AddDir(name, '', mode, icon, '', '', '', fanart, contextMenu=menu)
+
+
+def AddTVLibrary(name, windowID, mode, icon=None, fanart=None, desc='', contextMenu=''):
+    addon = utils.getSetting('TV')
+
+    if addon == '':
+        if icon == None:
+            icon = ICON
+
+        if fanart == None:
+            fanart = FANART
+
+        AddDir(name, '', mode, icon, '', '', '', fanart, contextMenu='')
+
+    try:    properties = GetAddon(addon)
+    except: return
+
+    if not addon == '':
+        icon = properties[7]
+
+    if not addon == '':
+        fanart = properties[8]
+
+    # name = xbmcaddon.Addon(addon).getAddonInfo('name')
+    menu = []
+    menu.append(('Remove %s shortcut' % Capitalize(name),'?mode=%d&url=%s' % (_REMOVETV, urllib.quote_plus(addon))))
+
+    AddDir(name, '', mode, icon, '', '', '', fanart, contextMenu=menu)
 
 
 def ShowCategories(categoriesList):
@@ -461,26 +653,18 @@ def AddDir(name, url, mode, iconimage, description, isFolder, isPlayable, fanart
     APPLICATION.addDir(name, mode, u, iconimage, isFolder=isFolder, isPlayable=isPlayable, infoLabels=infoLabels, contextMenu=contextMenu, replaceItems=replaceItems)
 
 
-def get_params(params):
-    if not params:
-        return {}
+def get_params(path):
+    params = {}
+    path   = path.split('?', 1)[-1]
+    pairs  = path.split('&')
 
-    param = {}
+    for pair in pairs:
+        split = pair.split('=')
+        if len(split) > 1:
+            params[split[0]] = urllib.unquote_plus(split[1])
 
-    cleanedparams = params.replace('?','')
+    return params
 
-    if (params[len(params)-1] == '/'):
-       params = params[0:len(params)-2]
-
-    pairsofparams = cleanedparams.split('&')    
-
-    for i in range(len(pairsofparams)):
-        splitparams = pairsofparams[i].split('=')
-
-        if len(splitparams) == 2:
-            param[splitparams[0]] = splitparams[1]
-
-    return param
 
     
 def onBack(application, _params):
@@ -494,12 +678,13 @@ def onParams(application, _params):
     params = get_params(_params)
     mode   = None
 
-    try:    mode = int(urllib.unquote_plus(params['mode']))
+    try:    mode = int(params['mode'])
     except: pass
 
-    try:    url = urllib.unquote_plus(params['url'])
-    except: url = None
-    
+    try:    url = params['url']
+    except: url = None    
+
+    refresh = False
 
     if mode == _SCRIPT:
         cmd = 'RunScript(%s)' % url
@@ -511,25 +696,46 @@ def onParams(application, _params):
 
 
     elif mode == _SUPERFAVE:
-        xbmc.executebuiltin(url)
-
+        try:
+            import player
+            player.playCommand(url)
+        except:
+            pass
 
     elif mode == _REMOVESUPERFAVE:
-        if RemoveSFShortcut(url):
-            APPLICATION.containerRefresh()
-        
-    elif mode == _MOVIES:
-        if utils.getSetting('KodiLib') == 'true':
-            xbmc.executebuiltin('ActivateWindow(10501,plugin://plugin.video.genesis/?action=movieNavigator,return)')
-        else:
-            xbmc.executebuiltin('ActivateWindow(10025,videodb://1/2,return)')
+        refresh = RemoveSFShortcut(SFFILE, url)
 
 
-    elif mode == _TVSHOWS:
-        if utils.getSetting('KodiLib') == 'true':
-            xbmc.executebuiltin('ActivateWindow(10025,plugin://plugin.video.genesis/??action=tvNavigator,return)')
-        else:
-            xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
+    elif mode == _REMOVESFMOVIE:
+        refresh = RemoveSFShortcut(SFMOV, url)
+
+
+    elif mode == _REMOVESFTV:
+        refresh = RemoveSFShortcut(SFTV, url)
+
+
+    elif mode == _MOVIE:
+        xbmc.executebuiltin('ActivateWindow(10025,videodb://1/2,return)')
+
+
+    elif mode == _TV:
+        xbmc.executebuiltin('ActivateWindow(10025,videodb://2/2,return)')
+
+
+    elif mode == _MOVIEOPTIONS:
+        refresh = AddVideoOptions('MOVIE', SFMOV)
+
+
+    elif mode == _TVOPTIONS:
+        refresh = AddVideoOptions('TV', SFTV)
+
+
+    elif mode == _MOVIEADDON:
+        refresh = AddVideo('MOVIE')
+
+
+    elif mode == _TVADDON:
+        refresh = AddVideo('TV')
 
 
     elif mode == _CATEGORIES:
@@ -544,7 +750,6 @@ def onParams(application, _params):
         cmd = 'XBMC.RunScript(special://home/addons/script.tvguidedixie/getIni.py)'
         xbmc.executebuiltin(cmd)
         
-
 
     elif mode == _CHANNELS:
         xbmc.executebuiltin('ActivateWindow(%d,"plugin://%s/?mode=%d")' % (WINDOWID, TOOLS, 1900))
@@ -583,13 +788,22 @@ def onParams(application, _params):
 
 
     elif mode == _ADDSHORTCUT:
-        if AddShortcut():
-            APPLICATION.containerRefresh()
+        refresh = AddShortcut()
 
 
     elif mode == _REMOVESHORTCUT:
-        if RemoveShortcut(url):
-            APPLICATION.containerRefresh()
+        refresh = RemoveShortcut(url)
 
+
+    elif mode == _REMOVEMOVIE:
+        refresh = RemoveVideo(url, 'MOVIE')
+
+            
+    elif mode == _REMOVETV:
+        refresh = RemoveVideo(url, 'TV')
+    
     else:
         Main()
+
+    if refresh:
+        APPLICATION.containerRefresh()

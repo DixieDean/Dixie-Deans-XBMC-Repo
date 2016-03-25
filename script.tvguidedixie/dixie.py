@@ -243,6 +243,38 @@ def getCategories():
     return GetSetting('categories').split('|')
 
 
+def getCategoryList(path):
+    import StringIO
+    from xml.etree import ElementTree
+
+    xml  = None
+    cat  = dict()
+    try:
+        if sfile.exists(path):
+            xml = sfile.read(path)
+    except:
+        pass
+
+    if not xml:
+        return {}
+
+    xml = StringIO.StringIO(xml)
+    xml = ElementTree.iterparse(xml, events=("start", "end"))
+
+    for event, elem in xml:
+        try:
+            if event == 'end':
+               if elem.tag == 'cats':
+                   channel  = elem.findtext('channel')
+                   category = elem.findtext('category')
+                   if channel != '' and category != '':
+                       cat[channel] = category
+        except:
+            pass
+
+    return cat
+
+
 def CloseBusy():
     try: xbmc.executebuiltin('Dialog.Close(busydialog)')
     except: pass
@@ -465,7 +497,7 @@ def resetCookies():
 
 def BackupChannels():
     datapath = GetChannelFolder()
-    
+
     src = os.path.join(datapath, 'channels')
     dst = os.path.join(datapath, 'channels-backup')
 
@@ -473,6 +505,14 @@ def BackupChannels():
     except: pass
 
     try:    sfile.copytree(src, dst)
+    except: pass
+
+
+def BackupCats():
+    currcat = os.path.join(PROFILE, 'cats.xml')
+    bakcat  = os.path.join(PROFILE, 'cats-bak.xml')
+
+    try:    sfile.copy(currcat, bakcat)
     except: pass
 
 

@@ -113,11 +113,11 @@ class Application(xbmcgui.WindowXML):
 
     def onInit(self):
         if (not self.rss) and (DSF) and (utils.DSFVER > '1.0.3'):
-            try:
-                winID    = xbmcgui.getCurrentWindowId()
-                self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
-                self.updateDisplay()
-            except: pass
+            # try:
+            winID    = xbmcgui.getCurrentWindowId()
+            self.rss = rss.RSS(winID, 925, 120, 315, 315, 'http://nearscreen.gvax.tv/webtoprint/rss?id=1')
+            self.updateDisplay()
+            # except: pass
 
         self.clearList()
 
@@ -186,7 +186,7 @@ class Application(xbmcgui.WindowXML):
 
         if self.counter == 5:
             self.clearProperty('LB_FOOTER')
-        
+
         self.updateDisplay()
 
         #if self.relaunch:
@@ -257,9 +257,7 @@ class Application(xbmcgui.WindowXML):
 
 
     def getDSFSetting(self, setting):
-        try:
-            return utils.DSF.getSetting(setting)
-        except: return ''
+        return utils.getDSFSetting(setting)
 
 
     def updateVPN(self):
@@ -271,7 +269,7 @@ class Application(xbmcgui.WindowXML):
             country =  xbmcgui.Window(10000).getProperty('VPNICITY_LABEL')
             if country == '':
                 country = 'VPNicity not active'
-        
+    
             status = '[COLOR orange]IP Address:[/COLOR] [CR]%s [CR][COLOR orange]Country:[/COLOR] [CR]%s ' % (address, country)
             self.status.setLabel(status)
         except:
@@ -290,11 +288,12 @@ class Application(xbmcgui.WindowXML):
             pass
 
     def updateDisplay(self):
-        self.updateVPN()
-        self.updateAdult()
-        try:
+        if DSF:
+            self.updateVPN()
+            self.updateAdult()
+            # try:
             self.rss.update()
-        except: pass
+            # except: pass
 
     def openSettings(self, addonID):
         functionality.ShowSettings(addonID)
@@ -542,7 +541,7 @@ class Application(xbmcgui.WindowXML):
     def trySTDMenu(self, params):
 
         if params == 'STD:SETTINGS':
-            self.addonSettings()            
+            self.addonSettings()
             return
 
         if params == 'STD:ADDFAVOURITE':

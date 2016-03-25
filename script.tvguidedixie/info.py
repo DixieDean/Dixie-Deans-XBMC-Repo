@@ -55,6 +55,10 @@ class InfoService(object):
     def getCurrentProgram(self, channel):   
         try:    
             channelMap = {}
+            if channel.id:
+                id = channel.id.split('_clone_')[0]
+                channelMap[id] = channel
+
             channelMap[channel.id] = channel
 
             strCh = '(\'' + '\',\''.join(channelMap.keys()) + '\')'
@@ -79,6 +83,10 @@ class InfoService(object):
         try:
             channel = ''
             channelMap = {}
+            if program.channel.id:
+                id = program.channel.id.split('_clone_')[0]
+                channelMap[id] = channel
+
             channelMap[program.channel.id] = channel
 
             strCh = '(\'' + '\',\''.join(channelMap.keys()) + '\')'
@@ -101,6 +109,10 @@ class InfoService(object):
         try:
             channel = ''
             channelMap = {}
+            if program.channel.id:
+                id = program.channel.id.split('_clone_')[0]
+                channelMap[id] = channel
+
             channelMap[program.channel.id] = channel
 
             strCh = '(\'' + '\',\''.join(channelMap.keys()) + '\')'
