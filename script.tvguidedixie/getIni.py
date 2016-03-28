@@ -73,7 +73,7 @@ def getIni():
     try:
         import hdhr
         hdhr.createHDHRINI()
-        hdhr.getPlaylist()
+        # hdhr.getPlaylist()
     except: pass
 
 

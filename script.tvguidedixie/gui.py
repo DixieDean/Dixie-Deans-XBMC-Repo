@@ -49,6 +49,8 @@ GMTOFFSET  = dixie.GetGMTOffset()
 TRAILERS   = ADDON.getSetting('trailers.addon')
 USTV       = ADDON.getSetting('ustv.addon')
 IGNORESTRM = ADDON.getSetting('ignore.stream') == 'true'
+META_IMAGE = dixie.GetSetting('meta.image')
+
 
 confirmExit = ADDON.getSetting('confirm.exit').lower() == 'true'
 datapath    = dixie.PROFILE
@@ -518,10 +520,10 @@ class TVGuide(xbmcgui.WindowXML):
                 del channel
                 try:
                     self.channelIdx = int(selection)-1
-                                      
+
                     self.onRedrawEPG(self.channelIdx, self.viewStartDate) 
-                    self.resetFocus()                  
-                                       
+                    self.resetFocus()
+
                 except Exception, e:
                     pass
 
@@ -533,7 +535,7 @@ class TVGuide(xbmcgui.WindowXML):
 
             title = self.getControl(4010).getLabel()
 
-            for pair in self.controlAndProgramList:                       
+            for pair in self.controlAndProgramList:
                 if pair.program.channel.title == title:
                     self.setFocus(pair.control)
                     return
@@ -813,8 +815,13 @@ class TVGuide(xbmcgui.WindowXML):
 
         if program.channel.logo is not None:
             self.setControlImage(self.C_MAIN_LOGO, program.channel.logo)
-        if program.imageSmall is not None:
-            if not self.touch:
+
+        imageSmall = os.path.join(dixie.RESOURCES, 'imageSmall.png')
+
+        if not self.touch:
+            if program.imageSmall is None:
+                self.setControlImage(self.C_MAIN_IMAGE, imageSmall)
+            else:
                 self.setControlImage(self.C_MAIN_IMAGE, program.imageSmall)
 
         if ADDON.getSetting('program.background.enabled') == 'true' and program.imageLarge is not None:
@@ -2292,6 +2299,7 @@ class CategoriesMenu(xbmcgui.WindowXMLDialog):
             item.setProperty('idx', str(idx))
             listControl.addItem(item)
 
+
 class CategoriesMenu1(object):
     def __init__(self, database, categories, parent):
         self.database = database
@@ -2304,11 +2312,11 @@ class CategoriesMenu1(object):
             self.updateCategories(categories)
             self.show()
         except:
-            pass        
-            
+            pass
+
     def show(self):
         try:
-            if dixie.isLimited():
+            if (dixie.isLimited()) or (dixie.GetSetting('hide.cats') == 'true'):
                 return self.hide()
 
             self.isVisible = True
