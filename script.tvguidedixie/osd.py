@@ -137,7 +137,7 @@ class OSD(xbmcgui.WindowXMLDialog):
         if channel:
             xbmcgui.Window(10000).setProperty('OTT_CHANNEL', channel.id)
 
-        Timer(1, self.onClose).start()
+        Timer(2, self.onClose).start()
 
 
     def onClose(self):

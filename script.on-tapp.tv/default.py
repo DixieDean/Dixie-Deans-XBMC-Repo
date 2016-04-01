@@ -25,9 +25,6 @@ import update
 NOHOME = utils.getSetting('NOHOME') == 'true'
 
 update.checkUpdate()
-cmd = 'XBMC.RunScript(special://home/addons/script.tvguidedixie/getIni.py)'
-xbmc.executebuiltin(cmd)
-
 
 if __name__ == '__main__':
     if NOHOME:

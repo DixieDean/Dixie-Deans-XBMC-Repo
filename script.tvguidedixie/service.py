@@ -105,6 +105,9 @@ dixie.patchSkins()
 if not os.path.exists(cookiepath):
     os.makedirs(cookiepath)
 
+cmd = 'XBMC.RunScript(special://home/addons/script.tvguidedixie/getIni.py)'
+xbmc.executebuiltin(cmd)
+
 
 #legacy tidying up
 dst = os.path.join(xbmc.translatePath('special://userdata/keymaps'), 'zOTT.xml')
