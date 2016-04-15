@@ -1,9 +1,0 @@
-v1.0.2
-- Changed dependencies.
-- Changed VPN button.
-
-v1.0.1
-- Fixed Add-on ID bug to allow uninstall.
-
-v1.0
-- Initial release
