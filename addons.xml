@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.program.super.favourites" name="Super Favourites" version="1.0.52" provider-name="spoyser">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+	<import addon="script.module.metahandler" optional="true" />
+  </requires>
+
+
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video audio image executable</provides>
+  </extension>
+
+
+  <extension point="xbmc.service" library="service.py" start="startup" />
+
+
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Put all your favourites bits of all your favourites addons into one easy to use addon.</summary>
+    <description lang="en">Super Favourites is a better way of managing your Kodi Favourites.[CR][CR]Virtually any menu item within Kodi can be added to Super Favourites, even from addons that don't normally provide this feature.[CR][CR]Super Favourites allows you to better manage your Kodi favourites, including the creation of sub-folders, into which your Kodi favourites can then be copied or moved into.[CR][CR]This allows you to create you own custom addon with just the best bits of your favourite addons. Search your favourite addons, play your favourite music, read your favourite comic strips, select your favourite playlists, browse your favourite movies, listen to your favourite radio stations, watch your favourite cartoons, the possibilities are endless, all from within one easy to use addon.</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum>http://forum.xbmc.org/showthread.php?tid=192662</forum>
+    <website></website>
+    <source>https://github.com/spoyser/spoyser-repo/tree/master/plugin.program.super.favourites</source>
+    <email>seanpoyser at gmail.com</email>
+  </extension>
+
+
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+
+      <item library="capture.py">
+        <label>30002</label>
+        <visible>!IsEmpty(Window(10000).Property(SF_STD_CONTEXTMENU_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
+      </item>
+
+      <item library="menu_addtofaves.py">
+        <label>30047</label>
+        <visible>!IsEmpty(Window(10000).Property(SF_STD_ADDTOFAVES_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
+      </item>
+
+      <item library="menu_download.py">
+        <label>30259</label>
+        <visible>!IsEmpty(Window(10000).Property(SF_STD_DOWNLOAD_ENABLED)) + Player.IsInternetStream</visible>
+      </item>
+
+    </menu>
+  </extension>
+
+</addon>
+
 <addon id="plugin.program.vpnicity" name="VPNicity" version="1.4.5" provider-name="spoyser">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -45,7 +96,7 @@
 
 <addon id="repository.Dixie-Deans-XBMC-Repo"
 	name="Dixie-Deans-XBMC-Repo"
-	version="1.1.0"
+	version="1.1.1"
 	provider-name="DixieDean">
 	<extension point="xbmc.addon.repository"
 		name="Dixie-Deans-XBMC-Repo-1.1.0">
@@ -60,14 +111,32 @@
 	</extension>
 </addon>
 
-<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.3.8" provider-name="Spoyser, DixieDean">
+<addon id="repository.spoyser"
+        name="spoysers XBMC Add-ons"
+        version="1.0.6"
+        provider-name="spoyser">
+    <extension point="xbmc.addon.repository"
+        name="spoysers XBMC Add-ons">
+        <info compressed="false">https://raw.github.com/spoyser/spoyser-repo/master/addons.xml</info>
+        <checksum>https://raw.github.com/spoyser/spoyser-repo/master/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.github.com/spoyser/spoyser-repo/master/zips/</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Install XBMC add-ons from the official spoyser repository</summary>
+        <description>Install XBMC add-ons from spoysers official repository</description>
+        <disclaimer></disclaimer>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.3.9" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
         <import addon="script.tvguidedixie" version="2.7.2" />
         <import addon="script.tvguidedixie.tools" version="1.0.2" optional="true"/>
-        <import addon="plugin.video.ontapp-player" version="0.0.2" optional="true"/>
-        <import addon="plugin.program.super.favourites" version="1.0.35" optional="true"/>
+        <import addon="repository.spoyser" version="1.0.6" optional="true"/>
+        <import addon="plugin.program.super.favourites" version="1.0.50" optional="true"/>
     </requires>
 
 	<extension point="xbmc.python.script" library="default.py">
@@ -82,7 +151,7 @@
   </extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.5.4" provider-name="Spoyser, DixieDean">
+<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.5.5" provider-name="Spoyser, DixieDean">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
