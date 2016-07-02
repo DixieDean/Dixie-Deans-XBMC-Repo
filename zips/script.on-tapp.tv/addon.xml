@@ -5,7 +5,6 @@
         <import addon="script.module.requests" version="2.3.0"/>
         <import addon="script.tvguidedixie" version="2.7.2" />
         <import addon="script.tvguidedixie.tools" version="1.0.2"/>
-        <import addon="repository.spoyser" version="1.0.6"/>
         <import addon="plugin.program.super.favourites" version="1.0.43"/>
     </requires>
 
