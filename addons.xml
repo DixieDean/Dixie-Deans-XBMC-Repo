@@ -134,9 +134,9 @@
         <import addon="xbmc.python" version="2.14.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
         <import addon="script.tvguidedixie" version="2.7.2" />
-        <import addon="script.tvguidedixie.tools" version="1.0.2" optional="true"/>
-        <import addon="repository.spoyser" version="1.0.6" optional="true"/>
-        <import addon="plugin.program.super.favourites" version="1.0.50" optional="true"/>
+        <import addon="script.tvguidedixie.tools" version="1.0.2"/>
+        <import addon="repository.spoyser" version="1.0.6"/>
+        <import addon="plugin.program.super.favourites" version="1.0.50"/>
     </requires>
 
 	<extension point="xbmc.python.script" library="default.py">
