@@ -111,24 +111,6 @@
 	</extension>
 </addon>
 
-<addon id="repository.spoyser"
-        name="spoysers XBMC Add-ons"
-        version="1.0.6"
-        provider-name="spoyser">
-    <extension point="xbmc.addon.repository"
-        name="spoysers XBMC Add-ons">
-        <info compressed="false">https://raw.github.com/spoyser/spoyser-repo/master/addons.xml</info>
-        <checksum>https://raw.github.com/spoyser/spoyser-repo/master/addons.xml.md5</checksum>
-        <datadir zip="true">https://raw.github.com/spoyser/spoyser-repo/master/zips/</datadir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Install XBMC add-ons from the official spoyser repository</summary>
-        <description>Install XBMC add-ons from spoysers official repository</description>
-        <disclaimer></disclaimer>
-        <platform>all</platform>
-    </extension>
-</addon>
-
 <addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.4.3" provider-name="On-Tapp-Networks">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
