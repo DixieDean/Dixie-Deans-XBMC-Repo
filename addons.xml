@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.program.super.favourites" name="Super Favourites" version="1.0.52" provider-name="spoyser">
+<addon id="plugin.program.super.favourites" name="Super Favourites" version="1.0.53.1" provider-name="spoyser">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
-	<import addon="script.module.metahandler" optional="true" />
+    <import addon="repository.Dixie-Deans-XBMC-Repo" version="1.1.2"/>
+    <import addon="script.module.metahandler" optional="true" />
   </requires>
 
 
@@ -32,18 +33,18 @@
     <menu id="kodi.core.main">
 
       <item library="capture.py">
-        <label>30002</label>
-        <visible>!IsEmpty(Window(10000).Property(SF_STD_CONTEXTMENU_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
+        <label>$ADDON[plugin.program.super.favourites 30002]</label>
+        <visible>!IsEmpty(Window(Home).Property(SF_STD_CONTEXTMENU_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
       </item>
 
       <item library="menu_addtofaves.py">
-        <label>30047</label>
-        <visible>!IsEmpty(Window(10000).Property(SF_STD_ADDTOFAVES_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
+        <label>$ADDON[plugin.program.super.favourites 30047]</label>
+        <visible>!IsEmpty(Window(Home).Property(SF_STD_ADDTOFAVES_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
       </item>
 
       <item library="menu_download.py">
-        <label>30259</label>
-        <visible>!IsEmpty(Window(10000).Property(SF_STD_DOWNLOAD_ENABLED)) + Player.IsInternetStream</visible>
+        <label>$ADDON[plugin.program.super.favourites 30259]</label>
+        <visible>!IsEmpty(Window(Home).Property(SF_STD_DOWNLOAD_ENABLED)) + Player.IsInternetStream</visible>
       </item>
 
     </menu>
@@ -132,7 +133,7 @@
   </extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.6.2" provider-name="On-Tapp-Networks">
+<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.6.3" provider-name="On-Tapp-Networks">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
