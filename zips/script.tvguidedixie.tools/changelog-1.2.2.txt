@@ -1,0 +1,74 @@
+v1.2.2:
+  - Fix for download error.
+
+v1.2.1:
+  - Added Merge Channel Line-ups feature.
+
+v1.2.0:
+  - Added Line-up Tools code.
+  - Added temporary options to create line-ups from IPTV Settings or INI files.
+
+v1.1.9:
+  - Added Update Add-on Links option.
+
+v1.1.8:
+  - Added an option to re-order the EPG channels in alphabetical order.
+
+v1.1.7:
+  - Minor bug fix.
+
+v1.1.6:
+  - Improved Channel Line-ups Section.
+  - The Tools will now install Super Favourites links if a channel line-up requires it.
+
+v1.1.5:
+  - Added Edit Favourite Category section.
+  - Fixed Bulk Edit Category. Now, it doesn't reorder channels after changing the category name.
+
+v1.1.4:
+  - Changed how files are broswed on Windows.
+  - Edit logo, backup and restore should show full file paths on all operating systems.
+
+v1.1.3:
+  - Added Edit Categories feature.
+  - Added Download Line-ups feature.
+  - Added Back-up + Restore section.
+
+v1.1.2:
+  - Fixed script error.
+
+v1.1.0:
+  - New Logo-pack and Skin installation feature.
+
+v1.0.7:
+  - Fix for new channel creation.
+
+v1.0.6:
+  - On-Tapp.EPG 3.1.0 compatibility update.
+
+v1.0.5:
+  - Added Categories to 'Edit Channel'
+  - Added option to search Kodi sources for custom logos (in Add-on Settings)
+
+v1.0.4:
+  - Added 'Clone Channel' feature
+
+v1.0.3:
+  - Added edit channel dialog
+  - Added functionality to create user defined channels, links these to Super Favourites for the complete OTT experience!
+
+
+v1.0.2:
+  - Added functionality to hide / show channels
+  - Added functionality to show which channels have a stream set
+  - Clicking channel now selects it automatically
+  - Do not allow multiple channel selection whilst sorted alphabetically
+
+
+v1.0.1:
+  - Added functionality to move individual channel
+  - Added functionality to move blocks of channels, select both ends of the block followed by insert
+
+
+v1.0.0:
+  - Initial release
