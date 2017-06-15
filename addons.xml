@@ -155,7 +155,7 @@
   </extension>
 </addon>
 
-<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.9.92" provider-name="On-Tapp-Networks">
+<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="3.9.93" provider-name="On-Tapp-Networks">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
