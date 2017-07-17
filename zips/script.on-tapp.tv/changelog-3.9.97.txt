@@ -1,0 +1,182 @@
+v3.9.97 (July 17th 2017)
+  - Reset All channels now keeps all customisations. Only linked streams are reset.
+  - iPlayer WWW now plays all regional channels.
+  - Fixed minor Add-on/TVCatchup integration errors.
+
+v3.9.96
+  - Fixed bug in Search. 
+    Catchup will be offered as an option on previously aired programmes.
+  - Added new addons to built-in TV Catchup.
+  - Added new or updated addon integrations.
+  - Fixed Home Page Addon shortcuts.
+    All available addons now show in the addable list.
+  - Standardised version numbers of Home Page and TV Guide addons.
+
+v1.5.6
+  - Minor code changes.
+
+v1.5.5
+  - Improved First Run code.
+
+v1.5.4
+  - Minor bugfix.
+
+v1.5.3
+  - New HomePage Settings Button added to skin.
+  - Customise the HomePage via the settings.
+
+v1.5.2
+  - Fixed Home Screen buttons to work in Kodi v17 (Krypton).
+
+v1.5.1
+  - Adjusted initial install routines.
+
+v1.5.0
+  - Added new Channel Update system.
+
+v1.4.9
+  - Added "Currently Watching" label to the EPG.
+  - Changed how background ini files are created. Only done at Kodi boot.
+  - Improved ini file channel name mapping method.
+  - Varous Add-on integration fixes.
+  - Added new Add-on integrations.
+
+v1.4.8
+  - Minor code changes.
+
+v1.4.7
+  - Interim update in preparation for new features.
+
+v1.4.6
+  - Interim update in preparation for new features.
+
+v1.4.5
+  - Added 'Single Active Category Mode' in the settings.
+      Allows auto-switching between categories.
+
+  - Updated ini file creation code.
+  - Added further Add-on integrations.
+
+v1.4.4
+  - Code tidy up.
+
+v1.4.3
+  - Fixed script error on add-on start.
+
+v1.4.2
+  - Added a version checker to the settings.
+
+v1.4.1
+  - Minor code changes.
+
+v1.4.0
+  - Edited add-on dependencies.
+
+v1.3.9
+  - Fixed error in Home Page context menu.
+
+v1.3.8
+  - Removed 'Restore Channels' from the settings.
+
+v1.3.7
+  - Minor code changes.
+
+v1.3.6
+  - Fixed 'Stream Last Channel Watched' setting.
+  - All Live TV add-ons will now play in the minimised window properly.
+
+v1.3.5
+  - Minor code changes.
+
+v1.3.4
+  - Added Edit Categories feature.
+  - Added Download Line-ups feature.
+  - Added Back-up + Restore section.
+
+v1.3.2
+- Minor code edits.
+
+v1.3.1
+- Modified the 'Kiosk Mode' setting to only remove the 'Add more...' button.
+  This allows you to lock down any Home Page customisations and prevent accidental changes.
+
+v1.3.0
+- Improved Home Page buttons.
+- Movies and TV Shows buttons can now be set to a user-defined Add-on or Super Favourite.
+
+v1.2.9
+- Bug fixed where addon support files fail to load.
+
+v1.2.8
+- Minor code maintenance.
+
+v1.2.7
+- Minor code maintenance.
+
+v1.2.6
+- Minor code maintenance.
+
+v1.2.5
+- Changed resources domain.
+- Various code maintenance.
+
+v1.2.4
+- Changed resources URL.
+
+v1.2.3
+- Bugfix for Kodi 16 (Jarvis) when opening/changing the add-on settings.
+
+v1.2.2
+- Mini-Guide bugfix.
+
+v1.2.1
+- Changed 'check update' code.
+
+v1.2.0
+- Added 'Reset Hot key' to settings.
+
+v1.1.9
+- Added programmable HotKey to activate Mini-Guide globally in Kodi.
+
+v1.1.8
+- Changed first run routine.
+
+v1.1.7
+- Added Tools Section. Links to new features of On-Tapp.TV Tools add-on.
+- Settings file fix.
+
+v1.1.6
+- Added Tools Section. Links to new features of On-Tapp.TV Tools add-on.
+
+v1.1.5
+- Fix for clean install and Add-on reset scripts.
+
+v1.1.4
+- Corrected addon.xml.
+
+v1.1.3
+- Minor bugfix for error when updating files.
+
+v1.1.2
+- Minor bugfix.
+
+v1.1.1
+- Changed iPlayer shortcut to iPlayer WWW (available from the official Kodi repo).
+- Added Maintenance tab to the Add-on Settings for easier troubleshooting.
+
+v1.1.0
+- Code changes to integrate with channel surfing in the EPG.
+
+v1.0.3
+- Added full Super Favourites integration.
+- Added 'Disable VPN' to VPN menu.
+
+v1.0.2
+- Changed dependencies.
+- Changed VPN button.
+
+v1.0.1
+- Fixed Add-on ID bug to allow uninstall.
+
+v1.0
+- Initial release
