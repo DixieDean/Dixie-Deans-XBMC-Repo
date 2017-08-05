@@ -193,7 +193,7 @@
 	</extension>
 </addon>
 
-<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="1.2.2" provider-name="spoyser, DixieDean">
+<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="1.2.3" provider-name="spoyser, DixieDean">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.requests" version="2.3.0"/>
