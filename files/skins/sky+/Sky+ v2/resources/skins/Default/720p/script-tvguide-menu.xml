@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window type="dialog">
+	<allowoverlay>no</allowoverlay>
+	<defaultcontrol always="true">4005</defaultcontrol>
+	<coordinates>
+		<system>1</system>
+		<posx>0</posx>
+		<posy>-30</posy>
+	</coordinates>
+    <controls>
+		<control type="image">
+			<posx>42</posx>
+			<posy>288</posy>
+			<width>1181</width>
+			<height>36</height>
+			<texture></texture>	
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="100" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+		</control>		
+		<!-- ----------- Logo ----------- -->
+        <control type="image" id="4100">
+            <posx>320</posx>
+            <posy>50</posy>
+            <width>240</width>
+            <height>80</height>
+            <aspectratio>keep</aspectratio>
+			<visible>false</visible>
+        </control>
+		<!-- ----------- Title ----------- -->
+        <control type="label" id="4101">
+            <posx>320</posx>
+            <posy>50</posy>
+            <width>240</width>
+            <height>30</height>
+            <align>center</align>
+            <font>font15</font>
+            <textcolor>ffffffff</textcolor>
+			<visible>false</visible>
+        </control>
+		<!-- ----------- Close Menu ----------- -->
+        <control type="button" id="4004">
+            <posx>69</posx>
+            <posy>293</posy>
+            <width>33</width>
+            <height>28</height>
+			<aspectratio>scale</aspectratio>
+            <texturefocus>ontapp-program-grey-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+            <onup>4001</onup>
+            <ondown>4001</ondown>
+			<onright>4005</onright>
+            <label></label>
+			<visible>true</visible>				
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<control type="image">
+			<posx>76</posx>
+			<posy>298</posy>
+			<width>18</width>
+			<height>18</height>
+			<aspectratio>scale</aspectratio>
+			<texture>OTTV-X.png</texture>
+			<visible>true</visible>				
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+		</control>
+		<!-- ----------- Categories ----------- -->
+		<control type="button" id="4005">
+            <posx>107</posx>
+            <posy>293</posy>
+            <width>137</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onleft>4004</onleft>
+            <onright>4000</onright>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+			<textcolor>ffffffff</textcolor>
+			<textcolorfocus>ff12336e</textcolorfocus>
+			<label>$ADDON[script.tvguidedixie 30309]</label>
+			<visible>true</visible>				
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<!-- ----------- Watch ----------- -->
+        <control type="button" id="4000">
+            <posx>249</posx>
+            <posy>293</posy>
+            <width>137</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onright>4001</onright>
+			<onleft>4005</onleft>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+            <!--textcolor>ffffc600</textcolor-->
+			<textcolor>ffffffff</textcolor>
+			<wrapmultiline>true</wrapmultiline>	
+			<visible>true</visible>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<!-- ----------- Choose/Remove Stream ----------- -->
+        <control type="button" id="4001">
+            <posx>391</posx>
+            <posy>293</posy>
+            <width>137</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+			<ondown>4004</ondown>
+            <onright>4002</onright>
+			<onleft>4000</onleft>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>			
+            <label>$ADDON[script.tvguidedixie 30304]</label>
+			<visible>true</visible>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+        <control type="label">
+            <posx>391</posx>
+            <posy>206</posy>
+            <width>133</width>
+            <height>28</height>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+            <align>center</align>			
+            <label>$ADDON[script.tvguidedixie 30305]</label>
+            <wrapmultiline>true</wrapmultiline>
+			<visible>true</visible>
+        </control>
+		<!-- ----------- Remind Text ----------- -->
+        <control type="label" id="4102">
+            <posx>830</posx>
+            <posy>50</posy>
+            <width>240</width>
+            <height>30</height>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffc600</textcolor>
+			<visible>false</visible>
+        </control>
+		<!-- ----------- Remind Text ----------- -->
+        <control type="label" id="4102">
+            <posx>480</posx>
+            <posy>329</posy>
+            <width>323</width>
+            <height>30</height>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffc600</textcolor>
+			<scroll>true</scroll>
+            <visible>[Control.HasFocus(4000) | Control.HasFocus(4002)]</visible>
+			<visible>false</visible>
+        </control>
+		<!-- ----------- Remind ----------- -->
+        <control type="button" id="4002">
+            <posx>533</posx>
+            <posy>293</posy>
+            <width>137</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onleft>4001</onleft>
+            <onright>4011</onright>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<!-- ----------- My Recordings ----------- -->
+		<control type="button" id="4011">
+            <posx>675</posx>
+            <posy>293</posy>
+            <width>137</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onleft>4002</onleft>
+            <onright>4003</onright>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+			<label>$ADDON[script.tvguidedixie 30319]</label>
+			<visible>true</visible>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<!-- ----------- Channels ----------- -->
+		<control type="button" id="4003">
+            <posx>817</posx>
+            <posy>293</posy>
+            <width>137</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onleft>4011</onleft>
+            <onright>4007</onright>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+			<label>$ADDON[script.tvguidedixie 30307]</label>
+			<visible>true</visible>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<!-- ----------- Settings ----------- -->
+		<control type="button" id="4007">
+            <posx>959</posx>
+            <posy>293</posy>
+            <width>123</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onleft>4003</onleft>
+            <onright>4009</onright>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+			<label>$ADDON[script.tvguidedixie 30313]</label>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		<!-- ----------- iSearch ----------- -->
+		<control type="button" id="4009">
+            <posx>1087</posx>
+            <posy>293</posy>
+            <width>123</width>
+            <height>28</height>
+            <texturefocus>ontapp-program-menu-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+			<onup>4004</onup>
+            <onleft>4007</onleft>
+            <onright>4004</onright>
+			<ondown>4004</ondown>
+            <align>center</align>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+            <label>$ADDON[script.tvguidedixie 30315]</label>
+			<animation type="WindowOpen">
+				<effect type="fade" start="0" end="100" time="500" tween="sine" easing="out"/>
+				<effect type="slide" start="0,20" end="0,0" time="300"/>
+			</animation>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        </control>
+		
+    </controls>
+</window>

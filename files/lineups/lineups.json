@@ -1,0 +1,222 @@
+{
+  "lineups": {
+    "lineup": [
+      {
+        "-name": "Default Channels",
+        "-url": "default/Default Line-up.zip",
+        "-icon": "default/icon.png",
+        "-fanart": "default/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "The default channel line-up for On-Tapp.TV"
+      },
+      {
+        "-name": "ACE IPTV Add-on",
+        "-url": "ace/ACE IPTV Line-up.zip",
+        "-icon": "ace/icon.png",
+        "-fanart": "ace/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "ACE IPTV channels available in On-Tapp.TV"
+      },
+      {
+        "-name": "Dexter Pro Add-on: UK Focus",
+        "-url": "dexuk/Dexter Pro - UK Focus.zip",
+        "-icon": "dexuk/icon.png",
+        "-fanart": "dexuk/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Dexter Pro channels available in On-Tapp.TV with a focus on UK based content"
+      },
+      {
+        "-name": "Dexter Pro Add-on: US Focus",
+        "-url": "dexna/Dexter Pro - US Focus.zip",
+        "-icon": "dexna/icon.png",
+        "-fanart": "dexna/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Dexter Pro channels available in On-Tapp.TV with a focus on North American based content"
+      },
+      {
+        "-name": "Endless IPTV Add-on",
+        "-url": "end/Endless IPTV Line-up.zip",
+        "-icon": "end/icon.png",
+        "-fanart": "end/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Endless IPTV channels available in On-Tapp.TV"
+      },
+      {
+        "-name": "Enigma2tv Line-up",
+        "-url": "enig/Enigma2tv Line-up.zip",
+        "-icon": "enig/icon1.png",
+        "-fanart": "enig/fanart1.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Custom channel line-up for Enigma2tv"
+      },
+      {
+        "-name": "FAB IPTV Add-on",
+        "-url": "fab/FAB IPTV Line-up.zip",
+        "-icon": "fab/icon.png",
+        "-fanart": "fab/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "FAB IPTV Add-on channels available in On-Tapp.TV. Includes built-in TV Catch-up."
+      },
+      {
+        "-name": "Freeview Add-on",
+        "-url": "freev/Freeview Add-on Line-up.zip",
+        "-icon": "freev/icon.png",
+        "-fanart": "freev/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Freeview Add-on channels available in On-Tapp.TV"
+      },
+      {
+        "-name": "Flawless IPTV Add-on",
+        "-url": "flaw/Flawless IPTV Line-up.zip",
+        "-icon": "flaw/icon.png",
+        "-fanart": "flaw/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Flawless IPTV channels available in On-Tapp.TV. Includes built-in TV Catch-up."
+      },
+      {
+        "-name": "Horizon IPTV Add-on",
+        "-url": "horizon/Horizon IPTV Line-up.zip",
+        "-icon": "horizon/icon.png",
+        "-fanart": "horizon/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Horizon IPTV channels available in On-Tapp.TV. Includes built-in TV Catch-up."
+      },
+      {
+        "-name": "Maxiweb TV Add-on",
+        "-url": "maxi/MaxiWebTV Line-up.zip",
+        "-icon": "maxi/icon.png",
+        "-fanart": "maxi/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Maxiweb TV channels available in On-Tapp.TV"
+      },
+      {
+        "-name": "Mega IPTV Add-on",
+        "-url": "mega/MegaIPTV Line-up.zip",
+        "-icon": "mega/icon.png",
+        "-fanart": "mega/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Mega IPTV channels available in On-Tapp.TV"
+      },
+      {
+        "-name": "NTV.mx Add-on",
+        "-url": "ntv/NTV.mx Line-up.zip",
+        "-icon": "ntv/icon.png",
+        "-fanart": "ntv/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "All NTV.mx channels available in On-Tapp.TV"
+      },
+      {
+        "-name": "Ruya IPTV 2.0 Add-on",
+        "-url": "ruya2/Ruya IPTV Line-up.zip",
+        "-icon": "ruya2/icon.png",
+        "-fanart": "ruya2/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Ruya IPTV 2.0 Add-on: Custom channel line-up for Ruya. Includes built-in TV Catch-up."
+      },
+      {
+        "-name": "SmartHub Add-on",
+        "-url": "smh/SmartHub Line-up.zip",
+        "-icon": "smh/icon.png",
+        "-fanart": "smh/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "SmartHub Add-on: Custom channel line-up for SmartHub (previously HDTV MBox). Includes built-in TV Catch-up."
+      },
+      {
+        "-name": "StreamsEasy Add-on",
+        "-url": "steasy/StreamsEasy Line-up.zip",
+        "-icon": "steasy/icon.png",
+        "-fanart": "steasy/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "StreamsEasy Add-on: Custom channel line-up for StreamsEasy. Includes built-in TV Catch-up."
+      },
+      {
+        "-name": "SG Streams Add-on",
+        "-url": "sgstreams/SG Streams Line-up.zip",
+        "-icon": "sgstreams/icon.png",
+        "-fanart": "sgstreams/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "SG Streams Add-on: Custom channel line-up for SG Streams"
+      },
+      {
+        "-name": "StreamSupreme Add-on",
+        "-url": "strsup/StreamSupreme Line-up.zip",
+        "-icon": "strsup/icon.png",
+        "-fanart": "strsup/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "StreamSupreme Add-on: Custom channel line-up for StreamSupreme"
+      },
+      {
+        "-name": "StreamTVBox Add-on",
+        "-url": "stvb/STVB Line-up.zip",
+        "-icon": "stvb/icon.png",
+        "-fanart": "stvb/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "StreamTVBox Add-on: Custom channel line-up for StreamTVBox"
+      },
+      {
+        "-name": "SportsMania Add-on",
+        "-url": "sm/SportsMania Line-up.zip",
+        "-icon": "sm/icon.png",
+        "-fanart": "sm/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Custom channel line-up for the SportsMania Add-on"
+      },
+      {
+        "-name": "SportsNation Add-on",
+        "-url": "sn/SportsNation Line-up.zip",
+        "-icon": "sn/icon.png",
+        "-fanart": "sn/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Custom channel line-up for the SportsNation Add-on"
+      },
+      {
+        "-name": "Twisted TV Add-on",
+        "-url": "twist/Twisted Channel Line-up.zip",
+        "-icon": "twist/icon.png",
+        "-fanart": "twist/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Custom channel line-up for the Twisted TV Add-on"
+      },
+      {
+        "-name": "UltimateMania Add-on",
+        "-url": "umania/UltimateMania.zip",
+        "-icon": "umania/icon.png",
+        "-fanart": "umania/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Custom channel line-up for the UltimateMania Add-on"
+      },
+      {
+        "-name": "Vader Streams Add-on",
+        "-url": "vader/Vader Streams Line-up.zip",
+        "-icon": "vader/icon.png",
+        "-fanart": "vader/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Custom channel line-up for the Vader Streams Add-on"
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<logopacklist>
+<logopack name="Colour Logo Pack" url="colour/Colour Logo Pack.zip" icon="colour/icon.png" fanart="colour/fanart.png" description="The default colour logo-pack for On-Tapp.TV"/>
+<logopack name="White Borderless v1.0" url="whiteborderless/White Borderless v1.0.zip" icon="whiteborderless/icon.png" fanart="whiteborderless/fanart.png" description="A logo pack by nakquada for On-Tapp.TV"/>
+<logopack name="White Logos Bordered v1.0" url="whiteborder/White Logos Bordered v1.0.zip" icon="whiteborder/icon.png" fanart="whiteborder/fanart.png" description="A logo pack by nakquada for On-Tapp.TV"/>
+<logopack name="Arctic Zephyr Logos" url="arctic/Arctic Zephyr Logos.zip" icon="arctic/icon.png" fanart="arctic/fanart.png" description="A logo pack for On-Tapp.TV"/>
+<logopack name="Encode Colour Logo Pack" url="encode/Encode Colour Logo Pack.zip" icon="encode/icon.png" fanart="encode/fanart.png" description="A logo pack by Encode for On-Tapp.TV"/>
+</logopacklist>

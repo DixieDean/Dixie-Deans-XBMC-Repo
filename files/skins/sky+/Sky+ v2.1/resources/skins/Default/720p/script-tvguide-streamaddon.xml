@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window type="dialog">
+    <allowoverlay>no</allowoverlay>
+    <defaultcontrol always="true">1000</defaultcontrol>
+    <coordinates>
+        <system>1</system>
+        <posx>320</posx>
+        <posy>210</posy>
+    </coordinates>
+    <animation effect="fade" start="0" end="100" time="250">WindowOpen</animation>
+    <animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+    <controls>
+        <control type="image">
+            <posx>-320</posx>
+            <posy>-210</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>ontapp-fade.png</texture>
+        </control>
+        <control type="image">
+            <posx>0</posx>
+            <posy>5</posy>
+            <width>640</width>
+            <height>280</height>
+            <texture>Wallpaper.jpg</texture>
+        </control>
+
+        <control type="label" id="4000">
+            <posx>20</posx>
+            <posy>25</posy>
+            <width>600</width>
+            <height>100</height>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <align>center</align>
+			<aligny>top</aligny>
+            <label>[B]Multiple addons provide this channel.[CR]Choose one to watch the stream.[/B]</label>
+            <wrapmultiline>true</wrapmultiline>
+        </control>
+
+        <control type="fixedlist" id="1000">
+            <posx>20</posx>
+            <posy>90</posy>
+            <width>600</width>
+            <height>200</height>
+            <viewtype label="list">list</viewtype>
+            <orientation>horizontal</orientation>
+            <focusposition>1</focusposition>
+
+            <itemlayout width="200" height="200">
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>200</width>
+                    <height>200</height>
+                    <texture>ontapp-program-grey.png</texture>
+                </control>
+                <control type="image">
+                    <posx>36</posx>
+                    <posy>16</posy>
+                    <width>128</width>
+                    <height>128</height>
+                    <info>ListItem.Icon</info>
+                </control>
+                <control type="label">
+                    <posx>10</posx>
+                    <posy>151</posy>
+                    <width>160</width>
+                    <height>100</height>
+                    <align>center</align>
+                    <aligny>top</aligny>
+					<textcolor>ffffffff</textcolor>
+                    <info>ListItem.Label</info>
+					<visible>true</visible>
+                </control>
+            </itemlayout>
+            <focusedlayout width="200" height="200">
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>200</width>
+                    <height>190</height>
+                    <texture>ontapp-program-grey-focus.png</texture>
+                    <visible>Control.HasFocus(1000)</visible>
+                </control>
+                <control type="image">
+                    <posx>36</posx>
+                    <posy>16</posy>
+                    <width>128</width>
+                    <height>128</height>
+                    <info>ListItem.Icon</info>
+                </control>
+                <control type="label">
+                    <posx>10</posx>
+                    <posy>151</posy>
+                    <width>160</width>
+                    <height>100</height>
+                    <align>center</align>
+                    <aligny>top</aligny>
+					<textcolor>ffffffff</textcolor>
+                    <info>ListItem.Label</info>
+					<visible>true</visible>
+				</control>
+            </focusedlayout>
+        </control>
+    </controls>
+</window>

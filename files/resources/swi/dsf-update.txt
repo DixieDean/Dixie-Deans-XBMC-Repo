@@ -1,0 +1,15 @@
+{
+"DSFOTTSkin": "0.2", "DSF OTT Skin": "ott/skin-update.zip", 
+
+"DSFEPGSkin": "0.2", "DSF EPG Skin": "ottepg/skin-update.zip", 
+
+"DSFLogos": "0.1", "DSF Logos": "ottepg/logo-colour-update.zip", 
+
+"DSFOTTUpdate": "0.0", "DSF OTT Update": "ott/python-update.zip", 
+
+"DSFEPGUpdate": "0.1", "DSF EPG Update": "ottepg/python-update.zip",
+
+"DSFUpdate": "0.2", "DSF Update": "dsf/dsf-update.zip",
+
+"DSFKodiSkin": "0.0", "DSF Kodi Skin": "dsfskin/dsf-kodi-skin.zip"
+}

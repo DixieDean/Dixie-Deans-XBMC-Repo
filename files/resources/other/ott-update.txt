@@ -1,0 +1,1 @@
+{"OTTSkin": "2.0", "OTT Skin Link": "ott/skin-update.zip", "EPGSkin": "2.2", "EPG Skin Link": "ottepg/skin-update.zip", "LogoColour": "1.3", "Logo Colour": "ottepg/logo-colour-update.zip", "LogoWhite": "1.3", "Logo White": "ottepg/logo-white-update.zip", "OTTUpdate": "1.6", "OTT Update": "ott/python-update.zip", "EPGUpdate": "1.6", "EPG Update": "ottepg/python-update.zip"}
