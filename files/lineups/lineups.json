@@ -83,6 +83,15 @@
         "-description": "Flawless IPTV channels available in On-Tapp.TV. Includes built-in TV Catch-up."
       },
       {
+        "-name": "Gizmo V2 Add-on",
+        "-url": "gizmo2/GizmoV2 Line-up.zip",
+        "-icon": "gizmo2/icon.png",
+        "-fanart": "gizmo2/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Gizmo V2 channels available in On-Tapp.TV."
+      },
+      {
         "-name": "Horizon IPTV Add-on",
         "-url": "horizon/Horizon IPTV Line-up.zip",
         "-icon": "horizon/icon.png",
@@ -128,15 +137,6 @@
         "-description": "Ruya IPTV 2.0 Add-on: Custom channel line-up for Ruya. Includes built-in TV Catch-up."
       },
       {
-        "-name": "SmartHub Add-on",
-        "-url": "smh/SmartHub Line-up.zip",
-        "-icon": "smh/icon.png",
-        "-fanart": "smh/fanart.jpg",
-        "-sf": "false",
-        "-sfzip": "",
-        "-description": "SmartHub Add-on: Custom channel line-up for SmartHub (previously HDTV MBox). Includes built-in TV Catch-up."
-      },
-      {
         "-name": "StreamsEasy Add-on",
         "-url": "steasy/StreamsEasy Line-up.zip",
         "-icon": "steasy/icon.png",
@@ -146,15 +146,6 @@
         "-description": "StreamsEasy Add-on: Custom channel line-up for StreamsEasy. Includes built-in TV Catch-up."
       },
       {
-        "-name": "SG Streams Add-on",
-        "-url": "sgstreams/SG Streams Line-up.zip",
-        "-icon": "sgstreams/icon.png",
-        "-fanart": "sgstreams/fanart.jpg",
-        "-sf": "false",
-        "-sfzip": "",
-        "-description": "SG Streams Add-on: Custom channel line-up for SG Streams"
-      },
-      {
         "-name": "StreamSupreme Add-on",
         "-url": "strsup/StreamSupreme Line-up.zip",
         "-icon": "strsup/icon.png",
@@ -162,15 +153,6 @@
         "-sf": "false",
         "-sfzip": "",
         "-description": "StreamSupreme Add-on: Custom channel line-up for StreamSupreme"
-      },
-      {
-        "-name": "StreamTVBox Add-on",
-        "-url": "stvb/STVB Line-up.zip",
-        "-icon": "stvb/icon.png",
-        "-fanart": "stvb/fanart.jpg",
-        "-sf": "false",
-        "-sfzip": "",
-        "-description": "StreamTVBox Add-on: Custom channel line-up for StreamTVBox"
       },
       {
         "-name": "SportsMania Add-on",
