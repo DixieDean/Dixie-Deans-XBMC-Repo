@@ -92,6 +92,15 @@
         "-description": "Gizmo V2 channels available in On-Tapp.TV."
       },
       {
+        "-name": "Limitless V2 Add-on",
+        "-url": "limit2/LimitV2 Line-up.zip",
+        "-icon": "limit2/icon.png",
+        "-fanart": "limit2/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "Limitless V2 channels available in On-Tapp.TV."
+      },
+      {
         "-name": "Horizon IPTV Add-on",
         "-url": "horizon/Horizon IPTV Line-up.zip",
         "-icon": "horizon/icon.png",
