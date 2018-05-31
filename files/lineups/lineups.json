@@ -101,6 +101,15 @@
         "-description": "Mega IPTV channels available in On-Tapp.TV"
       },
       {
+        "-name": "Natho Subs Add-on",
+        "-url": "natho/NTV.mx Line-up.zip",
+        "-icon": "natho/icon.png",
+        "-fanart": "natho/fanart.jpg",
+        "-sf": "false",
+        "-sfzip": "",
+        "-description": "All Natho Subs channels available in On-Tapp.TV"
+      },
+      {
         "-name": "NTV.mx Add-on",
         "-url": "ntv/NTV.mx Line-up.zip",
         "-icon": "ntv/icon.png",
