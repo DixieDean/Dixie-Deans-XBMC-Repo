@@ -11,40 +11,13 @@
         "-description": "The default channel line-up for On-Tapp.TV"
       },
       {
-        "-name": "ACE IPTV Add-on",
-        "-url": "ace/ACE IPTV Line-up.zip",
-        "-icon": "ace/icon.png",
-        "-fanart": "ace/fanart.jpg",
+        "-name": "Anova Natho",
+        "-url": "anova/Anova Natho Line-up.zip",
+        "-icon": "anova/icon.png",
+        "-fanart": "anova/fanart.jpg",
         "-sf": "false",
         "-sfzip": "",
-        "-description": "ACE IPTV channels available in On-Tapp.TV"
-      },
-      {
-        "-name": "Dexter Pro Add-on: UK Focus",
-        "-url": "dexuk/Dexter Pro - UK Focus.zip",
-        "-icon": "dexuk/icon.png",
-        "-fanart": "dexuk/fanart.jpg",
-        "-sf": "false",
-        "-sfzip": "",
-        "-description": "Dexter Pro channels available in On-Tapp.TV with a focus on UK based content"
-      },
-      {
-        "-name": "Dexter Pro Add-on: US Focus",
-        "-url": "dexna/Dexter Pro - US Focus.zip",
-        "-icon": "dexna/icon.png",
-        "-fanart": "dexna/fanart.jpg",
-        "-sf": "false",
-        "-sfzip": "",
-        "-description": "Dexter Pro channels available in On-Tapp.TV with a focus on North American based content"
-      },
-      {
-        "-name": "Endless IPTV Add-on",
-        "-url": "end/Endless IPTV Line-up.zip",
-        "-icon": "end/icon.png",
-        "-fanart": "end/fanart.jpg",
-        "-sf": "false",
-        "-sfzip": "",
-        "-description": "Endless IPTV channels available in On-Tapp.TV"
+        "-description": "Anova Natho IPTV channels available in On-Tapp.TV"
       },
       {
         "-name": "Enigma2tv Line-up",
