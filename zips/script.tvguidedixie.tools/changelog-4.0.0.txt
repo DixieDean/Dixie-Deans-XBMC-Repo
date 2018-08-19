@@ -1,0 +1,2 @@
+v4.0.0 (August 18th 2018)
+  - UPGRADE: Added option to install Recording feature.

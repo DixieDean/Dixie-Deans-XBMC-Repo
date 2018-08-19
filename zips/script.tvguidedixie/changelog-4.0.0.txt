@@ -1,0 +1,5 @@
+v4.0.0 (August 19th 2018)
+  - UPGRADE: Recording feature.
+  - UPGRADE: Interactive and editable Categories menu.
+  - UPGRADE: Embedded navigation buttons in the EPG.
+

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.on-tapp.tv" name="On-Tapp.TV 3.0" version="1.4.0" provider-name="Spoyser, DixieDean">
+<addon id="script.on-tapp.tv" name="On-Tapp.TV" version="4.0.0" provider-name="On-Tapp-Networks">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
         <import addon="script.module.requests" version="2.3.0"/>
-        <import addon="script.tvguidedixie" version="2.7.2" />
-        <import addon="script.tvguidedixie.tools" version="1.0.2"/>
+        <import addon="script.tvguidedixie" version="3.0.0" />
+        <import addon="script.tvguidedixie.tools" version="4.0.0"/>
+        <import addon="plugin.video.ottplanner" version="1.0.0"/>
         <import addon="plugin.program.super.favourites" version="1.0.43"/>
     </requires>
 
