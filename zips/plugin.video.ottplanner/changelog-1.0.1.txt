@@ -1,0 +1,5 @@
+1.0.0 - 30th September 2017
+  - initial release
+
+1.0.1 - 8th September 2018
+  - Minor code changes

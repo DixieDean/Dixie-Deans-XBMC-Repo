@@ -1,0 +1,5 @@
+v4.0.0 (August 18th 2018)
+  - UPGRADE: Added option to install Recording feature.
+
+v4.0.1 (September 8th 2018)
+  - Recording now works on all platorms
