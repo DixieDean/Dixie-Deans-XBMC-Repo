@@ -2,15 +2,15 @@
 <skinlist>
 <skin name="Default Skin" url="default/Default Skin.zip" icon="default/icon.png" fanart="default/fanart.jpg" description="Default TV Guide skin for On-Tapp.TV"/>
 <skin name="Alternate" url="alternate/Alternate.zip" icon="alternate/icon.png" fanart="alternate/fanart.jpg" description="A skin by @Stemoz40 on Twitter for On-Tapp.TV"/>
-<skin name="Eminence" url="eminence/Eminence.zip" icon="eminence/icon.png" fanart="eminence/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
-<skin name="Estuary v4" url="estuary/Estuary v4.zip" icon="estuary/icon.png" fanart="estuary/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
+<skin name="Eminence v4.0" url="eminence/Eminence v4.0.zip" icon="eminence/icon.png" fanart="eminence/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
+<skin name="Estuary v4.0" url="estuary/Estuary v4.zip" icon="estuary/icon.png" fanart="estuary/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
 <skin name="Go" url="go/Go.zip" icon="go/icon.png" fanart="go/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
-<skin name="Mimic" url="mimic/Mimic.zip" icon="mimic/icon.png" fanart="mimic/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
+<skin name="Mimic v4.0" url="mimic/Mimic v4.0.zip" icon="mimic/icon.png" fanart="mimic/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
 <skin name="Onyx v1.1" url="onyx/Onyx v1.1.zip" icon="onyx/icon.png" fanart="onyx/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
 <skin name="SkyQ v3.6" url="skyq/SkyQ v3.6.zip" icon="skyq/icon.png" fanart="skyq/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
-<skin name="Sky+ v4.1" url="sky+/Sky+ v4.1.zip" icon="sky+/icon.png" fanart="sky+/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
+<skin name="Sky+ v4.0" url="sky+/Sky+ v4.0.zip" icon="sky+/icon.png" fanart="sky+/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
 <skin name="SIsKIN6" url="sls6/SIsKIN6.zip" icon="sls6/icon.png" fanart="sls6/fanart.jpg" description="A custom skin by umonkey for On-Tapp.TV"/>
 <skin name="SIsKIN9" url="sls9/SIsKIN9.zip" icon="sls9/icon.png" fanart="sls9/fanart.jpg" description="A custom skin by umonkey for On-Tapp.TV"/>
 <skin name="Titan" url="titan/Titan.zip" icon="titan/icon.png" fanart="titan/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
-<skin name="Virgin v1.1" url="virgin/Virgin v1.1.zip" icon="virgin/icon.png" fanart="virgin/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
+<skin name="Virgin v4.0" url="virgin/Virgin v4.0.zip" icon="virgin/icon.png" fanart="virgin/fanart.jpg" description="A skin by Encode for On-Tapp.TV"/>
 </skinlist>
