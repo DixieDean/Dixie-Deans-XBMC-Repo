@@ -1,0 +1,20 @@
+v4.0.4 (October 13th 2018)
+  - Added a 'Record/Remind' section to the TV Guide settings
+  - Bugfix related to IPYV Playlist integration
+
+v4.0.3 (September 9th 2018)
+  - Fixed incorrect error message when enabling recording on Android devices
+
+v4.0.2 (September 8th 2018)
+  - Minor bugfix
+
+v4.0.1 (September 8th 2018)
+  - Recording now works on all platorms
+  - Improved IPTV Playist integration
+  - EPG controls can now be turned off in the TV Guide Settings
+
+v4.0.0 (August 19th 2018)
+  - UPGRADE: Recording feature
+  - UPGRADE: Interactive and editable Categories menu
+  - UPGRADE: Embedded navigation buttons in the EPG
+
