@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon id="plugin.audio.global-radio" name="Global Radio" version="1.0.0" provider-name="spoyser">
+  <requires>
+     <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>audio</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Global Radio</summary>
+    <description lang="en">Global Radio</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum></forum>
+    <website>http://www.thisisglobal.com/</website>
+    <source></source>
+    <email>seanpoyser at gmail dot com</email>
+    <news>
+1.0.0: 19th February 2017
+    - initial release
+    </news>
+  </extension>
+</addon>
+
+<addon id="plugin.program.super.favourites" name="Super Favourites" version="1.0.59" provider-name="spoyser">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+    <import addon="script.module.metahandler" optional="true" />
+  </requires>
+
+
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video audio image executable</provides>
+  </extension>
+
+
+  <extension point="xbmc.service" library="service.py" start="startup" />
+
+
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Put all your favourites bits of all your favourites addons into one easy to use addon.</summary>
+    <description lang="en">Super Favourites is a better way of managing your Kodi Favourites.[CR][CR]Virtually any menu item within Kodi can be added to Super Favourites, even from addons that don't normally provide this feature.[CR][CR]Super Favourites allows you to better manage your Kodi favourites, including the creation of sub-folders, into which your Kodi favourites can then be copied or moved into.[CR][CR]This allows you to create you own custom addon with just the best bits of your favourite addons. Search your favourite addons, play your favourite music, read your favourite comic strips, select your favourite playlists, browse your favourite movies, listen to your favourite radio stations, watch your favourite cartoons, the possibilities are endless, all from within one easy to use addon.</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum>http://forum.xbmc.org/showthread.php?tid=192662</forum>
+    <website></website>
+    <source>https://github.com/spoyser/spoyser-repo/tree/master/plugin.program.super.favourites</source>
+    <email>seanpoyser at gmail.com</email>
+
+    <news>
+1.0.59: 29th May 2017
+    - 'Now playing' text now defined by SF due to skin variations
+    </news>
+
+  </extension>
+
+
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+
+      <item library="capture.py">
+        <label>$ADDON[plugin.program.super.favourites 30002]</label>
+        <visible>!IsEmpty(Window(Home).Property(SF_STD_CONTEXTMENU_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
+      </item>
+
+      <item library="menu_addtofaves.py">
+        <label>$ADDON[plugin.program.super.favourites 30047]</label>
+        <visible>!IsEmpty(Window(Home).Property(SF_STD_ADDTOFAVES_ENABLED)) + !StringCompare(Container.PluginName,plugin.program.super.favourites)</visible>
+      </item>
+
+      <item library="menu_download.py">
+        <label>$ADDON[plugin.program.super.favourites 30259]</label>
+        <visible>!IsEmpty(Window(Home).Property(SF_STD_DOWNLOAD_ENABLED)) + Player.IsInternetStream</visible>
+      </item>
+
+    </menu>
+  </extension>
+
+</addon>
+
+<addon id="plugin.program.vpnicity" name="VPNicity" version="1.5.1" provider-name="spoyser">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.requests" version="2.3.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en"></summary>
+    <description lang="en"></description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum></forum>
+    <website></website>
+    <source></source>
+    <email></email>
+  </extension>
+  <extension point="kodi.context.item" library="manual.py">
+      <item>
+          <label>VPNicity Connect</label>
+          <visible>true</visible>
+      </item>
+  </extension>
+
+</addon>
+
+<addon id="plugin.video.ottplanner" name="On-Tapp.TV Planner" version="1.0.1" provider-name="On-Tapp-Networks">
+
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+  </extension>
+
+  <extension point="xbmc.service" library="service.py" start="login" />
+
+  <extension point="xbmc.addon.metadata">
+    <summary></summary>
+    <description lang="en"></description>
+     <platform>all</platform>
+  </extension>
+
+</addon>
+
+<addon id="plugin.video.xtream-codes" name="Xtream-Codes IPTV" version="2.0" provider-name="MikkM">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="init.py">
+        <provides>video executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Xtream-Codes IPTV</summary>
+    <website>http://www.xtream-codes.com/</website>
+    <description lang="en">IPTV Addon for Xteam-Codes iptv panel</description>
+    <forum>http://www.xtream-codes.com/forum</forum>
+    <email>mikkm@mikkm.ul.ee</email>
+    <disclaimer lang="en">You may use and share this addon however you like, you may NOT edit this addon in any way without conesnt of developer. Skype:MikkM</disclaimer>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="repository.Dixie-Deans-XBMC-Repo"
+	name="On-Tapp-Networks Add-ons"
+	version="1.1.3"
+	provider-name="On-Tapp-Networks">
+	<extension point="xbmc.addon.repository"
+		name="On-Tapp-Networks Add-ons">
+		<info compressed="false">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml</info>
+		<checksum>https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/DixieDean/Dixie-Deans-XBMC-Repo/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Our Addons</summary>
+		<description>Download and install addons from On-Tapp-Networks... For updates and information visit www.on-tapp-networks.com/forum</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="script.on-tapp.tv" name="On-Tapp.TV" version="4.0.7" provider-name="On-Tapp-Networks">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+        <import addon="script.tvguidedixie" version="3.0.0" />
+        <import addon="script.tvguidedixie.tools" version="4.0.0"/>
+        <import addon="plugin.video.ottplanner" version="1.0.0"/>
+        <import addon="plugin.program.super.favourites" version="1.0.43"/>
+    </requires>
+
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+
+    <extension point="xbmc.service" library="service.py" start="login" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">A powerful EPG add-on with many extra features. Streaming support via multiple live TV addons.</summary>
+        <description lang="en">A comprehensive EPG that is compatible with many popular live TV addons. [CR]Up to 14 days of listings with automatic triggering of your favourite live TV addons.[CR]As well as the EPG, On-Tapp.TV puts all your favourite media in one place.</description>
+        <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="script.tvguidedixie" name="On-Tapp.EPG" version="4.0.7" provider-name="On-Tapp-Networks">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="addon.py"></extension>
+    <extension point="xbmc.service" library="service.py" start="login" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">A powerful EPG add-on with many extra features. Streaming support via multiple live TV addons.</summary>
+        <description lang="en">A comprehensive EPG that is compatible with many popular live TV addons. [CR]Up to 14 days of listings with automatic triggering of your favourite live TV addons.[CR]As well as the EPG, On-Tapp.TV puts all your favourite media in one place.</description>
+        <description lang="es">TV Guide ofrece una visión general de lo que hay en la televisión ahora mismo, así no tienes que cambiar el canal en XBMC![CR]Los datos EPG pueden ser obtenidos de YouSee.tv, DR.dk, TvTid.dk, archivo XMLTV o de una fuente remota de JSON.[CR][CR]Navegue usando las teclas de flecha y cambie de página mediante canal + / -.[CR][CR]Si usted tiene comentarios o sugerencias para este complemente, no dude en participar en el debate de mi blog en http://tommy.winther.nu</description>
+        <platform>all</platform>
+        <language></language>
+        <license>GPLv2</license>
+    </extension>
+
+	<extension point="kodi.context.item" library="osd.py">
+      <item>
+        <label>On-Tapp.TV Mini-Guide</label>
+        <visible>true</visible>
+      </item>
+	</extension>
+</addon>
+
+<addon id="script.tvguidedixie.tools" name="On-Tapp.TV Tools" version="4.0.7" provider-name="On-Tapp-Networks">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+    </requires>
+
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Tools for use with OnTapp.TV</summary>
+        <description lang="en">Tools for use with OnTapp.TV</description>
+        <language>en</language>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <forum></forum>
+        <website></website>
+        <source></source>
+        <email></email>
+        <platform>all</platform>
+    </extension>
+</addon>
+</addons>
