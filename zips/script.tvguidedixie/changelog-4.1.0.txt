@@ -1,0 +1,45 @@
+v4.1.0 (May 19th 2019)
+  - Fixed startup process to make it quicker
+  - Re-wrote IPTV Playlist code to fix issues with some playlists
+
+v4.0.9 (April 18th 2019)
+  - Changed categories code
+  - Changed line-ups code
+  - Changed update code
+
+v4.0.8 (March 7th 2019)
+  - Fixed issue with back-up/restore code related to new categories system
+
+v4.0.7 (March 3rd 2019)
+  - Moved all default skins to resources folder
+  - Made changes to IPTV Playlist code
+  - Minor code changes
+
+v4.0.6 (Fabruary 27th 2019)
+  - Fixes added due to Kodi v18 bugs
+  - Improvements made to the Tools Add-on
+
+v4.0.5 (Fabruary 11th 2019)
+  - Fixes added due to Kodi v18 bugs
+  - Reverted IPTV Playists to original methods
+
+v4.0.4 (October 13th 2018)
+  - Added a 'Record/Remind' section to the TV Guide settings
+  - Bugfix related to IPYV Playlist integration
+
+v4.0.3 (September 9th 2018)
+  - Fixed incorrect error message when enabling recording on Android devices
+
+v4.0.2 (September 8th 2018)
+  - Minor bugfix
+
+v4.0.1 (September 8th 2018)
+  - Recording now works on all platorms
+  - Improved IPTV Playist integration
+  - EPG controls can now be turned off in the TV Guide Settings
+
+v4.0.0 (August 19th 2018)
+  - UPGRADE: Recording feature
+  - UPGRADE: Interactive and editable Categories menu
+  - UPGRADE: Embedded navigation buttons in the EPG
+
