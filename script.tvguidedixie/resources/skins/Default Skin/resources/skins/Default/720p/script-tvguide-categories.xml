@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window type="dialog">
+    <allowoverlay>no</allowoverlay>
+    <defaultcontrol always="true">7000</defaultcontrol>
+    <coordinates>
+        <system>1</system>
+        <posx>-43</posx>
+        <posy>-33</posy>
+    </coordinates>
+			<animation type="WindowClose">
+				<effect type="fade" start="100" end="0" time="300" tween="sine" easing="out"/>
+				<effect type="slide" start="0,0" end="0,20" time="300"/>
+			</animation>
+        <controls>
+
+		<control type="image">
+			<posx>92</posx>
+			<posy>288</posy>
+			<width>1181</width>
+			<height>36</height>
+			<texture>top_border.png</texture>
+		</control>	
+
+        <control type="label" id="7001">
+            <description>visibility marker for selection box</description>
+        </control>
+        <control type="list" id="7000">
+            <posx>198</posx>
+            <posy>293</posy>
+            <width>1062</width>
+            <height>420</height>
+            <viewtype label="list">list</viewtype>
+            <orientation>horizontal</orientation>
+            <focusposition>7</focusposition>
+            <onleft>7002</onleft>
+			<onup>7002</onup>
+			<ondown>7002</ondown>
+            <itemlayout width="176" height="30">
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>173</width>
+                    <height>28</height>
+                    <texture>ontapp-program-grey2.png</texture>
+					<visible>!Control.HasFocus(7002)</visible>
+					<visible>!Control.HasFocus(7003)</visible>
+                </control>
+                <control type="label">
+                    <posx>28</posx>
+                    <posy>-1</posy>
+                    <width>133</width>
+                    <height>28</height>
+                    <aligny>center</aligny>
+                    <font>font12</font>
+                    <textcolor>ffffffff</textcolor>
+                    <info>ListItem.Label</info>
+                </control>
+                <control type="image">
+                    <posx>6</posx>
+                    <posy>6</posy>
+                    <width>16</width>
+                    <height>16</height>
+                    <info>ListItem.Icon</info>
+                </control>
+            </itemlayout>
+            <focusedlayout width="176" height="30">
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>173</width>
+                    <height>28</height>
+                    <texture>ontapp-program-grey-focus.png</texture>
+                    <visible>Control.HasFocus(7000)</visible>
+                </control>
+                <control type="label">
+                    <posx>28</posx>
+                    <posy>-1</posy>
+                    <width>133</width>
+                    <height>28</height>
+                    <aligny>center</aligny>
+                    <font>font12</font>
+					<autoscroll time="3600" delay="2000" repeat="2000">true</autoscroll>
+					<textcolor>ff6aa6cb</textcolor>
+                    <label>$INFO[ListItem.Label]</label>
+                </control>
+                <control type="image">
+                    <posx>6</posx>
+                    <posy>6</posy>
+                    <width>16</width>
+                    <height>16</height>
+                    <info>ListItem.Icon</info>
+					<!-- <texture>tvguide-categories-show.png</texture> -->
+                </control>
+            </focusedlayout>
+        </control>
+
+        <control type="button" id="7002">
+            <posx>111</posx>
+            <posy>293</posy>
+            <width>40</width>
+            <height>28</height>
+            <align>center</align>
+            <aligny>center</aligny>
+			<onleft>7000</onleft>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+            <!--label>$ADDON[script.on-tapp.tv 30311]</label-->
+            <texturefocus>ontapp-program-grey-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+            <onright>7003</onright>
+        </control>
+		<control type="image">
+			<posx>120</posx>
+			<posy>298</posy>
+			<width>18</width>
+			<height>18</height>
+			<aspectratio>scale</aspectratio>
+			<texture>OTTV-Tick.png</texture>
+		</control>
+		<-- Dummy buttons /-->
+        <control type="image">
+            <posx>196</posx>
+            <posy>293</posy>
+            <width>171</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+        <control type="image">
+            <posx>372</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+        <control type="image">
+            <posx>548</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+        <control type="image">
+            <posx>724</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+        <control type="image">
+            <posx>900</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+        <control type="image">
+            <posx>1076</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+
+        <control type="button" id="7003">
+            <posx>154</posx>
+            <posy>293</posy>
+            <width>40</width>
+            <height>28</height>
+            <align>center</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>ffffffff</textcolor>
+            <!--label>$ADDON[script.on-tapp.tv 30312]</label-->
+            <texturefocus>ontapp-program-grey-focus.png</texturefocus>
+            <texturenofocus>ontapp-program-grey2.png</texturenofocus>
+            <onleft>7002</onleft>
+            <onright>7000</onright>
+		</control>
+		<control type="image">
+			<posx>165</posx>
+			<posy>298</posy>
+			<width>18</width>
+			<height>18</height>
+			<aspectratio>scale</aspectratio>
+			<texture>OTTV-X.png</texture>
+		</control> 
+		<-- Dummy buttons /-->
+        <control type="image">
+            <posx>196</posx>
+            <posy>293</posy>
+            <width>171</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+        <control type="image">
+            <posx>372</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+        <control type="image">
+            <posx>548</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+        <control type="image">
+            <posx>724</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+        <control type="image">
+            <posx>900</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+        <control type="image">
+            <posx>1076</posx>
+            <posy>293</posy>
+            <width>173</width>
+            <height>28</height>
+            <texture>ontapp-program-grey2.png</texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+
+    </controls>
+</window>

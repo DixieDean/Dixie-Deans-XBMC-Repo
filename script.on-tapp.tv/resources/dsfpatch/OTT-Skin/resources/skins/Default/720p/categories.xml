@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window type="dialog">
+    <allowoverlay>no</allowoverlay>
+    <defaultcontrol always="true">7000</defaultcontrol>
+    <coordinates>
+        <system>1</system>
+        <posx>0</posx>
+        <posy>-3</posy>
+    </coordinates>
+				<animation effect="fade" start="0" end="100" time="250">WindowOpen</animation>
+				<animation effect="fade" start="100" end="0" time="250">WindowClose</animation>
+    <controls>
+		<control type="image">
+			<posx>109</posx>
+			<posy>292</posy>
+			<width>1061</width>
+			<height>31</height>
+			<texture>OTTV-Background.png</texture>
+		</control>	
+        <control type="label" id="7001">
+            <description>visibility marker for selection box</description>
+        </control>
+        <control type="list" id="7000">
+            <posx>200</posx>
+            <posy>293</posy>
+            <width>970</width>
+            <height>420</height>
+            <viewtype label="list">list</viewtype>
+            <orientation>horizontal</orientation>
+            <focusposition>7</focusposition>
+            <onleft>7003</onleft>
+            <onup>7002</onup>
+            <ondown>7002</ondown>
+            <itemlayout width="176" height="30">
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>171</width>
+                    <height>28</height>
+                    <texture></texture>
+                </control>
+                <control type="label">
+                    <posx>28</posx>
+                    <posy>-1</posy>
+                    <width>131</width>
+                    <height>28</height>
+                    <aligny>center</aligny>
+                    <font>FontSize_18</font>
+                    <textcolor>ffffffff</textcolor>
+                    <info>ListItem.Label</info>
+                </control>
+                <control type="image">
+                    <posx>6</posx>
+                    <posy>6</posy>
+                    <width>16</width>
+                    <height>16</height>
+                    <info>ListItem.Icon</info>
+                </control>
+            </itemlayout>
+            <focusedlayout width="176" height="30">
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>171</width>
+                    <height>28</height>
+                    <texture>ontapp-program-grey-focus.png</texture>
+                    <visible>Control.HasFocus(7000)</visible>
+                </control>
+                <control type="label">
+                    <posx>28</posx>
+                    <posy>-1</posy>
+                    <width>131</width>
+                    <height>28</height>
+                    <aligny>center</aligny>
+                    <font>FontSize_18</font>
+					<autoscroll time="3600" delay="2000" repeat="2000">true</autoscroll>
+					<textcolor>ff6aa6cb</textcolor>
+                    <label>$INFO[ListItem.Label]</label>
+                </control>
+                <control type="image">
+                    <posx>6</posx>
+                    <posy>6</posy>
+                    <width>16</width>
+                    <height>16</height>
+                    <info>ListItem.Icon</info>
+                </control>
+            </focusedlayout>
+        </control>
+
+        <control type="button" id="7002">
+            <posx>109</posx>
+            <posy>293</posy>
+            <width>40</width>
+            <height>28</height>
+            <align>center</align>
+            <aligny>center</aligny>
+            <font>FontSize_18</font>
+            <textcolor>ffffffff</textcolor>
+            <!--label>$ADDON[script.on-tapp.tv 30311]</label-->
+            <texturefocus>ontapp-program-grey-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+            <onright>7003</onright>
+        </control>
+		<control type="image">
+			<posx>119</posx>
+			<posy>298</posy>
+			<width>18</width>
+			<height>18</height>
+			<aspectratio>scale</aspectratio>
+			<texture>OTTV-Tick.png</texture>
+		</control>
+		<control type="image">
+            <posx>200</posx>
+            <posy>293</posy>
+            <width>171</width>
+            <height>28</height>
+            <texture></texture>
+			<visible>Control.HasFocus(7002)</visible>
+        </control>
+        <control type="button" id="7003">
+            <posx>154</posx>
+            <posy>293</posy>
+            <width>40</width>
+            <height>28</height>
+            <align>center</align>
+            <aligny>center</aligny>
+            <font>FontSize_18</font>
+            <textcolor>ffffffff</textcolor>
+            <!--label>$ADDON[script.on-tapp.tv 30312]</label-->
+            <texturefocus>ontapp-program-grey-focus.png</texturefocus>
+            <texturenofocus></texturenofocus>
+            <onleft>7002</onleft>
+            <onright>7000</onright>
+		</control>
+		<control type="image">
+			<posx>165</posx>
+			<posy>298</posy>
+			<width>18</width>
+			<height>18</height>
+			<aspectratio>scale</aspectratio>
+			<texture>OTTV-X.png</texture>
+		</control>        
+        <control type="image">
+            <posx>200</posx>
+            <posy>293</posy>
+            <width>171</width>
+            <height>28</height>
+            <texture></texture>
+			<visible>Control.HasFocus(7003)</visible>
+        </control>
+    </controls>
+</window>
