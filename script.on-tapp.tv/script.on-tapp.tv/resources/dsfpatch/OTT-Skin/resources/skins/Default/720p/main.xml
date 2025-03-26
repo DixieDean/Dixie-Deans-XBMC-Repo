@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>    
+    <allowoverlay>no</allowoverlay>
+    <coordinates>
+        <system>1</system>
+        <posx>0</posx>
+        <posy>0</posy>
+    </coordinates>
+   <defaultcontrol always="true">3000</defaultcontrol>
+
+    <controls>
+    <!-- Wallpaper -->
+        <control type="image">
+            <description>Background Image</description>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <aspectratio>scale</aspectratio>
+            <texture>OTTV-Background.png</texture>
+            <!-- <fadetime>500</fadetime> -->
+        </control> 
+
+        <!-- Video Window Fanart -->
+        <control type="image">
+            <posx>20</posx>
+            <posy>179</posy>
+            <width>504</width>
+            <height>310</height>
+            <texture>GVAx-Fanart.jpg</texture>
+            <visible>!Player.HasVideo</visible>
+        </control>    
+        
+        <!-- Video Window -->
+        <control type="videowindow">
+            <posx>20</posx>
+            <posy>179</posy>
+            <width>504</width>
+            <height>310</height>
+            <!-- <aspectratio>stretch</aspectratio> -->
+        </control>
+
+        <!-- Buttons -->
+        <!-- Touch Add-on -->
+        <control type="button" id="3001">
+            <posx>20</posx>
+            <posy>504</posy>
+            <width>152</width>
+            <height>74</height>
+            <onright>3000</onright>
+            <onleft>2001</onleft>
+            <onup>3004</onup>
+            <ondown>3004</ondown>
+            <texturenofocus>GVAx-Touch.png</texturenofocus>
+            <texturefocus>GVAx-Touch-Focus.png</texturefocus>
+        </control>
+
+        <!-- TV Guide -->
+        <control type="button" id="3000">
+            <posx>196</posx>
+            <posy>504</posy>
+            <width>152</width>
+            <height>74</height>
+            <onright>2001</onright>
+            <onleft>3001</onleft>
+            <onup>3004</onup>
+            <ondown>3004</ondown>
+            <texturefocus>GVAx-TV_Guide-Focus.png</texturefocus>
+            <texturenofocus>GVAx-TV_Guide.png</texturenofocus>
+        </control>
+
+        <!-- Settings -->
+        <control type="button" id="2001">
+            <posx>371</posx>
+            <posy>504</posy>
+            <width>152</width>
+            <height>74</height>
+            <onright>3001</onright>
+            <onleft>3000</onleft>
+            <ondown>3004</ondown>
+            <onup>3004</onup>
+            <texturefocus>GVAx-Settings-Focus.png</texturefocus>
+            <texturenofocus>GVAx-Settings.png</texturenofocus>
+        </control>
+
+        <!-- Adult -->
+        <control type="button" id="3007">
+            <posx>20</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3008</onright>
+            <onleft>3005</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-Adult.png</texturenofocus>
+            <texturefocus>GVAx-Adult-Focus.png</texturefocus>
+        </control>
+        <!-- Kid -->
+        <control type="button" id="3008">
+            <posx>20</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3004</onright>
+            <onleft>3007</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-Kid.png</texturenofocus>
+            <texturefocus>GVAx-Kid-Focus.png</texturefocus>
+        </control>
+
+        <!-- On-Demand Add-on -->
+        <control type="button" id="3004">
+            <posx>110</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3003</onright>
+            <onleft>3008</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-OD.png</texturenofocus>
+            <texturefocus>GVAx-OD-Focus.png</texturefocus>
+        </control>
+
+        <!-- Netflix -->
+        <control type="button" id="3003">
+            <posx>201</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3006</onright>
+            <onleft>3004</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-Netflix.png</texturenofocus>
+            <texturefocus>GVAx-Netflix-Focus.png</texturefocus>
+        </control>
+
+        <!-- Android Apps -->
+        <control type="button" id="3006">
+            <posx>291</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3002</onright>
+            <onleft>3003</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-Android_Apps.png</texturenofocus>
+            <texturefocus>GVAx-Android_Apps-Focus.png</texturefocus>
+        </control>
+
+        <!-- GVAx Update -->
+        <control type="button" id="3002">
+            <posx>382</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3005</onright>
+            <onleft>3006</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-Update.png</texturenofocus>
+            <texturefocus>GVAx-Update-Focus.png</texturefocus>
+        </control>
+
+        <!-- GVAx Website -->
+        <control type="button" id="3005">
+            <posx>472</posx>
+            <posy>607</posy>
+            <width>52</width>
+            <height>53</height>
+            <onright>3007</onright>
+            <onleft>3002</onleft>
+            <onup>3000</onup>
+            <ondown>3000</ondown>
+            <texturenofocus>GVAx-Website.png</texturenofocus>
+            <texturefocus>GVAx-Website-Focus.png</texturefocus>
+        </control>
+
+        <!-- VPN -->
+        <control type="button" id="2003">
+            <visible>false</visible>
+            <posx>1020</posx>
+            <posy>485</posy>
+            <width>220</width>
+            <height>30</height>
+            <onright>3000</onright>
+            <onleft>2001</onleft>
+            <ondown>3003</ondown>
+            <onup>3006</onup>
+            <texturefocus>OTTV-Button_Focus_Small.png</texturefocus>
+            <texturenofocus>ontapp-program-grey.png</texturenofocus>
+            <label>VPN Connect</label>
+            <font>FontSize_22</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <shadowcolor>ff000000</shadowcolor>
+            <align>center</align>
+            <aligny>center</aligny>
+        </control>
+        <control type="label" id="2004">
+            <visible>false</visible>
+            <description>Info</description>
+            <visible>Control.IsVisible(2004)</visible>
+            <posx>1020</posx>
+            <posy>520</posy>
+            <width>220</width>
+            <height>95</height>
+            <font>font11</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <shadowcolor>ff000000</shadowcolor>
+            <align>left</align>
+            <aligny>center</aligny>
+        </control>
+
+        <!-- RSS -->
+        <control type="rss" id="1">
+            <description>RSS control</description>
+            <posx>45</posx>
+            <posy>115</posy>
+            <width>460</width>
+            <height>25</height>
+            <visible>true</visible>
+            <font>font10</font>
+            <textcolor>FFB2D4F5</textcolor>
+            <headlinecolor>FFFFFFFF</headlinecolor>
+            <titlecolor>FF655656</titlecolor>
+        </control>
+
+        <!-- Left Hand Cloud -->
+        <control type="image">
+            <posx>-167</posx>
+            <posy>87</posy>
+            <width>242</width>
+            <height>154</height>
+            <texture>GVAx-Cloud.png</texture>
+            <aspectratio>keep</aspectratio>
+            <visible>true</visible>
+        </control>
+
+        <!-- Powered By -->
+        <control type="image">
+            <posx>15</posx>
+            <posy>690</posy>
+            <width>200</width>
+            <height>25</height>
+            <texture>PoweredBy.png</texture>
+            <aspectratio>keep</aspectratio>
+            <visible>true</visible>
+        </control>
+
+    </controls>
+</window>

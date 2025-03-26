@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.on-tapp.tv" name="On-Tapp.TV" version="4.1.3" provider-name="On-Tapp-Networks">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+        <import addon="script.tvguidedixie" version="3.0.0" />
+        <import addon="script.tvguidedixie.tools" version="4.0.0"/>
+        <import addon="plugin.video.ottplanner" version="1.0.0"/>
+        <import addon="plugin.program.super.favourites" version="1.0.43"/>
+    </requires>
+
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+
+    <extension point="xbmc.service" library="service.py" start="login" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">A powerful EPG add-on with many extra features. Streaming support via multiple live TV addons.</summary>
+        <description lang="en">A comprehensive EPG that is compatible with many popular live TV addons. [CR]Up to 14 days of listings with automatic triggering of your favourite live TV addons.[CR]As well as the EPG, On-Tapp.TV puts all your favourite media in one place.</description>
+        <platform>all</platform>
+  </extension>
+</addon>
